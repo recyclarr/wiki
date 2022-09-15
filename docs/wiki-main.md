@@ -1,0 +1,23 @@
+---
+id: wiki-main
+title: Introduction
+sidebar_position: 1
+slug: /
+---
+
+Recyclarr is a command-line application that will automatically synchronize recommended settings
+from the [TRaSH guides](https://trash-guides.info/) to your Sonarr/Radarr instances. It was formerly
+named "Trash Updater".
+
+- [Features](features.md)
+- [Installation](installation)
+
+## Contributing to the Wiki
+
+This wiki is auto-generated from the [recyclarr/wiki] repository. If you want to contribute to the
+documentation here, please clone that repo and edit markdown files under the [`docs` directory][1].
+After the pull request there is merged, those changes will appear here. There are also links at the
+bottom of each page to edit it.
+
+[recyclarr/wiki]: https://github.com/recyclarr/wiki
+[1]: 
