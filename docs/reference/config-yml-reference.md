@@ -6,7 +6,7 @@ sidebar_position: 2
 Reference documentation for the YAML configuration. For various examples, see the [Configuration
 Examples] page.
 
-[Configuration Examples]: /configuration-examples.md
+[Configuration Examples]: /reference/configuration-examples.md
 
 # Summary
 
