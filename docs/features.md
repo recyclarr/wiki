@@ -10,6 +10,12 @@ A comprehensive list of features in Recyclarr.
 
 ### Release Profiles
 
+:::note
+
+Sonarr v3 Only
+
+:::
+
 - "Preferred", "Must Not Contain", and "Must Contain" terms from guides are reflected in
   corresponding release profile fields in Sonarr.
 - "Include Preferred when Renaming" is properly checked/unchecked depending on explicit mention of
@@ -24,6 +30,12 @@ A comprehensive list of features in Recyclarr.
   YAML configuration.
 
 ### Custom Formats
+
+:::note
+
+Sonarr v4 Only
+
+:::
 
 - A user-specified list of custom formats are synchronized to Sonarr from the TRaSH guides.
 - Scores from the guides can be synchronized to quality profiles of your choosing.
