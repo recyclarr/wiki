@@ -1,11 +1,11 @@
 ---
-id: custom-formats-behavior
+id: custom-formats
 title: Custom Formats
 ---
 
 Custom formats are supported by both Radarr and Sonarr, so this page applies to both.
 
-## Custom Format Synchronization
+## Custom Format Synchronization {#synchronization}
 
 Custom format synchronization is broken up into three categories
 

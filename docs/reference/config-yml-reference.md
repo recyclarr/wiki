@@ -5,7 +5,7 @@ title: Recyclarr YAML Reference
 Reference documentation for the YAML configuration. For various examples, see the [Configuration
 Examples] page.
 
-[Configuration Examples]: https://github.com/recyclarr/recyclarr/wiki/Configuration-Examples
+[Configuration Examples]: /configuration-examples.md
 
 # Summary
 
@@ -22,25 +22,14 @@ multiple ways, offering a lot of flexibility:
   `recyclarr sonarr` will only read the Sonarr config in the file, even if Radarr config is
   present).
 
-> **Remember**: If you do not specify the `--config` argument, the program will look for
-> `recyclarr.yml` in the [application data directory][FileStructure].
+:::tip Remember
 
-[FileStructure]: https://github.com/recyclarr/recyclarr/wiki/File-Structure
+If you do not specify the `--config` argument, the program will look for `recyclarr.yml` in the
+[application data directory][FileStructure].
 
-# YAML Reference
+:::
 
-Table of Contents
-
-- [All Services](#all-services)
-  - [Basic Settings](#basic-settings)
-  - [Custom Format Settings](#custom-format-settings)
-- [Sonarr](#sonarr)
-  - [Custom Format Settings](#custom-format-settings-1)
-  - [Quality Definition Settings](#quality-definition-settings)
-  - [Release Profile Settings](#release-profile-settings)
-- [Radarr](#radarr)
-  - [Custom Format Settings](#custom-format-settings-2)
-  - [Quality Definition Settings](#quality-definition-settings-1)
+[FileStructure]: /file-structure.md#appdata-directory
 
 ## All Services
 
@@ -56,13 +45,18 @@ The below settings are applicable to both Sonarr and Radarr.
   your API key by going to `Settings > General` and copy & paste the "API Key" under the "Security"
   group/header.
 
-### Custom Format Settings
+### Custom Format Settings {#custom-format-settings}
 
-> ❗ **Notice** ❗<br/>
-> For Sonarr: version 4 or greater is **required** for Custom Format support to work.
+:::note
 
-For details on the way Custom Formats are synchronized, visit the [[Custom Format Synchronization]]
-page.
+For Sonarr: version 4 or greater is **required** for Custom Format support to work.
+
+:::
+
+For details on the way Custom Formats are synchronized, visit the [Custom Format
+Synchronization][cfsync] page.
+
+[cfsync]: /behavior/custom-formats.md
 
 - `delete_old_custom_formats` (Optional; *Default: `false`*)<br/>
   If enabled, custom formats that you remove from your YAML configuration OR that are removed from
@@ -155,8 +149,11 @@ sonarr:
 
 ### Custom Format Settings
 
-> ❗ **Notice** ❗<br/>
-> Sonarr version 4 or greater is **required** for Custom Format support to work.
+:::note
+
+Sonarr version 4 or greater is **required** for Custom Format support to work.
+
+:::
 
 See the [Custom Format Settings](#custom-format-settings) section under "All Services" at the top
 for more information.
@@ -176,8 +173,11 @@ for more information.
 
 ### Release Profile Settings
 
-> 💀 **Deprecation Notice** 💀<br/>
-> Release Profiles are deprecated and may not be used in Sonarr version 4 or greater!
+:::caution 💀 Deprecation Notice 💀
+
+Release Profiles are deprecated and may not be used in Sonarr version 4 or greater!
+
+:::
 
 - `release_profiles` (Optional; *Default: No release profiles are synced*)<br/>
   A list of release profiles to parse from the guide. Each object in this list supports the below

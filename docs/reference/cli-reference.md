@@ -32,7 +32,7 @@ Other non-service subcommands, like `create-config`, will not accept these argum
 One or more paths to YAML configuration files. Only the relevant configuration section for the
 specified subcommand will be read from each file. If this argument is not specified, a single
 default configuration file named `recyclarr.yml` will be used. It must be in the [application data
-directory][appdata].
+directory](../file-structure.md#appdata-directory).
 
 **Command Line Examples**:
 
@@ -106,9 +106,9 @@ generally will be too noisy for normal program usage.
 
 ### `--app-data`
 
-Overrides the normal, default location of the [[application data directory|File-Structure]]. Note
-that this option is mainly intended for usage in the official Docker image. It is not intended for
-normal use outside of that.
+Overrides the normal, default location of the [application data
+directory](../file-structure.md#appdata-directory). Note that this option is mainly intended for
+usage in the official Docker image. It is not intended for normal use outside of that.
 
 If you'd like this behavior globally for all commands without having to specify this option, define
 an environment variable named `RECYCLARR_APP_DATA` with the same path. Note that if you have both
@@ -198,7 +198,7 @@ sonarr:
             - f3f0f3691c6a1988d4a02963e69d11f2 # Ignore The Group -SCENE
 ```
 
-[sonarrjson]: https://github.com/TRaSH-/Guides/tree/master/docs/json/sonarr
+[sonarrjson]: https://github.com/TRaSH-/Guides/tree/master/docs/json/sonarr/rp
 
 ### `--list-qualities`
 
@@ -247,6 +247,8 @@ radarr:
           - 820b09bb9acbfde9c35c71e0e565dad8 # 1080p
 ```
 
+[radarrjson]: https://github.com/TRaSH-/Guides/tree/master/docs/json/radarr/cf
+
 ### `--list-qualities`
 
 Print a list of all available types of quality definitions. The "type" of a quality definition comes
@@ -264,7 +266,7 @@ subcommand run with this argument.
 ## Subcommand: `create-config`
 
 Create a starter `recyclarr.yml` config file. The location of this file the [application data
-directory](../file-structure.md#appdata-directory)
+directory](/file-structure.md#appdata-directory)
 
 ### `--path`
 
@@ -280,7 +282,7 @@ Example:
 ## Subcommand: `migrate`
 
 Used to perform migration steps that may be needed after upgrades. Visit the [Migration
-System](../migration-system.md) page to read more about it.
+System](/migration-system.md) page to read more about it.
 
 ### `--debug`
 

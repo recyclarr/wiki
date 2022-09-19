@@ -20,4 +20,4 @@ After the pull request there is merged, those changes will appear here. There ar
 bottom of each page to edit it.
 
 [recyclarr/wiki]: https://github.com/recyclarr/wiki
-[1]: 
+[1]: https://github.com/recyclarr/wiki/tree/master/docs

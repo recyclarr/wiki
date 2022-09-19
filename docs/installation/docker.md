@@ -162,7 +162,7 @@ your volume's file ownership.
 
 :::
 
-### Cron Mode
+### Cron Mode {#cron-mode}
 
 In this mode, no immediate action is performed. Rather, the container remains alive and continuously
 runs both Sonarr and Radarr sync at whatever `CRON_SCHEDULE` you set (default is daily).

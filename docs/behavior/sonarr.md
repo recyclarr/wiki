@@ -1,5 +1,5 @@
 ---
-id: sonarr-behavior
+id: sonarr
 title: Sonarr
 ---
 
