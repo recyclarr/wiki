@@ -30,7 +30,7 @@ release notes, additional architectures and platforms, and older releases.
 
 - OpenSSL 1.x required on Linux
 
-:::note
+:::info
 
 ### Special Note about Linux
 

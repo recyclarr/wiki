@@ -1,6 +1,7 @@
 ---
 id: config-reference
 title: Recyclarr YAML Reference
+sidebar_position: 2
 ---
 Reference documentation for the YAML configuration. For various examples, see the [Configuration
 Examples] page.
@@ -47,7 +48,7 @@ The below settings are applicable to both Sonarr and Radarr.
 
 ### Custom Format Settings {#custom-format-settings}
 
-:::note
+:::info
 
 For Sonarr: version 4 or greater is **required** for Custom Format support to work.
 
@@ -149,7 +150,7 @@ sonarr:
 
 ### Custom Format Settings
 
-:::note
+:::info
 
 Sonarr version 4 or greater is **required** for Custom Format support to work.
 

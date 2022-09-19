@@ -37,13 +37,6 @@ page.
 
 [yaml]: https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml
 
-# YAML Reference
-
-Table of Contents
-
-- [Global Settings](#global-settings)
-- [Repository Settings](#repository-settings)
-
 ## Global Settings
 
 ```yml

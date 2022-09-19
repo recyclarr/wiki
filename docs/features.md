@@ -10,7 +10,7 @@ A comprehensive list of features in Recyclarr.
 
 ### Release Profiles
 
-:::note
+:::info
 
 Sonarr v3 Only
 
@@ -31,7 +31,7 @@ Sonarr v3 Only
 
 ### Custom Formats
 
-:::note
+:::info
 
 Sonarr v4 Only
 

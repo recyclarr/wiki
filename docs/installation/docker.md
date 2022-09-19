@@ -106,7 +106,7 @@ value *stability* the most,  you want the bottom row. If you value being on *the
 
 The docker container can operate in one of two different ways, which are documented below.
 
-:::note
+:::info
 
 `recyclarr.yml` does not exist the first time you run the container. You will get an error until you
 either copy it manually into the volume or run `recyclarr create-config` manually.

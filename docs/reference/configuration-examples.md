@@ -49,7 +49,7 @@ everything possible in one go.
 
 ## Selectively update different parts of Sonarr v3
 
-:::note
+:::info
 The official Docker container does not support multiple configuration files.
 :::
 
