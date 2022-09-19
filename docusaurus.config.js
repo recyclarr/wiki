@@ -62,7 +62,7 @@ const config = {
             label: 'Wiki',
           },
           {
-            href: 'https://github.com/recyclarr/wiki',
+            href: 'https://github.com/recyclarr/recyclarr',
             position: 'right',
             className: "header-github-link",
             "aria-label": "Github repository"
