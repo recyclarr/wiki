@@ -11,6 +11,7 @@ named "Trash Updater".
 
 - [Features](features.md)
 - [Installation](installation)
+- [Getting Started](getting-started.md)
 
 ## Contributing to the Wiki
 
