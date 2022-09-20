@@ -1,11 +1,11 @@
 # Recyclarr Website / Wiki
 
-This website is built using [Docusaurus 2](https://docusaurus.io/), a modern static website
-generator.
+This is the website for [Recyclarr](https://github.com/recyclarr/recyclarr), built using
+[Docusaurus](https://docusaurus.io/), a modern static website generator.
 
 ## Contributing
 
-Contributors must follow these contribution guidelines.
+Contributors must follow these guidelines.
 
 ### Markdown Lint
 
