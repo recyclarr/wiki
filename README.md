@@ -68,8 +68,16 @@ spaces prevents this.
 
 ### Installation
 
+To install everything:
+
 ```sh
 yarn
+```
+
+To upgrade Docusaurus to latest:
+
+```sh
+yarn upgrade @docusaurus/core@latest @docusaurus/preset-classic@latest
 ```
 
 ### Local Development
