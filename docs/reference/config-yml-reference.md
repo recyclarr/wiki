@@ -70,7 +70,7 @@ Synchronization][cfsync] page.
   that identify which quality profiles to assign the scores for those custom formats to. The child
   properties documented below apply to each element of this list.
 
-  - `trash_ids` (Optional; *`names` is required if not used*)<br/>
+  - `trash_ids` **(Required)**<br/>
     A list of one or more Trash IDs of custom formats to synchronize to Radarr. The IDs *must* be
     taken from the value of the `"trash_id"` property in the JSON itself. It will look like the
     following:
@@ -81,8 +81,10 @@ Synchronization][cfsync] page.
     }
     ```
 
-    **TIP:** To ease the readability concerns of using IDs instead of names, leave a comment beside
-    the Trash ID in your configuration so it can be easily identified later. For example:
+    :::tip
+
+    To ease the readability concerns of using IDs, leave a comment beside the Trash ID in your
+    configuration so it can be easily identified later. For example:
 
     ```yml
     trash_ids:
@@ -90,13 +92,17 @@ Synchronization][cfsync] page.
       - a570d4a0e56a2874b64e5bfa55202a1b # flac
     ```
 
-    > **A Few Things to Remember**
-    >
-    > - If `delete_old_custom_formats` is set to true, custom formats are **deleted** in Radarr if
-    >   you remove them from this list.
-    > - It's OK for the same custom format to exist in multiple lists of `trash_ids`. Recyclarr will
-    >   only ever synchronize it once. Allowing it to be specified multiple times allows you to
-    >   assign it to different profiles with different scores.
+    :::
+
+    :::note A Few Things to Remember
+
+    - If `delete_old_custom_formats` is set to true, custom formats are **deleted** in Radarr if
+      you remove them from this list.
+    - It's OK for the same custom format to exist in multiple lists of `trash_ids`. Recyclarr will
+      only ever synchronize it once. Allowing it to be specified multiple times allows you to
+      assign it to different profiles with different scores.
+
+    :::
 
   - `quality_profiles` (Optional; *Default: No quality profiles are changed*)<br/>
     One or more quality profiles to update with the scores from the custom formats listed above.
