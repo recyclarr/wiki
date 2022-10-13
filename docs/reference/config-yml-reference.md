@@ -48,7 +48,7 @@ The below settings are applicable to both Sonarr and Radarr.
 
 ### Custom Format Settings {#custom-format-settings}
 
-:::info
+:::caution
 
 For Sonarr: version 4 or greater is **required** for Custom Format support to work.
 
@@ -150,7 +150,7 @@ sonarr:
 
 ### Custom Format Settings
 
-:::info
+:::caution
 
 Sonarr version 4 or greater is **required** for Custom Format support to work.
 
