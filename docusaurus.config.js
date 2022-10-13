@@ -103,6 +103,11 @@ const config = {
       colorMode: {
         defaultMode: 'dark',
         disableSwitch: true,
+      },
+      algolia: {
+        appId: '55D8QHPBTN',
+        apiKey: '0473b22a41705ad31b85bdad1ee940f5',
+        indexName: 'recyclarr'
       }
     }),
 };
