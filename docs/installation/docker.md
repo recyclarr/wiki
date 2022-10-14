@@ -2,8 +2,22 @@
 id: docker
 title: Docker
 ---
-Recyclarr has an official Docker image hosted by the Github Container Registry (GHCR). The image
-name is `ghcr.io/recyclarr/recyclarr`.
+
+Recyclarr has an official Docker image hosted on the following platforms:
+
+- [Github Container Registry (GHCR)][ghcr]: `ghcr.io/recyclarr/recyclarr`
+- [Docker Hub][dockerhub]: `recyclarr/recyclarr`
+
+:::info
+
+The installation guide here will refer exclusively to the image on Github, but all the steps are
+equally valid for the image on Docker Hub as well. Simply adjust the image name to pull it from
+where you prefer.
+
+:::
+
+[ghcr]: https://github.com/recyclarr/recyclarr/pkgs/container/recyclarr
+[dockerhub]: https://hub.docker.com/r/recyclarr/recyclarr
 
 ## Docker Compose Example
 
