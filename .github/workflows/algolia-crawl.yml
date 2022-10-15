@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Algolia Crawl
-        uses: algolia/algoliasearch-crawler-github-actions@v1
+        uses: algolia/algoliasearch-crawler-github-actions@v1.1.9
         if: github.ref == 'refs/heads/master'
         with:
           crawler-user-id: ${{ secrets.CRAWLER_USER_ID }}
@@ -21,3 +21,4 @@ jobs:
           algolia-app-id: ${{ secrets.ALGOLIA_APP_ID }}
           algolia-api-key: ${{ secrets.ALGOLIA_API_KEY }}
           site-url: 'https://recyclarr.dev'
+          crawler-name: recyclarr
