@@ -19,6 +19,7 @@ jobs:
 
       - name: Publish
         uses: cloudflare/pages-action@1
+        if: github.ref == 'refs/heads/master'
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
