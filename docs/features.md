@@ -31,9 +31,12 @@ Sonarr v3 Only
 
 ### Custom Formats
 
-:::info
+:::danger
 
-Sonarr v4 Only
+Custom Formats are only supported in Sonarr v4 which <u>**is prerelease software**</u>!
+
+If you are new to the TRaSH Guides, I highly recommend you start with Sonarr v3 Release Profiles
+instead.
 
 :::
 
