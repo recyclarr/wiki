@@ -5,8 +5,10 @@ title: Docker
 
 Recyclarr has an official Docker image hosted on the following platforms:
 
-- [Github Container Registry (GHCR)][ghcr]: `ghcr.io/recyclarr/recyclarr`
-- [Docker Hub][dockerhub]: `recyclarr/recyclarr`
+| Registry                                 | Image Name                    |
+| ---------------------------------------- | ----------------------------- |
+| [Github Container Registry (GHCR)][ghcr] | `ghcr.io/recyclarr/recyclarr` |
+| [Docker Hub][dockerhub]                  | `recyclarr/recyclarr`         |
 
 :::info
 
