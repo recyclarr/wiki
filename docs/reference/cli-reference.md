@@ -31,14 +31,14 @@ Other non-service subcommands, like `create-config`, will not accept these argum
 ### `--config`
 
 One or more paths to YAML configuration files. Only the relevant configuration section for the
-specified subcommand will be read from each file. If this argument is not specified, a single
-default configuration file named `recyclarr.yml` will be used. It must be in the [application data
-directory](../file-structure.md#appdata-directory).
+specified subcommand will be read from each file. If this argument is not specified, default
+configuration files will be used according to rules documented on the [File
+Structure](../file-structure.md) page.
 
 **Command Line Examples**:
 
 ```bash
-# Default Config (recyclarr.yml)
+# Default Config (recyclarr.yml or files in the 'configs' directory)
 recyclarr sonarr
 
 # Single Config
@@ -267,7 +267,7 @@ subcommand run with this argument.
 ## Subcommand: `create-config`
 
 Create a starter `recyclarr.yml` config file. The location of this file the [application data
-directory](/file-structure.md#appdata-directory)
+directory](/file-structure.md#appdata-directory).
 
 ### `--path`
 

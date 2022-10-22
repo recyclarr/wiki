@@ -137,8 +137,8 @@ don't bother with tags, so I am able to leave those elements out. Recyclarr know
 to either a v3 or v4 instance of Sonarr and will correctly anticipate either `release_profiles` or
 `custom_formats` (respectively).
 
-When you run `recyclarr sonarr` (specify `--config` if you aren't using the default `recyclarr.yml`)
-it will update both instances.
+When you run `recyclarr sonarr` (specify `--config` if you aren't using the [default config search
+behavior](../file-structure.md#default-yaml)) it will update both instances.
 
 ## Synchronize a lot of custom formats for a single quality profile
 

@@ -129,7 +129,7 @@ either copy it manually into the volume or run `recyclarr create-config` manuall
 
 :::
 
-### Manual Mode
+### Manual Mode {#manual-mode}
 
 In manual mode, the container starts up, runs a user-specified operation, and then exits. This is
 semantically identical to running Recyclarr directly on your host machine, but without all of the
@@ -165,7 +165,7 @@ containers will start to grow the more often you run it manually).
 
 :::danger
 
-#### Warning about `docker exec`
+#### Warning about `docker exec` {#docker-exec}
 
 I will not support any usage of `docker exec`, for now. It's far too error prone and can result in
 mixed file permissions in Recyclarr's app data directory (the `/config` volume). Please use `docker
@@ -217,11 +217,12 @@ through the `chown` command and may require root permissions on your host system
 
 Below is a list of error messages you may encounter along with possible solutions.
 
-- Permission Denied on `FETCH_HEAD`
+<details><summary>
+LibGit2Sharp.LockedFileException: failed open - '/config/repo/.git/FETCH_HEAD' is locked: Permission
+denied
+</summary>
 
-  ```txt
-  LibGit2Sharp.LockedFileException: failed open - '/config/repo/.git/FETCH_HEAD' is locked: Permission denied
-  ```
+This is due to inconsistent permissions in your `/config` volume. See the "Permission Issues"
+section at the start of the Troubleshooting section for the solution.
 
-  This is due to inconsistent permissions in your `/config` volume. See the "Permission Issues"
-  section at the start of the Troubleshooting section for the solution.
+</details>

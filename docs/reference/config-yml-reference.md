@@ -25,12 +25,10 @@ multiple ways, offering a lot of flexibility:
 
 :::tip Remember
 
-If you do not specify the `--config` argument, the program will look for `recyclarr.yml` in the
-[application data directory][FileStructure].
+If you do not specify the `--config` argument, the program will look for default configuration files
+according to the rules documented on [the file structure](../file-structure.md#default-yaml) page.
 
 :::
-
-[FileStructure]: /file-structure.md#appdata-directory
 
 ## All Services
 
