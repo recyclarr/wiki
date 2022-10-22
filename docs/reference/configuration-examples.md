@@ -299,3 +299,25 @@ Which one should you use? That depends on how much control you want Recyclarr to
 Recyclarr to supplement manual changes to your profiles, you probably want it set to `false` so it
 doesn't clobber your manual edits. Otherwise, set it to `true` so that scores aren't left over when
 you add/remove custom formats from a profile.
+
+## What does the file structure look like with multiple YAML configuration files?
+
+Suppose you want to use `recyclarr.yml` and multiple YAML files in the `configs` directory, as
+documented on [the File Structure page](../file-structure.md#default-yaml). What would that file
+structure look like?
+
+Using docker as an example, it would look like this:
+
+```txt
+.
+└── config/
+    ├── cache/
+    ├── repo/
+    ├── configs/
+    │   ├── radarr.yml
+    │   └── sonarr.yml
+    └── recyclarr.yml
+```
+
+Recyclarr will load all three YAML files above. Each YAML file can of course contain any number of
+Radarr and/or Sonarr instances.
