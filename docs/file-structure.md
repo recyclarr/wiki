@@ -20,10 +20,11 @@ reads or writes, by default, starts with this path.
 
 ## Default YAML Configuration Files {#default-yaml}
 
-Configuration files may be located in two places. The following behavior applies:
+Configuration files may be located in multiple places, each documented in the sections that follow.
+For all supported locations, the following behavior applies:
 
-- Both methods may be used together and all files will be loaded.
-- You don't have to use both; you can choose one or the other.
+- All methods may be used together and all corresponding YAML files will be loaded.
+- You don't have to use all locations; you can choose only the ones you want to use.
 - If at least one configuration file is not found, it will result in an error.
 
 ### File: `recyclarr.yml`
