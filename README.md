@@ -7,6 +7,16 @@ This is the website for [Recyclarr](https://github.com/recyclarr/recyclarr), bui
 
 Contributors must follow these guidelines.
 
+### Editor
+
+I personally use Visual Studio Code to edit my markdown files. I encourage you use this editor as
+well. There's a list of recommended extensions in the workspace VS Code settings that you should
+install to make editing files here an easier experience.
+
+If you do not want to use VS Code, that's fine too, but be prepared to potentially do
+style/formatting changes by hand. It's also possible that we spend more time on formatting/style
+issues in pull requests too.
+
 ### Markdown Lint
 
 Markdown lint rules must be followed. See [`.markdownlint.json`](.markdownlint.json). I personally
@@ -15,6 +25,26 @@ use the [markdownlint] extension for VS Code.
 Each pull request opened will run a workflow to verify markdownlint rules are not violated.
 
 [markdownlint]: https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint
+
+### Table Formatting
+
+Markdown tables must be formatted and aligned.
+
+The VS Code extension named [Markdown All In One][mdaio] can be used to automatically resize and
+reformat markdown tables. Workspace settings already have this extension set up as the default
+formatter for markdown files. Simply do a "Reformat Document" operation to have your tables fixed
+up.
+
+[mdaio]: https://marketplace.visualstudio.com/items?itemName=yzhang.markdown-all-in-one
+
+### Line Length & Wrapping
+
+Max line length is 100. Hard wraps must be used instead of soft wraps.
+
+The [Rewrap] extension in VS Code can assist with wrapping. Simply put your caret in a paragraph
+that needs to be hard-wrapped and press `ALT+Q`.
+
+[Rewrap]: https://marketplace.visualstudio.com/items?itemName=stkb.rewrap
 
 ### Admonitions
 
