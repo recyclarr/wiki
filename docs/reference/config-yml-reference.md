@@ -23,6 +23,10 @@ multiple ways, offering a lot of flexibility:
   `recyclarr sonarr` will only read the Sonarr config in the file, even if Radarr config is
   present).
 
+- Use [a `secrets.yml` file](secrets-reference) to keep sensitive values out of your
+  configuration files. This prevents accidentally sharing api_keys and other sensitive values when
+  sharing configurations.
+
 :::tip Remember
 
 If you do not specify the `--config` argument, the program will look for default configuration files

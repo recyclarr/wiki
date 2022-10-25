@@ -13,13 +13,13 @@ import TOCInline from '@theme/TOCInline';
 ## Update as much as possible in both Sonarr and Radarr with a single config
 
 Create a single configuration file (use the default `recyclarr.yml` if you want to simplify your CLI
-usage by not being required to specify `--config`) and put all of the configuration in there, like
-this:
+usage by not being required to specify `--config`) and put all of the configuration in there. This
+example refers to sensitive values by [using a `secrets.yml` file](secrets-reference).
 
 ```yml
 sonarr:
-  - base_url: http://localhost:8989
-    api_key: f7e74ba6c80046e39e076a27af5a8444
+  - base_url: !secret sonarr_url
+    api_key: !secret sonarr_apikey
     quality_definition: hybrid
     release_profiles:
       - trash_ids:
@@ -30,8 +30,8 @@ sonarr:
         tags: [tv]
 
 radarr:
-  - base_url: http://localhost:7878
-    api_key: bf99da49d0b0488ea34e4464aa63a0e5
+  - base_url: !secret radarr_url
+    api_key: !secret radarr_apikey
     quality_definition:
       type: movie
       preferred_ratio: 0.5
