@@ -1,0 +1,9 @@
+{
+  "editor.formatOnSave": true,
+  "markdown.extension.tableFormatter.enabled": true,
+  "[markdown]": {
+    "editor.defaultFormatter": "yzhang.markdown-all-in-one"
+  },
+  "files.insertFinalNewline": true,
+  "editor.wordWrapColumn": 100
+}
