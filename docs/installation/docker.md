@@ -149,6 +149,9 @@ Where:
 Examples:
 
 ```sh
+# Create a default `recyclarr.yml` in your `/config` volume
+docker compose run --rm recyclarr create-config
+
 # Sync Sonarr with debug logs
 docker compose run --rm recyclarr sonarr --debug
 
