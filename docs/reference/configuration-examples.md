@@ -300,7 +300,7 @@ Recyclarr to supplement manual changes to your profiles, you probably want it se
 doesn't clobber your manual edits. Otherwise, set it to `true` so that scores aren't left over when
 you add/remove custom formats from a profile.
 
-## What does the file structure look like with multiple YAML configuration files?
+## What does the file structure look like with multiple YAML configuration files? {#yaml-structure}
 
 :::note Version Requirement
 

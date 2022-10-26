@@ -85,15 +85,17 @@ No configuration YAML files found
 </summary>
 
 Recyclarr could not find any YAML configuration files to load *or* files specified were missing.
-There are three ways to provide configuration files:
+There are three ways to provide configuration data:
 
 1. Via the `recyclarr.yml` file.
 1. One or more YAML files in the `configs` directory.
-1. Via the `--config` command line argument.
+1. Paths to YAML files provided via the `--config` command line argument.
 
 When using the CLI, the files provided *must* exist. To solve this error, use one of the above
 methods to provide your YAML configuration. See the documentation about [default YAML
-configuration][default-yaml] for more information.
+configuration][default-yaml] for more information. There is also [an
+example](/reference/configuration-examples.md#yaml-structure) showing multiple configuration files
+and their structure.
 
 [default-yaml]: file-structure.md#default-yaml
 
