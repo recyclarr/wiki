@@ -302,6 +302,12 @@ you add/remove custom formats from a profile.
 
 ## What does the file structure look like with multiple YAML configuration files?
 
+:::note Version Requirement
+
+This functionality requires `v3.0.0` or greater!
+
+:::
+
 Suppose you want to use `recyclarr.yml` and multiple YAML files in the `configs` directory, as
 documented on [the File Structure page](../file-structure.md#default-yaml). What would that file
 structure look like?
