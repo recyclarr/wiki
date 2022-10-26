@@ -34,8 +34,8 @@ Do **not** use `docker exec`. Read more [here](installation/docker.md#docker-exe
 
 :::
 
-1. Run `docker compose recyclarr create-config` to create a starter `recyclarr.yml` file in the
-   [application data directory][appdata] (for Docker, this will be in `/config/recyclarr.yml`).
+1. Run `docker compose run --rm recyclarr create-config` to create a starter `recyclarr.yml` file in
+   the [application data directory][appdata] (for Docker, this will be in `/config/recyclarr.yml`).
 1. Open the generated YAML file from the previous step. At a minimum you must update the `base_url`
    and `api_key` properties for each service that you want to use. Use the configuration [reference]
    and [examples] pages to assist you in understanding an editing other parts of the file as you see
@@ -43,8 +43,8 @@ Do **not** use `docker exec`. Read more [here](installation/docker.md#docker-exe
 
 If you're using [Cron Mode](installation/docker.md#cron-mode), your work ends here. If you want to
 verify the behavior by [running manually](installation/docker.md#manual-mode), then you can execute
-`docker compose recyclarr sonarr` and/or `docker compose recyclarr radarr` as needed to update those
-instances using the configuration provided in the previous step.
+`docker compose run --rm recyclarr sonarr` and/or `docker compose run --rm recyclarr radarr` as
+needed to update those instances using the configuration provided in the previous step.
 
 </details>
 
