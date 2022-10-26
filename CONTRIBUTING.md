@@ -15,13 +15,13 @@ You must install these first.
 
 To install everything:
 
-```sh
+```bash
 yarn
 ```
 
 ### Local Development
 
-```sh
+```bash
 yarn start
 ```
 
@@ -30,7 +30,7 @@ reflected live without having to restart the server.
 
 ### Build
 
-```sh
+```bash
 yarn build
 ```
 
@@ -156,6 +156,6 @@ spaces prevents this.
 
 To upgrade Docusaurus to latest:
 
-```sh
+```bash
 yarn upgrade @docusaurus/core@latest @docusaurus/preset-classic@latest
 ```

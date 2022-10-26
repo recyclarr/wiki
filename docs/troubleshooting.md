@@ -148,21 +148,21 @@ well.
 
   - On Ubuntu 22.04 x64 (64-bit) run the following commands in the shell
 
-    ```sh
+    ```bash
     wget http://mirrors.kernel.org/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1l-1ubuntu1.2_amd64.deb
     sudo dpkg -i libssl1.1_1.1.1l-1ubuntu1.2_amd64.deb
     ```
 
   - On Ubuntu 22.04 x86 (32-bit) run the following commands in the shell
 
-    ```sh
+    ```bash
     wget http://mirrors.kernel.org/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1l-1ubuntu1.2_i386.deb
     sudo dpkg -i libssl1.1_1.1.1l-1ubuntu1.2_i386.deb
     ```
 
   - On Fedora 36 you can simply install the compatibility package included in the default repo
 
-    ```sh
+    ```bash
     sudo dnf install openssl1.1
     ```
 

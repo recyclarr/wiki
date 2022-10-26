@@ -276,7 +276,7 @@ the only difference is where the data gets written.
 
 Example:
 
-```sh
+```bash
 ./recyclarr create-config --path ~/myconfig.yml
 ```
 

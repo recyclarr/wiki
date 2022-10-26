@@ -148,7 +148,7 @@ Where:
 
 Examples:
 
-```sh
+```bash
 # Create a default `recyclarr.yml` in your `/config` volume
 docker compose run --rm recyclarr create-config
 
@@ -191,13 +191,13 @@ proceeding. In other words, if the order the sync happens is first Sonarr and th
 fails, the Radarr sync will still proceed after. From a linux shell perspective, it effectively runs
 this command:
 
-```sh
+```bash
 recyclarr sonarr; recyclarr radarr
 ```
 
 To enter Cron Mode, you simply start the container in background mode:
 
-```sh
+```bash
 docker compose up -d
 ```
 

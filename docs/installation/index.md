@@ -11,7 +11,7 @@ It is recommended to use the Docker Image to install Recyclarr. Using this metho
 an easier installation process without having to worry about things like file locations,
 dependencies, etc. The official docker image is:
 
-```sh
+```bash
 ghcr.io/recyclarr/recyclarr
 ```
 
