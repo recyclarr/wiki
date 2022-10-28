@@ -3,17 +3,23 @@ name: Deploy Site
 
 on:
   push:
-    paths-ignore:
-      - .markdownlint.json
-      - "*.md"
-      - "*.ps1"
-      - ".git*"
+    paths:
+      - .github/workflows/build-and-deploy.yml
+      - "docs/**"
+      - "src/**"
+      - "static/**"
+      - "**.js"
+      - "**.json"
+      - "**.lock"
   pull_request:
-    paths-ignore:
-      - .markdownlint.json
-      - "*.md"
-      - "*.ps1"
-      - ".git*"
+    paths:
+      - .github/workflows/build-and-deploy.yml
+      - "docs/**"
+      - "src/**"
+      - "static/**"
+      - "**.js"
+      - "**.json"
+      - "**.lock"
 
 jobs:
   build:
