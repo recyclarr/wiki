@@ -8,8 +8,8 @@ Contributors must follow these guidelines.
 
 You must install these first.
 
-- NodeJS
-- Yarn
+- [NodeJS](https://nodejs.org/en/download/package-manager/)
+- [Yarn](https://classic.yarnpkg.com/lang/en/docs/install)
 
 ### Installation
 
