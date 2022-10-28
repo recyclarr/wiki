@@ -1,7 +1,19 @@
 # yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
 name: Deploy Site
 
-on: [push, pull_request]
+on:
+  push:
+    paths-ignore:
+      - .markdownlint.json
+      - "*.md"
+      - "*.ps1"
+      - ".git*"
+  pull_request:
+    paths-ignore:
+      - .markdownlint.json
+      - "*.md"
+      - "*.ps1"
+      - ".git*"
 
 jobs:
   build:
