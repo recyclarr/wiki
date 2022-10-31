@@ -27,6 +27,23 @@ Below is a list of locations where you can find the log directory depending on p
 | MacOS    | `~/Library/Application Support/recyclarr/logs` |
 | Docker   | `/config/logs`                                 |
 
+:::info
+
+Information in log files such as service host names and API keys are always redacted automatically
+by Recyclarr.
+
+:::
+
+## Redacting Configuration YAML {#redact-config}
+
+Your `recyclarr.yml` and other custom configuration YAML files contain sensitive information. In
+particular, the Base URL and API Key for each service you've configured. Typically you won't want
+this information shared to others when you file bug reports on Github. As such, I ask that you
+ensure that this information is redacted. You can do this in multiple ways.
+
+- Use [secrets](/reference/secrets-reference.md) (requires `v3.0` or higher)
+- Manually edit your YAML before sharing it to redact `base_url` and `api_key` values.
+
 ## Warnings
 
 This section contains a list of warnings you might see in your console output / logs. These are
