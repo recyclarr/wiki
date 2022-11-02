@@ -1,6 +1,7 @@
 ---
 id: docker
 title: Docker
+sidebar_position: 1
 ---
 
 Recyclarr has an official Docker image hosted on the following platforms:

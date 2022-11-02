@@ -1,17 +1,18 @@
 ---
 id: manual-install
 title: Manual Installation
+sidebar_position: 2
 ---
 
 Simply download the latest release for your platform using the table below. The download itself is
 just a ZIP file with a single executable in it. You can put this executable anywhere you want and
 run it.
 
-| Platform   | 32-bit           | 64-bit                                 |
-| ---------- | ---------------- | -------------------------------------- |
-| Windows    | ---              | [x64][win-x64], [arm64][win-arm64]     |
-| Linux      | [arm][linux-arm] | [x64][linux-x64], [arm64][linux-arm64] |
-| Mac OS     | ---              | [x64][osx-x64], [arm64][osx-arm64]     |
+| Platform | 32-bit           | 64-bit                                 |
+| -------- | ---------------- | -------------------------------------- |
+| Windows  | ---              | [x64][win-x64], [arm64][win-arm64]     |
+| Linux    | [arm][linux-arm] | [x64][linux-x64], [arm64][linux-arm64] |
+| Mac OS   | ---              | [x64][osx-x64], [arm64][osx-arm64]     |
 
 [win-x64]: https://github.com/recyclarr/recyclarr/releases/latest/download/recyclarr-win-x64.zip
 [win-arm64]: https://github.com/recyclarr/recyclarr/releases/latest/download/recyclarr-win-arm64.zip
