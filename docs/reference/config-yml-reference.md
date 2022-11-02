@@ -3,8 +3,8 @@ id: config-reference
 title: Recyclarr YAML Reference
 sidebar_position: 2
 ---
-Reference documentation for the YAML configuration. For various examples, see the [Configuration
-Examples] page.
+Reference documentation for the Recyclarr YAML configuration. For various examples, see the
+[Configuration Examples] page.
 
 [Configuration Examples]: /reference/configuration-examples.md
 
@@ -33,6 +33,21 @@ If you do not specify the `--config` argument, the program will look for default
 according to the rules documented on [the file structure](../file-structure.md#default-yaml) page.
 
 :::
+
+## Schema Validation
+
+A schema file is provided for `settings.yml` to help assist in editing the file. To use it, simply
+add the below snippet to the first line in your `settings.yml` file:
+
+```yml
+# yaml-language-server: $schema=https://raw.githubusercontent.com/recyclarr/recyclarr/master/schemas/config-schema.json
+```
+
+If you use VS Code to edit your settings file and install the [YAML extension][yaml], it will
+suggest properties you can use and show you documentation for each without having to reference this
+page.
+
+[yaml]: https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml
 
 ## All Services
 
