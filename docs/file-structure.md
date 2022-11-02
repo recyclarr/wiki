@@ -36,6 +36,15 @@ application data directory (listed above based on platform). Example (using dock
 /config/recyclarr.yml
 ```
 
+### File: `settings.yml`
+
+Settings in this file affect the behavior of Recyclarr regardless of instance-specific
+configuration for Radarr and Sonarr. Example (using docker path):
+
+```txt
+/config/settings.yml
+```
+
 ### Directory: `configs`
 
 :::note Version Requirement
