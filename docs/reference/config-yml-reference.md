@@ -36,8 +36,8 @@ according to the rules documented on [the file structure](../file-structure.md#d
 
 ## Schema Validation
 
-A schema file is provided for `settings.yml` to help assist in editing the file. To use it, simply
-add the below snippet to the first line in your `settings.yml` file:
+A schema file is provided for `recyclarr.yml` to help assist in editing the file. To use it, simply
+add the below snippet to the first line in your `recyclarr.yml` file:
 
 ```yml
 # yaml-language-server: $schema=https://raw.githubusercontent.com/recyclarr/recyclarr/master/schemas/config-schema.json
