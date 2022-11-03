@@ -1,7 +1,6 @@
 ---
 id: custom-formats
 title: Custom Formats
-sidebar_position: 1
 ---
 
 Custom formats are supported by both Radarr and Sonarr, so this page applies to both.

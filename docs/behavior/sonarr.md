@@ -1,7 +1,6 @@
 ---
 id: sonarr
 title: Sonarr
-sidebar_position: 2
 ---
 
 ## Sonarr
