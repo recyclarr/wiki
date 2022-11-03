@@ -17,7 +17,7 @@ customizations you need and leave the rest alone.
 :::info
 
 If you need to edit the file it is located according to the rules
-documented on [the file structure](../file-structure.md#default-yaml) page
+documented on [the file structure](../file-structure.md#settings-yaml) page
 
 :::
 
