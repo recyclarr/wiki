@@ -94,6 +94,21 @@ talking about `v2.1.2`. The table is sorted by *risk* in descending order. In ot
 value *stability* the most,  you want the bottom row. If you value being on *the bleeding edge*
 (highest risk), you want the top row.
 
+:::danger
+
+## Warning About Edge Builds {#edge}
+
+The `edge` tag should be considered **extremely unstable**. This tag contains the absolute latest
+changes on the `master` branch and most likely has bugs.
+
+The `edge` tag should **not** be a general recommendation to folks just to get the latest features.
+It is intended for people that wish to help test new features prior to the next release. These
+builds should not be run against your production / meaningful instances of Radarr or Sonarr.
+
+*Use this tag at your own risk!*
+
+:::
+
 | Tag      | Description                                                             |
 | -------- | ----------------------------------------------------------------------- |
 | `edge`   | Docker and Recyclarr changes on `master`. **Potentially unstable!**     |
