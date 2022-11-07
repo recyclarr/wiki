@@ -2,17 +2,8 @@
 id: settings-reference
 title: Settings YAML Reference
 ---
-This page contains the YAML reference for Recyclarr settings. Settings support was introduced in
-version `1.7.0`.
 
-The `settings.yml` file is located in the following locations (by default) depending on your
-platform:
-
-| Platform | Location                                               |
-| -------- | ------------------------------------------------------ |
-| Windows  | `%APPDATA%\recyclarr\settings.yml`                     |
-| Linux    | `~/.config/recyclarr/settings.yml`                     |
-| MacOS    | `~/Library/Application Support/recyclarr/settings.yml` |
+# Summary
 
 Settings in this file affect the behavior of Recyclarr regardless of instance-specific configuration
 for Radarr and Sonarr.
@@ -21,6 +12,13 @@ If this file does not exist, Recyclarr will create it for you. Starting out, thi
 and default behavior will be used. There is absolutely no need to touch this file unless you have a
 specific reason to. It is recommended that you only add the specific properties for the
 customizations you need and leave the rest alone.
+
+:::info
+
+If you need to edit the file it is located according to the rules
+documented on [the file structure](../file-structure.md#settings-yaml) page
+
+:::
 
 # Schema Validation
 

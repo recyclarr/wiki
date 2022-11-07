@@ -27,7 +27,7 @@ For all supported locations, the following behavior applies:
 - You don't have to use all locations; you can choose only the ones you want to use.
 - If at least one configuration file is not found, it will result in an error.
 
-### File: `recyclarr.yml`
+### File: `recyclarr.yml` {#recyclarr-yaml}
 
 The default YAML configuration file is named `recyclarr.yml` and it is always located in the
 application data directory (listed above based on platform). Example (using docker path):
@@ -36,7 +36,16 @@ application data directory (listed above based on platform). Example (using dock
 /config/recyclarr.yml
 ```
 
-### Directory: `configs`
+### File: `settings.yml` {#settings-yaml}
+
+Settings in this file affect the behavior of Recyclarr regardless of instance-specific
+configuration for Radarr and Sonarr. Example (using docker path):
+
+```txt
+/config/settings.yml
+```
+
+### Directory: `configs` {#config-directory}
 
 :::note Version Requirement
 
