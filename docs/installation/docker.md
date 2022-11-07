@@ -96,7 +96,7 @@ value *stability* the most,  you want the bottom row. If you value being on *the
 
 :::danger
 
-## Warning About Edge Builds {#edge}
+## Warning About Edge Builds {#edge-warning}
 
 The `edge` tag should be considered **extremely unstable**. This tag contains the absolute latest
 changes on the `master` branch and most likely has bugs.
