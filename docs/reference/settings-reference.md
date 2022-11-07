@@ -1,7 +1,6 @@
 ---
 id: settings-reference
 title: Settings YAML Reference
-sidebar_position: 4
 ---
 
 # Summary
