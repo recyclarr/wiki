@@ -47,7 +47,7 @@ enable_ssl_certificate_validation: true
   disabling this setting is a **security risk** and should be avoided unless you are absolutely sure
   what you are doing.
 
-## Repository Settings
+## Repository Settings {#repo-settings}
 
 **NOTE**: Never edit files in the locally cloned repo managed by Recyclarr. It will always destroy
 local changes in that repository.
