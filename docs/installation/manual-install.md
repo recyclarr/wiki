@@ -29,6 +29,7 @@ release notes, additional architectures and platforms, and older releases.
 ## Prerequisites
 
 - OpenSSL 1.x required on Linux
+- Git v2.0 or greater
 
 :::info
 

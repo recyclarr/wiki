@@ -57,6 +57,7 @@ repository:
   clone_url: https://github.com/TRaSH-/Guides.git
   branch: master
   sha1: e27659e3f90d9b60c1f0b0f204b2530bb2299b41
+  git_path: /usr/local/bin/git
 ```
 
 - `clone_url` *(Default: `https://github.com/TRaSH-/Guides.git`)*<br/>
@@ -71,6 +72,18 @@ repository:
   A SHA1 (commit hash) in Git to use. If specified, it overrides the `branch` setting. This SHA1 is
   passed to `git reset --hard` to force your local clone to this specific revision in the
   repository. If not specified, only the `branch` controls what revision is used in the repo.
+
+- `git_path` *(Default: Search on `PATH`)*<br/>
+
+  :::note Version Requirement
+
+  This setting requires `v3.0.0` or greater!
+
+  :::
+
+  Provide an explicit path to your `git` executable. Note that this is a path to the actual
+  executable itself and not a directory path. If this setting is not specified, Recyclarr will
+  attempt to find `git` via your `PATH` environment variable.
 
 [official_repo]: https://github.com/TRaSH-/Guides
 
