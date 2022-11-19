@@ -49,6 +49,22 @@ page.
 
 [yaml]: https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml
 
+:::tip Notice
+
+If you are editing YAML in VS Code and using `!secret` references, you will get "Unknown Tag"
+errors. Remove them by adding the following to VS Code's `settings.json` file ([VS Code
+Documentation][vscode_settings]):
+
+```json
+  "yaml.customTags": [
+    "!secret scalar"
+  ]
+```
+
+:::
+
+[vscode_settings]: https://code.visualstudio.com/docs/getstarted/settings
+
 ## All Services
 
 The below settings are applicable to both Sonarr and Radarr.
