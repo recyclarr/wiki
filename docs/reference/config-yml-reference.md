@@ -1,6 +1,6 @@
 ---
 id: config-reference
-title: Recyclarr YAML Reference
+title: Configuration YAML Reference
 sidebar_position: 2
 ---
 Reference documentation for the Recyclarr YAML configuration. For various examples, see the
