@@ -37,8 +37,6 @@ but make the appropriate and necessary changes to it for your specific use case.
 :::
 
 ```yml
-version: '3'
-
 networks:
   recyclarr:
     name: recyclarr
@@ -125,13 +123,17 @@ builds should not be run against your production / meaningful instances of Radar
   This is the application data directory for Recyclarr. In this directory, files like
   `recyclarr.yml` and `settings.yml` exist, as well as `logs`, `cache`, and other directories.
 
-### Environment
+### Environment {#docker-env}
 
 - `CRON_SCHEDULE` (Default: `@daily`)<br/>
   Standard cron syntax for how often you want Recyclarr to run (see [Cron Mode](#cron-mode)).
 
 - `TZ` (Default: `UTC`)<br/>
   The time zone you want to use for Recyclarr's local time in the container.
+
+- `RECYCLARR_CREATE_CONFIG` (Default: `false`)<br/>
+  Set to `true` if you want `/config/recyclarr.yml` to be created for you automatically when the
+  container starts. If the file already exists, it will not create the file again.
 
 ## Modes
 
