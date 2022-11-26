@@ -3,37 +3,38 @@ id: settings-reference
 title: Settings YAML Reference
 ---
 
-# Summary
-
+Settings are specified in a file named `settings.yml` in your [app data directory][app-data].
 Settings in this file affect the behavior of Recyclarr regardless of instance-specific configuration
 for Radarr and Sonarr.
 
+Example of file location (using docker path):
+
+```txt
+/config/settings.yml
+```
+
 If this file does not exist, Recyclarr will create it for you. Starting out, this file will be empty
-and default behavior will be used. There is absolutely no need to touch this file unless you have a
-specific reason to. It is recommended that you only add the specific properties for the
-customizations you need and leave the rest alone.
+and default behavior will be used.
 
-:::info
+:::caution
 
-If you need to edit the file it is located according to the rules
-documented on [the file structure](../file-structure.md#settings-yaml) page
+There is absolutely no need to touch this file unless you have a specific reason to. It is
+recommended that you only add the specific properties for the customizations you need and leave the
+rest alone.
 
 :::
 
-# Schema Validation
+[app-data]: /file-structure.md#appdata-directory
 
-A schema file is provided for `settings.yml` to help assist in editing the file. To use it, simply
-add the below snippet to the first line in your `settings.yml` file:
+## Schema Validation {#schema}
+
+Visit the [Schema Validation](/schema-validation.md) page for detailed instructions.
+
+Add this comment to the top of your YAML file:
 
 ```yml
 # yaml-language-server: $schema=https://raw.githubusercontent.com/recyclarr/recyclarr/master/schemas/settings-schema.json
 ```
-
-If you use VS Code to edit your settings file and install the [YAML extension][yaml], it will
-suggest properties you can use and show you documentation for each without having to reference this
-page.
-
-[yaml]: https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml
 
 ## Global Settings
 

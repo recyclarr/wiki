@@ -3,12 +3,6 @@ id: config-reference
 title: Configuration YAML Reference
 sidebar_position: 2
 ---
-Reference documentation for the Recyclarr YAML configuration. For various examples, see the
-[Configuration Examples] page.
-
-[Configuration Examples]: /reference/configuration-examples.md
-
-# Summary
 
 The Recyclarr program utilizes YAML for its configuration files. The configuration can be set up
 multiple ways, offering a lot of flexibility:
@@ -18,14 +12,17 @@ multiple ways, offering a lot of flexibility:
   specify.
 
 - Each YAML file may have one or more service configurations. This means you can have one file
-  define settings for just Sonarr, Radarr, or both services. The program will only read the
-  configuration from the file relevant for the specific service subcommand you specified (e.g.
-  `recyclarr sonarr` will only read the Sonarr config in the file, even if Radarr config is
-  present).
+  define settings for Sonarr, Radarr, or both services. The program will only read the configuration
+  from the file relevant for the specific service subcommand you specified (e.g. `recyclarr sonarr`
+  will only read the Sonarr config in the file, even if Radarr config is present).
 
-- Use [a `secrets.yml` file](secrets-reference) to keep sensitive values out of your
+- Use [a `secrets.yml` file](/reference/secrets-reference.md) to keep sensitive values out of your
   configuration files. This prevents accidentally sharing api_keys and other sensitive values when
   sharing configurations.
+
+For various examples, see the [Configuration Examples] page.
+
+[Configuration Examples]: /reference/configuration-examples.md
 
 :::tip Remember
 
@@ -34,36 +31,15 @@ according to the rules documented on [the file structure](../file-structure.md#d
 
 :::
 
-## Schema Validation
+## Schema Validation {#schema}
 
-A schema file is provided for `recyclarr.yml` to help assist in editing the file. To use it, simply
-add the below snippet to the first line in your `recyclarr.yml` file:
+Visit the [Schema Validation](/schema-validation.md) page for detailed instructions.
+
+Add this comment to the top of your YAML file:
 
 ```yml
 # yaml-language-server: $schema=https://raw.githubusercontent.com/recyclarr/recyclarr/master/schemas/config-schema.json
 ```
-
-If you use VS Code to edit your settings file and install the [YAML extension][yaml], it will
-suggest properties you can use and show you documentation for each without having to reference this
-page.
-
-[yaml]: https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml
-
-:::tip Notice
-
-If you are editing YAML in VS Code and using `!secret` references, you will get "Unknown Tag"
-errors. Remove them by adding the following to VS Code's `settings.json` file ([VS Code
-Documentation][vscode_settings]):
-
-```json
-  "yaml.customTags": [
-    "!secret scalar"
-  ]
-```
-
-:::
-
-[vscode_settings]: https://code.visualstudio.com/docs/getstarted/settings
 
 ## All Services
 
