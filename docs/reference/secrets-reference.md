@@ -24,24 +24,35 @@ The following rules apply:
 
 ## Secrets Definition
 
-Define secrets in `secrets.yml` using key/value pairs. Keys can be whatever you want and each key
-must be unique. An example `secrets.yml`:
+Define secrets in `secrets.yml` using key/value pairs. An example `secrets.yml`:
 
 ```yml
-sonarr_baseurl: http://localhost:8989
-sonarr_apikey: f7e74ba6c80046e39e076a27af5a8444
-radarr4k_url: http://localhost:7878
-radarr4k_apikey: bf99da49d0b0488ea34e4464aa63a0e5
+sonarr_some_url: http://localhost:8989
+sonarr_some_apikey: f7e74ba6c80046e39e076a27af5a8444
+radarr4k_another_url: http://localhost:7878
+radarr4k_another_apikey: bf99da49d0b0488ea34e4464aa63a0e5
 ```
+
+### Naming Rules
+
+- Keys can be named whatever you want.
+- All key names must be unique. In other words, two keys cannot have the same name.
 
 ## Using Secrets
 
 Substitute secrets within your Recyclarr configuration or settings files using `!secret <key_name>`.
-Reccylarr will fail while loading your configuration if there are references to keys that don't
-exist in the `secrets.yml`. An excerpt from an example `recyclarr.yml`:
+Usage example in `recyclarr.yml` (using the same `secrets.yml` example from the previous section):
 
 ```yml
 radarr:
-  - base_url: !secret radarr4k_url
-    api_key: !secret radarr4k_apikey
+  radarr4k:
+    base_url: !secret radarr4k_another_url
+    api_key: !secret radarr4k_another_apikey
 ```
+
+:::caution
+
+Recyclarr will fail to load your configuration if there are references to keys that don't exist in
+the `secrets.yml`.
+
+:::
