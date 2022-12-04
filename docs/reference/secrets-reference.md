@@ -13,8 +13,9 @@ Secrets functionality was added as optional functionality in `v3.0.0`.
 
 :::
 
-Specify secrets with a `secrets.yml` located in your
-[recyclarr configuration directory](/file-structure.md#appdata-directory).
+Specify secrets with a `secrets.yml` located in your [application data directory][appdata].
+
+[appdata]: /file-structure.md#appdata-directory
 
 The following rules apply:
 
