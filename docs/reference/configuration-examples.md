@@ -96,15 +96,6 @@ recyclarr sonarr --config sonarr-release-profiles.yml sonarr-quality-definition.
 
 ## Update Sonarr v3 and v4 instances in a single YAML config
 
-:::danger
-
-Custom Formats are only supported in Sonarr v4 which <u>**is prerelease software**</u>!
-
-If you are new to the TRaSH Guides, I highly recommend you start with Sonarr v3 Release Profiles
-instead.
-
-:::
-
 If you have two instances of Sonarr, one v3 and one v4, that you'd like to update from a single run
 using one YAML file, you can do that by simply specifying both in the list under the `sonarr`
 property:

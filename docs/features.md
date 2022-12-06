@@ -31,15 +31,6 @@ Sonarr v3 Only
 
 ### Custom Formats
 
-:::danger
-
-Custom Formats are only supported in Sonarr v4 which <u>**is prerelease software**</u>!
-
-If you are new to the TRaSH Guides, I highly recommend you start with Sonarr v3 Release Profiles
-instead.
-
-:::
-
 - A user-specified list of custom formats are synchronized to Sonarr from the TRaSH guides.
 - Scores from the guides can be synchronized to quality profiles of your choosing.
 - User can specify their own scores for custom formats (instead of using the guide score).
