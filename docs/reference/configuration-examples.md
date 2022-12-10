@@ -18,7 +18,8 @@ example refers to sensitive values by [using a `secrets.yml` file](secrets-refer
 
 ```yml
 sonarr:
-  - base_url: !secret sonarr_url
+  main:
+    base_url: !secret sonarr_url
     api_key: !secret sonarr_apikey
     quality_definition: hybrid
     release_profiles:
@@ -30,7 +31,8 @@ sonarr:
         tags: [tv]
 
 radarr:
-  - base_url: !secret radarr_url
+  main:
+    base_url: !secret radarr_url
     api_key: !secret radarr_apikey
     quality_definition:
       type: movie
@@ -62,7 +64,8 @@ Simply create two YAML files:
 
 ```yml
 sonarr:
-  - base_url: http://localhost:8989
+  main:
+    base_url: http://localhost:8989
     api_key: f7e74ba6c80046e39e076a27af5a8444
     release_profiles:
       - trash_ids:
@@ -75,7 +78,8 @@ sonarr:
 
 ```yml
 sonarr:
-  - base_url: http://localhost:8989
+  main:
+    base_url: http://localhost:8989
     api_key: f7e74ba6c80046e39e076a27af5a8444
     quality_definition: hybrid
 ```
@@ -102,7 +106,8 @@ property:
 
 ```yml
 sonarr:
-  - base_url: http://sonarr_v4:8989
+  instance1:
+    base_url: http://sonarr_v4:8989
     api_key: f7e74ba6c80046e39e076a27af5a8444
     quality_definition: anime
     custom_formats:
@@ -112,7 +117,9 @@ sonarr:
           - 096e406c92baa713da4a72d88030b815 # Anime BD Tier 03 (SeaDex Muxers)
         quality_profiles:
           - name: Anime Subs
-  - base_url: http://sonarr_v3:8989
+
+  instance2:
+    base_url: http://sonarr_v3:8989
     api_key: bf99da49d0b0488ea34e4464aa63a0e5
     quality_definition: series
     release_profiles:
@@ -140,7 +147,8 @@ Solution:
 
 ```yml
 radarr:
-  - base_url: http://localhost:7878
+  main:
+    base_url: http://localhost:7878
     api_key: 87674e2c316645ed85696a91a3d41988
 
     custom_formats:
@@ -174,7 +182,8 @@ Solution:
 
 ```yml
 radarr:
-  - base_url: http://localhost:7878
+  main:
+    base_url: http://localhost:7878
     api_key: 87674e2c316645ed85696a91a3d41988
 
     custom_formats:
@@ -211,7 +220,8 @@ You can assign custom format scores (from the guide) to multiple profiles (all t
 
 ```yml
 radarr:
-  - base_url: http://localhost:7878
+  main:
+    base_url: http://localhost:7878
     api_key: 87674e2c316645ed85696a91a3d41988
 
     custom_formats:
@@ -233,7 +243,8 @@ You can also choose to override the score (for all custom formats!) in one profi
 
 ```yml
 radarr:
-  - base_url: http://localhost:7878
+  main:
+    base_url: http://localhost:7878
     api_key: 87674e2c316645ed85696a91a3d41988
 
     custom_formats:
@@ -257,7 +268,8 @@ zero."*
 
 ```yml
 radarr:
-  - base_url: http://localhost:7878
+  main:
+    base_url: http://localhost:7878
     api_key: 87674e2c316645ed85696a91a3d41988
 
     custom_formats:

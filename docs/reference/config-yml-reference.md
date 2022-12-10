@@ -45,7 +45,31 @@ Add this comment to the top of your YAML file:
 
 The below settings are applicable to both Sonarr and Radarr.
 
-### Basic Settings
+### Basic Settings {#basic}
+
+```yml
+service_type:
+  instance_name:
+    base_url: http://localhost:1234
+    api_key: f7e74ba6c80046e39e076a27af5a8444
+```
+
+- `service_type`<br/>
+  Must be one of `sonarr` or `radarr`. The service type will correspond to one of the more specific
+  sections later on. Each service type may be configured in different ways.
+
+- `instance_name`<br/>
+  A custom name used to identify this particular instance. This name must meet the following
+  requirements:
+
+  - Must contain only numbers, letters, and underscores (`_`).
+  - Must be unique across all other Sonarr instances in your YAML config.
+
+  The purpose of the name is to be human readable and self-documenting. It is used in different
+  ways:
+
+  - In log messages to more easily point out where issues are in your configuration.
+  - **(In the future)** On the CLI it allows executing actions against specific instances.
 
 - `base_url` **(Required)**<br/>
   The base URL of your instance. Basically this is the URL you bookmark to get to the front page.
@@ -136,7 +160,8 @@ Synchronization][cfsync] page.
 
 ```yml
 sonarr:
-  - base_url: http://localhost:8989
+  instance_name:
+    base_url: http://localhost:8989
     api_key: f7e74ba6c80046e39e076a27af5a8444
 
     # Quality Definition Settings
@@ -235,7 +260,8 @@ Release Profiles are deprecated and may not be used in Sonarr version 4 or great
 
 ```yml
 radarr:
-  - base_url: http://localhost:7878
+  instance_name:
+    base_url: http://localhost:7878
     api_key: bf99da49d0b0488ea34e4464aa63a0e5
 
     # Quality Definition Settings

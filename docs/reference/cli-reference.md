@@ -142,7 +142,8 @@ You can copy & paste these directly into your `recyclarr.yml` like this:
 
 ```yml
 sonarr:
-  - base_url: http://127.0.0.1:8989/sonarr
+  main:
+    base_url: http://127.0.0.1:8989/sonarr
     api_key: 2424b3643507485ea2e06382d3f0b8a3
     release_profiles:
       - trash_ids:
@@ -189,7 +190,8 @@ You can copy & paste the lists above directly into your YAML under the desired `
 
 ```yml
 sonarr:
-  - base_url: http://127.0.0.1:8989/sonarr
+  main:
+    base_url: http://127.0.0.1:8989/sonarr
     api_key: 2424b3643507485ea2e06382d3f0b8a3
     release_profiles:
       - trash_ids: [76e060895c5b8a765c310933da0a5357] # Optionals
@@ -240,7 +242,8 @@ You can copy & paste these directly into your `recyclarr.yml` like this:
 
 ```yml
 radarr:
-  - base_url: http://127.0.0.1:7878
+  main:
+    base_url: http://127.0.0.1:7878
     api_key: 2424b3643507485ea2e06382d3f0b8a3
     custom_formats:
       - trash_ids:
