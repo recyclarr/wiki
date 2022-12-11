@@ -237,12 +237,8 @@ through the `chown` command and may require root permissions on your host system
 
 Below is a list of error messages you may encounter along with possible solutions.
 
-<details><summary>
-LibGit2Sharp.LockedFileException: failed open - '/config/repo/.git/FETCH_HEAD' is locked: Permission
-denied
-</summary>
+:::info
 
-This is due to inconsistent permissions in your `/config` volume. See the "Permission Issues"
-section at the start of the Troubleshooting section for the solution.
+None Yet...
 
-</details>
+:::
