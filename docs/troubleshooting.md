@@ -5,9 +5,11 @@ title: Troubleshooting
 
 :::caution
 
-Recyclarr may stop working at any time due to guide updates. I will do my best to fix them in a
-timely manner. [Reporting](https://github.com/recyclarr/recyclarr/issues) such issues ASAP would be
+Recyclarr may stop working at any time due to guide updates and changes in either Radarr or Sonarr.
+I will do my best to fix them in a timely manner. [Reporting][issues] such issues ASAP would be
 appreciated and will help identify issues more quickly.
+
+[issues]: https://github.com/recyclarr/recyclarr/issues
 
 :::
 
@@ -44,7 +46,7 @@ ensure that this information is redacted. You can do this in multiple ways.
 - Use [secrets](/reference/secrets-reference.md) (requires `v3.0` or higher)
 - Manually edit your YAML before sharing it to redact `base_url` and `api_key` values.
 
-## Warnings
+## Recyclarr Warnings
 
 This section contains a list of warnings you might see in your console output / logs. These are
 usually caused by configuration issues or something else within the user's control to fix. Below are
@@ -151,7 +153,32 @@ Where `my_radarr_instance` can be any name you want as long as it is valid YAML.
 
 </details>
 
-## Non-docker Errors & Solutions
+## Docker-Specific Errors & Solutions {#docker}
+
+A series of troubleshooting steps for docker-specific issues.
+
+### Permission Issues
+
+The `/config` volume is very sensitive to user changes in the container. For example, if you first
+run the container using `user: 1000:1000` and then run a second time using `user: 1500:1500`, you
+are likely to get errors. This is because files that Recyclarr creates are owned by the user & group
+you specify. Not all files can be used by multiple users.
+
+If you change your user and/or group IDs, it is your responsibility to update the ownership of files
+in the `/config` volume so that they match the UID and GID you are specifying. This can be done
+through the `chown` command and may require root permissions on your host system.
+
+### Error Messages
+
+Below is a list of error messages you may encounter along with possible solutions.
+
+:::info
+
+None Yet...
+
+:::
+
+## Non-Docker Errors & Solutions
 
 The troubleshooting steps documented here are for the non-docker version of Recyclarr (running it
 directly on a host machine). The [Docker](installation/docker.md) page has troubleshooting steps as
