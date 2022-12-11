@@ -156,6 +156,33 @@ Synchronization][cfsync] page.
       score in guide). If `false`, scores are never altered unless it is listed in the `names` array
       *and* has a valid score to assign.
 
+### Quality Definition Settings {#quality-def-settings}
+
+- `quality_definition` (Optional)<br/>
+  Specify information related to quality definition processing here. Only the following child
+  properties are permitted. If not specified, no quality definitions will be synced.
+
+  - `type` **(Required)**<br/>
+    A quality definition type found by using the `--list-qualities` option with the respective
+    service subcommand (e.g. `recyclarr radarr`). The type specified here identifies the quality
+    size settings that should be parsed and uploaded to your Sonarr or Radarr instance.
+
+  - `preferred_ratio` (Optional; *Default: use guide values*)<br/>
+    A value `0.0` to `1.0` that represents the percentage (interpolated) position of that middle
+    slider you see when you enable advanced settings on the Quality Definitions page in Radarr or
+    Sonarr. A value of `0.0` means the preferred quality will match the minimum quality. Likewise,
+    `1.0` will match the maximum quality. A value such as `0.5` will keep it halfway between the
+    two.
+
+    :::info Behavioral Notes
+
+    - Any value less than `0` or greater than `1` will result in a warning log printed and the value
+      will be clamped.
+    - Using this property on a Sonarr v3 instance does nothing, since older versions of Sonarr only
+      have min/max values and no preferred.
+
+    :::
+
 ## Sonarr
 
 ```yml
@@ -165,7 +192,8 @@ sonarr:
     api_key: f7e74ba6c80046e39e076a27af5a8444
 
     # Quality Definition Settings
-    quality_definition: hybrid
+    quality_definition:
+      type: series
 
     # Release Profile Settings
     release_profiles:
@@ -201,16 +229,8 @@ for more information.
 
 ### Quality Definition Settings
 
-- `quality_definition` (Optional)<br/>
-  A quality definition type found by running the `recyclarr sonarr --list-qualities` command that
-  identifies the quality size settings that should be parsed and uploaded to Sonarr.
-
-  There's one special case type here that won't appear in the output of the above command, nor is it
-  one that exists in the guide: `hybrid`. It is a combination of both the `anime` and `series`
-  quality definitions that is calculated by comparing each quality and taking both the smallest
-  minimum and largest maximum values. The purpose of the `hybrid` type is to build the most
-  permissive quality definition that the guide will allow. It's a good idea to use this one if you
-  want more releases to be blocked by your release profiles instead of quality.
+See the [Quality Definition Settings](##quality-def-settings) section under "All Services" at the
+top for more information.
 
 ### Release Profile Settings
 
@@ -301,19 +321,5 @@ for more information.
 
 ### Quality Definition Settings
 
-- `quality_definition` (Optional)<br/>
-  Specify information related to Radarr quality definition processing here. Only the following child
-  properties are permitted. If not specified, no quality definitions will be synced.
-
-  - `type` **(Required)**<br/>
-    A quality definition type found by running the `recyclarr radarr --list-qualities` command that
-    identifies the quality size settings that should be parsed and uploaded to Radarr.
-
-  - `preferred_ratio` (Optional; *Default: `1.0`*)<br/>
-    A value `0.0` to `1.0` that represents the percentage (interpolated) position of that middle
-    slider you see when you enable advanced settings on the Quality Definitions page in Radarr. A
-    value of `0.0` means the preferred quality will match the minimum quality. Likewise, `1.0` will
-    match the maximum quality. A value such as `0.5` will keep it halfway between the two.
-
-    Any value less than `0` or greater than `1` will result in a warning log printed and the value
-    will be clamped.
+See the [Quality Definition Settings](##quality-def-settings) section under "All Services" at the
+top for more information.

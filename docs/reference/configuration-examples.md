@@ -21,7 +21,8 @@ sonarr:
   main:
     base_url: !secret sonarr_url
     api_key: !secret sonarr_apikey
-    quality_definition: hybrid
+    quality_definition:
+      type: series
     release_profiles:
       - trash_ids:
           - EBC725268D687D588A20CBC5F97E538B # Low Quality Groups
@@ -81,7 +82,8 @@ sonarr:
   main:
     base_url: http://localhost:8989
     api_key: f7e74ba6c80046e39e076a27af5a8444
-    quality_definition: hybrid
+    quality_definition:
+      type: series
 ```
 
 Then run the following command:
@@ -109,7 +111,8 @@ sonarr:
   instance1:
     base_url: http://sonarr_v4:8989
     api_key: f7e74ba6c80046e39e076a27af5a8444
-    quality_definition: anime
+    quality_definition:
+      type: anime
     custom_formats:
       - trash_ids:
           - 949c16fe0a8147f50ba82cc2df9411c9 # Anime BD Tier 01 (Top SeaDex Muxers)
@@ -121,7 +124,8 @@ sonarr:
   instance2:
     base_url: http://sonarr_v3:8989
     api_key: bf99da49d0b0488ea34e4464aa63a0e5
-    quality_definition: series
+    quality_definition:
+      type: series
     release_profiles:
       - trash_ids:
           - EBC725268D687D588A20CBC5F97E538B # Low Quality Groups

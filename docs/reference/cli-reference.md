@@ -211,7 +211,8 @@ from JSON files in the guide and this type is used in the configuration YAML for
 `quality_definition` property:
 
 ```yml
-quality_definition: series
+quality_definition:
+  type: series
 ```
 
 Above, `series` would only be valid if that type appeared in the list output by the `sonarr`

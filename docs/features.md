@@ -40,7 +40,6 @@ Sonarr v3 Only
 ### Quality Definitions
 
 - Anime and Series (Non-Anime) quality definitions from the guide.
-- "Hybrid" type supported that is a mixture of both.
 
 ## Radarr
 
