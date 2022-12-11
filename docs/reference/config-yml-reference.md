@@ -1,6 +1,6 @@
 ---
 id: config-reference
-title: Configuration YAML Reference
+title: Configuration YAML
 sidebar_position: 2
 ---
 

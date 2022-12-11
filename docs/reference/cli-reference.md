@@ -1,9 +1,10 @@
 ---
 id: cli-reference
-title: CLI Reference
+title: Command Line
 sidebar_position: 1
 ---
-Command line interface documentation for the `recyclarr` executable.
+
+Command line interface (CLI) documentation for the `recyclarr` executable.
 
 ## Subcommands
 

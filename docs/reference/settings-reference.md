@@ -1,6 +1,6 @@
 ---
 id: settings-reference
-title: Settings YAML Reference
+title: Settings YAML
 ---
 
 Settings are specified in a file named `settings.yml` in your [app data directory][app-data].
