@@ -1,6 +1,7 @@
 ---
 id: manual-install
 title: Manual Installation
+sidebar_position: 2
 ---
 
 Simply download the latest release for your platform using the table below. The download itself is
@@ -28,9 +29,9 @@ release notes, additional architectures and platforms, and older releases.
 
 ## Prerequisites
 
-The following dependencies are required on **all** platforms:
+The following dependencies are required on **all** platforms.
 
-- Git v2.0 or greater
+- Git v2.0 or greater ([Instructions for Windows Users](/installation/tips/git-install.md))
 
 :::info
 
