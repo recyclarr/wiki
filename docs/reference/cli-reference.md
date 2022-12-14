@@ -220,7 +220,7 @@ subcommand run with this argument.
 
 ## Subcommand: `radarr`
 
-### `--list-custom-formats`
+### `--list-custom-formats` {#list-cfs-radarr}
 
 Prints a list of all [available Radarr Custom Formats][radarrjson] from the TRaSH Guides in YAML
 format, ready to be copied & pasted directly into your `recyclarr.yml` file. Here is an example of

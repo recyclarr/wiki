@@ -104,20 +104,22 @@ Synchronization][cfsync] page.
   properties documented below apply to each element of this list.
 
   - `trash_ids` **(Required)**<br/>
-    A list of one or more Trash IDs of custom formats to synchronize to Radarr. The IDs *must* be
-    taken from the value of the `"trash_id"` property in the JSON itself. It will look like the
-    following:
+    A list of one or more Trash IDs of custom formats to synchronize. There are a couple of ways to
+    obtain Trash IDs (listed in order of preference below). The Trash ID itself is a hash of
+    hexadecimal characters, like `496f355514737f7d83bf7aa4d24f8169`.
 
-    ```json
-    {
-      "trash_id": "496f355514737f7d83bf7aa4d24f8169",
-    }
-    ```
+    - Most custom format pages in the TRaSH Guides (like [this one][guidecfs]) have either tables
+      (with a Trash ID column) or a expandable "JSON" section. You can use these to obtain the Trash
+      ID value.
+    - From Recyclarr itself using the [`--list-custom-formats` option][listcfs].
+    - Taken from the value of the `"trash_id"` property directly in the [TRaSH Guide JSON
+      files][radarrjson] itself.
 
     :::tip
 
     To ease the readability concerns of using IDs, leave a comment beside the Trash ID in your
-    configuration so it can be easily identified later. For example:
+    configuration so it can be easily identified later. If you use `--list-custom-formats`, comments
+    are added for you. For example:
 
     ```yml
     trash_ids:
@@ -127,13 +129,13 @@ Synchronization][cfsync] page.
 
     :::
 
-    :::note A Few Things to Remember
+    :::info A Few Things to Remember
 
-    - If `delete_old_custom_formats` is set to true, custom formats are **deleted** in Radarr if
-      you remove them from this list.
+    - If `delete_old_custom_formats` is set to true, custom formats are **deleted** in Radarr if you
+      remove them from this list.
     - It's OK for the same custom format to exist in multiple lists of `trash_ids`. Recyclarr will
-      only ever synchronize it once. Allowing it to be specified multiple times allows you to
-      assign it to different profiles with different scores.
+      only ever synchronize it once. Allowing it to be specified multiple times allows you to assign
+      it to different profiles with different scores.
 
     :::
 
@@ -155,6 +157,10 @@ Synchronization][cfsync] page.
       not mentioned in the `names` array *or* it was in that list but did not get a score (e.g. no
       score in guide). If `false`, scores are never altered unless it is listed in the `names` array
       *and* has a valid score to assign.
+
+[guidecfs]: https://trash-guides.info/Radarr/Radarr-collection-of-custom-formats/
+[listcfs]: /reference/cli-reference.md#list-cfs-radarr
+[radarrjson]: https://github.com/TRaSH-/Guides/tree/master/docs/json/radarr/cf
 
 ### Quality Definition Settings {#quality-def-settings}
 
