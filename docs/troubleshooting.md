@@ -184,6 +184,15 @@ The troubleshooting steps documented here are for the non-docker version of Recy
 directly on a host machine). The [Docker](installation/docker.md) page has troubleshooting steps as
 well.
 
+<details><summary>
+Failed to create CoreCLR, HRESULT: 0x8007000E
+</summary>
+
+This means "Out of Memory". Ensure you have enough memory on your system. If you do, try setting the
+`DOTNET_GCHeapHardLimit` environment variable to `10000000` and try again.
+
+</details>
+
 - On Mac or Linux OS, you may see the following error when you run `recyclarr`:
 
   ```txt
