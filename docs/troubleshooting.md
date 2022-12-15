@@ -178,7 +178,7 @@ None Yet...
 
 :::
 
-## Non-Docker Errors & Solutions
+## Non-Docker Errors & Solutions {#non-docker-errors}
 
 The troubleshooting steps documented here are for the non-docker version of Recyclarr (running it
 directly on a host machine). The [Docker](installation/docker.md) page has troubleshooting steps as
