@@ -149,9 +149,21 @@ either copy it manually into the volume or run `recyclarr create-config` manuall
 
 ### Manual Mode {#manual-mode}
 
-In manual mode, the container starts up, runs a user-specified operation, and then exits. This is
-semantically identical to running Recyclarr directly on your host machine, but without all of the
-set up requirements.
+There are two ways to invoke Recyclarr in manual mode. Both work equally well, but you may consider
+one or the other depending on the following:
+
+- If the Recyclarr container is already running, prefer `docker exec`
+- If the container is not running, prefer `docker run`
+
+See the respective sections below for whichever mode you wish to use.
+
+<details><summary>
+Using Docker Run
+</summary>
+
+When using `docker run` to invoke Recyclarr in manual mode, the container starts up, runs a
+user-specified operation, and then exits. This is semantically identical to running Recyclarr
+directly on your host machine, but without all of the set up requirements.
 
 The general syntax is:
 
@@ -184,20 +196,46 @@ containers will start to grow the more often you run it manually).
 
 :::
 
-:::danger
+</details>
 
-#### Warning about `docker exec` {#docker-exec}
+<details><summary>
+Using Docker Exec
+</summary>
 
-I will not support any usage of `docker exec`, for now. It's far too error prone and can result in
-mixed file permissions in Recyclarr's app data directory (the `/config` volume). Please use `docker
-run --rm` instead (documented in the previous section).
+Using `docker exec` for manual mode is similar to the previous section, except that it uses an
+already-running instance of the container to perform actions.
 
-When you run `docker exec` without the `--user` option, commands are executed as the default
-internal user, which is `1000:1000`. If you absolutely insist on using this command, ensure you
-specify the `--user` option using the same UID:GID that you use in `docker run` and that matches
-your volume's file ownership.
+Using Docker Compose, the general syntax is:
 
-:::
+```txt
+docker compose exec recyclarr recyclarr [subcommand] [options]
+```
+
+Or if you prefer to use Docker directly:
+
+```txt
+docker exec recyclarr recyclarr [subcommand] [options]
+```
+
+Where:
+
+- `[subcommand]` is one of the supported Recyclarr subcommands, such as `sonarr` and `radarr`.
+- `[options]` are any options supported by that subcommand (e.g. `--debug`, `--preview`).
+
+Examples:
+
+```bash
+# Create a default `recyclarr.yml` in your `/config` volume (without compose)
+docker exec recyclarr recyclarr create-config
+
+# Sync Sonarr with debug logs (with compose)
+docker compose exec recyclarr recyclarr sonarr --debug
+
+# Do a preview (dry run) sync for Radarr (without compose)
+docker exec recyclarr recyclarr radarr --preview --debug
+```
+
+</details>
 
 ### Cron Mode {#cron-mode}
 

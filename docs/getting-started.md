@@ -28,12 +28,6 @@ The steps below assume you are using Docker Compose with a service named `recycl
 responsible for translating these steps appropriately for other solutions like Docker Swarm,
 Kubernetes, raw Docker, etc.
 
-:::danger
-
-Do **not** use `docker exec`. Read more [here](installation/docker.md#docker-exec).
-
-:::
-
 1. Run `docker compose run --rm recyclarr create-config` to create a starter `recyclarr.yml` file in
    the [application data directory][appdata] (for Docker, this will be in `/config/recyclarr.yml`).
 1. Open the generated YAML file from the previous step. At a minimum you must update the `base_url`
