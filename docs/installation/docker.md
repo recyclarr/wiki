@@ -47,7 +47,6 @@ services:
   recyclarr:
     image: ghcr.io/recyclarr/recyclarr
     container_name: recyclarr
-    init: true
     user: 1000:1000
     networks: [recyclarr]
     volumes:
@@ -69,11 +68,6 @@ Here is a breakdown of the above YAML:
 - `container_name`<br/>
   Optional, but I don't want the funky `prefix_recyclarr` name that Docker Compose uses for services
   by default.
-- `init`<br/>
-  **Required**: This will ensure that the container can be stopped without terminating it when you
-  run `docker compose down` or `docker compose stop`. Internally, this runs Recyclarr using
-  [tini](https://github.com/krallin/tini). Please visit that repo to understand the benefits in
-  detail, if you're interested.
 - `user`<br/>
   Optional User and Group ID you want to run the container as. Recyclarr will run using this UID:GID
   and any files it creates in your `/config` volume will also be owned by this user and group. The
