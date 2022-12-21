@@ -146,8 +146,11 @@ either copy it manually into the volume or run `recyclarr create-config` manuall
 There are two ways to invoke Recyclarr in manual mode. Both work equally well, but you may consider
 one or the other depending on the following:
 
-- If the Recyclarr container is already running, prefer `docker exec`
-- If the container is not running, prefer `docker run`
+- Prefer `docker exec` if:
+  - The Recyclarr container is already running
+  - You're using Unraid OS
+- Prefer `docker run` if:
+  - The container is *not* running
 
 See the respective sections below for whichever mode you wish to use.
 
