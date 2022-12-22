@@ -46,7 +46,7 @@ ensure that this information is redacted. You can do this in multiple ways.
 - Use [secrets](/reference/secrets-reference.md) (requires `v3.0` or higher)
 - Manually edit your YAML before sharing it to redact `base_url` and `api_key` values.
 
-## Recyclarr Warnings
+## Recyclarr Warnings & Errors
 
 This section contains a list of warnings you might see in your console output / logs. These are
 usually caused by configuration issues or something else within the user's control to fix. Below are
@@ -150,6 +150,16 @@ radarr:
 ```
 
 Where `my_radarr_instance` can be any name you want as long as it is valid YAML.
+
+</details>
+
+<details><summary>
+Incompatible value assigned/used at line 7: Invalid cast from 'System.String' to
+'Recyclarr.TrashLib.Config.Services.QualityDefinitionConfig'
+</summary>
+
+As of version 4.0.0, the syntax for `quality_definitions` changed. You must manually change to the
+new format. See [the v4 release notes](/upgrade-guide/v4.0.md).
 
 </details>
 
