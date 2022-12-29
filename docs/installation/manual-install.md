@@ -4,9 +4,17 @@ title: Manual Installation
 sidebar_position: 2
 ---
 
+## Prerequisites
+
+The following dependencies are required on **all** platforms.
+
+- Git v2.0 or greater ([Instructions for Windows Users](/installation/tips/git-install.md))
+
+## Download
+
 Simply download the latest release for your platform using the table below. The download itself is
-just a ZIP file with a single executable in it. You can put this executable anywhere you want and
-run it.
+just an archive (ZIP on Windows and tarball on mac/linux) with a single executable in it. You may
+put this executable anywhere you want and run it.
 
 | Platform | 32-bit           | 64-bit                                 |
 | -------- | ---------------- | -------------------------------------- |
@@ -16,32 +24,44 @@ run it.
 
 [win-x64]: https://github.com/recyclarr/recyclarr/releases/latest/download/recyclarr-win-x64.zip
 [win-arm64]: https://github.com/recyclarr/recyclarr/releases/latest/download/recyclarr-win-arm64.zip
-[linux-x64]: https://github.com/recyclarr/recyclarr/releases/latest/download/recyclarr-linux-x64.zip
-[linux-arm64]: https://github.com/recyclarr/recyclarr/releases/latest/download/recyclarr-linux-arm64.zip
-[linux-arm]: https://github.com/recyclarr/recyclarr/releases/latest/download/recyclarr-linux-arm.zip
-[osx-x64]: https://github.com/recyclarr/recyclarr/releases/latest/download/recyclarr-osx-x64.zip
-[osx-arm64]: https://github.com/recyclarr/recyclarr/releases/latest/download/recyclarr-osx-arm64.zip
+[linux-x64]: https://github.com/recyclarr/recyclarr/releases/latest/download/recyclarr-linux-x64.tar.xz
+[linux-arm64]: https://github.com/recyclarr/recyclarr/releases/latest/download/recyclarr-linux-arm64.tar.xz
+[linux-arm]: https://github.com/recyclarr/recyclarr/releases/latest/download/recyclarr-linux-arm.tar.xz
+[osx-x64]: https://github.com/recyclarr/recyclarr/releases/latest/download/recyclarr-osx-x64.tar.xz
+[osx-arm64]: https://github.com/recyclarr/recyclarr/releases/latest/download/recyclarr-osx-arm64.tar.xz
 
 The above links are from the latest release on the [releases page][rp]. Feel free to visit there for
 release notes, additional architectures and platforms, and older releases.
 
 [rp]: https://github.com/recyclarr/recyclarr/releases
 
-## Prerequisites
+## Linux & macOS Installation
 
-The following dependencies are required on **all** platforms.
+:::info Before You Start
 
-- Git v2.0 or greater ([Instructions for Windows Users](/installation/tips/git-install.md))
+If you follow these instructions, the following tools are required.
+
+`tar`, `xz`, `wget`
+
+:::
+
+Copy the URL to the specific download you want in the table above. Use this URL in the following
+command. You can even put this URL in your `~/.bashrc` or similar to set it every time you log in.
+
+```bash
+export RECYCLARR_URL="Paste_URL_Here"
+```
+
+With the above variable set, run the command below to download & install/upgrade:
+
+```bash
+wget "$RECYCLARR_URL" -O - | tar xJ -C /usr/local/bin
+```
 
 :::info
 
-### Special Note about Linux
-
-When you extract the ZIP archive on Linux, it will *not* have the executable permission set. After
-you've downloaded and extracted the executable, you can use the command below to make it executable.
-
-```bash
-chmod u+rx recyclarr
-```
+It is recommended to install Recyclarr to `/usr/local/bin` because, on most platforms, this path is
+already in `$PATH` by default. This allows you to use the `recyclarr` command without much fuss. You
+are, of course, welcome to install Recyclarr anywhere you want.
 
 :::
