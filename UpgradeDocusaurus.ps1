@@ -1,3 +1,4 @@
+#!/usr/bin/env pwsh
 yarn upgrade --latest `
     "@docusaurus/core" `
     "@docusaurus/preset-classic" `
