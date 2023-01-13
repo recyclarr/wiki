@@ -43,7 +43,7 @@ particular, the Base URL and API Key for each service you've configured. Typical
 this information shared to others when you file bug reports on Github. As such, I ask that you
 ensure that this information is redacted. You can do this in multiple ways.
 
-- Use [secrets](/reference/secrets-reference.md) (requires `v3.0` or higher)
+- Use [secrets](/yaml/secrets-reference.md) (requires `v3.0` or higher)
 - Manually edit your YAML before sharing it to redact `base_url` and `api_key` values.
 
 ## Recyclarr Warnings & Errors
@@ -113,7 +113,7 @@ There are three ways to provide configuration data:
 When using the CLI, the files provided *must* exist. To solve this error, use one of the above
 methods to provide your YAML configuration. See the documentation about [default YAML
 configuration][default-yaml] for more information. There is also [an
-example](/reference/configuration-examples.md#yaml-structure) showing multiple configuration files
+example](/yaml/configuration-examples.md#yaml-structure) showing multiple configuration files
 and their structure.
 
 [default-yaml]: file-structure.md#default-yaml

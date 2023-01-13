@@ -16,13 +16,13 @@ multiple ways, offering a lot of flexibility:
   from the file relevant for the specific service subcommand you specified (e.g. `recyclarr sonarr`
   will only read the Sonarr config in the file, even if Radarr config is present).
 
-- Use [a `secrets.yml` file](/reference/secrets-reference.md) to keep sensitive values out of your
+- Use [a `secrets.yml` file](/yaml/secrets-reference.md) to keep sensitive values out of your
   configuration files. This prevents accidentally sharing api_keys and other sensitive values when
   sharing configurations.
 
 For various examples, see the [Configuration Examples] page.
 
-[Configuration Examples]: /reference/configuration-examples.md
+[Configuration Examples]: /yaml/configuration-examples.md
 
 :::tip Remember
 
@@ -111,15 +111,15 @@ Synchronization][cfsync] page.
     - Most custom format pages in the TRaSH Guides (like [this one][guidecfs]) have either tables
       (with a Trash ID column) or a expandable "JSON" section. You can use these to obtain the Trash
       ID value.
-    - From Recyclarr itself using the [`--list-custom-formats` option][listcfs].
+    - From Recyclarr itself using the [`list custom-formats` command][listcfs].
     - Taken from the value of the `"trash_id"` property directly in the [TRaSH Guide JSON
       files][radarrjson] itself.
 
     :::tip
 
     To ease the readability concerns of using IDs, leave a comment beside the Trash ID in your
-    configuration so it can be easily identified later. If you use `--list-custom-formats`, comments
-    are added for you. For example:
+    configuration so it can be easily identified later. If you use [`list custom-formats`][listcfs],
+    comments are added for you. For example:
 
     ```yml
     trash_ids:
@@ -159,7 +159,7 @@ Synchronization][cfsync] page.
       *and* has a valid score to assign.
 
 [guidecfs]: https://trash-guides.info/Radarr/Radarr-collection-of-custom-formats/
-[listcfs]: /reference/cli-reference.md#list-cfs-radarr
+[listcfs]: /cli/list/list-custom-formats.md
 [radarrjson]: https://github.com/TRaSH-/Guides/tree/master/docs/json/radarr/cf
 
 ### Quality Definition Settings {#quality-def-settings}
@@ -169,9 +169,9 @@ Synchronization][cfsync] page.
   properties are permitted. If not specified, no quality definitions will be synced.
 
   - `type` **(Required)**<br/>
-    A quality definition type found by using the `--list-qualities` option with the respective
-    service subcommand (e.g. `recyclarr radarr`). The type specified here identifies the quality
-    size settings that should be parsed and uploaded to your Sonarr or Radarr instance.
+    A quality definition type found by using the [`list qualities` command][listqualities]. The type
+    specified here identifies the quality size settings that should be parsed and uploaded to your
+    Sonarr or Radarr instance.
 
   - `preferred_ratio` (Optional; *Default: use guide values*)<br/>
     A value `0.0` to `1.0` that represents the percentage (interpolated) position of that middle
@@ -188,6 +188,8 @@ Synchronization][cfsync] page.
       have min/max values and no preferred.
 
     :::
+
+[listqualities]: /cli/list/list-qualities.md
 
 ## Sonarr
 
@@ -251,7 +253,8 @@ Release Profiles are deprecated and may not be used in Sonarr version 4 or great
   properties.
 
   - `trash_ids` **(Required)**<br/>
-    A list of one or more Trash IDs taken from [the Trash Guide Sonarr JSON files][sonarrjson].
+    A list of one or more Trash IDs taken from the output of the [`list release-profiles`
+    command][listrps].
 
   - `strict_negative_scores` (Optional; *Default: `false`*)<br/>
     Enables preferred term scores less than 0 to be instead treated as "Must Not Contain" (ignored)
@@ -280,7 +283,7 @@ Release Profiles are deprecated and may not be used in Sonarr version 4 or great
       be excluded from the created Release Profile in Sonarr. Terms that are NOT specified here are
       included automatically. Not compatible with `include`; this list is not used if it is present.
 
-[sonarrjson]: https://github.com/TRaSH-/Guides/tree/master/docs/json/sonarr
+[listrps]: /cli/list/list-release-profiles.md
 
 ## Radarr
 

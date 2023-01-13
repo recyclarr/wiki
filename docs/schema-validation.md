@@ -66,5 +66,5 @@ Documentation][vs-code-settings]):
 [vs-code-setup]: https://code.visualstudio.com/docs/setup/setup-overview
 [vs-code-ext-inst]: https://code.visualstudio.com/learn/get-started/extensions
 [yaml]: https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml
-[Configuration YAML]: /reference/config-yml-reference.md#schema
-[Settings YAML]: /reference/settings-reference.md#schema
+[Configuration YAML]: /yaml/config-yml-reference.md#schema
+[Settings YAML]: /yaml/settings-reference.md#schema

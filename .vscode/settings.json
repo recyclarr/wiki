@@ -5,5 +5,6 @@
     "editor.defaultFormatter": "yzhang.markdown-all-in-one"
   },
   "files.insertFinalNewline": true,
-  "editor.wordWrapColumn": 100
+  "editor.wordWrapColumn": 100,
+  "markdown.extension.completion.root": "docs"
 }

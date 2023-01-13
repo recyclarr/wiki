@@ -62,17 +62,17 @@ Manual Installation
 Each subcommand supports printing help on the command line. Simply run `recyclarr --help` for the
 main help output and a list of subcommands. You can then see the help for each subcommand by running
 `recyclarr [subcommand] --help`, where `[subcommand]` is one of those subcommands (e.g. `sonarr`).
-You can also visit the [CLI Reference](/reference/cli-reference.md) page for detailed documentation
+You can also visit the [CLI Reference](cli) page for detailed documentation
 as well.
 
 :::tip
 
 If you want to organize your configuration into multiple YAML files, learn about [how YAML files are
 loaded](file-structure.md#default-yaml) and look at [examples of how to split your
-files](reference/configuration-examples.md)
+files](yaml/configuration-examples.md)
 
 :::
 
 [appdata]: /file-structure.md#appdata-directory
-[reference]: /reference/config-yml-reference.md
-[examples]: /reference/configuration-examples.md
+[reference]: /yaml/config-yml-reference.md
+[examples]: /yaml/configuration-examples.md
