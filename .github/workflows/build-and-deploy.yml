@@ -36,7 +36,7 @@ jobs:
         run: yarn install && yarn run build
 
       - name: Publish
-        uses: cloudflare/pages-action@1
+        uses: cloudflare/pages-action@v1
         if: github.ref == 'refs/heads/master'
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}

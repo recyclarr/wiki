@@ -13,18 +13,15 @@ on:
       - .github/workflows/markdown-lint.yml
       - .markdownlint.yml
 
-env:
-  dotnetVersion: "6.0.x"
-
 jobs:
   markdownlint:
     name: Markdown Lint
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Lint Markdown Files
-        uses: DavidAnson/markdownlint-cli2-action@v5
+        uses: DavidAnson/markdownlint-cli2-action@v9
         with:
           globs: |
             **.md
