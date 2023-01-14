@@ -20,8 +20,8 @@ quality_definition:
   type: series
 ```
 
-Above, `series` would only be valid if that type appeared in the list output by the `sonarr`
-subcommand run with this argument.
+Above, `series` would only be valid if that type appeared in the list output by `recyclarr list
+qualities sonarr`.
 
 ## Arguments
 

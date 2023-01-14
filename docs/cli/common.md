@@ -3,12 +3,12 @@ title: Common Options
 sidebar_position: 1
 ---
 
-These are options shared by *all* subcommands.
+These are options shared by *all* commands.
 
 ### `-h|--help`
 
-Print help output. Help is also context-aware, so you can get help output specific to any
-subcommand. For example, `recyclarr sync -h` will print help specific to the `sync` subcommand.
+Print help output. Help is also context-aware, so you can get help output specific to any command.
+For example, `recyclarr sync -h` will print help specific to the `sync` command.
 
 ### `-d|--debug` {#debug-arg}
 

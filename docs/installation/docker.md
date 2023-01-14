@@ -137,7 +137,7 @@ The docker container can operate in one of two different ways, which are documen
 :::info
 
 `recyclarr.yml` does not exist the first time you run the container. You will get an error until you
-either copy it manually into the volume or run `recyclarr create-config` manually.
+either copy it manually into the volume or run `recyclarr config create` manually.
 
 :::
 
@@ -165,25 +165,25 @@ directly on your host machine, but without all of the set up requirements.
 The general syntax is:
 
 ```txt
-docker compose run --rm recyclarr [subcommand] [options]
+docker compose run --rm recyclarr [command] [options]
 ```
 
 Where:
 
-- `[subcommand]` is one of the supported Recyclarr subcommands, such as `sonarr` and `radarr`.
-- `[options]` are any options supported by that subcommand (e.g. `--debug`, `--preview`).
+- `[command]` is one of the supported Recyclarr commands, such as `sync` and `list`.
+- `[options]` are any options/arguments supported by that command (e.g. `--debug`, `--preview`).
 
 Examples:
 
 ```bash
 # Create a default `recyclarr.yml` in your `/config` volume
-docker compose run --rm recyclarr create-config
+docker compose run --rm recyclarr config create
 
 # Sync Sonarr with debug logs
-docker compose run --rm recyclarr sonarr --debug
+docker compose run --rm recyclarr sync sonarr --debug
 
 # Do a preview (dry run) sync for Radarr
-docker compose run --rm recyclarr radarr --preview --debug
+docker compose run --rm recyclarr sync radarr --preview --debug
 ```
 
 :::tip
@@ -205,31 +205,31 @@ already-running instance of the container to perform actions.
 Using Docker Compose, the general syntax is:
 
 ```txt
-docker compose exec recyclarr recyclarr [subcommand] [options]
+docker compose exec recyclarr recyclarr [command] [options]
 ```
 
 Or if you prefer to use Docker directly:
 
 ```txt
-docker exec recyclarr recyclarr [subcommand] [options]
+docker exec recyclarr recyclarr [command] [options]
 ```
 
 Where:
 
-- `[subcommand]` is one of the supported Recyclarr subcommands, such as `sonarr` and `radarr`.
-- `[options]` are any options supported by that subcommand (e.g. `--debug`, `--preview`).
+- `[command]` is one of the supported Recyclarr commands, such as `sync` and `list`.
+- `[options]` are any options/arguments supported by that command (e.g. `--debug`, `--preview`).
 
 Examples:
 
 ```bash
 # Create a default `recyclarr.yml` in your `/config` volume (without compose)
-docker exec recyclarr recyclarr create-config
+docker exec recyclarr recyclarr config create
 
 # Sync Sonarr with debug logs (with compose)
-docker compose exec recyclarr recyclarr sonarr --debug
+docker compose exec recyclarr recyclarr sync sonarr --debug
 
 # Do a preview (dry run) sync for Radarr (without compose)
-docker exec recyclarr recyclarr radarr --preview --debug
+docker exec recyclarr recyclarr sync radarr --preview --debug
 ```
 
 </details>
@@ -254,7 +254,7 @@ To enter Cron Mode, you simply start the container in background mode:
 docker compose up -d
 ```
 
-This runs it without any subcommand or options, which will result in this mode being used.
+This runs it without any command or options, which will result in this mode being used.
 
 ## Troubleshooting
 

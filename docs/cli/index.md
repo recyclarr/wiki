@@ -7,11 +7,11 @@ Command line interface (CLI) documentation for the `recyclarr` executable.
 
 ## Terminology
 
-- **Subcommand**: A sub-category of functionality that defines its own options and arguments, such
-  as `sync` and `list`.
+- **Command**: A sub-category of functionality that defines its own options and arguments, such as
+  `sync` and `list`.
 - **Option**: Looks like `-f` (short form) or `--foo` (long form) and is never required.
 - **Argument**: A positional value that is either required or optional (e.g. In `recyclarr sync
-sonarr`, `sonarr` is an argument of the `sync` subcommand)
+sonarr`, `sonarr` is an argument of the `sync` command)
 
 :::info
 
@@ -25,8 +25,7 @@ or angle-brackets (e.g. `<required>`).
 
 ## Commands
 
-Also visit the [Common Options](common.md) page to learn about options usable across *all*
-subcommands.
+Also visit the [Common Options](common.md) page to learn about options usable across *all* commands.
 
 - [recyclarr](./main.md)
 - [recyclarr sync](./sync.md)

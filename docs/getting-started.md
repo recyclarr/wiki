@@ -28,7 +28,7 @@ The steps below assume you are using Docker Compose with a service named `recycl
 responsible for translating these steps appropriately for other solutions like Docker Swarm,
 Kubernetes, raw Docker, etc.
 
-1. Run `docker compose run --rm recyclarr create-config` to create a starter `recyclarr.yml` file in
+1. Run `docker compose run --rm recyclarr config create` to create a starter `recyclarr.yml` file in
    the [application data directory][appdata] (for Docker, this will be in `/config/recyclarr.yml`).
 1. Open the generated YAML file from the previous step. At a minimum you must update the `base_url`
    and `api_key` properties for each service that you want to use. Use the configuration [reference]
@@ -37,8 +37,8 @@ Kubernetes, raw Docker, etc.
 
 If you're using [Cron Mode](installation/docker.md#cron-mode), your work ends here. If you want to
 verify the behavior by [running manually](installation/docker.md#manual-mode), then you can execute
-`docker compose run --rm recyclarr sonarr` and/or `docker compose run --rm recyclarr radarr` as
-needed to update those instances using the configuration provided in the previous step.
+`docker compose run --rm recyclarr sync` to update all instances using the configuration provided in
+the previous step.
 
 </details>
 
@@ -48,22 +48,21 @@ Manual Installation
 
 [Installation Instructions](installation/manual-install.md)
 
-1. Run `recyclarr create-config` to create a starter `recyclarr.yml` file in the [application data
+1. Run `recyclarr config create` to create a starter `recyclarr.yml` file in the [application data
    directory][appdata].
 1. Open the generated YAML file from the previous step. At a minimum you must update the `base_url`
    and `api_key` properties for each service that you want to use. Use the configuration [reference]
    and [examples] pages to assist you in understanding an editing other parts of the file as you see
    fit.
-1. Run `recyclarr sonarr` and/or `recyclarr radarr` as needed to update those instances using the
-   configuration provided in the previous step.
+1. Run `recyclarr sync` to update all instances using the configuration provided in the previous
+   step.
 
 </details>
 
-Each subcommand supports printing help on the command line. Simply run `recyclarr --help` for the
-main help output and a list of subcommands. You can then see the help for each subcommand by running
-`recyclarr [subcommand] --help`, where `[subcommand]` is one of those subcommands (e.g. `sonarr`).
-You can also visit the [CLI Reference](cli) page for detailed documentation
-as well.
+Each command supports printing help on the command line. Simply run `recyclarr --help` for the main
+help output and a list of commands. You can then see the help for each command by running `recyclarr
+[command] --help`, where `[command]` is one of those commands (e.g. `sync`). You can also visit the
+[CLI Reference](cli) page for detailed documentation as well.
 
 :::tip
 

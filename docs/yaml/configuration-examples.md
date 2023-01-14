@@ -40,15 +40,8 @@ radarr:
       preferred_ratio: 0.5
 ```
 
-Even though it's all in one file, Radarr settings are ignored when you run `recyclarr sonarr` and
-vice versa. To update both, just chain them together in your terminal, like so:
-
-```bash
-recyclarr sonarr && recyclarr radarr
-```
-
-This scenario is pretty ideal for a cron job you have running regularly and you want it to update
-everything possible in one go.
+Even though it's all in one file, Radarr settings are ignored when you run `recyclarr sync sonarr`
+and vice versa. To update both use `recyclarr sync` (without the positional argument).
 
 ## Selectively update different parts of Sonarr v3
 
@@ -139,8 +132,8 @@ don't bother with tags, so I am able to leave those elements out. Recyclarr know
 to either a v3 or v4 instance of Sonarr and will correctly anticipate either `release_profiles` or
 `custom_formats` (respectively).
 
-When you run `recyclarr sonarr` (specify `--config` if you aren't using the [default config search
-behavior](../file-structure.md#default-yaml)) it will update both instances.
+When you run `recyclarr sync sonarr` (specify `--config` if you aren't using the [default config
+search behavior](../file-structure.md#default-yaml)) it will update both instances.
 
 ## Synchronize a lot of custom formats for a single quality profile
 

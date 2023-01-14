@@ -13,8 +13,8 @@ multiple ways, offering a lot of flexibility:
 
 - Each YAML file may have one or more service configurations. This means you can have one file
   define settings for Sonarr, Radarr, or both services. The program will only read the configuration
-  from the file relevant for the specific service subcommand you specified (e.g. `recyclarr sonarr`
-  will only read the Sonarr config in the file, even if Radarr config is present).
+  from the file relevant for the specific service command you specified (e.g. `recyclarr sync
+  sonarr` will only read the Sonarr config in the file, even if Radarr config is present).
 
 - Use [a `secrets.yml` file](/yaml/secrets-reference.md) to keep sensitive values out of your
   configuration files. This prevents accidentally sharing api_keys and other sensitive values when
@@ -269,9 +269,9 @@ Release Profiles are deprecated and may not be used in Sonarr version 4 or great
 
   - `filter` (Optional)<br/>
     Defines various ways that release profile terms from the guide are synchronized with Sonarr. Any
-    filters below that takes a list of `trash_id` values, those values come, again, from the [Sonarr
-    JSON Files][sonarrjson]. There is a `trash_id` field next to each `term` field; that is what you
-    use.
+    filters below that takes a list of `trash_id` values, those values come, from the [same list
+    command][listrps], but with the `--terms` option used. There is a `trash_id` field next to each
+    `term` field; that is what you use.
 
     - `include`<br/>
       A list of `trash_id` values representing terms (Required, Ignored, or Preferred) that should
