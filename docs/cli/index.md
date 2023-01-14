@@ -34,7 +34,6 @@ subcommands.
 - [recyclarr migrate](./migrate.md)
 - [recyclarr config](./config)
 
-
 ## Deprecated Commands
 
 :::caution
