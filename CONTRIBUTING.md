@@ -9,20 +9,20 @@ Contributors must follow these guidelines.
 You must install these first.
 
 - [NodeJS](https://nodejs.org/en/download/package-manager/)
-- [Yarn](https://classic.yarnpkg.com/lang/en/docs/install)
+- [pnpm](https://pnpm.io/installation)
 
 ### Installation
 
 To install everything:
 
 ```bash
-yarn
+pnpm i
 ```
 
 ### Local Development
 
 ```bash
-yarn start
+pnpm start
 ```
 
 This command starts a local development server and opens up a browser window. Most changes are
@@ -31,7 +31,7 @@ reflected live without having to restart the server.
 ### Build
 
 ```bash
-yarn build
+pnpm build
 ```
 
 This command generates static content into the `build` directory and can be served using any static
@@ -43,8 +43,8 @@ Please follow the checklist below either before opening or during your pull requ
 
 - Read and follow the "Formatting Guidelines" below.
 - Ensure that the automated Github Workflows pass.
-- You've run `yarn start` to:
-  - Verify no errors or warnings in the console/yarn output (e.g. broken links).
+- You've run `pnpm start` to:
+  - Verify no errors or warnings in the console output (e.g. broken links).
   - Check that the rendered version of your additions looks appropriate.
 
 ## Formatting Guidelines
@@ -154,8 +154,4 @@ spaces prevents this.
 
 ## Development Notes
 
-To upgrade Docusaurus to latest:
-
-```bash
-yarn upgrade @docusaurus/core@latest @docusaurus/preset-classic@latest
-```
+To upgrade Docusaurus to latest, run the `UpgradeDocusaurus.ps1` script at the root of the repo.

@@ -32,8 +32,22 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 7
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 19
+          cache: pnpm
+
+      - name: Install Dependencies
+        run: pnpm install
+
       - name: Build
-        run: yarn install && yarn run build
+        run: pnpm build
 
       - name: Publish
         uses: cloudflare/pages-action@v1
