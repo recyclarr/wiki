@@ -32,8 +32,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 19
+          cache: yarn
+
+      - name: Install Dependencies
+        run: yarn install
+
       - name: Build
-        run: yarn install && yarn run build
+        run: yarn build
 
       - name: Publish
         uses: cloudflare/pages-action@v1
