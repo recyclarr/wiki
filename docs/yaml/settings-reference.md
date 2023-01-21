@@ -50,8 +50,12 @@ enable_ssl_certificate_validation: true
 
 ## Repository Settings {#repo-settings}
 
-**NOTE**: Never edit files in the locally cloned repo managed by Recyclarr. It will always destroy
-local changes in that repository.
+:::danger
+
+Never edit files in the locally cloned repo managed by Recyclarr! Local changes in this repo will be
+destroyed.
+
+:::
 
 ```yml
 repository:
