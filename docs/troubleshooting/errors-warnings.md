@@ -1,52 +1,7 @@
 ---
-id: troubleshooting
-title: Troubleshooting
+id: errors
+title: Errors & Warnings
 ---
-
-:::caution
-
-Recyclarr may stop working at any time due to guide updates and changes in either Radarr or Sonarr.
-I will do my best to fix them in a timely manner. [Reporting][issues] such issues ASAP would be
-appreciated and will help identify issues more quickly.
-
-[issues]: https://github.com/recyclarr/recyclarr/issues
-
-:::
-
-## Obtaining Debug Logs
-
-Recyclarr always outputs logs as files in a directory on your filesystem. Each execution of
-Recyclarr yields a new file and those files always contain verbose (debug) logs. When reporting
-issues, I ask that you always include logs from the file rather than the command line output since
-Recyclarr will not include debug logs by default in the console output.
-
-Below is a list of locations where you can find the log directory depending on platform.
-
-| Platform | Location                                       |
-| -------- | ---------------------------------------------- |
-| Windows  | `%APPDATA%\recyclarr\logs`                     |
-| Linux    | `~/.config/recyclarr/logs`                     |
-| MacOS    | `~/Library/Application Support/recyclarr/logs` |
-| Docker   | `/config/logs`                                 |
-
-:::info
-
-Information in log files such as service host names and API keys are always redacted automatically
-by Recyclarr.
-
-:::
-
-## Redacting Configuration YAML {#redact-config}
-
-Your `recyclarr.yml` and other custom configuration YAML files contain sensitive information. In
-particular, the Base URL and API Key for each service you've configured. Typically you won't want
-this information shared to others when you file bug reports on Github. As such, I ask that you
-ensure that this information is redacted. You can do this in multiple ways.
-
-- Use [secrets](/yaml/secrets-reference.md) (requires `v3.0` or higher)
-- Manually edit your YAML before sharing it to redact `base_url` and `api_key` values.
-
-## Recyclarr Warnings & Errors
 
 This section contains a list of warnings you might see in your console output / logs. These are
 usually caused by configuration issues or something else within the user's control to fix. Below are
