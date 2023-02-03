@@ -6,8 +6,8 @@ title: Getting Help
 :::caution
 
 Recyclarr may stop working at any time due to guide updates and changes in either Radarr or Sonarr.
-I will do my best to fix them in a timely manner. [Reporting][issues] such issues ASAP would be
-appreciated and will help identify issues more quickly.
+It is a priority to fix them in a timely manner. [Reporting][issues] such issues ASAP would be
+appreciated and will help identify problems more quickly.
 
 [issues]: https://github.com/recyclarr/recyclarr/issues
 
@@ -17,19 +17,16 @@ appreciated and will help identify issues more quickly.
 
 :::tip Help me, help you!
 
-Please make an effort to read this section. I can't (and possibly *won't*) help you if you can't
-provide enough detail or ask the right questions.
+Please make an effort to read this section. You might not get any help you if you don't provide
+enough detail or ask the right questions.
 
 :::
 
 Recyclarr has an amazing support community full of people happy to help you with any questions you
-may have. I also fully admit that my documentation is always lacking in some way. However, my time
-(and those of the support folks) is limited. The more I have to spend asking you to clarify your
-questions or provide detail is less time I have to work on Recyclarr itself.
-
-You can get the most of your time and the best answer to your questions by doing some due diligence.
-Please understand that this is an open source project and completely free to you. You are expected
-to put in some self-help effort before seeking help or reporting issues.
+may have. However, the time of those that provide support is limited. You can get the most out of
+your time and the best answer to your questions by doing some due diligence. Please understand that
+this is an open source project and completely free to you. You are expected to put in some self-help
+effort before seeking help or reporting issues.
 
 Please review the checklist below and ensure you have done the following.
 
@@ -37,8 +34,8 @@ Please review the checklist below and ensure you have done the following.
 - Check the [Errors & Warnings](./errors-warnings.md) page.
 - Search the Github [issues] and [discussion] sections for existing answers to your questions or to
   see if your issue has already been reported.
-- If you are getting errors, *read the error messages and try to understand them!* I do put in some
-  effort to ensure that when some errors happen, you get a detailed and human-readable explanation.
+- If you are getting errors, *read the error messages and try to understand them!* Many of
+  Recyclarr's error messages are designed to be human-readable.
 
 [discussion]: https://github.com/recyclarr/recyclarr/discussions
 
