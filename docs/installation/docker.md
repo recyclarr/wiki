@@ -258,4 +258,4 @@ This runs it without any command or options, which will result in this mode bein
 
 ## Troubleshooting
 
-See the [Troubleshooting](/troubleshooting.md#docker) page.
+See the [Troubleshooting](/troubleshooting/errors-warnings.md#docker) page.
