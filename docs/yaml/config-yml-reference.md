@@ -149,7 +149,7 @@ Synchronization][cfsync] page.
 
     - `score` (Optional; *Default: Use scores from the guide*)<br/>
       A positive or negative number representing the score to apply to *all* custom formats listed
-      in the `names` list. A score of `0` is also acceptable, which effectively disables the custom
+      in the `trash_ids` list. A score of `0` is also acceptable, which effectively disables the custom
       formats without having to delete them.
 
     - `reset_unmatched_scores` (Optional; *Default: `false`*)<br/>
