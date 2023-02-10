@@ -99,7 +99,7 @@ Synchronization][cfsync] page.
   Radarr **will not be deleted** if you enable this setting.
 
 - `custom_formats` (Optional; *Default: No custom formats are synced*)<br/>
-  A list of one or more sets of custom formats each with an optional set of quality profiles names
+  A list of one or more sets of custom formats each with an optional set of quality profiles ids
   that identify which quality profiles to assign the scores for those custom formats to. The child
   properties documented below apply to each element of this list.
 
@@ -149,13 +149,13 @@ Synchronization][cfsync] page.
 
     - `score` (Optional; *Default: Use scores from the guide*)<br/>
       A positive or negative number representing the score to apply to *all* custom formats listed
-      in the `names` list. A score of `0` is also acceptable, which effectively disables the custom
+      in the `trash_ids` list. A score of `0` is also acceptable, which effectively disables the custom
       formats without having to delete them.
 
     - `reset_unmatched_scores` (Optional; *Default: `false`*)<br/>
       If set to `true`, enables setting scores to `0` in quality profiles where either a name was
-      not mentioned in the `names` array *or* it was in that list but did not get a score (e.g. no
-      score in guide). If `false`, scores are never altered unless it is listed in the `names` array
+      not mentioned in the `trash_ids` array *or* it was in that list but did not get a score (e.g. no
+      score in guide). If `false`, scores are never altered unless it is listed in the `trash_ids` array
       *and* has a valid score to assign.
 
 [guidecfs]: https://trash-guides.info/Radarr/Radarr-collection-of-custom-formats/
