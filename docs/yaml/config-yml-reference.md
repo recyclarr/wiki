@@ -41,11 +41,13 @@ Add this comment to the top of your YAML file:
 # yaml-language-server: $schema=https://raw.githubusercontent.com/recyclarr/recyclarr/master/schemas/config-schema.json
 ```
 
-## All Services
+## Basic Setup {#basic}
 
-The below settings are applicable to both Sonarr and Radarr.
-
-### Basic Settings {#basic}
+| Service     | Supported |
+| ----------- | :-------: |
+| Sonarr (v3) |     ✔️     |
+| Sonarr (v4) |     ✔️     |
+| Radarr      |     ✔️     |
 
 ```yml
 service_type:
@@ -79,13 +81,37 @@ service_type:
   your API key by going to `Settings > General` and copy & paste the "API Key" under the "Security"
   group/header.
 
-### Custom Format Settings {#custom-format-settings}
+## Custom Formats {#custom-format-settings}
 
-:::caution
+| Service     | Supported |
+| ----------- | :-------: |
+| Sonarr (v3) |     ❌     |
+| Sonarr (v4) |     ✔️     |
+| Radarr      |     ✔️     |
 
-For Sonarr: version 4 or greater is **required** for Custom Format support to work.
-
-:::
+```yml
+# See "Basic Setup" for `service_type` and `instance_name`
+service_type:
+  instance_name:
+    # Custom Format Configuration
+    delete_old_custom_formats: false
+    replace_existing_custom_formats: true
+    custom_formats:
+      - trash_ids:
+          - ed38b889b31be83fda192888e2286d83 # BR-DISK
+          - 90cedc1fea7ea5d11298bebd3d1d3223 # EVO (no WEBDL)
+          - 90a6f9a284dff5103f6346090e6280c8 # LQ
+          - dc98083864ea246d05a42df0d05f81cc # x265 (720/1080p)
+        quality_profiles:
+          - name: HD-1080p
+          - name: HD-720p
+            score: -1000
+      - trash_ids:
+          - 496f355514737f7d83bf7aa4d24f8169 # TrueHD ATMOS
+          - 2f22d89048b01681dde8afe203bf2e95 # DTS X
+        quality_profiles:
+          - name: SD
+```
 
 For details on the way Custom Formats are synchronized, visit the [Custom Format
 Synchronization][cfsync] page.
@@ -97,6 +123,13 @@ Synchronization][cfsync] page.
   the guide will be deleted from your Radarr instance. Note that this *only* applies to custom
   formats that Recyclarr has synchronized to Radarr. Custom formats that you have added manually in
   Radarr **will not be deleted** if you enable this setting.
+
+- `replace_existing_custom_formats` (Optional; *Default: `true`*)<br/>
+  If disabled (set to `false`), Recyclarr will skip custom formats that you've manually created from
+  the guide. In other words, it will only touch custom formats that it created to begin with. If
+  this property is omitted *or* you specify `true`, then custom formats matching the guide are
+  always synced to the service, whether you created them or not. This means that if you manually
+  create a CF from the guide and make adjustments to it, *those changes will be overwritten*.
 
 - `custom_formats` (Optional; *Default: No custom formats are synced*)<br/>
   A list of one or more sets of custom formats each with an optional set of quality profiles names
@@ -163,7 +196,22 @@ Synchronization][cfsync] page.
 [listcfs]: /cli/list/list-custom-formats.md
 [radarrjson]: https://github.com/TRaSH-/Guides/tree/master/docs/json/radarr/cf
 
-### Quality Definition Settings {#quality-def-settings}
+## Quality Definition {#quality-def-settings}
+
+| Service     | Supported |
+| ----------- | :-------: |
+| Sonarr (v3) |     ✔️     |
+| Sonarr (v4) |     ✔️     |
+| Radarr      |     ✔️     |
+
+```yml
+# See "Basic Setup" for `service_type` and `instance_name`
+service_type:
+  instance_name:
+    # Quality Definition Configuration
+    quality_definition:
+      type: series
+```
 
 - `quality_definition` (Optional)<br/>
   Specify information related to quality definition processing here. Only the following child
@@ -192,19 +240,19 @@ Synchronization][cfsync] page.
 
 [listqualities]: /cli/list/list-qualities.md
 
-## Sonarr
+## Release Profiles {#release-profiles}
+
+| Service     | Supported |
+| ----------- | :-------: |
+| Sonarr (v3) |     ✔️     |
+| Sonarr (v4) |     ❌     |
+| Radarr      |     ❌     |
 
 ```yml
-sonarr:
+# See "Basic Setup" for `service_type` and `instance_name`
+service_type:
   instance_name:
-    base_url: http://localhost:8989
-    api_key: f7e74ba6c80046e39e076a27af5a8444
-
-    # Quality Definition Settings
-    quality_definition:
-      type: series
-
-    # Release Profile Settings
+    # Release Profile Configuration
     release_profiles:
       - trash_ids:
           - d428eda85af1df8904b4bbe4fc2f537c # Anime - First release profile
@@ -225,27 +273,9 @@ sonarr:
         tags: [tv]
 ```
 
-### Custom Format Settings
-
 :::caution
 
-Sonarr version 4 or greater is **required** for Custom Format support to work.
-
-:::
-
-See the [Custom Format Settings](#custom-format-settings) section under "All Services" at the top
-for more information.
-
-### Quality Definition Settings
-
-See the [Quality Definition Settings](##quality-def-settings) section under "All Services" at the
-top for more information.
-
-### Release Profile Settings
-
-:::caution 💀 Deprecation Notice 💀
-
-Release Profiles are deprecated and may not be used in Sonarr version 4 or greater!
+Release Profiles may not be used in Sonarr version 4 or greater!
 
 :::
 
@@ -285,51 +315,3 @@ Release Profiles are deprecated and may not be used in Sonarr version 4 or great
       included automatically. Not compatible with `include`; this list is not used if it is present.
 
 [listrps]: /cli/list/list-release-profiles.md
-
-## Radarr
-
-```yml
-radarr:
-  instance_name:
-    base_url: http://localhost:7878
-    api_key: bf99da49d0b0488ea34e4464aa63a0e5
-
-    # Quality Definition Settings
-    quality_definition:
-      type: movie
-      preferred_ratio: 0.5
-
-    # Custom Format Settings
-    delete_old_custom_formats: false
-    custom_formats:
-      - trash_ids:
-          - ed38b889b31be83fda192888e2286d83 #BR-DISK
-          - 90cedc1fea7ea5d11298bebd3d1d3223 #EVO (no WEBDL)
-          - 90a6f9a284dff5103f6346090e6280c8 #LQ
-          - dc98083864ea246d05a42df0d05f81cc #x265 (720/1080p)
-          - b8cd450cbfa689c0259a01d9e29ba3d6 #3D
-          - ae9b7c9ebde1f3bd336a8cbd1ec4c5e5 #No-RlsGroup
-          - 7357cf5161efbf8c4d5d0c30b4815ee2 #Obfuscated
-          - 5c44f52a8714fdd79bb4d98e2673be1f #Retags
-          - b6832f586342ef70d9c128d40c07b872 #Bad Dual Groups
-          - 923b6abef9b17f937fab56cfcf89e1f1 #DV (WEBDL)
-        quality_profiles:
-          - name: HD-1080p
-          - name: HD-720p2
-            score: -1000
-      - trash_ids:
-          - 496f355514737f7d83bf7aa4d24f8169 #TrueHD ATMOS
-          - 2f22d89048b01681dde8afe203bf2e95 #DTS X
-        quality_profiles:
-          - name: SD
-```
-
-### Custom Format Settings
-
-See the [Custom Format Settings](#custom-format-settings) section under "All Services" at the top
-for more information.
-
-### Quality Definition Settings
-
-See the [Quality Definition Settings](##quality-def-settings) section under "All Services" at the
-top for more information.
