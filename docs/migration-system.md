@@ -37,22 +37,8 @@ The list below describes the migration steps that are performed today, under wha
 will be executed, and reasons why they might fail. Most of this information is already printed in
 real time by Recyclarr in response to failures.
 
-### Rename app data directory from `trash-updater` to `recyclarr`
+:::info
 
-- **When**: `v2.0`
-- **What**: Renames your `trash-updater` app data directory to `recyclarr` automatically.
-- **Why**: The application was renamed from Trash Updater to Recyclarr. Thus, the app data directory
-  name needed to follow suit.
-- **How can it fail?**
-  - The `recyclarr` directory already exists.
-  - User lacks sufficient permissions on the filesystem.
+None at the moment
 
-### Rename default `trash.yml` file to `recyclarr.yml`
-
-- **When**: `v2.0`
-- **What**: Renames your `trash.yml` file to `recyclarr.yml` automatically.
-- **Why**: The application was renamed from Trash Updater to Recyclarr. Thus, the app data directory
-  name needed to follow suit.
-- **How can it fail?**
-  - The `recyclarr.yml` file already exists.
-  - User lacks sufficient permissions on the filesystem.
+:::
