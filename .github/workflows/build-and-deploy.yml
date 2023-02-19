@@ -23,7 +23,7 @@ on:
 
 jobs:
   build:
-    name: Deploy to Cloudflare Pages
+    name: Deploy Site
     runs-on: ubuntu-latest
     permissions:
       contents: read
