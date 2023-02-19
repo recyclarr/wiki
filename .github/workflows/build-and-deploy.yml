@@ -23,7 +23,7 @@ on:
 
 jobs:
   build:
-    name: Deploy Site
+    name: Deploy to Cloudflare Pages
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -45,19 +45,11 @@ jobs:
         run: yarn build
 
       - name: Publish
-        if: |
-          github.ref == 'refs/heads/master' ||
-          github.ref == 'refs/heads/next'
-        uses: nwtgck/actions-netlify@v2
+        uses: cloudflare/pages-action@v1
+        if: github.ref == 'refs/heads/master'
         with:
-          publish-dir: ./build
-          production-branch: master
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          deploy-message: Deploy from GitHub Actions
-          enable-pull-request-comment: false
-          enable-commit-comment: true
-          overwrites-pull-request-comment: true
-        env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-        timeout-minutes: 1
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: recyclarr-wiki
+          directory: build
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
