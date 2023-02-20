@@ -185,13 +185,6 @@ Synchronization][cfsync] page.
       in the `trash_ids` list. A score of `0` is also acceptable, which effectively disables the
       custom formats without having to delete them.
 
-    - `reset_unmatched_scores` (Optional; *Default: `false`*)<br/>
-      If set to `true`, sets *all* custom format scores to `0` (including those CFs you may be
-      managing manually!) in corresponding quality profiles where those CFs are not in the
-      `trash_ids` array *or* did not get a score (e.g. no score in guide). If `false`, scores are
-      never altered unless it is listed in the `trash_ids` array *and* has a valid score to assign
-      (either from the guide or via an explicit `score`).
-
 [guidecfs]: https://trash-guides.info/Radarr/Radarr-collection-of-custom-formats/
 [listcfs]: /cli/list/list-custom-formats.md
 [radarrjson]: https://github.com/TRaSH-/Guides/tree/master/docs/json/radarr/cf
@@ -239,6 +232,44 @@ service_type:
     :::
 
 [listqualities]: /cli/list/list-qualities.md
+
+## Quality Profiles {#quality-profiles}
+
+| Service     | Supported |
+| ----------- | :-------: |
+| Sonarr (v3) |     ❌     |
+| Sonarr (v4) |     ✔️     |
+| Radarr      |     ✔️     |
+
+```yml
+# See "Basic Setup" for `service_type` and `instance_name`
+service_type:
+  instance_name:
+    # Quality Profile Configuration
+    quality_profiles:
+      - name: SD
+        reset_unmatched_scores: true
+```
+
+- `quality_profiles` (Optional; *Default: No quality profiles are modified*)<br/>
+  An array of quality profiles that exist in the remote service along with any configuration
+  properties that Recyclarr should use to modify that quality profile.
+
+  :::info
+
+  Recyclarr **does not** create quality profiles (yet)
+
+  :::
+
+  - `name` **(Required)**<br/>
+    The name of the quality profile to which settings should apply.
+
+  - `reset_unmatched_scores` (Optional; *Default: `false`*)<br/>
+      If set to `true`, sets *all* custom format scores to `0` (including those CFs you may be
+      managing manually!) in corresponding quality profiles where those CFs are not in the
+      `trash_ids` array *or* did not get a score (e.g. no score in guide). If `false`, scores are
+      never altered unless it is listed in the `trash_ids` array *and* has a valid score to assign
+      (either from the guide or via an explicit `score`).
 
 ## Release Profiles {#release-profiles}
 
