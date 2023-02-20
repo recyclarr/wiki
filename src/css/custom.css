@@ -50,7 +50,6 @@ table td {
 }
 
 td[align=center] {
-  display: flex;
   align-items: center;
   justify-content: center;
 }
