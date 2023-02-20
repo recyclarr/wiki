@@ -43,11 +43,11 @@ Add this comment to the top of your YAML file:
 
 ## Basic Setup {#basic}
 
-| Service     | Supported |
-| ----------- | :-------: |
-| Sonarr (v3) |     ✔️     |
-| Sonarr (v4) |     ✔️     |
-| Radarr      |     ✔️     |
+| Service     |           Supported            |
+| ----------- | :----------------------------: |
+| Sonarr (v3) | ![Yes](/icon/checkmark-16.png) |
+| Sonarr (v4) | ![Yes](/icon/checkmark-16.png) |
+| Radarr      | ![Yes](/icon/checkmark-16.png) |
 
 ```yml
 service_type:
@@ -83,11 +83,11 @@ service_type:
 
 ## Custom Formats {#custom-format-settings}
 
-| Service     | Supported |
-| ----------- | :-------: |
-| Sonarr (v3) |     ❌     |
-| Sonarr (v4) |     ✔️     |
-| Radarr      |     ✔️     |
+| Service     |           Supported            |
+| ----------- | :----------------------------: |
+| Sonarr (v3) |   ![No](/icon/x-mark-16.png)   |
+| Sonarr (v4) | ![Yes](/icon/checkmark-16.png) |
+| Radarr      | ![Yes](/icon/checkmark-16.png) |
 
 ```yml
 # See "Basic Setup" for `service_type` and `instance_name`
@@ -191,11 +191,11 @@ Synchronization][cfsync] page.
 
 ## Quality Definition {#quality-def-settings}
 
-| Service     | Supported |
-| ----------- | :-------: |
-| Sonarr (v3) |     ✔️     |
-| Sonarr (v4) |     ✔️     |
-| Radarr      |     ✔️     |
+| Service     |           Supported            |
+| ----------- | :----------------------------: |
+| Sonarr (v3) | ![Yes](/icon/checkmark-16.png) |
+| Sonarr (v4) | ![Yes](/icon/checkmark-16.png) |
+| Radarr      | ![Yes](/icon/checkmark-16.png) |
 
 ```yml
 # See "Basic Setup" for `service_type` and `instance_name`
@@ -235,11 +235,11 @@ service_type:
 
 ## Quality Profiles {#quality-profiles}
 
-| Service     | Supported |
-| ----------- | :-------: |
-| Sonarr (v3) |     ❌     |
-| Sonarr (v4) |     ✔️     |
-| Radarr      |     ✔️     |
+| Service     |           Supported            |
+| ----------- | :----------------------------: |
+| Sonarr (v3) |   ![No](/icon/x-mark-16.png)   |
+| Sonarr (v4) | ![Yes](/icon/checkmark-16.png) |
+| Radarr      | ![Yes](/icon/checkmark-16.png) |
 
 ```yml
 # See "Basic Setup" for `service_type` and `instance_name`
@@ -273,11 +273,11 @@ service_type:
 
 ## Release Profiles {#release-profiles}
 
-| Service     | Supported |
-| ----------- | :-------: |
-| Sonarr (v3) |     ✔️     |
-| Sonarr (v4) |     ❌     |
-| Radarr      |     ❌     |
+| Service     |           Supported            |
+| ----------- | :----------------------------: |
+| Sonarr (v3) | ![Yes](/icon/checkmark-16.png) |
+| Sonarr (v4) |   ![No](/icon/x-mark-16.png)   |
+| Radarr      |   ![No](/icon/x-mark-16.png)   |
 
 ```yml
 # See "Basic Setup" for `service_type` and `instance_name`
