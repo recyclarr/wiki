@@ -257,7 +257,7 @@ service_type:
 
   :::info
 
-  Recyclarr **does not** create quality profiles (yet)
+  Recyclarr **does not** create quality profiles!
 
   :::
 
