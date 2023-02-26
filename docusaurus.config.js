@@ -4,11 +4,29 @@
 const lightCodeTheme = require('prism-react-renderer/themes/github');
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
+function currentOrNextInfo(getNext) {
+  var master = {
+    hostname: 'recyclarr.dev',
+    versionTitle: 'Current'
+  }
+
+  var next = {
+    hostname: 'next.recyclarr.dev',
+    versionTitle: 'Next'
+  }
+
+  return getNext ? next : master;
+}
+
+const isNext = process.env.GITHUB_REF === 'refs/heads/next'
+const currentInfo = currentOrNextInfo(isNext)
+const otherInfo = currentOrNextInfo(!isNext)
+
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Recyclarr',
   tagline: 'Documentation for Recyclarr',
-  url: 'https://recyclarr.dev',
+  url: `https://${currentInfo.hostname}`,
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -60,6 +78,11 @@ const config = {
             docId: 'wiki-main',
             position: 'left',
             label: 'Wiki',
+          },
+          {
+            href: `https://${otherInfo.hostname}/wiki`,
+            position: 'right',
+            label: `${otherInfo.versionTitle} Version Docs`,
           },
           {
             href: 'https://github.com/recyclarr/recyclarr',
