@@ -81,6 +81,7 @@ const config = {
           },
           {
             href: `https://${otherInfo.hostname}/wiki`,
+            target: '_self',
             position: 'right',
             label: `${otherInfo.versionTitle} Version Docs`,
           },
