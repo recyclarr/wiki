@@ -32,6 +32,10 @@ const config = {
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
 
+  customFields: {
+    isNext: isNext
+  },
+
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
   organizationName: 'recyclarr', // Usually your GitHub org/user name.
@@ -53,7 +57,7 @@ const config = {
         docs: {
           routeBasePath: '/wiki',
           sidebarPath: require.resolve('./sidebars.js'),
-          editUrl: 'https://github.com/recyclarr/wiki/tree/master/',
+          editUrl: 'https://github.com/recyclarr/wiki/tree/master/'
         },
         blog: false,
         theme: {
