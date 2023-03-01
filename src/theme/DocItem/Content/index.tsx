@@ -12,7 +12,6 @@ function CurrentVersionLink(props) {
 }
 
 function NextBanner(): JSX.Element | null {
-  // const isNext = process.env.GITHUB_REF === 'refs/heads/next'
   if (config.customFields?.isNext) {
     return (
       <div className="alert alert--warning margin-bottom--md">
