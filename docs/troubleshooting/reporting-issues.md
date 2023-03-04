@@ -31,7 +31,8 @@ effort before seeking help or reporting issues.
 Please review the checklist below and ensure you have done the following.
 
 - **Read the documentation!**
-- Check the [Errors & Warnings](./errors-warnings.md) page.
+- If you need help with an error or warning message, check the [Errors &
+  Warnings](./errors-warnings.md) page.
 - Search the Github [issues] and [discussion] sections for existing answers to your questions or to
   see if your issue has already been reported.
 - If you are getting errors, *read the error messages and try to understand them!* Many of
