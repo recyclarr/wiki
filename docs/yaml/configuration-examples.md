@@ -269,23 +269,24 @@ radarr:
     base_url: http://localhost:7878
     api_key: 87674e2c316645ed85696a91a3d41988
 
+    quality_profiles:
+      - name: SD
+        reset_unmatched_scores: true
+
     custom_formats:
       - trash_ids:
           - 1c7d7b04b15cc53ea61204bebbcc1ee2 # HQ
-
       - trash_ids:
           - 2f22d89048b01681dde8afe203bf2e95 # DTS X
           - 3cafb66171b47f226146a0770576870f # TrueHD
         quality_profiles:
           - name: SD
-            reset_unmatched_scores: true
           - name: Ultra-HD
 ```
 
-Let's say you have three custom formats added to Radarr: "DTS X", "TrueHD", and "HD". Since only the
-first two are listed in the `trash_ids` array, what happens to "HD"? Since two quality profiles are
-specified above, each with a different setting for `reset_unmatched_scores`, the behavior will be
-different:
+Let's say you have three custom formats added to Radarr: "DTS X", "TrueHD", and "HD". Since only two
+are listed in the `trash_ids` array, what happens to "HD"? Since two quality profiles are specified
+above, each with a different setting for `reset_unmatched_scores`, the behavior will be different:
 
 - The `SD` quality profile will always have the score for "HD" set to zero (`0`).
 - The `Ultra-HD` quality profile's score for "HD" will never be altered.
