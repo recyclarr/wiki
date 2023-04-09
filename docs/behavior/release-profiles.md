@@ -1,13 +1,9 @@
 ---
-id: sonarr
-title: Sonarr
+id: release-profiles
+title: Release Profiles
 ---
 
-## Sonarr
-
-Each section below represents a topic covering certain behavior relevant to Sonarr.
-
-### Release Profile Naming
+## Naming
 
 The script procedurally generates a name for release profiles it creates. For the following example:
 
