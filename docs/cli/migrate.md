@@ -12,7 +12,7 @@ recyclarr migrate [OPTIONS]
 ## Description
 
 Performs upgrade steps that may be needed between major versions of Recyclarr. Visit the [Migration
-System](/migration-system.md) page to read more about it.
+System](/behavior/migration-system.md) page to read more about it.
 
 ## Options
 
