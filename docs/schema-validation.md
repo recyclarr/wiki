@@ -50,17 +50,20 @@ After adding the comment to the top, you should begin to see contextual editing 
 edit. It will suggest properties you can use and show you documentation for each without having to
 reference the corresponding reference page.
 
-## Secrets
+## Custom YAML Tags
 
-If you are editing YAML in VS Code and using `!secret` references, you will get "Unknown Tag"
-errors. Remove them by adding the following to VS Code's `settings.json` file ([VS Code
-Documentation][vs-code-settings]):
+If you are editing YAML in VS Code and using custom tags like `!secret` or `!env_var`, you will get
+"Unknown Tag" errors. Remove them by adding the following to [VS Code's `settings.json`
+file][vs-code-settings]:
 
 ```json
   "yaml.customTags": [
-    "!secret scalar"
+    "!secret scalar",
+    "!env_var scalar"
   ]
 ```
+
+The `yaml.customTags` setting is documented [here][custom-tags].
 
 [vs-code-settings]: https://code.visualstudio.com/docs/getstarted/settings
 [vs-code-setup]: https://code.visualstudio.com/docs/setup/setup-overview
@@ -68,3 +71,4 @@ Documentation][vs-code-settings]):
 [yaml]: https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml
 [Configuration YAML]: /yaml/config-yml-reference.md#schema
 [Settings YAML]: /yaml/settings-reference.md#schema
+[custom-tags]: https://github.com/redhat-developer/vscode-yaml#extension-settings
