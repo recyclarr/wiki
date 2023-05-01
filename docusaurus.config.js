@@ -83,12 +83,12 @@ const config = {
             position: 'left',
             label: 'Wiki',
           },
-          {
-            href: `https://${otherInfo.hostname}/wiki`,
-            target: '_self',
-            position: 'right',
-            label: `${otherInfo.versionTitle} Version Docs`,
-          },
+          // {
+          //   href: `https://${otherInfo.hostname}/wiki`,
+          //   target: '_self',
+          //   position: 'right',
+          //   label: `${otherInfo.versionTitle} Version Docs`,
+          // },
           {
             href: 'https://github.com/recyclarr/recyclarr',
             position: 'right',
