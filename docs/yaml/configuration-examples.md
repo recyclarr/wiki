@@ -14,7 +14,7 @@ import TOCInline from '@theme/TOCInline';
 
 Create a single configuration file (use the default `recyclarr.yml` if you want to simplify your CLI
 usage by not being required to specify `--config`) and put all of the configuration in there. This
-example refers to sensitive values by [using a `secrets.yml` file](secrets-reference).
+example refers to sensitive values by [using a `secrets.yml` file](secrets-reference.md).
 
 ```yml
 sonarr:

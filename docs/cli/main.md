@@ -20,6 +20,6 @@ asking for help.
 ## Commands
 
 - [recyclarr sync](./sync.md)
-- [recyclarr list](./list)
+- [recyclarr list](./list/index.md)
 - [recyclarr migrate](./migrate.md)
-- [recyclarr config](./config)
+- [recyclarr config](./config/index.md)

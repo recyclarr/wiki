@@ -6,8 +6,8 @@ title: Getting Started
 
 :::caution
 
-Please make sure you've reviewed the various [installation methods](installation) before getting
-started here.
+Please make sure you've reviewed the various [installation methods](installation/index.md) before
+getting started here.
 
 :::
 
@@ -62,7 +62,7 @@ Manual Installation
 Each command supports printing help on the command line. Simply run `recyclarr --help` for the main
 help output and a list of commands. You can then see the help for each command by running `recyclarr
 [command] --help`, where `[command]` is one of those commands (e.g. `sync`). You can also visit the
-[CLI Reference](cli) page for detailed documentation as well.
+[CLI Reference](cli/index.md) page for detailed documentation as well.
 
 :::tip
 
