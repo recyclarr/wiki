@@ -28,6 +28,7 @@ const config = {
   tagline: 'Documentation for Recyclarr',
   url: `https://${currentInfo.hostname}`,
   baseUrl: '/',
+  trailingSlash: true,
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
