@@ -40,57 +40,75 @@ Add this comment to the top of your YAML file:
 
 ```yml
 enable_ssl_certificate_validation: true
+git_path: /usr/local/bin/git
 ```
 
-- `enable_ssl_certificate_validation`<br/>
+- `enable_ssl_certificate_validation` *(Default: `true`)*<br/>
   If set to `false`, SSL certificates are not validated. This is useful if you are connecting to a
   Sonarr or Radarr instance using `https` and it is set up with self-signed certificates. Note that
   disabling this setting is a **security risk** and should be avoided unless you are absolutely sure
   what you are doing.
 
-## Repository Settings {#repo-settings}
-
-:::danger
-
-Never edit files in the locally cloned repo managed by Recyclarr! Local changes in this repo will be
-destroyed.
-
-:::
-
-```yml
-repository:
-  clone_url: https://github.com/TRaSH-/Guides.git
-  branch: master
-  sha1: e27659e3f90d9b60c1f0b0f204b2530bb2299b41
-  git_path: /usr/local/bin/git
-```
-
-- `clone_url` *(Default: `https://github.com/TRaSH-/Guides.git`)*<br/>
-  A URL compatible with `git clone` that is used to clone the [Trash Guides
-  repository][official_repo]. This setting exists for enthusiasts that may want to instead have
-  Recyclarr pull data from a fork instead of the official repository.
-
-- `branch` *(Default: `master`)*<br/>
-  The name of a branch to check out in the repository.
-
-- `sha1` *(Default: empty)*<br/>
-  A SHA1 (commit hash) in Git to use. If specified, it overrides the `branch` setting. This SHA1 is
-  passed to `git reset --hard` to force your local clone to this specific revision in the
-  repository. If not specified, only the `branch` controls what revision is used in the repo.
-
 - `git_path` *(Default: Search on `PATH`)*<br/>
-
-  :::note Version Requirement
-
-  This setting requires `v3.0.0` or greater!
-
-  :::
 
   Provide an explicit path to your `git` executable. Note that this is a path to the actual
   executable itself and not a directory path. If this setting is not specified, Recyclarr will
   attempt to find `git` via your `PATH` environment variable.
 
-[official_repo]: https://github.com/TRaSH-/Guides
+## Repository Settings {#repo-settings}
+
+:::danger
+
+Never edit files in the locally cloned git repositories managed by Recyclarr! Local changes in these
+repositories will be destroyed!
+
+:::
+
+```yml
+repositories:
+  trash_guides:
+      clone_url: https://github.com/TRaSH-/Guides.git
+      branch: master
+      sha1:
+  config_templates:
+      clone_url: https://github.com/recyclarr/config-templates.git
+      branch: master
+      sha1:
+```
+
+### Supported Repositories
+
+The `repositories` section contains a list of repositories to configure. Each repository *has the
+same exact properties*, which are documented below. For example, `clone_url` is a valid property for
+both `trash_guides`, `config_templates`, and any future repositories that may get added here.
+
+List of supported repositories is below.
+
+- [Trash Guides][trash_repo]: Contains the data synced to your Sonarr/Radarr instances.
+- [Config Templates][template_repo]: Contains pre-made configuration YAML files used by the
+  `recyclarr config` command.
+
+[trash_repo]: https://github.com/TRaSH-/Guides
+[template_repo]: https://github.com/recyclarr/config-templates
+
+### Per-Repository Properties
+
+Default values *may be different* between different repositories for the same property. The example
+YAML code block above shows the default values for corresponding properties documented below.
+
+- `clone_url`<br/>
+  A URL compatible with `git clone` that is used to clone the respective repository (listed above).
+  This setting exists for enthusiasts that may want to instead have Recyclarr pull data from a fork
+  instead of the official repository.
+
+- `branch`<br/>
+  The name of a branch to check out in the repository.
+
+- `sha1`<br/>
+  A SHA1 (commit hash) in Git to use (e.g. `c611e9df00bf9261bddfc749219295fe189ae552`). If
+  specified, it overrides the `branch` setting. This SHA1 is passed to `git reset --hard` to force
+  your local clone to this specific revision in the repository. If not specified, only the `branch`
+  controls what revision is used in the repo.
 
 ## Log Janitor Settings
 
