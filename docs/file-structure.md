@@ -45,9 +45,9 @@ This functionality requires `v3.0.0` or greater!
 :::
 
 Under the application data directory, there is a subdirectory named `configs` in which you can place
-any number of YAML files. All files must have the `.yml` extension in order to be recognized. Every
-single YAML file placed here will be loaded as if every file were specified in the `--config`
-command line argument.
+any number of YAML files. All files must have the `.yml` or `.yaml` extension in order to be
+recognized. Every single YAML file placed here will be loaded as if every file were specified in the
+`--config` command line argument.
 
 This system works especially well in Docker, where you don't really have an easy way to specify
 custom CLI arguments.
