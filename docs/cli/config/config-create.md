@@ -32,3 +32,39 @@ recyclarr config create
 # Create a starter config in a specific location
 recyclarr config create --path ~/myconfig.yml
 ```
+
+### `--template`
+
+Create configuration [from templates][templates] instead of the built-in starter YAML configuration.
+This option may be specified multiple times. Each template specified will yield 1 new YAML file
+under the `configs` directory. If a file already exists with the name of the template, an error will
+occur.
+
+[templates]: https://github.com/recyclarr/config-templates
+
+#### Command Line Examples
+
+```bash
+# Create configuration from a single template
+recyclarr config create --template uhd-bluray-web
+
+# Create from multiple templates
+recyclarr config create -t uhd-bluray-web -t remux-web-1080p
+```
+
+### `--force`
+
+:::caution
+
+This is a destructive operation! Use carefully.
+
+:::
+
+Overwrite any existing configuration files, if needed.
+
+#### Command Line Examples
+
+```bash
+# Create config from template and overwrite existing file
+recyclarr config create --template uhd-bluray-web --force
+```
