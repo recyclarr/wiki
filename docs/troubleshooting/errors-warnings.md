@@ -76,39 +76,6 @@ and their structure.
 </details>
 
 <details><summary>
-Found array-style list of instances instead of named-style. Array-style lists of Sonarr/Radarr
-instances are deprecated
-</summary>
-
-:::note Version Requirement
-
-This functionality requires `v3.0.0` or greater!
-
-:::
-
-Array style lists look like this:
-
-```yml
-radarr:
-  - base_url: http://localhost:7878
-    api_key: 123abc
-```
-
-This style is deprecated. Going forward, all instances must be named mappings. Convert the above to
-something like this:
-
-```yml
-radarr:
-  my_radarr_instance:
-    base_url: http://localhost:7878
-    api_key: 123abc
-```
-
-Where `my_radarr_instance` can be any name you want as long as it is valid YAML.
-
-</details>
-
-<details><summary>
 Incompatible value assigned/used at line 7: Invalid cast from 'System.String' to
 'Recyclarr.TrashLib.Config.Services.QualityDefinitionConfig'
 </summary>
