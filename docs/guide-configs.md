@@ -1,9 +1,9 @@
 ---
 id: guide-configs
-title: Complete Configuration Files
+title: Pre-Built Configuration Files
 ---
 
-Below you will find complete configuration files to match the following TRaSH Guides quality profiles:
+Below you will find pre-built configuration files for the following TRaSH Guides quality profiles:
 
 - [Radarr][radarr-profiles-trash]
 - [Radarr (Anime)][radarr-anime-profiles-trash]

@@ -1,10 +1,10 @@
 ---
 id: sqp-configs
-title: Complete SQP Configuration Files
+title: Pre-Built SQP Configuration Files
 sidebar_class_name: hidden
 ---
 
-Below you will find complete configuration files to match the following TRaSH Guides SQPs:
+Below you will find pre-built configuration files for the following TRaSH Guides SQPs:
 
 - [Streaming Optimized (SQP-1)][radarr-sqp-1-trash]
 - [Streaming Optimized (SQP-1 2160p)][radarr-sqp-1-4k-trash]
