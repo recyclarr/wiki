@@ -18,7 +18,7 @@ directory](/file-structure.md#appdata-directory).
 
 Visit [Common Options](../common.md) to read about options usable by all commands.
 
-### `--path`
+### `-p|--path`
 
 The absolute or relative path to the YAML file you want to create. The contents will be the same,
 the only difference is what file the data gets written to.
@@ -33,7 +33,7 @@ recyclarr config create
 recyclarr config create --path ~/myconfig.yml
 ```
 
-### `--template`
+### `-t|--template`
 
 Create configuration [from templates][templates] instead of the built-in starter YAML configuration.
 This option may be specified multiple times. Each template specified will yield 1 new YAML file
@@ -52,7 +52,7 @@ recyclarr config create --template uhd-bluray-web
 recyclarr config create -t uhd-bluray-web -t remux-web-1080p
 ```
 
-### `--force`
+### `-f|--force`
 
 :::caution
 
