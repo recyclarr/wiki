@@ -237,16 +237,7 @@ docker exec recyclarr recyclarr sync radarr --preview --debug
 ### Cron Mode {#cron-mode}
 
 In this mode, no immediate action is performed. Rather, the container remains alive and continuously
-runs both Sonarr and Radarr sync at whatever `CRON_SCHEDULE` you set (default is daily).
-
-If either the Sonarr or Radarr sync operations fail, they will not prevent each other from
-proceeding. In other words, if the order the sync happens is first Sonarr and then Radarr, if Sonarr
-fails, the Radarr sync will still proceed after. From a linux shell perspective, it effectively runs
-this command:
-
-```bash
-recyclarr sonarr; recyclarr radarr
-```
+runs sync at whatever `CRON_SCHEDULE` you set (default is daily).
 
 To enter Cron Mode, you simply start the container in background mode:
 

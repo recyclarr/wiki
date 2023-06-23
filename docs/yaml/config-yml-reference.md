@@ -95,7 +95,7 @@ service_type:
   instance_name:
     # Custom Format Configuration
     delete_old_custom_formats: false
-    replace_existing_custom_formats: true
+    replace_existing_custom_formats: false
     custom_formats:
       - trash_ids:
           - ed38b889b31be83fda192888e2286d83 # BR-DISK
@@ -124,12 +124,13 @@ Synchronization][cfsync] page.
   formats that Recyclarr has synchronized to Radarr. Custom formats that you have added manually in
   Radarr **will not be deleted** if you enable this setting.
 
-- `replace_existing_custom_formats` (Optional; *Default: `true`*)<br/>
-  If disabled (set to `false`), Recyclarr will skip custom formats that you've manually created from
-  the guide. In other words, it will only touch custom formats that it created to begin with. If
-  this property is omitted *or* you specify `true`, then custom formats matching the guide are
-  always synced to the service, whether you created them or not. This means that if you manually
-  create a CF from the guide and make adjustments to it, *those changes will be overwritten*.
+- `replace_existing_custom_formats` (Optional; *Default: `false`*)<br/>
+  If enabled (set to `true`), custom formats matching the guide are always synced to the service,
+  replacing any existing CFs with the same name, whether you created them or not. This means that if
+  you manually create a CF from the guide and make adjustments to it, *those changes will be
+  overwritten*. If this property is omitted *or* you specify `false`, then Recyclarr will skip
+  custom formats that you've manually created from the guide. In other words, it will only touch
+  custom formats that it created to begin with.
 
 - `custom_formats` (Optional; *Default: No custom formats are synced*)<br/>
   A list of one or more sets of custom formats each with an optional set of quality profiles names
