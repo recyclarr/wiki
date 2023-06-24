@@ -1,6 +1,7 @@
 ---
 id: env-vars
 title: Environment Variables
+sidebar_position: 3
 ---
 
 Environment variables may be used in your configuration YAML files to provide certain values

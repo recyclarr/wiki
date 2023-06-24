@@ -1,7 +1,7 @@
 ---
 id: config-reference
-title: Configuration YAML
-sidebar_position: 2
+title: Configuration
+sidebar_position: 1
 ---
 
 The Recyclarr program utilizes YAML for its configuration files. The configuration can be set up

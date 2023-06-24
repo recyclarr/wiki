@@ -1,6 +1,7 @@
 ---
 id: secrets-reference
-title: Secrets YAML
+title: Secrets
+sidebar_position: 4
 ---
 
 Recyclarr can substitute secret values within your YAML configuration files. This keeps sensitive

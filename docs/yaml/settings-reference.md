@@ -1,6 +1,7 @@
 ---
 id: settings-reference
-title: Settings YAML
+title: Settings
+sidebar_position: 5
 ---
 
 Settings are specified in a file named `settings.yml` in your [app data directory][app-data].
