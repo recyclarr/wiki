@@ -20,6 +20,16 @@ Below you will find pre-built configuration files for the following TRaSH Guides
 [radarr-sqp-4-trash]: https://trash-guides.info/SQP/4/
 [radarr-sqp-5-trash]: https://trash-guides.info/SQP/5/
 
+:::caution
+
+- The information provided on this page is for private use only and is not to be made public. :bangbang:
+- Users who have been provided with the link to this page **must** keep it private. :bangbang:
+- You can mention your use of a specific SQP in the TRaSH Guides Discord server public channels.
+- Interested individuals can obtain access to this page, along with other SQP information, through
+  the TRaSH Guides Discord server.
+
+:::
+
 ## Index
 
 | Radarr                                               |
