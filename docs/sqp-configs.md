@@ -2,6 +2,7 @@
 id: sqp-configs
 title: Pre-Built SQP Configuration Files
 sidebar_class_name: hidden
+hide_table_of_contents: true
 ---
 
 Below you will find pre-built configuration files for the following TRaSH Guides SQPs:

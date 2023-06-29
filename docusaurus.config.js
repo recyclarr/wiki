@@ -89,6 +89,11 @@ const config = {
             label: 'Wiki',
           },
           {
+            type: 'doc',
+            docId: 'guide-configs',
+            label: 'Config Templates'
+          },
+          {
             href: `https://${otherInfo.hostname}/wiki`,
             target: '_self',
             position: 'right',

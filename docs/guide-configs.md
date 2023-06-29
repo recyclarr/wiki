@@ -1,6 +1,8 @@
 ---
 id: guide-configs
 title: Pre-Built Configuration Files
+sidebar_class_name: hidden # It's in the nav title bar
+hide_table_of_contents: true
 ---
 
 Below you will find pre-built configuration files for the following TRaSH Guides quality profiles:
