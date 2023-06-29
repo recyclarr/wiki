@@ -32,18 +32,79 @@ Below you will find pre-built configuration files for the following TRaSH Guides
 
 ## Index
 
-| Radarr                                               |
-| ---------------------------------------------------- |
-| [Streaming Optimized (SQP-1)][sqp-1-config]          |
-| [Streaming Optimized (SQP-1 2160p)][sqp-1-4k-config] |
-| [UHD Remux\|Bluray\|IMAX-E (SQP-2)][sqp-2-config]    |
-| [UHD Remux\|IMAX-E (SQP-3)][sqp-3-config]            |
-| [UHD WEBDL\|IMAX-E (SQP-4)][sqp-4-config]            |
-| [UHD Bluray\|IMAX-E (SQP-5)][sqp-5-config]           |
+| Radarr                                            |
+| ------------------------------------------------- |
+| [Streaming Optimized (SQP-1)](#sqp-1)             |
+| [Streaming Optimized (SQP-1 2160p)](#sqp-1-2160p) |
+| [UHD Remux\|Bluray\|IMAX-E (SQP-2)](#sqp-2)       |
+| [UHD Remux\|IMAX-E (SQP-3)](#sqp-3)               |
+| [UHD WEBDL\|IMAX-E (SQP-4)](#sqp-4)               |
+| [UHD Bluray\|IMAX-E (SQP-5)](#sqp-5)              |
 
-[sqp-1-config]: https://raw.githubusercontent.com/recyclarr/config-templates/master/radarr/sqp/sqp-1.yml
-[sqp-1-4k-config]: https://raw.githubusercontent.com/recyclarr/config-templates/master/radarr/sqp/sqp-1-2160p.yml
-[sqp-2-config]: https://raw.githubusercontent.com/recyclarr/config-templates/master/radarr/sqp/sqp-2.yml
-[sqp-3-config]: https://raw.githubusercontent.com/recyclarr/config-templates/master/radarr/sqp/sqp-3.yml
-[sqp-4-config]: https://raw.githubusercontent.com/recyclarr/config-templates/master/radarr/sqp/sqp-4.yml
-[sqp-5-config]: https://raw.githubusercontent.com/recyclarr/config-templates/master/radarr/sqp/sqp-5.yml
+## Radarr
+
+### Streaming Optimized (SQP-1) {#sqp-1}
+
+<details>
+<summary>Click to view</summary>
+
+```yml reference title="Copy this configuration into your own configuration file:"
+https://github.com/recyclarr/config-templates/blob/master/radarr/sqp/sqp-1.yml
+```
+
+</details>
+
+### Streaming Optimized (SQP-1 2160p) {#sqp-1-2160p}
+
+<details>
+<summary>Click to view</summary>
+
+```yml reference title="Copy this configuration into your own configuration file:"
+https://github.com/recyclarr/config-templates/blob/master/radarr/sqp/sqp-1-2160p.yml
+```
+
+</details>
+
+### UHD Remux|Bluray|IMAX-E (SQP-2) {#sqp-2}
+
+<details>
+<summary>Click to view</summary>
+
+```yml reference title="Copy this configuration into your own configuration file:"
+https://github.com/recyclarr/config-templates/blob/master/radarr/sqp/sqp-2.yml
+```
+
+</details>
+
+### UHD Remux|IMAX-E (SQP-3) {#sqp-3}
+
+<details>
+<summary>Click to view</summary>
+
+```yml reference title="Copy this configuration into your own configuration file:"
+https://github.com/recyclarr/config-templates/blob/master/radarr/sqp/sqp-3.yml
+```
+
+</details>
+
+### UHD WEBDL|IMAX-E (SQP-4) {#sqp-4}
+
+<details>
+<summary>Click to view</summary>
+
+```yml reference title="Copy this configuration into your own configuration file:"
+https://github.com/recyclarr/config-templates/blob/master/radarr/sqp/sqp-4.yml
+```
+
+</details>
+
+### UHD Bluray|IMAX-E (SQP-5) {#sqp-5}
+
+<details>
+<summary>Click to view</summary>
+
+```yml reference title="Copy this configuration into your own configuration file:"
+https://github.com/recyclarr/config-templates/blob/master/radarr/sqp/sqp-5.yml
+```
+
+</details>

@@ -68,6 +68,10 @@ const config = {
     ],
   ],
 
+  themes: [
+    'docusaurus-theme-github-codeblock'
+  ],
+
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
@@ -138,6 +142,12 @@ const config = {
         appId: '55D8QHPBTN',
         apiKey: '0473b22a41705ad31b85bdad1ee940f5',
         indexName: 'recyclarr'
+      },
+      codeblock: {
+        showGithubLink: true,
+        githubLinkLabel: 'View on GitHub',
+        showRunmeLink: false,
+        runmeLinkLabel: 'Checkout via Runme'
       }
     }),
 };

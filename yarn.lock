@@ -1596,7 +1596,7 @@
     fs-extra "^10.1.0"
     tslib "^2.4.0"
 
-"@docusaurus/types@2.4.1":
+"@docusaurus/types@2.4.1", "@docusaurus/types@^2.3.1":
   version "2.4.1"
   resolved "https://registry.yarnpkg.com/@docusaurus/types/-/types-2.4.1.tgz#d8e82f9e0f704984f98df1f93d6b4554d5458705"
   integrity sha512-0R+cbhpMkhbRXX138UOc/2XZFF8hiZa6ooZAEEJFp5scytzCw4tC1gChMFXrpa3d2tYE6AX8IrOEpSonLmfQuQ==
@@ -3412,6 +3412,13 @@ dns-packet@^5.2.2:
   integrity sha512-EgqGeaBB8hLiHLZtp/IbaDQTL8pZ0+IvwzSHA6d7VyMDM+B9hgddEMa9xjK5oYnw0ci0JQ6g2XCD7/f6cafU6g==
   dependencies:
     "@leichtgewicht/ip-codec" "^2.0.1"
+
+docusaurus-theme-github-codeblock@^1.1.4:
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/docusaurus-theme-github-codeblock/-/docusaurus-theme-github-codeblock-1.1.4.tgz#98ff4f27603da25169c9b60c8fe3124d9a002841"
+  integrity sha512-a8sBUHTpbXBg8qS8H43VogRusOrY4aqpVYs6RiA08lQqI5FxYjAVGMArHQD/Rz0mYm3h/iiqgsVc3K4lTaIt3A==
+  dependencies:
+    "@docusaurus/types" "^2.3.1"
 
 dom-converter@^0.2.0:
   version "0.2.0"
