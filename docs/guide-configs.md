@@ -188,7 +188,7 @@ https://github.com/recyclarr/config-templates/blob/master/radarr/french-remux-we
 
 ---
 
-## Sonarr V4
+## Sonarr v4
 
 ### WEB-1080p {#web-1080p-v4}
 
