@@ -85,6 +85,13 @@ The purpose of the name is to be human readable and self-documenting. It is used
 The base URL of your instance. Basically this is the URL you bookmark to get to the front page. Must
 begin with `http` or `https`.
 
+:::tip
+
+This property can be implicitly set via secrets if you follow a naming convention. See the
+[Secrets][impliciturlkey] page for more details.
+
+:::
+
 :::caution
 
 The `base_url` value is used to uniquely identify an instance of a service (such as Radarr). This
@@ -103,6 +110,15 @@ to [caching].
 The API key that Recyclarr should use to synchronize settings to your instance. You can obtain your
 API key by going to `Settings > General` and copy & paste the "API Key" under the "Security"
 group/header.
+
+:::tip
+
+This property can be implicitly set via secrets if you follow a naming convention. See the
+[Secrets][impliciturlkey] page for more details.
+
+:::
+
+[impliciturlkey]: /yaml/secrets-reference.md#implicit-url-key
 
 ## Custom Formats {#custom-format-settings}
 
