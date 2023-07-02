@@ -41,4 +41,4 @@ added for it in the cache, which means you can set `replace_existing_custom_form
 `false`.
 
 [app-data]: /file-structure.md#appdata-directory
-[replacecf]: /yaml/config-yml-reference.md#
+[replacecf]: /yaml/config-yml-reference.md#cf-replace-existing-custom-formats
