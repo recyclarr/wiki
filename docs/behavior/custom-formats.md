@@ -24,17 +24,8 @@ in order to do anything to it (update or delete).
 
 :::
 
-## Cache
+## Cache {#cache}
 
-### Summary
+See the [Cache] page.
 
-The synchronization cache in Recyclarr allows it to more accurately detect changes to custom formats
-in the TRaSH guides. This mainly helps cover changes done on the \*arr side, like renames.
-
-Once Recyclarr creates or updates a custom format in \*arr, it records information about it in a
-cache file located in the `cache` subdirectory under the main app data location. The [location
-varies](../file-structure.md#appdata-directory) depending on platform.
-
-The cache files are not meant to be edited by users. In general I recommend leaving them alone.
-Recyclarr will manage it for you. However, sometimes a bug may cause an issue where deleting the
-cache directory will be a good way to recover.
+[Cache]: ./cache.md
