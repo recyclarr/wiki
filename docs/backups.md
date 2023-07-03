@@ -10,6 +10,13 @@ below are relative to the [application data directory][app-data].
 - `configs/*.yml`
 - `cache/`
 
+:::info
+
+Be sure to include `*.yaml` in the above patterns as necessary. Both `yml` and `yaml` extensions are
+accepted by Recyclarr.
+
+:::
+
 Files and directories *not* listed above are considered unimportant for backup purposes.
 
 [app-data]: /file-structure.md#appdata-directory
