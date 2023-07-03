@@ -174,7 +174,7 @@ A list of one or more sets of custom formats each with an optional set of qualit
 that identify which quality profiles to assign the scores for those custom formats to. The child
 properties documented below apply to each element of this list.
 
-### `custom_formats.trash_ids` {#cf-trash-ids}
+### `trash_ids` {#cf-trash-ids}
 
 **Required.**
 
@@ -212,7 +212,7 @@ trash_ids:
 
 :::
 
-### `custom_formats.quality_profiles` {#cf-quality-profiles}
+### `quality_profiles` {#cf-quality-profiles}
 
 **Optional.** *Default: No quality profiles are changed*
 
