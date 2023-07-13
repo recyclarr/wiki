@@ -3,22 +3,26 @@ id: installation
 title: Installation
 ---
 
-Two methods of installation exist.
+Several methods of installation exist.
 
-## Docker
+## Unraid
 
-It is recommended to use the Docker Image to install Recyclarr. Using this method, you get to enjoy
-an easier installation process without having to worry about things like file locations,
-dependencies, etc. The official docker image is:
+Unraid is a popular platform for many Recyclarr users. Because of this, there are a few installation
+methods specific to this platform. If you do not use Unraid, please refer to the Docker or Manual
+installation methods.
 
-```bash
-ghcr.io/recyclarr/recyclarr
-```
+[Unraid Instructions](./unraid.md)
+
+## Docker Compose
+
+For most platforms, it is recommended to use the Docker Image to install Recyclarr. Using this
+method, you get to enjoy an easier installation process without having to worry about things like
+file locations, dependencies, etc.
+
+[Docker Compose Instructions](./docker.md)
 
 ## Manual Installation
 
 Install and run Recyclarr directly on your host machine. This does not utilize Docker at all.
 
-import DocCardList from '@theme/DocCardList';
-
-<DocCardList />
+[Manual Instructions](./manual-install.md)
