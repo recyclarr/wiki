@@ -26,6 +26,7 @@ For all supported locations, the following behavior applies:
 - All methods may be used together and all corresponding YAML files will be loaded.
 - You don't have to use all locations; you can choose only the ones you want to use.
 - If at least one configuration file is not found, it will result in an error.
+- All YAML files must have the `yml` or `yaml` extension.
 
 ### File: `recyclarr.yml` {#recyclarr-yaml}
 
@@ -38,16 +39,11 @@ application data directory (listed above based on platform). Example (using dock
 
 ### Directory: `configs` {#config-directory}
 
-:::note Version Requirement
-
-This functionality requires `v3.0.0` or greater!
-
-:::
-
 Under the application data directory, there is a subdirectory named `configs` in which you can place
-any number of YAML files. All files must have the `.yml` or `.yaml` extension in order to be
-recognized. Every single YAML file placed here will be loaded as if every file were specified in the
-`--config` command line argument.
+any number of YAML files. This system works especially well in Docker, where you don't really have
+an easy way to specify custom CLI arguments. The following requirements must be met:
 
-This system works especially well in Docker, where you don't really have an easy way to specify
-custom CLI arguments.
+- All files must have the `.yml` or `.yaml` extension in order to be recognized.
+- Every single YAML file placed here will be loaded as if every file were specified in the
+  `--config` command line argument.
+- The names of the files are unimportant and can be whatever you want.
