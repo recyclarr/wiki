@@ -325,3 +325,109 @@ In the above example:
 - Recyclarr will load all three YAML files.
 - Each YAML file may contain any number of Radarr and/or Sonarr instances.
 - The names of the YAML files under `configs/` can be whatever you want.
+
+## Merge multiple config templates into a single file with a single instance {#merge-single-instance}
+
+Use case: You have multiple template files, created from `recyclarr config create --template`. You
+want all of those files to be merged into a single YAML file (e.g. `recyclarr.yml`). Instead of
+multiple instances, you want all configuration to be for a single (the same) instance.
+
+:::info
+
+Examples below are for Radarr, but the process is the same for Sonarr as well.
+
+:::
+
+Let's say you start with two files.
+
+`remux-web-1080p.yml`:
+
+```yml
+radarr:
+  remux-web-1080p:
+    base_url: http://localhost:7878
+    api_key: myapikey
+
+    quality_definition:
+      type: movie
+
+    quality_profiles:
+      - name: Remux + WEB 1080p
+        reset_unmatched_scores: true
+
+    custom_formats:
+      - trash_ids:
+          - 0f12c086e289cf966fa5948eac571f44  # Hybrid
+          - 570bc9ebecd92723d2d21500f4be314c  # Remaster
+        quality_profiles:
+          - name: Remux + WEB 1080p
+```
+
+`uhd-bluray-web.yml`:
+
+```yml
+radarr:
+  uhd-bluray-web:
+    base_url: http://localhost:7878
+    api_key: myapikey
+
+    quality_definition:
+      type: movie
+
+    quality_profiles:
+      - name: UHD Bluray + WEB
+        reset_unmatched_scores: true
+
+    custom_formats:
+      - trash_ids:
+          - e23edd2482476e595fb990b12e7c609c  # DV HDR10
+          - 58d6a88f13e2db7f5059c41047876f00  # DV
+        quality_profiles:
+          - name: UHD Bluray + WEB
+```
+
+Merging these files is a little bit involved. You can't just move whole blocks of YAML into another
+file. The sections directly under the instance name (e.g. `uhd-bluray-web`) need to be merged
+together without duplicating them. For example, don't introduce a second `quality_profiles:` block.
+Combine the contents to form a single section. Also note that some sections, like
+`quality_definition`, cannot be merged. If the two files use a different quality definition, you
+must choose one or the other.
+
+The final merged file would look like below.
+
+```yml
+radarr:
+  merged-instance:
+    base_url: http://localhost:7878
+    api_key: myapikey
+
+    quality_definition:
+      type: movie
+
+    quality_profiles:
+      - name: UHD Bluray + WEB
+        reset_unmatched_scores: true
+      - name: Remux + WEB 1080p
+        reset_unmatched_scores: true
+
+    custom_formats:
+      - trash_ids:
+          - e23edd2482476e595fb990b12e7c609c  # DV HDR10
+          - 58d6a88f13e2db7f5059c41047876f00  # DV
+        quality_profiles:
+          - name: UHD Bluray + WEB
+
+      - trash_ids:
+          - 0f12c086e289cf966fa5948eac571f44  # Hybrid
+          - 570bc9ebecd92723d2d21500f4be314c  # Remaster
+        quality_profiles:
+          - name: Remux + WEB 1080p
+```
+
+What was done:
+
+- `quality_definition` (in this case) both happened to use `movie`, so we simply left this one
+  alone.
+- `quality_profiles` was combined. We added the element from the first file into the existing
+  sequence.
+- `custom_formats` was combined similar to `quality_profiles`.
