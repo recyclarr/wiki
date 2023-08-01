@@ -7,15 +7,15 @@ hide_table_of_contents: true
 
 Below you will find pre-built configuration files for the following TRaSH Guides SQPs:
 
-- [Streaming Optimized (SQP-1)][radarr-sqp-1-trash]
-- [Streaming Optimized (SQP-1 2160p)][radarr-sqp-1-4k-trash]
-- [UHD Remux|Bluray|IMAX-E (SQP-2)][radarr-sqp-2-trash]
-- [UHD Remux|IMAX-E (SQP-3)][radarr-sqp-3-trash]
-- [UHD WEBDL|IMAX-E (SQP-4)][radarr-sqp-4-trash]
-- [UHD Bluray|IMAX-E (SQP-5)][radarr-sqp-5-trash]
+- [SQP-1 (1080p) - Streaming Optimized][radarr-sqp-1-1080p-trash]
+- [SQP-1 (2160p) - Streaming Optimized][radarr-sqp-1-2160p-trash]
+- [SQP-2 (2160p) - UHD Remux|Bluray|IMAX-E][radarr-sqp-2-trash]
+- [SQP-3 (2160p) - UHD Remux|IMAX-E][radarr-sqp-3-trash]
+- [SQP-4 (2160p) - UHD WEBDL|IMAX-E][radarr-sqp-4-trash]
+- [SQP-5 (2160p) - UHD Bluray|IMAX-E][radarr-sqp-5-trash]
 
-[radarr-sqp-1-trash]: https://trash-guides.info/SQP/1/
-[radarr-sqp-1-4k-trash]: https://trash-guides.info/SQP/1-4k/
+[radarr-sqp-1-1080p-trash]: https://trash-guides.info/SQP/1/
+[radarr-sqp-1-2160p-trash]: https://trash-guides.info/SQP/1-4k/
 [radarr-sqp-2-trash]: https://trash-guides.info/SQP/2/
 [radarr-sqp-3-trash]: https://trash-guides.info/SQP/3/
 [radarr-sqp-4-trash]: https://trash-guides.info/SQP/4/
@@ -33,32 +33,32 @@ Below you will find pre-built configuration files for the following TRaSH Guides
 
 ## Index
 
-| Radarr                                            |
-| ------------------------------------------------- |
-| [Streaming Optimized (SQP-1)](#sqp-1)             |
-| [Streaming Optimized (SQP-1 2160p)](#sqp-1-2160p) |
-| [UHD Remux\|Bluray\|IMAX-E (SQP-2)](#sqp-2)       |
-| [UHD Remux\|IMAX-E (SQP-3)](#sqp-3)               |
-| [UHD WEBDL\|IMAX-E (SQP-4)](#sqp-4)               |
-| [UHD Bluray\|IMAX-E (SQP-5)](#sqp-5)              |
+| Radarr                                              |
+| --------------------------------------------------- |
+| [SQP-1 (1080p) - Streaming Optimized](#sqp-1-1080p) |
+| [SQP-1 (2160p) - Streaming Optimized](#sqp-1-2160p) |
+| [SQP-2 (2160p) - UHD Remux\|Bluray\|IMAX-E](#sqp-2) |
+| [SQP-3 (2160p) - UHD Remux\|IMAX-E](#sqp-3)         |
+| [SQP-4 (2160p) - UHD WEBDL\|IMAX-E](#sqp-4)         |
+| [SQP-5 (2160p) - UHD Bluray\|IMAX-E](#sqp-5)        |
 
 ## Radarr
 
-### Streaming Optimized (SQP-1) {#sqp-1}
+### SQP-1 (1080p) - Streaming Optimized {#sqp-1-1080p}
 
 <details>
-<summary>Click to view</summary>
+<summary>Click to show/hide</summary>
 
 ```yml reference title="Copy this configuration into your own configuration file:"
-https://github.com/recyclarr/config-templates/blob/master/radarr/sqp/sqp-1.yml
+https://github.com/recyclarr/config-templates/blob/master/radarr/sqp/sqp-1-1080p.yml
 ```
 
 </details>
 
-### Streaming Optimized (SQP-1 2160p) {#sqp-1-2160p}
+### SQP-1 (2160p) - Streaming Optimized {#sqp-1-2160p}
 
 <details>
-<summary>Click to view</summary>
+<summary>Click to show/hide</summary>
 
 ```yml reference title="Copy this configuration into your own configuration file:"
 https://github.com/recyclarr/config-templates/blob/master/radarr/sqp/sqp-1-2160p.yml
@@ -66,10 +66,10 @@ https://github.com/recyclarr/config-templates/blob/master/radarr/sqp/sqp-1-2160p
 
 </details>
 
-### UHD Remux|Bluray|IMAX-E (SQP-2) {#sqp-2}
+### SQP-2 (2160p) - UHD Remux|Bluray|IMAX-E {#sqp-2}
 
 <details>
-<summary>Click to view</summary>
+<summary>Click to show/hide</summary>
 
 ```yml reference title="Copy this configuration into your own configuration file:"
 https://github.com/recyclarr/config-templates/blob/master/radarr/sqp/sqp-2.yml
@@ -77,10 +77,10 @@ https://github.com/recyclarr/config-templates/blob/master/radarr/sqp/sqp-2.yml
 
 </details>
 
-### UHD Remux|IMAX-E (SQP-3) {#sqp-3}
+### SQP-3 (2160p) - UHD Remux|IMAX-E {#sqp-3}
 
 <details>
-<summary>Click to view</summary>
+<summary>Click to show/hide</summary>
 
 ```yml reference title="Copy this configuration into your own configuration file:"
 https://github.com/recyclarr/config-templates/blob/master/radarr/sqp/sqp-3.yml
@@ -88,10 +88,10 @@ https://github.com/recyclarr/config-templates/blob/master/radarr/sqp/sqp-3.yml
 
 </details>
 
-### UHD WEBDL|IMAX-E (SQP-4) {#sqp-4}
+### SQP-4 (2160p) - UHD WEBDL|IMAX-E {#sqp-4}
 
 <details>
-<summary>Click to view</summary>
+<summary>Click to show/hide</summary>
 
 ```yml reference title="Copy this configuration into your own configuration file:"
 https://github.com/recyclarr/config-templates/blob/master/radarr/sqp/sqp-4.yml
@@ -99,10 +99,10 @@ https://github.com/recyclarr/config-templates/blob/master/radarr/sqp/sqp-4.yml
 
 </details>
 
-### UHD Bluray|IMAX-E (SQP-5) {#sqp-5}
+### SQP-5 (2160p) - UHD Bluray|IMAX-E {#sqp-5}
 
 <details>
-<summary>Click to view</summary>
+<summary>Click to show/hide</summary>
 
 ```yml reference title="Copy this configuration into your own configuration file:"
 https://github.com/recyclarr/config-templates/blob/master/radarr/sqp/sqp-5.yml
