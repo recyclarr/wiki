@@ -31,6 +31,23 @@ according to the rules documented on [the file structure](../file-structure.md#d
 
 :::
 
+:::info
+
+Each "main" section of this reference page has a small table at the top which gives you a glance at
+the feature's compatibility with every service supported by Recyclarr. The icons in that table are
+documented below.
+
+Recyclarr supports along with an icon next to it that briefly shows the support each service has for
+the feature documented by that section.
+
+|                           Icon                           | Description           |
+| :------------------------------------------------------: | --------------------- |
+| <icon icon="mdi:check-bold" height="24" color="green" /> | Full Compatibility    |
+|   <icon icon="mdi:tilde" height="24" color="yellow" />   | Partial Compatibility |
+| <icon icon="mdi:close-thick" height="24" color="red" />  | No Compatibility      |
+
+:::
+
 ## Schema Validation {#schema}
 
 Visit the [Schema Validation](/schema-validation.md) page for detailed instructions.
@@ -45,7 +62,7 @@ Add this comment to the top of your YAML file:
 
 | Service     |                        Supported                         |
 | ----------- | :------------------------------------------------------: |
-| Sonarr (v3) | <icon icon="mdi:check-bold" height="24" color="green" />  |
+| Sonarr (v3) | <icon icon="mdi:check-bold" height="24" color="green" /> |
 | Sonarr (v4) | <icon icon="mdi:check-bold" height="24" color="green" /> |
 | Radarr      | <icon icon="mdi:check-bold" height="24" color="green" /> |
 
@@ -237,7 +254,10 @@ are taken from the guide by default, with an option to override the score for al
 object in the list must use the properties below.
 
 - `name` **(Required)**<br/>
-  The name of one of the quality profiles in Radarr.
+  The name of *an existing* quality profile. This name is **not required** to appear in the
+  top-level `quality_profiles` list. If the profile here does not exist, an error will be shown. If
+  you want this profile to be created by Recyclarr, you must also add an entry for it in the
+  [top-level `quality_profiles` list](#quality-profiles).
 
 - `score` (Optional; *Default: Use scores from the guide*)<br/>
   A positive or negative number representing the score to apply to *all* custom formats listed in
@@ -303,7 +323,7 @@ match the maximum quality. A value such as `0.5` will keep it halfway between th
 
 | Service     |                        Supported                         |
 | ----------- | :------------------------------------------------------: |
-| Sonarr (v3) | <icon icon="mdi:close-thick" height="24" color="red" />  |
+| Sonarr (v3) |   <icon icon="mdi:tilde" height="24" color="yellow" />   |
 | Sonarr (v4) | <icon icon="mdi:check-bold" height="24" color="green" /> |
 | Radarr      | <icon icon="mdi:check-bold" height="24" color="green" /> |
 
@@ -315,24 +335,50 @@ service_type:
     quality_profiles:
       - name: SD
         reset_unmatched_scores: true
+        upgrade:
+          allowed: true
+          until_quality: Remux-1080p
+          until_score: 456
+        min_format_score: 123
+        quality_sort: bottom
+        qualities:
+          - name: Remux-1080p
+          - name: Bluray-1080p
+            enabled: false
+          - name: Bluray-720p
+          - name: WEB 720p
+            qualities:
+              - WEBRip-720p
+              - WEBDL-720p
+          - name: DVD
 ```
 
-**Optional.** *Default: No quality profiles are modified*
+**Optional.** *Default: No quality profiles are created or modified*
 
-An array of quality profiles that exist in the remote service along with any configuration
-properties that Recyclarr should use to modify that quality profile.
+An array of quality profiles that along with any configuration properties that Recyclarr should use
+to modify that quality profile. If a quality profile does not exist (by name), Recyclarr will create
+it for you. If any properties (`qualities`, `min_format_score`, etc) are explicitly provided,
+Recyclarr will ensure those values are changed and synced.
 
-:::info
-
-Recyclarr **does not** create quality profiles!
-
-:::
+If there are values you wish Recyclarr to not touch (so that you may manually edit them yourself,
+for example), simply omit those properties from your YAML. In general, properties you do not specify
+indicates that you do not want Recyclarr to modify those values. Exceptions to this rule will be
+mentioned in the relevant sections below as needed.
 
 ### `name` {#qp-name}
 
 **Required.**
 
-The name of the quality profile to which settings should apply.
+The name of the quality profile to which settings should apply. The name can identify either an
+existing profile or serve as the name for a new profile that gets created.
+
+:::tip
+
+At the moment, it is not possible to *rename* a quality profile. If you change the name here, you
+are telling Recyclarr to modify an entirely different profile (if a profile exists with the new
+name) *or* create a brand new quality profile using the new name.
+
+:::
 
 ### `reset_unmatched_scores` {#qp-reset-unmatched-scores}
 
@@ -343,6 +389,139 @@ manually!) in corresponding quality profiles where those CFs are not in the `tra
 did not get a score (e.g. no score in guide). If `false`, scores are never altered unless it is
 listed in the `trash_ids` array *and* has a valid score to assign (either from the guide or via an
 explicit `score`).
+
+### `min_format_score` {#qp-min-format-score}
+
+:::caution
+
+This property is **not supported** with Sonarr v3!
+
+:::
+
+**Optional.** *Default: leave existing value untouched*
+
+Correlates directly to the "Minimum Custom Format Score" field in the Quality Profile edit dialog in
+Radarr/Sonarr.
+
+### `upgrade` {#qp-upgrade}
+
+**Optional.**
+
+Does nothing by itself. A container for the `allowed`, `until_quality` and `until_score` properties.
+
+### `allowed` {#qp-until-quality}
+
+**Required.**
+
+Directly correlates to the "Upgrades Allowed" check box in the Quality Profile edit dialog in
+Radarr/Sonarr. If `true` is provided, the box is checked and `false` unchecks the box. If you don't
+want Recyclarr to manage this checkbox, you need to delete the entire `upgrade` block (including its
+contents).
+
+### `until_quality` {#qp-until-quality}
+
+**Conditionally Required.** *Default: leave existing value untouched*
+
+Correlates directly to the "Upgrade Until Quality" drop-down / select box in the Quality Profile
+edit dialog in Radarr/Sonarr. The quality name mentioned here *must* exist in the `qualities` list
+(if that list is provided) *or* be a valid quality in your profile that you've enabled/allowed by
+manually editing the profile through the Radarr/Sonarr UI.
+
+This property is *required* if you also specify a `qualities` list. If you do not have a `qualities`
+list, this property is optional and will leave your manually set cutoff alone.
+
+### `until_score` {#qp-until-score}
+
+:::caution
+
+This property is **not supported** with Sonarr v3!
+
+:::
+
+**Optional.** *Default: leave existing value untouched*
+
+Correlates directly to the "Upgrade Until Custom Format Score" field in the Quality Profile edit
+dialog in Radarr/Sonarr.
+
+### `qualities` {#qp-qualities}
+
+**Conditionally Required.** *Default: leave existing qualities untouched*
+
+:::info
+
+This property is **required** if the profile is being created for the first time. If the profile
+*already exists*, then this property is **optional**.
+
+:::
+
+A list of qualities and/or quality groups to enable for this quality profile. You also have the
+option of defining new quality groups using this list.
+
+There are several important things to know about defining qualities:
+
+- Quality *groups* are defined by having a nested `qualities` list.
+- Qualities have fixed names and are defined by the service. The names must match what you see in
+  the qualities list shown when editing a quality profile in the Radarr or Sonarr UI.
+- The order in which you list your qualities & groups here will be reflected in the service.
+- When defining a quality group, qualities you assign to that group get removed from other groups if
+  needed.
+- Groups that have qualities removed from them will be retained, unless that group becomes empty as
+  a result, in which case the group is *deleted*.
+
+The `qualities` section is a list. Each list item is allowed to have the following properties:
+
+- `name` **(Required)**<br/>
+  The name of *and existing* quality. If this is a quality group, this name identifies either an
+  existing quality group *or* will be used as the name for a newly created group.
+
+- `enabled` (Optional; *Default: `true`*)<br/>
+  If this is omitted or set to `true`, this quality will be allowed. This is the equivalent of
+  checking the box next to the quality in the Radarr or Sonarr UI. If set to `false`, this quality
+  will be disallowed (unchecks the box).
+
+  :::caution
+
+  There are two distinct methods of disabling (disallowing) a quality: Either set this property to
+  `false` or delete the quality from the list entirely. **Make sure you understand the behavioral
+  impact of both choices!** The *safest* way to disable a quality is to set `enabled: false`, leave
+  it in your YAML, and in the exact order it already is. If you remove a quality to disable it, make
+  sure you understand [the consequences][qp_behavior].
+
+  :::
+
+- `qualities` (Optional; *Default: Treat this as a quality*)<br/>
+  A list of one or more strings that identify *existing qualities* to bundle into a group. By
+  specifying this list, you are implicitly enabling this quality item to be a *group* and not a
+  quality by itself. The `name` property becomes the name of this group. If the group does not
+  exist, it will be created.
+
+### `quality_sort` {#qp-quality-sort}
+
+**Optional.** *Default: `top`*
+
+Determines the sorting order of qualities. The sorting order is important as it [affects search
+results and cutoff processing][qp_behavior] in Radarr & Sonarr v4. This property must be set to one
+of the values below.
+
+:::info
+
+Regardless of the sorting mode, the order of the qualities *you explicitly specify* will always be
+in the order in which they appear in the `qualities` section.
+
+:::
+
+- `top`: Qualities and quality groups you explicitly specify will be pushed to the top of the
+  qualities list. Unspecified (missing) qualities will appear below that list.
+- `bottom`: Qualities and quality groups you explicitly specify will be pushed to the bottom of the
+  qualities list. Unspecified (missing) qualities will appear above that list.
+
+:::tip
+
+Want to know why you would choose one or the other? See the [Quality Profiles][qp_behavior] page.
+
+:::
+
+[qp_behavior]: /behavior/quality-profiles.md#order-matters
 
 ## Release Profiles {#release-profiles}
 

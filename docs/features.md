@@ -6,9 +6,7 @@ sidebar_position: 2
 
 A comprehensive list of features in Recyclarr.
 
-## Sonarr
-
-### Release Profiles
+## Release Profiles
 
 :::info
 
@@ -29,7 +27,7 @@ Sonarr v3 Only
 - Convenient command line options to get information from the guide to more easily add it to your
   YAML configuration.
 
-### Custom Formats
+## Custom Formats
 
 - A user-specified list of custom formats are synchronized to Sonarr from the TRaSH guides.
 - Scores from the guides can be synchronized to quality profiles of your choosing.
@@ -37,20 +35,15 @@ Sonarr v3 Only
 - Option to enable automatic deletion custom formats in Sonarr when they are removed from config or
   the guide.
 
-### Quality Definitions
+## Quality Definitions
 
-- Anime and Series (Non-Anime) quality definitions from the guide.
+- Guide-provided quality definitions, such as Anime, Series (Non-Anime), and Movies.
 
-## Radarr
+### Quality Profiles
 
-### Quality Definitions
-
-- Movie quality definition from the guide
-
-### Custom Formats
-
-- A user-specified list of custom formats are synchronized to Radarr from the TRaSH guides.
-- Scores from the guides can be synchronized to quality profiles of your choosing.
-- User can specify their own scores for custom formats (instead of using the guide score).
-- Option to enable automatic deletion custom formats in Radarr when they are removed from config or
-  the guide.
+- Create and modify quality profiles.
+- Compatibible with Sonarr v3 except for Qualities.
+- Sync profile fields: "Upgrade Allowed", "Upgrade Until Custom Format Score", "Upgrade Until
+  Quality", "Minimum Custom Format Score".
+- Sync Qualities and Quality Groups.
+- Option to choose multiple sort algorithms for qualities.
