@@ -120,6 +120,18 @@ builds should not be run against your production / meaningful instances of Radar
 
 ### Environment {#docker-env}
 
+:::info
+
+The `PUID` and `PGID` environment variables are **not** utilized by the official Docker image for
+Recyclarr. Many people think these two environment variables are built into Docker, but they are
+not.
+
+Recyclarr's docker container is **rootless**. You must use the `user` property (in your docker
+compose) or the `--user` option (with the docker cli) to specify the user and group IDs that
+Recyclarr runs as.
+
+:::
+
 - `CRON_SCHEDULE` (Default: `@daily`)<br/>
   Standard cron syntax for how often you want Recyclarr to run (see [Cron Mode](#cron-mode)).
 
