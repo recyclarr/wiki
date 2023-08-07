@@ -79,7 +79,7 @@ If qualities are removed instead of disabled, this can result in upgrades never 
 Using the same example YAML from the previous section:
 
 ```yml
-quality_sort: bottomj
+quality_sort: bottom
 qualities:
   - name: Remux-1080p
   - name: Bluray-1080p
