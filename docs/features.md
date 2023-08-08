@@ -6,6 +6,27 @@ sidebar_position: 2
 
 A comprehensive list of features in Recyclarr.
 
+## Custom Formats
+
+- A user-specified list of custom formats are synchronized to Sonarr from the TRaSH guides.
+- Scores from the guides can be synchronized to quality profiles of your choosing.
+- User can specify their own scores for custom formats (instead of using the guide score).
+- Option to enable automatic deletion custom formats in Sonarr when they are removed from config or
+  the guide.
+
+## Quality Profiles
+
+- Create and modify quality profiles.
+- Compatibible with Sonarr v3 except for Qualities.
+- Sync profile fields: "Upgrade Allowed", "Upgrade Until Custom Format Score", "Upgrade Until
+  Quality", "Minimum Custom Format Score".
+- Sync Qualities and Quality Groups.
+- Option to choose multiple sort algorithms for qualities.
+
+## Quality Definitions
+
+- Guide-provided quality definitions, such as Anime, Series (Non-Anime), and Movies.
+
 ## Release Profiles
 
 :::info
@@ -26,24 +47,3 @@ Sonarr v3 Only
   on user preference.
 - Convenient command line options to get information from the guide to more easily add it to your
   YAML configuration.
-
-## Custom Formats
-
-- A user-specified list of custom formats are synchronized to Sonarr from the TRaSH guides.
-- Scores from the guides can be synchronized to quality profiles of your choosing.
-- User can specify their own scores for custom formats (instead of using the guide score).
-- Option to enable automatic deletion custom formats in Sonarr when they are removed from config or
-  the guide.
-
-## Quality Definitions
-
-- Guide-provided quality definitions, such as Anime, Series (Non-Anime), and Movies.
-
-### Quality Profiles
-
-- Create and modify quality profiles.
-- Compatibible with Sonarr v3 except for Qualities.
-- Sync profile fields: "Upgrade Allowed", "Upgrade Until Custom Format Score", "Upgrade Until
-  Quality", "Minimum Custom Format Score".
-- Sync Qualities and Quality Groups.
-- Option to choose multiple sort algorithms for qualities.
