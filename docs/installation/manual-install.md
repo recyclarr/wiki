@@ -52,10 +52,11 @@ command. You can even put this URL in your `~/.bashrc` or similar to set it ever
 export RECYCLARR_URL="Paste_URL_Here"
 ```
 
-With the above variable set, run the command below to download & install/upgrade:
+With the above variable set, run the command below to download & install/upgrade. The `--overwrite`
+option is necessary for upgrades so that the command may replace any existing `recyclarr` binary.
 
 ```bash
-wget "$RECYCLARR_URL" -O - | tar xJ -C /usr/local/bin
+wget "$RECYCLARR_URL" -O - | sudo tar xJ --overwrite -C /usr/local/bin
 ```
 
 :::info
