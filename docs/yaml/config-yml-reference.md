@@ -33,12 +33,9 @@ according to the rules documented on [the file structure](../file-structure.md#d
 
 :::info
 
-Each "main" section of this reference page has a small table at the top which gives you a glance at
+Each main section of this reference page has a small table at the top which gives you a glance at
 the feature's compatibility with every service supported by Recyclarr. The icons in that table are
 documented below.
-
-Recyclarr supports along with an icon next to it that briefly shows the support each service has for
-the feature documented by that section.
 
 |                           Icon                           | Description           |
 | :------------------------------------------------------: | --------------------- |
@@ -465,13 +462,13 @@ There are several important things to know about defining qualities:
 - The order in which you list your qualities & groups here will be reflected in the service.
 - When defining a quality group, qualities you assign to that group get removed from other groups if
   needed.
-- Groups that have qualities removed from them will be retained, unless that group becomes empty as
-  a result, in which case the group is *deleted*.
+- Existing groups that have qualities removed from them will be retained, unless that group becomes
+  empty as a result, in which case the group is *deleted*.
 
 The `qualities` section is a list. Each list item is allowed to have the following properties:
 
 - `name` **(Required)**<br/>
-  The name of *and existing* quality. If this is a quality group, this name identifies either an
+  The name of *an existing* quality. If this is a quality group, this name identifies either an
   existing quality group *or* will be used as the name for a newly created group.
 
 - `enabled` (Optional; *Default: `true`*)<br/>
@@ -517,7 +514,8 @@ in the order in which they appear in the `qualities` section.
 
 :::tip
 
-Want to know why you would choose one or the other? See the [Quality Profiles][qp_behavior] page.
+Want to know why you would choose one or the other? See the [Quality Profiles][qp_behavior] behavior
+page.
 
 :::
 
