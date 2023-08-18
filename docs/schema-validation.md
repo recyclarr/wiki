@@ -10,6 +10,7 @@ much easier. You should be interested in this topic if any of the following poin
 - You like to edit your YAML files in [Visual Studio Code](https://code.visualstudio.com/).
 - You want in-editor documentation for various YAML elements as well as which properties can be used
   where.
+- You'd like auto-completion of YAML properties and objects.
 - You want to easily spot errors in your YAML documents in response to parsing errors when running
   Recyclarr or in real time as you edit.
 
@@ -42,9 +43,9 @@ to the very top (line 1) of the file you're editing. This comment will be differ
 type of YAML file. To find the correct comment to use, refer to the respective YAML reference page
 linked below.
 
-- [Configuration YAML] &mdash; Applies to `recyclarr.yml` or any YAML files under the `configs`
+- [Configuration YAML] — Applies to `recyclarr.yml` or any YAML files under the `configs`
   subdirectory
-- [Settings YAML] &mdash; Applies to `settings.yml`
+- [Settings YAML] — Applies to `settings.yml`
 
 After adding the comment to the top, you should begin to see contextual editing features as you
 edit. It will suggest properties you can use and show you documentation for each without having to
