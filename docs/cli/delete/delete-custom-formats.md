@@ -1,0 +1,93 @@
+---
+id: custom-formats
+title: recyclarr delete custom-formats
+---
+
+## Usage
+
+```js
+recyclarr delete custom-formats <instance_name> [cf_names] [OPTIONS]
+```
+
+## Description
+
+For a specific service, this command offers various ways to delete custom formats of your choosing.
+
+:::danger
+
+Perform a backup before you use this command! It should go without saying, but the this command is
+extremely destructive. **Any deletions you perform are permanent!**
+
+:::
+
+## Examples
+
+```bash
+# Delete all custom formats from an instance named "my-radarr" with a confirmation prompt
+recyclarr delete custom-formats my-radarr --all
+
+# Delete two specific custom formats from an instance named "my-radarr"  with a confirmation prompt
+recyclarr delete custom-formats my-radarr "DTS-HD HRA" AMZN
+
+# Delete all custom formats without a confirmation prompt
+recyclarr delete custom-formats my-radarr --all --force
+
+# Preview the deletion of all custom formats from an instance named "my-sonarr-v4"
+recyclarr delete custom-formats my-sonarr-v4 --all --preview
+```
+
+## Arguments
+
+### `<instance_name>`
+
+**Required.** The instance name in one of your configuration files representing the service to which
+custom formats will be deleted. The instance name is covered in detail on the [configuration
+reference page][configref], but as a reminder, the instance name is `fubar` in the example below:
+
+```yml
+radarr:
+  fubar:
+    base_url: http://localhost:7878
+    api_key: f7e74ba6c80046e39e076a27af5a8444
+```
+
+[configref]: /yaml/config-yml-reference.md#basic
+
+### `[cf_names]`
+
+A space-separated list of zero or more custom formats names to delete. This argument is **required**
+if you do not specify the `--all` option.
+
+:::info
+
+Any custom formats provided here are ignored if the `--all` option is used.
+
+:::
+
+## Options
+
+Visit [Common Options](../common.md) to read about options usable by all commands.
+
+### `-a|--all`
+
+Indicates that you want **ALL** custom formats in the remote service to be deleted.
+
+:::info
+
+If this option is used, any explicit CFs provided to the `[cf_names]` argument are ignored.
+
+:::
+
+### `-f|--force`
+
+If specified, performs the delete operation without a confirmation prompt.
+
+:::caution
+
+Know what you are doing before you use this option!
+
+:::
+
+### `-p|--preview`
+
+Preview the custom formats that will be deleted without performing any deletion operations.
