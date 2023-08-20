@@ -341,6 +341,7 @@ service_type:
           until_quality: Remux-1080p
           until_score: 456
         min_format_score: 123
+        score_set: sqp-1-1080p
         quality_sort: bottom
         qualities:
           - name: Remux-1080p
@@ -397,6 +398,36 @@ name) *or* create a brand new quality profile using the new name.
   this is to explicitly exclude custom formats scores you manage manually (i.e. that are not synced
   by Recyclarr). If this property is omitted, then all CFs are unconditionally reset to `0` as
   described by the `enabled` property documentation.
+
+### `score_set` {#qp-score-set}
+
+**Optional.** *Default: `default`*
+
+A string (name) that determines the scores to use across all custom formats assigned to the quality
+profile. When multiple custom formats have a score assigned to it that all share this name, this is
+what is called a "score set".
+
+A great example of this are the SQP profiles. For SQP, guide scores can change for one or more
+custom formats. To avoid users having to manually input every single score in YAML, the CF json data
+maps those scores to names under the `trash_scores` property, like so:
+
+```json
+"trash_scores": {
+  "default": 100,
+  "sqp-2": 151,
+  "sqp-3": 151,
+  "sqp-4": 151,
+  "sqp-5": 151
+},
+```
+
+In this example, if you have `score_set: sqp-2`, then any custom format assigned to the profile to
+which that score set is assigned will use the score next to `"sqp-2"` in the `trash_scores`
+property.
+
+If any custom format does *not* have a score that is a part of that set, it instead pulls the score
+from `"default"`. If `score_set` is omitted, then all scores are taken from the `"default"` score
+set.
 
 ### `min_format_score` {#qp-min-format-score}
 
