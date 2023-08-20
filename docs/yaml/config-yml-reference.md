@@ -331,7 +331,11 @@ service_type:
     # Quality Profile Configuration
     quality_profiles:
       - name: SD
-        reset_unmatched_scores: true
+        reset_unmatched_scores:
+          enabled: true
+          except:
+            - My First CF
+            - My Second CF
         upgrade:
           allowed: true
           until_quality: Remux-1080p
@@ -379,13 +383,20 @@ name) *or* create a brand new quality profile using the new name.
 
 ### `reset_unmatched_scores` {#qp-reset-unmatched-scores}
 
-**Optional.** *Default: `false`*
+**Optional.** *Default: do not reset any scores*
 
-If set to `true`, sets *all* custom format scores to `0` (including those CFs you may be managing
-manually!) in corresponding quality profiles where those CFs are not in the `trash_ids` array *or*
-did not get a score (e.g. no score in guide). If `false`, scores are never altered unless it is
-listed in the `trash_ids` array *and* has a valid score to assign (either from the guide or via an
-explicit `score`).
+- `enabled` **(Required)**<br/>
+  If set to `true`, sets *all* custom format scores to `0` (including those CFs you may be managing
+  manually!) in corresponding quality profiles where those CFs are not in the `trash_ids` array *or*
+  did not get a score (e.g. no score in guide). If `false`, scores are never altered unless it is
+  listed in the `trash_ids` array *and* has a valid score to assign (either from the guide or via an
+  explicit `score`). When set to `true`, you can exclude CFs from resets with the `except` property.
+
+- `except` (Optional; *Default: empty; no CFs excluded from reset*)<br/>
+  A list of one or more custom format names to exclude from score resets. The typical use case for
+  this is to explicitly exclude custom formats scores you manage manually (i.e. that are not synced
+  by Recyclarr). If this property is omitted, then all CFs are unconditionally reset to `0` as
+  described by the `enabled` property documentation.
 
 ### `min_format_score` {#qp-min-format-score}
 
