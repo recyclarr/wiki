@@ -17,7 +17,7 @@ A comprehensive list of features in Recyclarr.
 ## Quality Profiles
 
 - Create and modify quality profiles.
-- Compatibible with Sonarr v3 except for Qualities.
+- Compatible with Sonarr v3.
 - Sync profile fields: "Upgrade Allowed", "Upgrade Until Custom Format Score", "Upgrade Until
   Quality", "Minimum Custom Format Score".
 - Sync Qualities and Quality Groups.
@@ -47,3 +47,9 @@ Sonarr v3 Only
   on user preference.
 - Convenient command line options to get information from the guide to more easily add it to your
   YAML configuration.
+
+## Command Line Operations
+
+- A `list` command for showing available custom formats, release profiles, and quality definitions
+  available in the TRaSH Guides.
+- A `delete` command providing ways to delete stuff from Radarr & Sonarr, such as custom formats.
