@@ -40,9 +40,25 @@ radarr:
           - 820b09bb9acbfde9c35c71e0e565dad8 # 1080p
 ```
 
+## Examples
+
+```bash
+# List all custom formats in the guide for Radarr
+recyclarr list custom-formats radarr
+
+# List all custom formats in the guide for Sonarr
+recyclarr list custom-formats sonarr
+
+# List all score sets in custom formats for Radarr
+recyclarr list custom-formats radarr --score-sets
+
+# List all custom formats without any formatting (e.g. for scripts)
+recyclarr list custom-formats radarr --raw
+```
+
 ## Arguments
 
-### `<service>`
+### `<service>` {#service}
 
 A required positional argument that indicates the specific service type to list custom formats for.
 Valid values for this argument are:
@@ -56,3 +72,16 @@ Valid values for this argument are:
 ## Options
 
 Visit [Common Options](../common.md) to read about options usable by all commands.
+
+### `--score-sets` {#score-sets}
+
+Instead of listing custom format names, output a list of score sets that can be used with the
+[`score_set` YAML property][scoresetyaml].
+
+[scoresetyaml]: /yaml/config-yml-reference.md#qp-score-set
+
+### `--raw` {#raw}
+
+Omit boilerplate text in the output. This excludes superfluous instructional text, formatting, and
+colors. This option is useful to use in scripting scenarios, such as taking the CF output list and
+automatically building a YAML configuration file from it.
