@@ -50,7 +50,7 @@ Below you will find pre-built configuration files for the following TRaSH Guides
 <summary>Click to show/hide</summary>
 
 ```yml reference title="Copy this configuration into your own configuration file:"
-https://github.com/recyclarr/config-templates/blob/master/radarr/sqp/sqp-1-1080p.yml
+https://github.com/recyclarr/config-templates/blob/master/radarr/templates/sqp/sqp-1-1080p.yml
 ```
 
 </details>
@@ -61,7 +61,7 @@ https://github.com/recyclarr/config-templates/blob/master/radarr/sqp/sqp-1-1080p
 <summary>Click to show/hide</summary>
 
 ```yml reference title="Copy this configuration into your own configuration file:"
-https://github.com/recyclarr/config-templates/blob/master/radarr/sqp/sqp-1-2160p.yml
+https://github.com/recyclarr/config-templates/blob/master/radarr/templates/sqp/sqp-1-2160p.yml
 ```
 
 </details>
@@ -72,7 +72,7 @@ https://github.com/recyclarr/config-templates/blob/master/radarr/sqp/sqp-1-2160p
 <summary>Click to show/hide</summary>
 
 ```yml reference title="Copy this configuration into your own configuration file:"
-https://github.com/recyclarr/config-templates/blob/master/radarr/sqp/sqp-2.yml
+https://github.com/recyclarr/config-templates/blob/master/radarr/templates/sqp/sqp-2.yml
 ```
 
 </details>
@@ -83,7 +83,7 @@ https://github.com/recyclarr/config-templates/blob/master/radarr/sqp/sqp-2.yml
 <summary>Click to show/hide</summary>
 
 ```yml reference title="Copy this configuration into your own configuration file:"
-https://github.com/recyclarr/config-templates/blob/master/radarr/sqp/sqp-3.yml
+https://github.com/recyclarr/config-templates/blob/master/radarr/templates/sqp/sqp-3.yml
 ```
 
 </details>
@@ -94,7 +94,7 @@ https://github.com/recyclarr/config-templates/blob/master/radarr/sqp/sqp-3.yml
 <summary>Click to show/hide</summary>
 
 ```yml reference title="Copy this configuration into your own configuration file:"
-https://github.com/recyclarr/config-templates/blob/master/radarr/sqp/sqp-4.yml
+https://github.com/recyclarr/config-templates/blob/master/radarr/templates/sqp/sqp-4.yml
 ```
 
 </details>
@@ -105,7 +105,7 @@ https://github.com/recyclarr/config-templates/blob/master/radarr/sqp/sqp-4.yml
 <summary>Click to show/hide</summary>
 
 ```yml reference title="Copy this configuration into your own configuration file:"
-https://github.com/recyclarr/config-templates/blob/master/radarr/sqp/sqp-5.yml
+https://github.com/recyclarr/config-templates/blob/master/radarr/templates/sqp/sqp-5.yml
 ```
 
 </details>
