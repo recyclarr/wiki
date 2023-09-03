@@ -22,8 +22,8 @@ Because disabled (disallowed) qualities are not technically non-functional, the 
 give you some flexibility in how those disabled qualities impact you when they're missing from the
 [`qualities` list][qpqualities] in your configuration YAML.
 
-[qpsort]: /yaml/config-yml-reference.md#qp-quality-sort
-[qpqualities]: /yaml/config-yml-reference.md#qp-qualities
+[qpsort]: /yaml/config-reference/quality-profiles.md#quality-sort
+[qpqualities]: /yaml/config-reference/quality-profiles.md#qualities
 
 ### Top Sort {#top-sort}
 

@@ -63,9 +63,9 @@ configurations can be implicitly set by following a naming convention for certai
 
 Where `<instance_name>` is the [name of the instance][instance_name] in your YAML file.
 
-[base_url]: /yaml/config-yml-reference.md#basic-base-url
-[api_key]: /yaml/config-yml-reference.md#basic-api-key
-[instance_name]: /yaml/config-yml-reference.md#basic-instance-name
+[base_url]: /yaml/config-reference/basic.md#base-url
+[api_key]: /yaml/config-reference/basic.md#api-key
+[instance_name]: /yaml/config-reference/basic.md#instance-name
 
 ### Order of Precedence {#implicit-key-url-precedence}
 

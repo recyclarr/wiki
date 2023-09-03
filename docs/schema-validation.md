@@ -70,6 +70,6 @@ The `yaml.customTags` setting is documented [here][custom-tags].
 [vs-code-setup]: https://code.visualstudio.com/docs/setup/setup-overview
 [vs-code-ext-inst]: https://code.visualstudio.com/learn/get-started/extensions
 [yaml]: https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml
-[Configuration YAML]: /yaml/config-yml-reference.md#schema
+[Configuration YAML]: /yaml/config-reference/index.md#schema
 [Settings YAML]: /yaml/settings-reference.md#schema
 [custom-tags]: https://github.com/redhat-developer/vscode-yaml#extension-settings

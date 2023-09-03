@@ -78,7 +78,7 @@ Visit [Common Options](../common.md) to read about options usable by all command
 Instead of listing custom format names, output a list of score sets that can be used with the
 [`score_set` YAML property][scoresetyaml].
 
-[scoresetyaml]: /yaml/config-yml-reference.md#qp-score-set
+[scoresetyaml]: /yaml/config-reference/quality-profiles.md#score-set
 
 ### `--raw` {#raw}
 

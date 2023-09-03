@@ -133,7 +133,7 @@ to either a v3 or v4 instance of Sonarr and will correctly anticipate either `re
 `custom_formats` (respectively).
 
 When you run `recyclarr sync sonarr` (specify `--config` if you aren't using the [default config
-search behavior](../file-structure.md#default-yaml)) it will update both instances.
+search behavior](/file-structure.md#default-yaml)) it will update both instances.
 
 ## Synchronize a lot of custom formats for a single quality profile
 
@@ -304,7 +304,7 @@ you add/remove custom formats from a profile.
 ## What does the file structure look like with multiple YAML configuration files? {#yaml-structure}
 
 Suppose you want to use `recyclarr.yml` and multiple YAML files in the `configs` directory, as
-documented on [the File Structure page](../file-structure.md#default-yaml). What would that file
+documented on [the File Structure page](/file-structure.md#default-yaml). What would that file
 structure look like?
 
 Using docker as an example, it would look like this:

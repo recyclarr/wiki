@@ -1,0 +1,64 @@
+---
+id: config-reference
+title: Configuration
+sidebar_position: 1
+---
+
+The Recyclarr program utilizes YAML for its configuration files. The configuration can be set up
+multiple ways, offering a lot of flexibility:
+
+- You may use one or more YAML files simultaneously, allowing you to divide your configuration
+  properties up in such a way that you can control what gets updated based on which files you
+  specify.
+
+- Each YAML file may have one or more service configurations. This means you can have one file
+  define settings for Sonarr, Radarr, or both services. The program will only read the configuration
+  from the file relevant for the specific service command you specified (e.g. `recyclarr sync
+  sonarr` will only read the Sonarr config in the file, even if Radarr config is present).
+
+- Use [a `secrets.yml` file](/yaml/secrets-reference.md) to keep sensitive values out of your
+  configuration files. This prevents accidentally sharing api_keys and other sensitive values when
+  sharing configurations.
+
+For various examples, see the [Configuration Examples] page.
+
+[Configuration Examples]: /yaml/configuration-examples.md
+
+:::tip Remember
+
+If you do not specify the `--config` argument, the program will look for default configuration files
+according to the rules documented on [the file structure](/file-structure.md#default-yaml) page.
+
+:::
+
+:::info
+
+Each main section of this reference page has a small table at the top which gives you a glance at
+the feature's compatibility with every service supported by Recyclarr. The icons in that table are
+documented below.
+
+|                           Icon                           | Description           |
+| :------------------------------------------------------: | --------------------- |
+| <icon icon="mdi:check-bold" height="24" color="green" /> | Full Compatibility    |
+|   <icon icon="mdi:tilde" height="24" color="yellow" />   | Partial Compatibility |
+| <icon icon="mdi:close-thick" height="24" color="red" />  | No Compatibility      |
+
+:::
+
+## Schema Validation {#schema}
+
+Visit the [Schema Validation](/schema-validation.md) page for detailed instructions.
+
+Add this comment to the top of your YAML file:
+
+```yml
+# yaml-language-server: $schema=https://raw.githubusercontent.com/recyclarr/recyclarr/master/schemas/config-schema.json
+```
+
+## Reference Pages
+
+- [Basic Setup](./basic.md)
+- [Custom Formats](./custom-formats.md)
+- [Quality Definition](./quality-definition.md)
+- [Quality Profiles](./quality-profiles.md)
+- [Release Profiles](./release-profiles.md)

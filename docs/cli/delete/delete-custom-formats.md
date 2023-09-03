@@ -51,7 +51,7 @@ radarr:
     api_key: f7e74ba6c80046e39e076a27af5a8444
 ```
 
-[configref]: /yaml/config-yml-reference.md#basic
+[configref]: /yaml/config-reference/basic.md
 
 ### `[cf_names]`
 

@@ -73,5 +73,5 @@ files](yaml/configuration-examples.md)
 :::
 
 [appdata]: /file-structure.md#appdata-directory
-[reference]: /yaml/config-yml-reference.md
+[reference]: /yaml/config-reference/index.md
 [examples]: /yaml/configuration-examples.md
