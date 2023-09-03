@@ -49,7 +49,7 @@ Below you will find pre-built configuration files for the following TRaSH Guides
 <summary>Click to show/hide</summary>
 
 ```yml reference title="Copy this configuration into your own configuration file:"
-https://github.com/recyclarr/config-templates/blob/master/radarr/hd-bluray-web.yml
+https://github.com/recyclarr/config-templates/blob/master/radarr/templates/hd-bluray-web.yml
 ```
 
 </details>
@@ -60,7 +60,7 @@ https://github.com/recyclarr/config-templates/blob/master/radarr/hd-bluray-web.y
 <summary>Click to show/hide</summary>
 
 ```yml reference title="Copy this configuration into your own configuration file:"
-https://github.com/recyclarr/config-templates/blob/master/radarr/uhd-bluray-web.yml
+https://github.com/recyclarr/config-templates/blob/master/radarr/templates/uhd-bluray-web.yml
 ```
 
 </details>
@@ -71,7 +71,7 @@ https://github.com/recyclarr/config-templates/blob/master/radarr/uhd-bluray-web.
 <summary>Click to show/hide</summary>
 
 ```yml reference title="Copy this configuration into your own configuration file:"
-https://github.com/recyclarr/config-templates/blob/master/radarr/remux-web-1080p.yml
+https://github.com/recyclarr/config-templates/blob/master/radarr/templates/remux-web-1080p.yml
 ```
 
 </details>
@@ -82,7 +82,7 @@ https://github.com/recyclarr/config-templates/blob/master/radarr/remux-web-1080p
 <summary>Click to show/hide</summary>
 
 ```yml reference title="Copy this configuration into your own configuration file:"
-https://github.com/recyclarr/config-templates/blob/master/radarr/remux-web-2160p.yml
+https://github.com/recyclarr/config-templates/blob/master/radarr/templates/remux-web-2160p.yml
 ```
 
 </details>
@@ -93,7 +93,7 @@ https://github.com/recyclarr/config-templates/blob/master/radarr/remux-web-2160p
 <summary>Click to show/hide</summary>
 
 ```yml reference title="Copy this configuration into your own configuration file:"
-https://github.com/recyclarr/config-templates/blob/master/radarr/anime-radarr.yml
+https://github.com/recyclarr/config-templates/blob/master/radarr/templates/anime-radarr.yml
 ```
 
 </details>
@@ -104,7 +104,7 @@ https://github.com/recyclarr/config-templates/blob/master/radarr/anime-radarr.ym
 <summary>Click to show/hide</summary>
 
 ```yml reference title="Copy this configuration into your own configuration file:"
-https://github.com/recyclarr/config-templates/blob/master/radarr/french-hd-bluray-web-multi.yml
+https://github.com/recyclarr/config-templates/blob/master/radarr/templates/french-hd-bluray-web-multi.yml
 ```
 
 </details>
@@ -115,7 +115,7 @@ https://github.com/recyclarr/config-templates/blob/master/radarr/french-hd-blura
 <summary>Click to show/hide</summary>
 
 ```yml reference title="Copy this configuration into your own configuration file:"
-https://github.com/recyclarr/config-templates/blob/master/radarr/french-hd-bluray-web-vostfr.yml
+https://github.com/recyclarr/config-templates/blob/master/radarr/templates/french-hd-bluray-web-vostfr.yml
 ```
 
 </details>
@@ -126,7 +126,7 @@ https://github.com/recyclarr/config-templates/blob/master/radarr/french-hd-blura
 <summary>Click to show/hide</summary>
 
 ```yml reference title="Copy this configuration into your own configuration file:"
-https://github.com/recyclarr/config-templates/blob/master/radarr/french-uhd-bluray-web-multi.yml
+https://github.com/recyclarr/config-templates/blob/master/radarr/templates/french-uhd-bluray-web-multi.yml
 ```
 
 </details>
@@ -137,7 +137,7 @@ https://github.com/recyclarr/config-templates/blob/master/radarr/french-uhd-blur
 <summary>Click to show/hide</summary>
 
 ```yml reference title="Copy this configuration into your own configuration file:"
-https://github.com/recyclarr/config-templates/blob/master/radarr/french-uhd-bluray-web-vostfr.yml
+https://github.com/recyclarr/config-templates/blob/master/radarr/templates/french-uhd-bluray-web-vostfr.yml
 ```
 
 </details>
@@ -148,7 +148,7 @@ https://github.com/recyclarr/config-templates/blob/master/radarr/french-uhd-blur
 <summary>Click to show/hide</summary>
 
 ```yml reference title="Copy this configuration into your own configuration file:"
-https://github.com/recyclarr/config-templates/blob/master/radarr/french-remux-web-1080p-multi.yml
+https://github.com/recyclarr/config-templates/blob/master/radarr/templates/french-remux-web-1080p-multi.yml
 ```
 
 </details>
@@ -159,7 +159,7 @@ https://github.com/recyclarr/config-templates/blob/master/radarr/french-remux-we
 <summary>Click to show/hide</summary>
 
 ```yml reference title="Copy this configuration into your own configuration file:"
-https://github.com/recyclarr/config-templates/blob/master/radarr/french-remux-web-1080p-vostfr.yml
+https://github.com/recyclarr/config-templates/blob/master/radarr/templates/french-remux-web-1080p-vostfr.yml
 ```
 
 </details>
@@ -170,7 +170,7 @@ https://github.com/recyclarr/config-templates/blob/master/radarr/french-remux-we
 <summary>Click to show/hide</summary>
 
 ```yml reference title="Copy this configuration into your own configuration file:"
-https://github.com/recyclarr/config-templates/blob/master/radarr/french-remux-web-2160p-multi.yml
+https://github.com/recyclarr/config-templates/blob/master/radarr/templates/french-remux-web-2160p-multi.yml
 ```
 
 </details>
@@ -181,7 +181,7 @@ https://github.com/recyclarr/config-templates/blob/master/radarr/french-remux-we
 <summary>Click to show/hide</summary>
 
 ```yml reference title="Copy this configuration into your own configuration file:"
-https://github.com/recyclarr/config-templates/blob/master/radarr/french-remux-web-2160p-vostfr.yml
+https://github.com/recyclarr/config-templates/blob/master/radarr/templates/french-remux-web-2160p-vostfr.yml
 ```
 
 </details>
@@ -196,7 +196,7 @@ https://github.com/recyclarr/config-templates/blob/master/radarr/french-remux-we
 <summary>Click to show/hide</summary>
 
 ```yml reference title="Copy this configuration into your own configuration file:"
-https://github.com/recyclarr/config-templates/blob/master/sonarr/web-1080p-v4.yml
+https://github.com/recyclarr/config-templates/blob/master/sonarr/templates/web-1080p-v4.yml
 ```
 
 </details>
@@ -207,7 +207,7 @@ https://github.com/recyclarr/config-templates/blob/master/sonarr/web-1080p-v4.ym
 <summary>Click to show/hide</summary>
 
 ```yml reference title="Copy this configuration into your own configuration file:"
-https://github.com/recyclarr/config-templates/blob/master/sonarr/web-2160p-v4.yml
+https://github.com/recyclarr/config-templates/blob/master/sonarr/templates/web-2160p-v4.yml
 ```
 
 </details>
@@ -218,7 +218,7 @@ https://github.com/recyclarr/config-templates/blob/master/sonarr/web-2160p-v4.ym
 <summary>Click to show/hide</summary>
 
 ```yml reference title="Copy this configuration into your own configuration file:"
-https://github.com/recyclarr/config-templates/blob/master/sonarr/anime-sonarr-v4.yml
+https://github.com/recyclarr/config-templates/blob/master/sonarr/templates/anime-sonarr-v4.yml
 ```
 
 </details>
@@ -229,7 +229,7 @@ https://github.com/recyclarr/config-templates/blob/master/sonarr/anime-sonarr-v4
 <summary>Click to show/hide</summary>
 
 ```yml reference title="Copy this configuration into your own configuration file:"
-https://github.com/recyclarr/config-templates/blob/master/sonarr/french-web-1080p-multi-v4.yml
+https://github.com/recyclarr/config-templates/blob/master/sonarr/templates/french-web-1080p-multi-v4.yml
 ```
 
 </details>
@@ -240,7 +240,7 @@ https://github.com/recyclarr/config-templates/blob/master/sonarr/french-web-1080
 <summary>Click to show/hide</summary>
 
 ```yml reference title="Copy this configuration into your own configuration file:"
-https://github.com/recyclarr/config-templates/blob/master/sonarr/french-web-1080p-vostfr-v4.yml
+https://github.com/recyclarr/config-templates/blob/master/sonarr/templates/french-web-1080p-vostfr-v4.yml
 ```
 
 </details>
@@ -251,7 +251,7 @@ https://github.com/recyclarr/config-templates/blob/master/sonarr/french-web-1080
 <summary>Click to show/hide</summary>
 
 ```yml reference title="Copy this configuration into your own configuration file:"
-https://github.com/recyclarr/config-templates/blob/master/sonarr/french-web-2160p-multi-v4.yml
+https://github.com/recyclarr/config-templates/blob/master/sonarr/templates/french-web-2160p-multi-v4.yml
 ```
 
 </details>
@@ -262,7 +262,7 @@ https://github.com/recyclarr/config-templates/blob/master/sonarr/french-web-2160
 <summary>Click to show/hide</summary>
 
 ```yml reference title="Copy this configuration into your own configuration file:"
-https://github.com/recyclarr/config-templates/blob/master/sonarr/french-web-2160p-vostfr-v4.yml
+https://github.com/recyclarr/config-templates/blob/master/sonarr/templates/french-web-2160p-vostfr-v4.yml
 ```
 
 </details>
@@ -273,7 +273,7 @@ https://github.com/recyclarr/config-templates/blob/master/sonarr/french-web-2160
 <summary>Click to show/hide</summary>
 
 ```yml reference title="Copy this configuration into your own configuration file:"
-https://github.com/recyclarr/config-templates/blob/master/sonarr/french-anime-multi-v4.yml
+https://github.com/recyclarr/config-templates/blob/master/sonarr/templates/french-anime-multi-v4.yml
 ```
 
 </details>
@@ -284,7 +284,7 @@ https://github.com/recyclarr/config-templates/blob/master/sonarr/french-anime-mu
 <summary>Click to show/hide</summary>
 
 ```yml reference title="Copy this configuration into your own configuration file:"
-https://github.com/recyclarr/config-templates/blob/master/sonarr/french-anime-vostfr-v4.yml
+https://github.com/recyclarr/config-templates/blob/master/sonarr/templates/french-anime-vostfr-v4.yml
 ```
 
 </details>
