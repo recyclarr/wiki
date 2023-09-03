@@ -62,3 +62,4 @@ Add this comment to the top of your YAML file:
 - [Quality Definition](quality-definition.md)
 - [Quality Profiles](quality-profiles.md)
 - [Release Profiles](release-profiles.md)
+- [Include](include.md)
