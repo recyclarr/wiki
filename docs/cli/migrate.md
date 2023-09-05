@@ -16,4 +16,4 @@ System](/behavior/migration-system.md) page to read more about it.
 
 ## Options
 
-Visit [Common Options](./common.md) to read about options usable by all commands.
+Visit [Common Options](common.md) to read about options usable by all commands.

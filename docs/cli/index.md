@@ -27,8 +27,8 @@ or angle-brackets (e.g. `<required>`).
 
 Also visit the [Common Options](common.md) page to learn about options usable across *all* commands.
 
-- [recyclarr](./main.md)
-- [recyclarr sync](./sync.md)
-- [recyclarr list](./list)
-- [recyclarr migrate](./migrate.md)
-- [recyclarr config](./config)
+- [recyclarr](main.md)
+- [recyclarr sync](sync.md)
+- [recyclarr list](list)
+- [recyclarr migrate](migrate.md)
+- [recyclarr config](config)

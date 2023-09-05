@@ -57,8 +57,8 @@ Add this comment to the top of your YAML file:
 
 ## Reference Pages
 
-- [Basic Setup](./basic.md)
-- [Custom Formats](./custom-formats.md)
-- [Quality Definition](./quality-definition.md)
-- [Quality Profiles](./quality-profiles.md)
-- [Release Profiles](./release-profiles.md)
+- [Basic Setup](basic.md)
+- [Custom Formats](custom-formats.md)
+- [Quality Definition](quality-definition.md)
+- [Quality Profiles](quality-profiles.md)
+- [Release Profiles](release-profiles.md)
