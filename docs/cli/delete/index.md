@@ -5,16 +5,12 @@ title: recyclarr delete
 ## Usage
 
 ```js
-recyclarr delete [OPTIONS] <COMMAND>
+recyclarr delete <COMMAND>
 ```
 
 ## Description
 
 Allows deletion of various resources in a known, remote service such as Radarr and Sonarr.
-
-## Options
-
-Visit [Common Options](../common.md) to read about options usable by all commands.
 
 ## Commands
 

@@ -5,16 +5,12 @@ title: recyclarr list
 ## Usage
 
 ```js
-recyclarr list [OPTIONS] <COMMAND>
+recyclarr list <COMMAND>
 ```
 
 ## Description
 
 Provides a series of commands used to list information in the guide.
-
-## Options
-
-Visit [Common Options](../common.md) to read about options usable by all commands.
 
 ## Commands
 
