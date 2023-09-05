@@ -32,3 +32,4 @@ Also visit the [Common Options](common.md) page to learn about options usable ac
 - [recyclarr list](list)
 - [recyclarr migrate](migrate.md)
 - [recyclarr config](config)
+- [recyclarr delete](delete)
