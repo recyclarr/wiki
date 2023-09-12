@@ -38,7 +38,7 @@ recyclarr sync sonarr
 
 ## Options
 
-### `-c|--config`
+### `-c|--config` {#config}
 
 One or more paths to YAML configuration files. If this argument is not specified, default
 configuration files will be used according to rules documented on the [File
@@ -64,7 +64,7 @@ recyclarr sync --config ../myconfig.yml
 recyclarr sync -c ../myconfig1.yml -c "files/my config 2.yml"
 ```
 
-### `-p|--preview`
+### `-p|--preview` {#preview}
 
 Performs a "dry run" by parsing the guide and printing the parsed data in a readable format to the
 user. This does *not* perform any API calls to Radarr or Sonarr. You may want to run a preview if
@@ -116,7 +116,7 @@ Bluray-2160p         94.6       400
 Bluray-2160p Remux   204.4      400
 ```
 
-### `-i|--instance`
+### `-i|--instance` {#instance}
 
 One or more instance names to sync. Instance names are the names you give each of your instances in
 your YAML configuration files. In the example `recyclarr.yml` below, `movies` and `series` are

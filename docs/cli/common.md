@@ -16,7 +16,7 @@ By default, Info, Warning and Error log levels are displayed in the console. Thi
 Debug level logs to be displayed. This is designed for debugging and development purposes and
 generally will be too noisy for normal program usage.
 
-### `--app-data`
+### `--app-data` {#app-data}
 
 Overrides the normal, default location of the [application data
 directory](/file-structure.md#appdata-directory). Note that this option is mainly intended for

@@ -12,7 +12,7 @@ recyclarr [OPTIONS] <COMMAND>
 
 ## Options
 
-### `-v|--version`
+### `-v|--version` {#version}
 
 Print version information for Recyclarr. This information is essential when reporting issues or
 asking for help.

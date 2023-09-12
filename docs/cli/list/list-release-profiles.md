@@ -45,7 +45,7 @@ sonarr:
 
 Also visit [Common Options](../common.md) to read about options usable by all commands.
 
-### `--terms`
+### `--terms` {#terms}
 
 Prints a list of all terms (that have been assigned their own Trash IDs) for the Release Profile
 with the specified Trash ID. Run the `release-profiles` command without the `--terms` option first

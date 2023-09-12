@@ -38,7 +38,7 @@ recyclarr delete custom-formats my-sonarr-v4 --all --preview
 
 ## Arguments
 
-### `<instance_name>`
+### `<instance_name>` {#instance-name}
 
 **Required.** The instance name in one of your configuration files representing the service to which
 custom formats will be deleted. The instance name is covered in detail on the [configuration
@@ -53,7 +53,7 @@ radarr:
 
 [configref]: /yaml/config-reference/basic.md
 
-### `[cf_names]`
+### `[cf_names]` {#cf-names}
 
 A space-separated list of zero or more custom formats names to delete. This argument is **required**
 if you do not specify the `--all` option.
@@ -68,7 +68,7 @@ Any custom formats provided here are ignored if the `--all` option is used.
 
 Visit [Common Options](../common.md) to read about options usable by all commands.
 
-### `-a|--all`
+### `-a|--all` {#all}
 
 Indicates that you want **ALL** custom formats in the remote service to be deleted.
 

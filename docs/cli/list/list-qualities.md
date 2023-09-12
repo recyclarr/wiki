@@ -25,7 +25,7 @@ qualities sonarr`.
 
 ## Arguments
 
-### `<service>`
+### `<service>` {#service}
 
 A required positional argument that indicates the specific service type to list qualities for. Valid
 values for this argument are:

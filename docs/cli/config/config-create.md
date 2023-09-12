@@ -18,7 +18,7 @@ directory](/file-structure.md#appdata-directory).
 
 Visit [Common Options](../common.md) to read about options usable by all commands.
 
-### `-p|--path`
+### `-p|--path` {#path}
 
 The absolute or relative path to the YAML file you want to create. The contents will be the same,
 the only difference is what file the data gets written to.
