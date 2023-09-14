@@ -245,7 +245,7 @@ semantics, those will be documented in later sections. This will especially be t
 | `quality_sort`           | Scalar    | Replace         |
 | `score_set`              | Scalar    | Replace         |
 | `reset_unmatched_scores` | Mapping   | Union           |
-| `qualities`              | Sequence  | Add             |
+| `qualities`              | Sequence  | Replace         |
 
 Merge operations for properties of `upgrade`:
 
