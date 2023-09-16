@@ -220,14 +220,14 @@ table just covers top-level properties for instance configuration. If nested pro
 semantics, those will be documented in later sections. This will especially be the case for
 [union](#union) operations.
 
-| Property Name                     | Node Type            | Merge Operation |
-| --------------------------------- | -------------------- | --------------- |
-| `custom_formats`                  | Sequence             | Add             |
-| `quality_profiles`                | Sequence of Mappings | Join            |
-| `quality_definition`              | Mapping              | Union           |
-| `delete_old_custom_formats`       | Scalar               | Replace         |
-| `replace_existing_custom_formats` | Scalar               | Replace         |
-| `release_profiles`                | Sequence             | Add             |
+| Property Name                     | Node Type | Merge Operation     |
+| --------------------------------- | --------- | ------------------- |
+| `custom_formats`                  | Sequence  | [Join](#detail-cfs) |
+| `quality_profiles`                | Sequence  | Join                |
+| `quality_definition`              | Mapping   | Union               |
+| `delete_old_custom_formats`       | Scalar    | Replace             |
+| `replace_existing_custom_formats` | Scalar    | Replace             |
+| `release_profiles`                | Sequence  | Add                 |
 
 ### Quality Definition {#quality-definition}
 
@@ -238,14 +238,14 @@ semantics, those will be documented in later sections. This will especially be t
 
 ### Quality Profiles {#quality-profiles}
 
-| Property Name            | Node Type | Merge Operation |
-| ------------------------ | --------- | --------------- |
-| `upgrade`                | Mapping   | Union           |
-| `min_format_score`       | Scalar    | Replace         |
-| `quality_sort`           | Scalar    | Replace         |
-| `score_set`              | Scalar    | Replace         |
-| `reset_unmatched_scores` | Mapping   | Union           |
-| `qualities`              | Sequence  | Replace         |
+| Property Name            | Node Type | Merge Operation              |
+| ------------------------ | --------- | ---------------------------- |
+| `upgrade`                | Mapping   | Union                        |
+| `min_format_score`       | Scalar    | Replace                      |
+| `quality_sort`           | Scalar    | Replace                      |
+| `score_set`              | Scalar    | Replace                      |
+| `reset_unmatched_scores` | Mapping   | Union                        |
+| `qualities`              | Sequence  | [Replace](#detail-qualities) |
 
 Merge operations for properties of `upgrade`:
 
@@ -262,7 +262,7 @@ Merge operations for properties of `reset_unmatched_scores`:
 | `enabled`     | Scalar    | Replace         |
 | `except`      | Sequence  | Add             |
 
-## Unsupported Properties {#unsupported}
+### Unsupported Properties {#unsupported}
 
 The following properties are **not supported** for inclusion. If these properties are present in
 included YAML data, you will usually see a warning message printed to the console.
@@ -270,6 +270,87 @@ included YAML data, you will usually see a warning message printed to the consol
 - `base_url`
 - `api_key`
 - `include`
+
+## Merge Details {#details}
+
+Some properties (nodes) require further explanation to understand the reason why they use a
+particular merge operation. Each of the sub-sections here provide those explanations. There are
+links from the Merge Reference tables to these sections as well.
+
+### Quality Profile Qualities {#detail-qualities}
+
+Even though `qualities` is a YAML Sequence, it uses a Replace merge operation. The reason for that
+has to do with the fact that qualities are very "high-stakes". This means that changes to your
+qualities have the ability to impact your entire media library. So it's important to make sure that
+include directives don't make your qualities list difficult or confusing to get right. While
+Recyclarr certainly could support some sort of "Join" / "Add" combination of behavior for the list
+of qualities, doing so would not only be confusing but very error-prone.
+
+If two lists of qualities were combined together, the user would not have the ability to specify the
+relative ordering of those qualities. "Add" merge operations are a simple "A \+ B" concatenation.
+That is to say, qualities you add would simply be appended to the bottom of the list. You couldn't
+order them any other way.
+
+So, even though a "Replace" operation may yield more redundancy (you have to specify qualities from
+an included YAML that you otherwise don't care about), it's *safer* because you can see the entire
+list of qualities in one place *and* can ensure the ordering is exactly as you expect.
+
+### Custom Formats {#detail-cfs}
+
+The primary purpose of using a *Join* merge operation for `custom_formats` is to facilitate user
+overrides of custom format scores that come from included YAML files. The join operates on quality
+profile names as the *key*.
+
+If a custom format is assigned to the same quality profile on both side `A` and `B`, the CF on side
+`A` is removed from the `custom_formats` list and the version on side `B` is kept. This ensures that
+whatever score is set (or not set, if the user wanted the default instead) acts as an override.
+
+To demonstrate this behavior, see the example below which involves two files: `include.yml` and
+`config.yml`.
+
+```yml
+# include.yml
+custom_formats:
+  - trash_ids:
+      - abc
+      - xyz
+    quality_profiles:
+      - name: profile1
+      - name: profile2
+
+# config.yml
+include:
+  - config: include.yml
+
+custom_formats:
+  - trash_ids:
+      - abc
+    quality_profiles:
+      - name: profile1
+        score: 50
+```
+
+After the two files above are merged, the `custom_formats` list will effectively be:
+
+```yml
+custom_formats:
+  - trash_ids:
+      - xyz
+    quality_profiles:
+      - name: profile1
+      - name: profile2
+
+  - trash_ids:
+      - abc
+    quality_profiles:
+      - name: profile2
+
+  - trash_ids:
+      - abc
+    quality_profiles:
+      - name: profile1
+        score: 50
+```
 
 ## Tips & Information {#tips}
 
@@ -305,21 +386,3 @@ treat them as top-level configuration YAML files.
 
 [configdir]: /file-structure.md#config-directory
 [configdirective]: /yaml/config-reference/include.md#config
-
-### Managing Quality Profile `qualities` {#managing-qualities}
-
-Even though `qualities` is a YAML Sequence, it uses a Replace merge operation. The reason for that
-has to do with the fact that qualities are very "high-stakes". This means that changes to your
-qualities have the ability to impact your entire media library. So it's important to make sure that
-include directives don't make your qualities list difficult or confusing to get right. While
-Recyclarr certainly could support some sort of "Join" / "Add" combination of behavior for the list
-of qualities, doing so would not only be confusing but very error-prone.
-
-If two lists of qualities were combined together, the user would not have the ability to specify the
-relative ordering of those qualities. "Add" merge operations are a simple "A \+ B" concatenation.
-That is to say, qualities you add would simply be appended to the bottom of the list. You couldn't
-order them any other way.
-
-So, even though a "Replace" operation may yield more redundancy (you have to specify qualities from
-an included YAML that you otherwise don't care about), it's *safer* because you can see the entire
-list of qualities in one place *and* can ensure the ordering is exactly as you expect.
