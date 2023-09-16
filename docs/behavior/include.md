@@ -315,10 +315,10 @@ include directives don't make your qualities list difficult or confusing to get 
 Recyclarr certainly could support some sort of "Join" / "Add" combination of behavior for the list
 of qualities, doing so would not only be confusing but very error-prone.
 
-If we were to combine two lists of qualities are combined together, the user would not have the
-ability to specify the relative ordering of those qualities. "Add" merge operations are a simple "A
-\+ B" concatenation. That is to say, qualities you add are simply appended to the bottom of the
-list. You can't order them any other way.
+If two lists of qualities were combined together, the user would not have the ability to specify the
+relative ordering of those qualities. "Add" merge operations are a simple "A \+ B" concatenation.
+That is to say, qualities you add would simply be appended to the bottom of the list. You couldn't
+order them any other way.
 
 So, even though a "Replace" operation may yield more redundancy (you have to specify qualities from
 an included YAML that you otherwise don't care about), it's *safer* because you can see the entire
