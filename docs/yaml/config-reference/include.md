@@ -64,7 +64,7 @@ include:
   # A relative include path
   # Equivalent absolute path is (on Linux):
   #   /home/john/.config/recyclarr/configs/include/my-config.yml
-  - config: my-config.yml
+  - config: include/my-config.yml
 ```
 
 ## Template Includes {#template}
@@ -93,6 +93,6 @@ To get a list of eligible **include templates**, see the [`config list templates
 
 ```yml
 include:
-  # Includes a template YAML with this ID
-  - template: TBD
+  # Includes a YAML template with this ID
+  - template: anime-radarr
 ```
