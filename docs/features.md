@@ -53,3 +53,11 @@ Sonarr v3 Only
 - A `list` command for showing available custom formats, release profiles, and quality definitions
   available in the TRaSH Guides.
 - A `delete` command providing ways to delete stuff from Radarr & Sonarr, such as custom formats.
+- A `config` command for managing configuration YAML files, including creating new configuration
+  files from pre-made templates.
+
+## YAML Features
+
+- Use environment variables in your configuration via `!env_var`.
+- Specify and store secret values (such as API keys) using `!secret`.
+- Decompose YAML into multiple, reusable files via a YAML include feature.
