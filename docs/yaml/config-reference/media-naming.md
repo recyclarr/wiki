@@ -1,0 +1,115 @@
+---
+id: media-naming
+title: Media Naming
+sidebar_position: 7
+---
+
+| Service     |                        Supported                         |
+| ----------- | :------------------------------------------------------: |
+| Sonarr (v3) | <icon icon="mdi:check-bold" height="24" color="green" /> |
+| Sonarr (v4) | <icon icon="mdi:check-bold" height="24" color="green" /> |
+| Radarr      | <icon icon="mdi:check-bold" height="24" color="green" /> |
+
+## Radarr
+
+```yml
+# See "Basic Setup" for `service_type` and `instance_name`
+service_type:
+  instance_name:
+    # Media Naming Configuration
+    media_naming:
+      folder: default
+      movie:
+        rename: true
+        standard: default
+```
+
+All configuration here directly affects the "Movie Naming" settings under the **Settings > Media
+Management** page in the Radarr UI. If a configuration property is *not specified*, Recyclarr will
+not sync that setting. This is useful if you prefer to manually edit an option or naming format.
+
+### `folder` {#radarr-folder}
+
+**Optional.** *Default: not synced*
+
+A naming format taken from the "Key" column of the "Movie Folder Format" table shown in the output
+of the [`list naming radarr` command][list-radarr].
+
+### `rename` {#radarr-rename}
+
+**Optional.** *Default: not synced*
+
+If set to `true`, this results in the "Rename Movies" checkbox in the Radarr UI being enabled.
+
+### `standard` {#radarr-standard}
+
+**Optional.** *Default: not synced*
+
+A naming format taken from the "Key" column of the "Standard Movie Format" table shown in the output
+of the [`list naming radarr` command][list-radarr].
+
+[list-radarr]: /cli/list/list-naming.md
+
+## Sonarr
+
+```yml
+# See "Basic Setup" for `service_type` and `instance_name`
+service_type:
+  instance_name:
+    # Media Naming Configuration
+    media_naming:
+      series: default
+      season: default
+      episodes:
+        rename: true
+        standard: default
+        daily: default
+        anime: default
+```
+
+All configuration here directly affects the "Episode Naming" settings under the **Settings > Media
+Management** page in the Sonarr UI. If a configuration property is *not specified*, Recyclarr will
+not sync that setting. This is useful if you prefer to manually edit an option or naming format.
+
+### `series` {#sonarr-series}
+
+**Optional.** *Default: not synced*
+
+A naming format taken from the "Key" column of the "Series Folder Format" table shown in the output
+of the [`list naming sonarr` command][list-sonarr].
+
+### `season` {#sonarr-season}
+
+**Optional.** *Default: not synced*
+
+A naming format taken from the "Key" column of the "Season Folder Format" table shown in the output
+of the [`list naming sonarr` command][list-sonarr].
+
+### `rename` {#radarr-rename}
+
+**Optional.** *Default: not synced*
+
+If set to `true`, this results in the "Rename Episodes" checkbox in the Sonarr UI being enabled.
+
+### `standard` {#sonarr-standard}
+
+**Optional.** *Default: not synced*
+
+A naming format taken from the "Key" column of the "Standard Episode Format" table shown in the
+output of the [`list naming sonarr` command][list-sonarr].
+
+### `daily` {#sonarr-daily}
+
+**Optional.** *Default: not synced*
+
+A naming format taken from the "Key" column of the "Daily Episode Format" table shown in the output
+of the [`list naming sonarr` command][list-sonarr].
+
+### `anime` {#sonarr-anime}
+
+**Optional.** *Default: not synced*
+
+A naming format taken from the "Key" column of the "Anime Episode Format" table shown in the output
+of the [`list naming sonarr` command][list-sonarr].
+
+[list-sonarr]: /cli/list/list-naming.md

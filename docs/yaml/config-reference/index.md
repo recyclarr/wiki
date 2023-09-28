@@ -63,3 +63,4 @@ Add this comment to the top of your YAML file:
 - [Quality Profiles](quality-profiles.md)
 - [Release Profiles](release-profiles.md)
 - [Include](include.md)
+- [Media Naming](media-naming.md)

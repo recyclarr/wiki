@@ -17,3 +17,4 @@ Provides a series of commands used to list information in the guide.
 - [recyclarr list custom-formats](list-custom-formats.md)
 - [recyclarr list release-profiles](list-release-profiles.md)
 - [recyclarr list qualities](list-qualities.md)
+- [recyclarr list naming](list-naming.md)

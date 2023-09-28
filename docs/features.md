@@ -48,10 +48,16 @@ Sonarr v3 Only
 - Convenient command line options to get information from the guide to more easily add it to your
   YAML configuration.
 
+## Media Naming
+
+- Sync media naming formats from the guides, such as file and folder naming.
+- Ability to exclude sync for specific naming formats to manage them manually.
+- Preview functionality to show what will be synced before doing it.
+
 ## Command Line Operations
 
-- A `list` command for showing available custom formats, release profiles, and quality definitions
-  available in the TRaSH Guides.
+- A `list` command for showing available custom formats, release profiles, media naming formats, and
+  quality definitions available in the TRaSH Guides.
 - A `delete` command providing ways to delete stuff from Radarr & Sonarr, such as custom formats.
 - A `config` command for managing configuration YAML files, including creating new configuration
   files from pre-made templates.
