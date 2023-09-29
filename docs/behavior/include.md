@@ -228,6 +228,7 @@ semantics, those will be documented in later sections. This will especially be t
 | `delete_old_custom_formats`       | Scalar    | Replace             |
 | `replace_existing_custom_formats` | Scalar    | Replace             |
 | `release_profiles`                | Sequence  | Add                 |
+| `media_naming`                    | Mapping   | Union               |
 
 ### Quality Definition {#quality-definition}
 
@@ -261,6 +262,43 @@ Merge operations for properties of `reset_unmatched_scores`:
 | ------------- | --------- | --------------- |
 | `enabled`     | Scalar    | Replace         |
 | `except`      | Sequence  | Add             |
+
+### Media Naming {#media-naming}
+
+#### Sonarr
+
+Under `media_naming`:
+
+| Property Name | Node Type | Merge Operation |
+| ------------- | --------- | --------------- |
+| `series`      | Scalar    | Replace         |
+| `season`      | Scalar    | Replace         |
+| `episodes`    | Mapping   | Union           |
+
+Under `episodes`:
+
+| Property Name | Node Type | Merge Operation |
+| ------------- | --------- | --------------- |
+| `rename`      | Scalar    | Replace         |
+| `standard`    | Scalar    | Replace         |
+| `daily`       | Scalar    | Replace         |
+| `anime`       | Scalar    | Replace         |
+
+#### Radarr
+
+Under `media_naming`:
+
+| Property Name | Node Type | Merge Operation |
+| ------------- | --------- | --------------- |
+| `folder`      | Scalar    | Replace         |
+| `movie`       | Mapping   | Union           |
+
+Under `movie`:
+
+| Property Name | Node Type | Merge Operation |
+| ------------- | --------- | --------------- |
+| `rename`      | Scalar    | Replace         |
+| `standard`    | Scalar    | Replace         |
 
 ### Unsupported Properties {#unsupported}
 
