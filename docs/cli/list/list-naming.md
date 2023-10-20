@@ -25,15 +25,6 @@ media_naming:
   series: default
 ```
 
-:::caution
-
-The "Key" column in the output tables sometimes contains version information, for example `default
-(v3)`. You should *ignore* the `(v3)` part when you are copying these keys for usage in YAML. In
-YAML, you only use `default`, not `default (v3)`. Recyclarr will choose the correct version for you
-based on your version of Sonarr.
-
-:::
-
 [ref]: /yaml/config-reference/media-naming.md
 
 ## Examples
