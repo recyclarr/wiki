@@ -3,6 +3,17 @@ id: quality-profiles
 title: Quality Profiles
 ---
 
+## Unsupported Features
+
+### Language
+
+At the moment, it is not possible to set the language in a quality profile through Recyclarr. If you
+need to specify a language, you must do so manually through the Radarr/Sonarr UI. The reason why
+language is not supported is because both Radarr and Sonarr do it differently. Sonarr v4, for
+example, has removed the field entirely. You would use a custom format to specify a language
+instead. It is expected that in the future, Radarr follows suit. Because of this inconsistency,
+Recyclarr did not adopt support for it.
+
 ## Quality Sort Modes {#sort-modes}
 
 The [`quality_sort` property][qpsort] supports various different sort algorithms. Before we dive
