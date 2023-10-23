@@ -76,11 +76,16 @@ name) *or* create a brand new quality profile using the new name.
 
 **Required.**
 
-If set to `true`, sets *all* custom format scores to `0` (including those CFs you may be managing
-manually!) in corresponding quality profiles where those CFs are not in the `trash_ids` array *or*
-did not get a score (e.g. no score in guide). If `false`, scores are never altered unless it is
-listed in the `trash_ids` array *and* has a valid score to assign (either from the guide or via an
-explicit `score`). When set to `true`, you can exclude CFs from resets with the `except` property.
+If set to `true`, custom format scores in this profile are set to `0` if they match any of the
+following conditions:
+
+- The custom format is not managed by Recyclarr (not in a `trash_ids` list).
+- The custom format has no score assigned (either manually or sourced from the guide).
+
+Custom formats may be excluded from resets with the `except` property.
+
+If `false`, scores are never altered unless it is listed in the `trash_ids` array *and* has a valid
+score to assign (either from the guide or via an explicit `score`).
 
 ### `except` {#rus-except}
 
