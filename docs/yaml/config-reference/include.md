@@ -93,6 +93,8 @@ To get a list of eligible **include templates**, see the [`config list templates
 
 ```yml
 include:
-  # Includes a YAML template with this ID
-  - template: anime-radarr
+  # Includes YAML templates with these IDs
+  - template: radarr-quality-definition-movie
+  - template: radarr-quality-profile-anime
+  - template: radarr-custom-formats-anime
 ```
