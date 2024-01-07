@@ -46,9 +46,9 @@ jobs:
 
       - name: Publish
         uses: cloudflare/pages-action@v1
-        # if: |
-        #   github.ref == 'refs/heads/master' ||
-        #   github.ref == 'refs/heads/next'
+        # Publish all direct pushes to the repo, for secrets access. But ignore pull requests.
+        # Non-master branches get published with a temporary URL (not the main site URL).
+        if: github.event_name != 'pull_request'
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
