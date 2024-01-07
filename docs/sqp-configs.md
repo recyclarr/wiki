@@ -57,7 +57,7 @@ The pre-built configuration files can be deployed in two ways:
 
 - Via the CLI using [`recyclarr config create -t`][recyclarr-config-create-t].
 - Manually, by copying the contents of the relevant pre-built configuration file into a
-- [supported file location][file-structure]. The files can be found in the index below.
+  [supported file location][file-structure]. The files can be found in the index below.
 
   [recyclarr-config-create-t]: https://recyclarr.dev/wiki/cli/config/create/#-t--template
   [file-structure]: https://recyclarr.dev/wiki/file-structure/#default-yaml
