@@ -73,20 +73,20 @@ include template.
 
 As the pre-built configuration files feature include templates, these will need to be overridden
 by custom configuration added to the configuration file.
-[Guidance is available on this behaviour][behaviour-include].
+[Guidance is available on this behavior][behavior-include].
 
-[behaviour-include]: https://recyclarr.dev/wiki/behavior/include/.
+[behavior-include]: https://recyclarr.dev/wiki/behavior/include/.
 
 A common request is to add additional qualities to a [quality profile][quality-profile]. This is
 as simple as writing your own complete quality profile configuration and adding it to your
 configuration file. From there, the quality profile include template can either be commented out,
 or if left enabled then Recyclarr will process the customized configuration as described in the
-[include behaviour section][behaviour-include-quality-profiles].
+[include behavior section][behavior-include-quality-profiles].
 
 Additional custom formats can be added to the configuration file in the same way as normal.
 
 [quality-profile]: https://recyclarr.dev/wiki/yaml/config-reference/quality-profiles/
-[behaviour-include-quality-profiles]: https://recyclarr.dev/wiki/behavior/include/#quality-profiles
+[behavior-include-quality-profiles]: https://recyclarr.dev/wiki/behavior/include/#quality-profiles
 
 ## Index
 
