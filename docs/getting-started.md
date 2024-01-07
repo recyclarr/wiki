@@ -4,7 +4,7 @@ sidebar_position: 4
 title: Getting Started
 ---
 
-:::caution
+:::warning
 
 Please make sure you've reviewed the various [installation methods](installation/index.md) before
 getting started here.
@@ -18,9 +18,8 @@ which varies depending on your chosen platform.
 Choose the section below representing your chosen installation method and run those steps if you
 want to get started with a minimal configuration file.
 
-<details><summary>
-Docker
-</summary>
+<details>
+<summary>Docker</summary>
 
 [Installation Instructions](installation/docker.md)
 
@@ -42,9 +41,8 @@ the previous step.
 
 </details>
 
-<details><summary>
-Manual Installation
-</summary>
+<details>
+<summary>Manual Installation</summary>
 
 [Installation Instructions](installation/manual-install.md)
 

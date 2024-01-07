@@ -42,7 +42,7 @@ When `quality_sort` is set to `top` (which is also the *default* if you do not s
 property), qualities and groups you *explicitly specify* in your YAML are sorted to the top of the
 list. *Unspecified* qualities appear at the bottom.
 
-:::caution Impact on Cutoff
+:::warning Impact on Cutoff
 
 If qualities are removed instead of disabled, this can cause unwanted downgrades of movie files.
 
@@ -50,7 +50,8 @@ If qualities are removed instead of disabled, this can cause unwanted downgrades
 
 #### Example
 
-<details><summary>Click to Expand Example</summary>
+<details>
+<summary>Click to Expand Example</summary>
 
 ```yml
 quality_sort: top
@@ -77,7 +78,7 @@ When you sync this quality profile, it will look like this when you view it in t
 When `quality_sort` is set to `bottom`, qualities and groups you *explicitly specify* in your YAML
 are sorted to the bottom of the list. *Unspecified* qualities appear at the top.
 
-:::caution Impact on Cutoff
+:::warning Impact on Cutoff
 
 If qualities are removed instead of disabled, this can result in upgrades never happening.
 
@@ -85,7 +86,8 @@ If qualities are removed instead of disabled, this can result in upgrades never 
 
 #### Example
 
-<details><summary>Click to Expand Example</summary>
+<details>
+<summary>Click to Expand Example</summary>
 
 Using the same example YAML from the previous section:
 

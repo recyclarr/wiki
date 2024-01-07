@@ -120,7 +120,7 @@ please use the general guidelines below to know which admonition types to use in
   Advice or tips that help the user. Topics might not be directly related to surrounding subject
   matter.
 
-- 🟡 **CAUTION** (`:::caution`)<br/>
+- 🟡 **CAUTION** (`:::warning`)<br/>
   Warning messages about an action or piece of information. Things the user should heed, but it
   won't be the end of the world if they don't.
 

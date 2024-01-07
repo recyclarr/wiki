@@ -37,7 +37,7 @@ service_type:
 
 **Optional.** *Default: No release profiles are synced*
 
-:::caution
+:::warning
 
 Release Profiles may not be used in Sonarr version 4 or greater!
 

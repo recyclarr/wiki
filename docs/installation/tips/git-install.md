@@ -30,7 +30,7 @@ Skip this section if you're using Chocolatey or Winget methods.
 
 :::
 
-:::caution
+:::warning
 
 Before proceeding, **close any open terminal windows** such as Powershell and CMD/Command Prompt.
 The Git installer will modify your `PATH` environment variable. Terminals will not reload updates to

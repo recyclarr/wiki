@@ -7,7 +7,8 @@ This section contains a list of warnings you might see in your console output / 
 usually caused by configuration issues or something else within the user's control to fix. Below are
 examples of messages you may see with some guidance on how to address them.
 
-<details><summary>
+<details>
+<summary>
 Custom format with trash ID e23edd2482476e595fb990b12e7c609c is duplicated 1 times in quality
 profile SD with the following scores: [500]
 </summary>
@@ -54,7 +55,8 @@ custom_formats:
 
 </details>
 
-<details><summary>
+<details>
+<summary>
 No configuration YAML files found
 </summary>
 
@@ -75,7 +77,8 @@ and their structure.
 
 </details>
 
-<details><summary>
+<details>
+<summary>
 Incompatible value assigned/used at line 7: Invalid cast from 'System.String' to
 'Recyclarr.TrashLib.Config.Services.QualityDefinitionConfig'
 </summary>
@@ -116,7 +119,8 @@ The troubleshooting steps documented here are for the non-docker version of Recy
 directly on a host machine). The [Docker](installation/docker.md) page has troubleshooting steps as
 well.
 
-<details><summary>
+<details>
+<summary>
 Failed to create CoreCLR, HRESULT: 0x8007000E
 </summary>
 

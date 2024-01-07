@@ -54,7 +54,7 @@ recyclarr config create -t uhd-bluray-web -t remux-web-1080p
 
 ### `-f|--force`
 
-:::caution
+:::warning
 
 This is a destructive operation! Use carefully.
 

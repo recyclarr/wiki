@@ -91,7 +91,7 @@ You essentially start an include file as if it's everything under `instance_name
 Recyclarr handles includes using the following rules:
 
 1. Includes are processed from top to bottom, in order. Configuration is merged using specific
-   strategies discussed in the sections [Merge Operations](#operations) and [Merge
+   strategies discussed in the sections [Merge Behavior](#behavior) and [Merge
    Reference](#reference).
 1. The root configuration is merged into the final, aggregated include configuration data. Root
    configuration YAML always takes precedence over included YAML.

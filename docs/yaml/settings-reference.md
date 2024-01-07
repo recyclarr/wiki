@@ -17,7 +17,7 @@ Example of file location (using docker path):
 If this file does not exist, Recyclarr will create it for you. Starting out, this file will be empty
 and default behavior will be used.
 
-:::caution
+:::warning
 
 There is absolutely no need to touch this file unless you have a specific reason to. It is
 recommended that you only add the specific properties for the customizations you need and leave the

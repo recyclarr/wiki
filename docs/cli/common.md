@@ -19,8 +19,8 @@ generally will be too noisy for normal program usage.
 ### `--app-data` {#app-data}
 
 Overrides the normal, default location of the [application data
-directory](/file-structure.md#appdata-directory). Note that this option is mainly intended for
-usage in the official Docker image. It is not intended for normal use outside of that.
+directory](/file-structure.md#appdata-directory). Note that this option is mainly intended for usage
+in the official Docker image. It is not intended for normal use outside of that.
 
 If you'd like this behavior globally for all commands without having to specify this option, define
 an environment variable named `RECYCLARR_APP_DATA` with the same path. Note that if you have both

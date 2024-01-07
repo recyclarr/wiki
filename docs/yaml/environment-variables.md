@@ -34,7 +34,7 @@ Where:
 - `my_default_value` is an **optional** default value to use if the specified environment variable
   is either not defined, a blank string, or contains only whitespace characters.
 
-:::caution
+:::warning
 
 If an environment variable cannot be found or does not have a value as defined above, *and* no
 default value is provided, an exception is thrown and configuration loading will fail for that

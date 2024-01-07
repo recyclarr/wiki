@@ -82,7 +82,7 @@ If this option is used, any explicit CFs provided to the `[cf_names]` argument a
 
 If specified, performs the delete operation without a confirmation prompt.
 
-:::caution
+:::warning
 
 Know what you are doing before you use this option!
 

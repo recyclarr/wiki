@@ -30,7 +30,7 @@ because the `docker-compose.yml` file is a fantastic way to keep configuration d
 Thus, for the remainder of this page, all instruction and advice will be based on the example YAML
 below. I highly recommend you set up your own `docker-compose.yml` this way.
 
-:::caution
+:::warning
 
 The below example should not be used verbatim. It's meant for example purposes only. Copy & paste it
 but make the appropriate and necessary changes to it for your specific use case.
@@ -140,7 +140,7 @@ where:
 Using the table at the start of the Tags section, an example might be `2.1.3-dev.50` where `2.1.3`
 is the *current* next version after `2.1.2`.
 
-:::caution
+:::warning
 
 Prerelease tags do not live indefinitely. An unspecified *retention period* is applied to them,
 meaning that these tags are **permanently deleted from upstream docker registries** after that
@@ -207,9 +207,8 @@ one or the other depending on the following:
 
 See the respective sections below for whichever mode you wish to use.
 
-<details><summary>
-Using Docker Run
-</summary>
+<details>
+<summary>Using Docker Run</summary>
 
 When using `docker run` to invoke Recyclarr in manual mode, the container starts up, runs a
 user-specified operation, and then exits. This is semantically identical to running Recyclarr
@@ -248,9 +247,8 @@ containers will start to grow the more often you run it manually).
 
 </details>
 
-<details><summary>
-Using Docker Exec
-</summary>
+<details>
+<summary>Using Docker Exec</summary>
 
 Using `docker exec` for manual mode is similar to the previous section, except that it uses an
 already-running instance of the container to perform actions.

@@ -121,7 +121,7 @@ used with this property. Visit the [relevant CLI reference page][cliscoresets] f
 
 ## `min_format_score` {#min-format-score}
 
-:::caution
+:::warning
 
 This property is **not supported** with Sonarr v3!
 
@@ -161,7 +161,7 @@ list, this property is optional and will leave your manually set cutoff alone.
 
 ## `until_score` {#until-score}
 
-:::caution
+:::warning
 
 This property is **not supported** with Sonarr v3!
 
@@ -215,7 +215,7 @@ If this is omitted or set to `true`, this quality will be allowed. This is the e
 checking the box next to the quality in the Radarr or Sonarr UI. If set to `false`, this quality
 will be disallowed (unchecks the box).
 
-:::caution
+:::warning
 
 There are two distinct methods of disabling (disallowing) a quality: Either set this property to
 `false` or delete the quality from the list entirely. **Make sure you understand the behavioral

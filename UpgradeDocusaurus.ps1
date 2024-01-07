@@ -3,4 +3,6 @@ yarn upgrade --latest `
     "@docusaurus/core" `
     "@docusaurus/preset-classic" `
     "@docusaurus/module-type-aliases" `
-    "@iconify/react"
+    "docusaurus-mdx-checker" `
+    "@iconify/react" `
+    "docusaurus-theme-github-codeblock"

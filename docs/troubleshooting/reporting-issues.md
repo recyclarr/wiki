@@ -3,7 +3,7 @@ id: help
 title: Getting Help
 ---
 
-:::caution
+:::warning
 
 Recyclarr may stop working at any time due to guide updates and changes in either Radarr or Sonarr.
 It is a priority to fix them in a timely manner. [Reporting][issues] such issues ASAP would be

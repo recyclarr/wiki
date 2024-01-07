@@ -53,7 +53,7 @@ This property can be implicitly set via secrets if you follow a naming conventio
 
 :::
 
-:::caution
+:::warning
 
 The `base_url` value is used to uniquely identify an instance of a service (such as Radarr). This
 means that if you relocate your instances to a new URL (change of port, hostname, or path),

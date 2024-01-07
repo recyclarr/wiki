@@ -46,7 +46,7 @@ radarr:
     api_key: !secret radarr4k_another_apikey
 ```
 
-:::caution
+:::warning
 
 Recyclarr will fail to load your configuration if there are references to keys that don't exist in
 the `secrets.yml`.

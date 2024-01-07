@@ -24,7 +24,7 @@ deploying one of more of the TRaSH Guides profiles:
 [radarr-sqp-4-trash]: https://trash-guides.info/SQP/4/
 [radarr-sqp-5-trash]: https://trash-guides.info/SQP/5/
 
-:::caution
+:::warning
 
 - The information provided on this page is for private use only and is not to be made public. :bangbang:
 - Users who have been provided with the link to this page **must** keep it private. :bangbang:
