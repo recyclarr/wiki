@@ -30,10 +30,10 @@ Below you will find pre-built configuration files for the following TRaSH Guides
 | [Remux + WEB 1080p](#remux-web-1080p)                             | [Anime (Sonarr)](#anime-sonarr-v4)                     |
 | [Remux + WEB 2160p](#remux-web-2160p)                             | [French WEB-1080p MULTi](#french-web-1080p-multi-v4)   |
 | [Anime (Radarr)](#anime-radarr)                                   | [French WEB-1080p VOSTFR](#french-web-1080p-vostfr-v4) |
-| [French HD Bluray + WEB MULTi](#french-hd-bluray-web-multi)       | [French Anime MULTi](#french-anime-multi-v4)           |
-| [French HD Bluray + WEB VOSTFR](#french-hd-bluray-web-vostfr)     | [French Anime VOSTFR](#french-anime-vostfr-v4)         |
-| [French UHD Bluray + WEB MULTi](#french-uhd-bluray-web-multi)     |                                                        |
-| [French UHD Bluray + WEB VOSTFR](#french-uhd-bluray-web-vostfr)   |                                                        |
+| [French HD Bluray + WEB MULTi](#french-hd-bluray-web-multi)       | [French WEB-2160p MULTi](#french-web-2160p-multi-v4)   |
+| [French HD Bluray + WEB VOSTFR](#french-hd-bluray-web-vostfr)     | [French WEB-2160p VOSTFR](#french-web-2160p-vostfr-v4) |
+| [French UHD Bluray + WEB MULTi](#french-uhd-bluray-web-multi)     | [French Anime MULTi](#french-anime-multi-v4)           |
+| [French UHD Bluray + WEB VOSTFR](#french-uhd-bluray-web-vostfr)   | [French Anime VOSTFR](#french-anime-vostfr-v4)         |
 | [French Remux + WEB 1080p MULTi](#french-remux-web-1080p-multi)   |                                                        |
 | [French Remux + WEB 1080p VOSTFR](#french-remux-web-1080p-vostfr) |                                                        |
 | [French Remux + WEB 2160p MULTi](#french-remux-web-2160p-multi)   |                                                        |
