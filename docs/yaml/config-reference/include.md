@@ -16,7 +16,7 @@ service_type:
   instance_name:
     # Include Configuration
     include:
-      - template: uhd-bluray-web
+      - template: radarr-custom-formats-uhd-bluray-web
       - config: includes/my-config.yml
 ```
 
