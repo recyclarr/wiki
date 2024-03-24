@@ -6,7 +6,6 @@ sidebar_position: 4
 
 | Service     |                        Supported                         |
 | ----------- | :------------------------------------------------------: |
-| Sonarr (v3) |   <icon icon="mdi:tilde" height="24" color="yellow" />   |
 | Sonarr (v4) | <icon icon="mdi:check-bold" height="24" color="green" /> |
 | Radarr      | <icon icon="mdi:check-bold" height="24" color="green" /> |
 
@@ -121,12 +120,6 @@ used with this property. Visit the [relevant CLI reference page][cliscoresets] f
 
 ## `min_format_score` {#min-format-score}
 
-:::warning
-
-This property is **not supported** with Sonarr v3!
-
-:::
-
 **Optional.** *Default: leave existing value untouched*
 
 Correlates directly to the "Minimum Custom Format Score" field in the Quality Profile edit dialog in
@@ -160,12 +153,6 @@ This property is *required* if you also specify a `qualities` list. If you do no
 list, this property is optional and will leave your manually set cutoff alone.
 
 ## `until_score` {#until-score}
-
-:::warning
-
-This property is **not supported** with Sonarr v3!
-
-:::
 
 **Optional.** *Default: leave existing value untouched*
 

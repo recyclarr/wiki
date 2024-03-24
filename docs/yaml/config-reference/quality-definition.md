@@ -6,7 +6,6 @@ sidebar_position: 3
 
 | Service     |                        Supported                         |
 | ----------- | :------------------------------------------------------: |
-| Sonarr (v3) | <icon icon="mdi:check-bold" height="24" color="green" /> |
 | Sonarr (v4) | <icon icon="mdi:check-bold" height="24" color="green" /> |
 | Radarr      | <icon icon="mdi:check-bold" height="24" color="green" /> |
 

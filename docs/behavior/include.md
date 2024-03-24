@@ -227,7 +227,6 @@ semantics, those will be documented in later sections. This will especially be t
 | `quality_definition`              | Mapping   | Union               |
 | `delete_old_custom_formats`       | Scalar    | Replace             |
 | `replace_existing_custom_formats` | Scalar    | Replace             |
-| `release_profiles`                | Sequence  | Add                 |
 | `media_naming`                    | Mapping   | Union               |
 
 ### Quality Definition {#quality-definition}
