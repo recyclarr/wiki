@@ -88,25 +88,6 @@ that needs to be hard-wrapped and press `ALT+Q`.
 
 [Rewrap]: https://marketplace.visualstudio.com/items?itemName=stkb.rewrap
 
-### Version Requirements
-
-When documenting features, especially when that feature has not been released yet, it's important to
-call out specific version requirements. There's almost always a minimum version requirement.
-
-Using the `:::note` admonition, follow the example below to point out the minimum version required.
-Typically this should be done at the top of a section under a heading or page that describes the
-feature.
-
-Example:
-
-```md
-:::note Version Requirement
-
-This functionality requires `v3.0.0` or greater!
-
-:::
-```
-
 ### Admonitions
 
 Admonitions are the colored sections of text in the guide (Info, Caution, etc). Docusaurus documents

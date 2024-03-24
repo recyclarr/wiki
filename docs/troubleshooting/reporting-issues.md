@@ -97,7 +97,7 @@ particular, the Base URL and API Key for each service you've configured. Typical
 this information shared to others when you request help or file bug reports on Github. As such, you
 should ensure that this information is redacted. You can do this in multiple ways.
 
-- Use [secrets](/yaml/secrets-reference.md) (requires `v3.0` or higher)
+- Use [secrets](/yaml/secrets-reference.md)
 - Manually edit your YAML before sharing it to redact `base_url` and `api_key` values.
 
 ## Reporting Issues

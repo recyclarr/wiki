@@ -66,55 +66,12 @@ recyclarr sync -c ../myconfig1.yml -c "files/my config 2.yml"
 
 ### `-p|--preview` {#preview}
 
-Performs a "dry run" by parsing the guide and printing the parsed data in a readable format to the
-user. This does *not* perform any API calls to Radarr or Sonarr. You may want to run a preview if
-you'd like to see if the guide is parsed correctly and preview changes that will be made before
-updating your instance.
+Instructs Recyclarr to perform all the work it normally would do during a sync, except it won't
+update your actual instance configuration. This gives you the opportunity to see what Recyclarr
+would do without actually committing those changes.
 
-Example output for Sonarr Release Profile parsing
-
-```txt
-First Release Profile
-  Include Preferred when Renaming?
-    CHECKED
-
-  Must Not Contain:
-    /(\[EMBER\]|-EMBER\b|DaddySubs)/i
-
-  Preferred:
-    100        /\b(amzn|amazon)\b(?=[ ._-]web[ ._-]?(dl|rip)\b)/i
-    90         /\b(dsnp|dsny|disney)\b(?=[ ._-]web[ ._-]?(dl|rip)\b)/i
-
-Second Release Profile
-  Include Preferred when Renaming?
-    NOT CHECKED
-
-  Preferred:
-    180        /(-deflate|-inflate)\b/i
-    150        /(-AJP69|-BTN|-CasStudio|-CtrlHD|-KiNGS)\b/i
-    150        /(-monkee|-NTb|-NTG|-QOQ|-RTN)\b/i
-```
-
-Example output for Sonarr Quality Definition parsing
-
-```txt
-Quality              Min        Max
--------              ---        ---
-HDTV-720p            2.3        67.5
-HDTV-1080p           2.3        137.3
-WEBRip-720p          4.3        137.3
-WEBDL-720p           4.3        137.3
-Bluray-720p          4.3        137.3
-WEBRip-1080p         4.5        257.4
-WEBDL-1080p          4.3        253.6
-Bluray-1080p         4.3        258.1
-Bluray-1080p Remux   0          400
-HDTV-2160p           69.1       350
-WEBRip-2160p         69.1       350
-WEBDL-2160p          69.1       350
-Bluray-2160p         94.6       400
-Bluray-2160p Remux   204.4      400
-```
+Note that, in this mode, Recyclarr will still make API calls to services but only to *fetch* data;
+it will never invoke the API to make actual changes.
 
 ### `-i|--instance` {#instance}
 
