@@ -40,10 +40,15 @@ application data directory (listed above based on platform). Example (using dock
 ### Directory: `configs` {#config-directory}
 
 Under the application data directory, there is a subdirectory named `configs` in which you can place
-any number of YAML files. This system works especially well in Docker, where you don't really have
-an easy way to specify custom CLI arguments. The following requirements must be met:
+any number of configuration YAML files. This system works especially well in Docker, where you don't
+really have an easy way to specify custom CLI arguments. The following requirements must be met:
 
 - All files must have the `.yml` or `.yaml` extension in order to be recognized.
 - Every single YAML file placed here will be loaded as if every file were specified in the
-  `--config` command line argument.
+  `--config` command line argument. This behavior is non-recursive; meaning if you place YAML files
+  in subdirectories under `configs/`, they will not be loaded.
 - The names of the files are unimportant and can be whatever you want.
+- [Include templates][inc] should *not* be placed in this directory; only real configuration files
+  are supported here.
+
+[inc]: /yaml/config-reference/include.md
