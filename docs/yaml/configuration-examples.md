@@ -52,7 +52,7 @@ radarr:
         - 403816d65392c79236dcb6dd591aeda4 # WEB Tier 02
         - af94e0fe497124d1f9ce732069ec8c3b # WEB Tier 03
       quality_profiles:
-        - name: HD Bluray + WEB
+        - name: HD
 ```
 
 Even though it's all in one file, Radarr settings are ignored when you run `recyclarr sync sonarr`
@@ -65,52 +65,14 @@ qualities to the profile.*
 
 Solution:
 
-As an example, the default Sonarr WEB-1080p template looks similar to:
-
-```yml
-sonarr:
-  web-1080p-v4:
-    base_url: Put your Sonarr URL here
-    api_key: Put your API key here
-
-    include:
-      # Comment out any of the following includes to disable them
-      - template: sonarr-quality-definition-series
-      - template: sonarr-v4-quality-profile-web-1080p
-      - template: sonarr-v4-custom-formats-web-1080p
-
-# Custom Formats: https://recyclarr.dev/wiki/yaml/config-reference/custom-formats/
-    custom_formats:
-      # Optional
-      - trash_ids:
-          # - 32b367365729d530ca1c124a0b180c64 # Bad Dual Groups
-          # - 82d40da2bc6923f41e14394075dd4b03 # No-RlsGroup
-          # - e1a997ddb54e3ecbfe06341ad323c458 # Obfuscated
-          # - 06d66ab109d4d2eddb2794d21526d140 # Retags
-          # - 1b3994c551cbb92a2c781af061f4ab44 # Scene
-        quality_profiles:
-          - name: WEB-1080p
-
-      - trash_ids:
-          # Uncomment the next six lines to allow x265 HD releases with HDR/DV
-          # - 47435ece6b99a0b477caf360e79ba0bb # x265 (HD)
-        # quality_profiles:
-          # - name: WEB-1080p
-            # score: 0
-      # - trash_ids:
-          # - 9b64dff695c2115facf1b6ea59c9bd07 # x265 (no HDR/DV)
-        quality_profiles:
-          - name: WEB-1080p
-```
-
 There are two options. The first is to disable the quality profile include in the template, which
 will stop it from syncing:
 
 ```yml
 sonarr:
   web-1080p-v4:
-    base_url: Put your Sonarr URL here
-    api_key: Put your API key here
+    base_url: !secret sonarr_url
+    api_key: !secret sonarr_apikey
 
     include:
       # Comment out any of the following includes to disable them
@@ -126,8 +88,8 @@ The second option is to write a new `quality_profile`, and add it to the templat
 ```yml
 sonarr:
   web-1080p-v4:
-    base_url: Put your Sonarr URL here
-    api_key: Put your API key here
+    base_url: !secret sonarr_url
+    api_key: !secret sonarr_apikey
 
     include:
       # Comment out any of the following includes to disable them
@@ -161,8 +123,8 @@ Solution:
 ```yml
 radarr:
   main:
-    base_url: http://localhost:7878
-    api_key: 87674e2c316645ed85696a91a3d41988
+    base_url: !secret radarr_url
+    api_key: !secret radarr_apikey
 
     custom_formats:
       # Advanced Audio from the guide
@@ -182,7 +144,7 @@ radarr:
           - 240770601cc226190c367ef59aba7463 # AAC
           - c2998bd0d90ed5621d8df281e839436e # DD
         quality_profiles:
-          - name: Remux 1080p
+          - name: HD
 ```
 
 ## Manually assign different scores to multiple custom formats
@@ -196,8 +158,8 @@ Solution:
 ```yml
 radarr:
   main:
-    base_url: http://localhost:7878
-    api_key: 87674e2c316645ed85696a91a3d41988
+    base_url: !secret radarr_url
+    api_key: !secret radarr_apikey
 
     custom_formats:
       # Take scores in the guide for these 3
@@ -206,20 +168,20 @@ radarr:
           - dcf3ec6938fa32445f590a4da84256cd # DTS-HD MA
           - a570d4a0e56a2874b64e5bfa55202a1b # FLAC
         quality_profiles:
-          - name: Remux 2160p
+          - name: Ultra-HD
 
       # Assign manual scores to the 3 below CFs, each added to the same profile
       - trash_ids: [496f355514737f7d83bf7aa4d24f8169] # TrueHD ATMOS
         quality_profiles:
-          - name: Remux 2160p
+          - name: Ultra-HD
             score: 100
       - trash_ids: [2f22d89048b01681dde8afe203bf2e95] # DTS X
         quality_profiles:
-          - name: Remux 2160p
+          - name: Ultra-HD
             score: 200
       - trash_ids: [417804f7f2c4308c1f4c5d380d4c4475] # ATMOS (undefined)
         quality_profiles:
-          - name: Remux 2160p
+          - name: Ultra-HD
             score: 300
 ```
 
@@ -234,8 +196,8 @@ You can assign custom format scores (from the guide) to multiple profiles (all t
 ```yml
 radarr:
   main:
-    base_url: http://localhost:7878
-    api_key: 87674e2c316645ed85696a91a3d41988
+    base_url: !secret radarr_url
+    api_key: !secret radarr_apikey
 
     custom_formats:
       - trash_ids:
@@ -245,11 +207,11 @@ radarr:
           - 1af239278386be2919e1bcee0bde047e # DD+ ATMOS
           - 3cafb66171b47f226146a0770576870f # TrueHD
         quality_profiles:
-          - name: Remux 1080p
-          - name: Remux 2160p
+          - name: HD
+          - name: Ultra-HD
 ```
 
-Quality profiles named `Remux 1080p` and `Remux 2160p` will all receive the same scores for the same custom
+Quality profiles named `HD` and `Ultra-HD` will all receive the same scores for the same custom
 formats.
 
 You can also choose to override the score (for all custom formats!) in one profile:
@@ -257,8 +219,8 @@ You can also choose to override the score (for all custom formats!) in one profi
 ```yml
 radarr:
   main:
-    base_url: http://localhost:7878
-    api_key: 87674e2c316645ed85696a91a3d41988
+    base_url: !secret radarr_url
+    api_key: !secret radarr_apikey
 
     custom_formats:
       - trash_ids:
@@ -268,9 +230,9 @@ radarr:
           - 1af239278386be2919e1bcee0bde047e # DD+ ATMOS
           - 3cafb66171b47f226146a0770576870f # TrueHD
         quality_profiles:
-          - name: Remux 1080p
+          - name: HD
             score: 100 # This score is assigned to all 5 CFs in this profile
-          - name: Remux 2160p # Still uses scores from the guide
+          - name: Ultra-HD # Still uses scores from the guide
 ```
 
 ## Scores in a quality profile should be set to zero if it wasn't listed in config
@@ -282,8 +244,8 @@ zero."*
 ```yml
 radarr:
   main:
-    base_url: http://localhost:7878
-    api_key: 87674e2c316645ed85696a91a3d41988
+    base_url: !secret radarr_url
+    api_key: !secret radarr_apikey
 
     quality_profiles:
       - name: HD
@@ -367,9 +329,9 @@ Let's say you start with two files.
 
 ```yml
 radarr:
-  remux-web-1080p:
-    base_url: http://localhost:7878
-    api_key: myapikey
+  radarr_hd:
+    base_url: !secret radarr_hd_url
+    api_key: !secret radarr_hd_apikey
 
     quality_definition:
       type: movie
@@ -390,9 +352,9 @@ radarr:
 
 ```yml
 radarr:
-  uhd-bluray-web:
-    base_url: http://localhost:7878
-    api_key: myapikey
+  radarr_uhd:
+    base_url: !secret radarr_uhd_url
+    api_key: !secret radarr_uhd_apikey
 
     quality_definition:
       type: movie
@@ -420,9 +382,9 @@ The final merged file would look like below.
 
 ```yml
 radarr:
-  merged-instance:
-    base_url: http://localhost:7878
-    api_key: myapikey
+  radarr_merged:
+    base_url: !secret radarr_merged_url
+    api_key: !secret radarr_merged_apikey
 
     quality_definition:
       type: movie
