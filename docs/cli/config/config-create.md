@@ -33,7 +33,7 @@ recyclarr config create
 recyclarr config create --path ~/myconfig.yml
 ```
 
-### `-t|--template`
+### `-t|--template` {#template}
 
 Create configuration [from templates][templates] instead of the built-in starter YAML configuration.
 This option may be specified multiple times. Each template specified will yield 1 new YAML file
