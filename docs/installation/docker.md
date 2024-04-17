@@ -75,8 +75,8 @@ Here is a breakdown of the above YAML:
 
 ## Tags
 
-Tags for the docker image are broken down into the various components of the semantic version number
-following the format of `X.Y.Z`, where:
+A series of docker tags are provided which represent various components of the semantic version
+number following the format of `X.Y.Z`, where:
 
 - `X`: Represents a *major* release containing breaking changes.
 - `Y`: Represents a *feature* release.
@@ -84,31 +84,72 @@ following the format of `X.Y.Z`, where:
 
 The structure of the tags are described by the following table. Assume for example purposes we're
 talking about `v2.1.2`. The table is sorted by *risk* in descending order. In other words, if you
-value *stability* the most,  you want the bottom row. If you value being on *the bleeding edge*
+value *stability* the most,  you want the bottom row. If you value being on the latest version
 (highest risk), you want the top row.
-
-:::danger
-
-## Warning About Edge Builds {#edge-warning}
-
-The `edge` tag should be considered **extremely unstable**. This tag contains the absolute latest
-changes on the `master` branch and most likely has bugs.
-
-The `edge` tag should **not** be a general recommendation to folks just to get the latest features.
-It is intended for people that wish to help test new features prior to the next release. These
-builds should not be run against your production / meaningful instances of Radarr or Sonarr.
-
-*Use this tag at your own risk!*
-
-:::
 
 | Tag      | Description                                                             |
 | -------- | ----------------------------------------------------------------------- |
-| `edge`   | Docker and Recyclarr changes on `master`. **Potentially unstable!**     |
 | `latest` | Latest stable release, no matter what, including breaking changes       |
 | `2`      | Latest *feature* and *bugfix* release; manual update for major releases |
 | `2.1`    | Latest *bugfix* release; manual update if you want new features         |
 | `2.1.2`  | Exact release; no automatic updates                                     |
+
+:::info
+
+All docker tags described here are *mutable* with the exception of the three-component version
+number (e.g. `2.1.2` in the table above). A *mutable tag* is one that may change with each release
+of Recyclarr.
+
+:::
+
+### Edge (Dev) Builds {#edge-warning}
+
+:::danger
+
+The `edge` and prerelease tags should be considered **extremely unstable**. These tags contain
+unreleased code on the `master` branch and most likely have bugs.
+
+These tags should **not** be a general recommendation to folks just to get the latest features. They
+are intended for people that wish to help test new features prior to the next release. These builds
+should not be run against your production instances of Radarr or Sonarr.
+
+*Use these tags at your own risk!*
+
+:::
+
+Users that wish to be on the bleeding edge have several options available to them.
+
+#### The `edge` Tag
+
+A *mutable* docker tag named `edge` is available and semantically similar to `latest`, except it
+contains the absolute latest code changes on the `master` branch. This is considered the most
+volatile and risky tag. You should only use this tag if you full understand the consequences.
+
+#### Prerelease Tags
+
+If you prefer *immutable* docker tags (i.e. you want to explicitly upgrade) but still want
+unreleased changes, then the prerelease tags are for you. These are in the format of `X.Y.Z-dev.N`,
+where:
+
+- `X.Y.Z` is the *next* (unreleased) semantic version of Recyclarr. This value changes depending on
+  commits made to the `master` branch.
+- `-dev.` is a fixed prerelease string indicating that this is a *dev build*.
+- `N` is a build number, used mainly to identify unique dev builds when they share an identical
+  semantic version number.
+
+Using the table at the start of the Tags section, an example might be `2.1.3-dev.50` where `2.1.3`
+is the *current* next version after `2.1.2`.
+
+:::caution
+
+Prerelease tags do not live indefinitely. An unspecified *retention period* is applied to them,
+meaning that these tags are **permanently deleted from upstream docker registries** after that
+period of time.
+
+**These tags are not intended for long-term use.** The exact retention details are not documented
+here since they may change at any time.
+
+:::
 
 ## Configuration
 
@@ -262,3 +303,30 @@ This runs it without any command or options, which will result in this mode bein
 ## Troubleshooting
 
 See the [Troubleshooting](/troubleshooting/errors-warnings.md#docker) page.
+
+## Advanced Configuration
+
+### Read-Only Container
+
+For additional security, you may [make your Recyclarr container's filesystem read only][read_only].
+To do this in Docker Compose, you need to make two changes.
+
+1. Add the `read_only: true` setting to your service configuration.
+1. Mount `/tmp` (inside the container) to a volume. This must be done because this path must be
+   writable for Recyclarr to run. I recommend you use `tmpfs` for this since the files located at
+   this path are temporary by design and keeping everything in memory offers some performance
+   benefits.
+
+Using the example `docker-compose.yml` presented at the start of this page, make the following
+modification:
+
+```yml
+services:
+  recyclarr:
+    image: ghcr.io/recyclarr/recyclarr
+    read_only: true # <-- Add this to enable read-only mode
+    tmpfs: /tmp # <-- Mount /tmp to a volume
+    # ...
+```
+
+[read_only]: https://docs.docker.com/reference/cli/docker/container/run/#read-only
