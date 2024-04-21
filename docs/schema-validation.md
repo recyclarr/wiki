@@ -16,7 +16,7 @@ much easier. You should be interested in this topic if any of the following poin
 
 :::info What's a Schema?
 
-A *schema*, in this case, defines the shape that YAML must conform to. It's a `json` file that
+A *schema*, in this case, defines the shape that YAML must conform to. It's a JSON file that
 describes the different parts of YAML settings, configuration, and other files that Recyclarr uses.
 
 Schema *validation* refers to the process of using the schema itself to check for issues in your

@@ -16,7 +16,7 @@ service_type:
     # Include Configuration
     include:
       - template: uhd-bluray-web
-      - config: includes/my-config.yml
+      - config: my-config.yml
 ```
 
 YAML includes are a mechanism to support reusable configurations. Including YAML is the process of
@@ -48,22 +48,22 @@ Use this directive to include YAML files on your local filesystem.
 
 **Required.**
 
-An absolute or relative path to the YAML file you wish to include. Relative paths start at the
-`configs` directory inside the [app data directory][appdata]
+An absolute or relative path to the YAML file you wish to include. If relative paths are used, see
+the [app data directory][appdata] page for where those files should be located.
 
-[appdata]: /file-structure.md#appdata-directory
+[appdata]: /file-structure.md#include-directory
 
 ### Examples
 
 ```yml
 include:
   # An absolute include path
-  - config: /home/john/my-config.yml
+  - config: /home/john/my-include.yml
 
   # A relative include path
   # Equivalent absolute path is (on Linux):
-  #   /home/john/.config/recyclarr/configs/include/my-config.yml
-  - config: include/my-config.yml
+  #   /home/john/.config/recyclarr/includes/my-include.yml
+  - config: my-include.yml
 ```
 
 ## Template Includes {#template}

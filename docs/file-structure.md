@@ -48,7 +48,16 @@ really have an easy way to specify custom CLI arguments. The following requireme
   `--config` command line argument. This behavior is non-recursive; meaning if you place YAML files
   in subdirectories under `configs/`, they will not be loaded.
 - The names of the files are unimportant and can be whatever you want.
-- [Include templates][inc] should *not* be placed in this directory; only real configuration files
-  are supported here.
 
-[inc]: /yaml/config-reference/include.md
+:::caution
+
+Include templates should *not* be placed here; use the [`includes`](#include-directory) directory
+instead.
+
+:::
+
+## Include Templates Directory {#include-directory}
+
+import IncludeDirectory from './_include-templates-dir.md'
+
+<IncludeDirectory />

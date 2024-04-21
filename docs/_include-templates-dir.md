@@ -1,0 +1,34 @@
+A directory named `includes` exists under the application data directory where local [include
+templates][configdirective] may be placed. Any relative paths to include templates will start at
+this directory.
+
+For example, if I have the following include directive in a configuration file named `foo.yml`:
+
+```yml
+include:
+  - config: bar/reusable.yml
+```
+
+The expected file structure of my `includes` directory would be visualized as follows:
+
+```txt
+.
+├── configs/
+│   └── foo.yml
+└── includes/
+    └── bar/
+        └── reusable.yml
+```
+
+For more information about include templates, see the respective [behaviors page][include].
+
+:::caution
+
+Configuration files (non-includes) should *not* be placed here; use the [`configs`][configsdir]
+directory for those.
+
+:::
+
+[include]: /yaml/config-reference/include.md
+[configdirective]: /yaml/config-reference/include.md#config
+[configsdir]: /file-structure.md#config-directory

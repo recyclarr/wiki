@@ -393,33 +393,6 @@ custom_formats:
 
 ### Include File Structure {#file-structure}
 
-This section covers the currently recommended file structure for local YAML includes.
+import IncludeDirectory from '../_include-templates-dir.md'
 
-Recyclarr does not recursively scan for configuration YAML files in the [`configs`
-subdirectory][configdir]. This means that you can structure local include YAML files into
-subdirectories inside `configs`. This allows the convenient usage of relative paths when using the
-[`config` include directive][configdirective].
-
-As an example, consider this file structure:
-
-```txt
-.
-└── configs/
-    ├── includes/
-    │   └── reusable.yml
-    └── my-config.yml
-```
-
-And the `my-config.yml` file has the following include directives:
-
-```yml
-include:
-  - config: includes/reusable.yml
-```
-
-Because we have our includes within the `configs` directory, we can easily access them with a
-relative path. And since those includes are under a subdirectory, Recyclarr will not scan them and
-treat them as top-level configuration YAML files.
-
-[configdir]: /file-structure.md#config-directory
-[configdirective]: /yaml/config-reference/include.md#config
+<IncludeDirectory />
