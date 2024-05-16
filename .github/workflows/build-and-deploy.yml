@@ -57,7 +57,7 @@ jobs:
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Algolia Crawl
-        uses: algolia/algoliasearch-crawler-github-actions@v1.1.9
+        uses: algolia/algoliasearch-crawler-github-actions@v1.1.10
         if: github.ref == 'refs/heads/master'
         with:
           crawler-user-id: ${{ secrets.CRAWLER_USER_ID }}
