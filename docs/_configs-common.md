@@ -48,7 +48,6 @@ As the pre-built configuration files feature include templates, these will need 
 custom configuration added to the configuration file. [Guidance is available on this
 behavior][behavior].
 
-
 A common request is to add additional qualities to a [quality profile][config-qp]. This is as simple
 as writing your own complete quality profile configuration and adding it to your configuration file.
 From there, the quality profile include template can either be commented out, or if left enabled
