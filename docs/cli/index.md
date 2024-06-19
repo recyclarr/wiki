@@ -25,7 +25,8 @@ or angle-brackets (e.g. `<required>`).
 
 ## Commands
 
-Also visit the [Common Options](common.md) page to learn about options usable across *all* commands.
+Also visit the [Common Options](common.md) page to learn about options and environment variables
+usable across *all* commands.
 
 - [recyclarr](main.md)
 - [recyclarr sync](sync.md)

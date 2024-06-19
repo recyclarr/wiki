@@ -3,6 +3,8 @@ title: Common Options
 sidebar_position: 1
 ---
 
+## Options
+
 These are options shared by *all* commands.
 
 ### `-h|--help`
@@ -25,3 +27,15 @@ in the official Docker image. It is not intended for normal use outside of that.
 If you'd like this behavior globally for all commands without having to specify this option, define
 an environment variable named `RECYCLARR_APP_DATA` with the same path. Note that if you have both
 set, `--app-data` always takes precedence.
+
+## Environment Variables
+
+These environment variables impact the behavior of *all* commands.
+
+### `NO_COLOR`
+
+When set like `NO_COLOR=1`, disable ANSI color output for all Recyclarr commands. This is useful for
+scenarios such as scripting and piping output to files. Note that this also disables color output to
+the terminal as well.
+
+See [no-color.org](https://no-color.org/) for more information about this standard convention.
