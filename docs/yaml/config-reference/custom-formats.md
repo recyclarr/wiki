@@ -22,14 +22,14 @@ service_type:
           - 90cedc1fea7ea5d11298bebd3d1d3223 # EVO (no WEBDL)
           - 90a6f9a284dff5103f6346090e6280c8 # LQ
           - dc98083864ea246d05a42df0d05f81cc # x265 (720/1080p)
-        quality_profiles:
+        assign_scores_to:
           - name: HD-1080p
           - name: HD-720p
             score: -1000
       - trash_ids:
           - 496f355514737f7d83bf7aa4d24f8169 # TrueHD ATMOS
           - 2f22d89048b01681dde8afe203bf2e95 # DTS X
-        quality_profiles:
+        assign_scores_to:
           - name: SD
 ```
 
@@ -109,7 +109,7 @@ trash_ids:
 
 :::
 
-## `quality_profiles` {#quality-profiles}
+## `assign_scores_to` {#assign-scores-to}
 
 **Optional.** *Default: No quality profiles are changed*
 
@@ -122,9 +122,11 @@ object in the list must use the properties below.
 **Required.**
 
 The name of *an existing* quality profile. This name is **not required** to appear in the top-level
-`quality_profiles` list. If the profile here does not exist, an error will be shown. If you want
-this profile to be created by Recyclarr, you must also add an entry for it in the [top-level
-`quality_profiles` list](#quality-profiles).
+[`quality_profiles` list][qps]. If the profile name specified here does not exist, an error will be
+shown. If you want this profile to be created by Recyclarr, you must also add an entry for it in the
+previously mentioned `quality_profiles` list.
+
+[qps]: ./quality-profiles.md
 
 ### `score` {#qp-score}
 
