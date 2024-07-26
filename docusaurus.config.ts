@@ -1,8 +1,6 @@
-// @ts-check
-// Note: type annotations allow type checking and IDEs autocompletion
-
-const lightCodeTheme = require('prism-react-renderer/themes/github');
-const darkCodeTheme = require('prism-react-renderer/themes/dracula');
+import type {Config} from '@docusaurus/types'
+import { themes } from 'prism-react-renderer';
+// import darkCodeTheme from 'prism-react-renderer/themes/dracula';
 
 function currentOrNextInfo(getNext) {
   var master = {
@@ -22,8 +20,7 @@ const isNext = process.env.GITHUB_REF === 'refs/heads/next'
 const currentInfo = currentOrNextInfo(isNext)
 const otherInfo = currentOrNextInfo(!isNext)
 
-/** @type {import('@docusaurus/types').Config} */
-const config = {
+const config: Config = {
   title: 'Recyclarr',
   tagline: 'Documentation for Recyclarr',
   url: `https://${currentInfo.hostname}`,
@@ -53,7 +50,6 @@ const config = {
   presets: [
     [
       'classic',
-      /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
           routeBasePath: '/wiki',
@@ -73,7 +69,6 @@ const config = {
   ],
 
   themeConfig:
-    /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
         title: 'Recyclarr',
@@ -135,8 +130,8 @@ const config = {
         ],
       },
       prism: {
-        theme: lightCodeTheme,
-        darkTheme: darkCodeTheme,
+        theme: themes.github,
+        darkTheme: themes.dracula,
         additionalLanguages: []
       },
       colorMode: {
