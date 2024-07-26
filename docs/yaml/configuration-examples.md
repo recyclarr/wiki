@@ -32,7 +32,7 @@ sonarr:
           - e2315f990da2e2cbfc9fa5b7a6fcfe48 # LQ (Release Title)
           - 47435ece6b99a0b477caf360e79ba0bb # x265 (HD)
           - fbcb31d8dabd2a319072b84fc0b7249c # Extras
-        quality_profiles:
+        assign_scores_to:
           - name: WEB-1080p
 
 radarr:
@@ -51,8 +51,8 @@ radarr:
         - c20f169ef63c5f40c2def54abaf4438e # WEB Tier 01
         - 403816d65392c79236dcb6dd591aeda4 # WEB Tier 02
         - af94e0fe497124d1f9ce732069ec8c3b # WEB Tier 03
-      quality_profiles:
-        - name: HD
+        assign_scores_to:
+          - name: HD
 ```
 
 Even though it's all in one file, Radarr settings are ignored when you run `recyclarr sync sonarr`
@@ -143,7 +143,7 @@ radarr:
           - 1c1a4c5e823891c75bc50380a6866f73 # DTS
           - 240770601cc226190c367ef59aba7463 # AAC
           - c2998bd0d90ed5621d8df281e839436e # DD
-        quality_profiles:
+        assign_scores_to:
           - name: HD
 ```
 
@@ -167,20 +167,20 @@ radarr:
           - 3cafb66171b47f226146a0770576870f # TrueHD
           - dcf3ec6938fa32445f590a4da84256cd # DTS-HD MA
           - a570d4a0e56a2874b64e5bfa55202a1b # FLAC
-        quality_profiles:
+        assign_scores_to:
           - name: Ultra-HD
 
       # Assign manual scores to the 3 below CFs, each added to the same profile
       - trash_ids: [496f355514737f7d83bf7aa4d24f8169] # TrueHD ATMOS
-        quality_profiles:
+        assign_scores_to:
           - name: Ultra-HD
             score: 100
       - trash_ids: [2f22d89048b01681dde8afe203bf2e95] # DTS X
-        quality_profiles:
+        assign_scores_to:
           - name: Ultra-HD
             score: 200
       - trash_ids: [417804f7f2c4308c1f4c5d380d4c4475] # ATMOS (undefined)
-        quality_profiles:
+        assign_scores_to:
           - name: Ultra-HD
             score: 300
 ```
@@ -206,7 +206,7 @@ radarr:
           - 417804f7f2c4308c1f4c5d380d4c4475 # ATMOS (undefined)
           - 1af239278386be2919e1bcee0bde047e # DD+ ATMOS
           - 3cafb66171b47f226146a0770576870f # TrueHD
-        quality_profiles:
+        assign_scores_to:
           - name: HD
           - name: Ultra-HD
 ```
@@ -229,7 +229,7 @@ radarr:
           - 417804f7f2c4308c1f4c5d380d4c4475 # ATMOS (undefined)
           - 1af239278386be2919e1bcee0bde047e # DD+ ATMOS
           - 3cafb66171b47f226146a0770576870f # TrueHD
-        quality_profiles:
+        assign_scores_to:
           - name: HD
             score: 100 # This score is assigned to all 5 CFs in this profile
           - name: Ultra-HD # Still uses scores from the guide
@@ -256,7 +256,7 @@ radarr:
           # - a570d4a0e56a2874b64e5bfa55202a1b # FLAC (commented out so disabled)
           - 2f22d89048b01681dde8afe203bf2e95 # DTS X
           - 3cafb66171b47f226146a0770576870f # TrueHD
-        quality_profiles:
+        assign_scores_to:
           - name: HD
           - name: Ultra-HD
 ```
@@ -344,7 +344,7 @@ radarr:
       - trash_ids:
           - 0f12c086e289cf966fa5948eac571f44  # Hybrid
           - 570bc9ebecd92723d2d21500f4be314c  # Remaster
-        quality_profiles:
+        assign_scores_to:
           - name: Remux + WEB 1080p
 ```
 
@@ -367,7 +367,7 @@ radarr:
       - trash_ids:
           - e23edd2482476e595fb990b12e7c609c  # DV HDR10
           - 58d6a88f13e2db7f5059c41047876f00  # DV
-        quality_profiles:
+        assign_scores_to:
           - name: UHD Bluray + WEB
 ```
 
@@ -399,13 +399,13 @@ radarr:
       - trash_ids:
           - e23edd2482476e595fb990b12e7c609c  # DV HDR10
           - 58d6a88f13e2db7f5059c41047876f00  # DV
-        quality_profiles:
+        assign_scores_to:
           - name: UHD Bluray + WEB
 
       - trash_ids:
           - 0f12c086e289cf966fa5948eac571f44  # Hybrid
           - 570bc9ebecd92723d2d21500f4be314c  # Remaster
-        quality_profiles:
+        assign_scores_to:
           - name: Remux + WEB 1080p
 ```
 

@@ -24,12 +24,12 @@ custom_formats:
   - trash_ids:
       - e7718d7a3ce595f289bfee26adc178f5 # Repack/Proper
       - e23edd2482476e595fb990b12e7c609c # DV HDR10
-    quality_profiles:
+    assign_scores_to:
       - name: SD
         score: 1000
   - trash_ids:
       - e23edd2482476e595fb990b12e7c609c # DV HDR10
-    quality_profiles:
+    assign_scores_to:
       - name: SD
         score: 500
 ```
@@ -43,12 +43,12 @@ assigned a score of `1000`:
 custom_formats:
   - trash_ids:
       - e7718d7a3ce595f289bfee26adc178f5 # Repack/Proper
-    quality_profiles:
+    assign_scores_to:
       - name: SD
         score: 1000
   - trash_ids:
       - e23edd2482476e595fb990b12e7c609c # DV HDR10
-    quality_profiles:
+    assign_scores_to:
       - name: SD
         score: 500
 ```

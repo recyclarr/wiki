@@ -351,7 +351,7 @@ custom_formats:
   - trash_ids:
       - abc
       - xyz
-    quality_profiles:
+    assign_scores_to:
       - name: profile1
       - name: profile2
 
@@ -362,7 +362,7 @@ include:
 custom_formats:
   - trash_ids:
       - abc
-    quality_profiles:
+    assign_scores_to:
       - name: profile1
         score: 50
 ```
@@ -373,18 +373,18 @@ After the two files above are merged, the `custom_formats` list will effectively
 custom_formats:
   - trash_ids:
       - xyz
-    quality_profiles:
+    assign_scores_to:
       - name: profile1
       - name: profile2
 
   - trash_ids:
       - abc
-    quality_profiles:
+    assign_scores_to:
       - name: profile2
 
   - trash_ids:
       - abc
-    quality_profiles:
+    assign_scores_to:
       - name: profile1
         score: 50
 ```
