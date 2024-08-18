@@ -342,7 +342,7 @@ page, make the following modification:
 services:
   recyclarr:
     image: ghcr.io/recyclarr/recyclarr
-    security_opt: ['no-new-privileges:true']
+    security_opt: ['no-new-privileges:true'] # Add this line
     # ...
 ```
 
