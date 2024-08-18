@@ -327,4 +327,24 @@ services:
     # ...
 ```
 
+### Prevent in-container privilege escalation
+
+For additional security, you may [run Recyclarr with
+`--security-opt=no-new-privileges`][security_opt] in order to prevent privilege escalation. This
+will prevent the container from potentially gaining new privileges via `setuid` and `setgid`
+binaries, like `su` and `sudo`.
+
+To do this in Docker Compose, you need to add the `security_opt: ['no-new-privileges:true']` setting
+to your service configuration. Using the example `docker-compose.yml` presented at the start of this
+page, make the following modification:
+
+```yml
+services:
+  recyclarr:
+    image: ghcr.io/recyclarr/recyclarr
+    security_opt: ['no-new-privileges:true'] # Add this line
+    # ...
+```
+
 [read_only]: https://docs.docker.com/reference/cli/docker/container/run/#read-only
+[security_opt]: https://docs.docker.com/reference/cli/docker/container/run/#security-opt
