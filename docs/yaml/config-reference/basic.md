@@ -31,7 +31,7 @@ A custom name used to identify this particular instance. This name must meet the
 requirements:
 
 - Must contain only numbers, letters, and underscores (`_`).
-- Must be unique across all other Sonarr instances in your YAML config.
+- Must be unique across all other instances in your YAML config.
 
 The purpose of the name is to be human readable and self-documenting. It is used in different ways:
 
