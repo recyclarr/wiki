@@ -7454,9 +7454,9 @@ schema-utils@^4.0.0, schema-utils@^4.0.1:
     ajv-keywords "^5.1.0"
 
 search-insights@^2:
-  version "2.17.0"
-  resolved "https://registry.yarnpkg.com/search-insights/-/search-insights-2.17.0.tgz#34db501d51d493a2a3d8ef50a852c2002f17eade"
-  integrity sha512-AskayU3QNsXQzSL6v4LTYST7NNfs2HWyHHB+sdORP9chsytAhro5XRfToAMI/LAVYgNbzowVZTMfBRodgbUHKg==
+  version "2.17.1"
+  resolved "https://registry.yarnpkg.com/search-insights/-/search-insights-2.17.1.tgz#89caded6cbe596bedd17ef23c2bdd8ccab04c03a"
+  integrity sha512-HHFjYH/0AqXacETlIbe9EYc3UNlQYGNNTY0fZ/sWl6SweX+GDxq9NB5+RVoPLgEFuOtCz7M9dhYxqDnhbbF0eQ==
 
 section-matter@^1.0.0:
   version "1.0.0"
