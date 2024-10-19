@@ -1,0 +1,57 @@
+---
+id: repositories
+title: Repositories
+---
+
+:::danger
+
+Never edit files in the locally cloned git repositories managed by Recyclarr! Local changes in these
+repositories will be destroyed!
+
+:::
+
+```yml
+repositories:
+  trash_guides:
+      clone_url: https://github.com/TRaSH-/Guides.git
+      branch: master
+      sha1:
+  config_templates:
+      clone_url: https://github.com/recyclarr/config-templates.git
+      branch: master
+      sha1:
+```
+
+## Supported Repositories
+
+The `repositories` section contains a list of repositories to configure. Each repository *has the
+same exact properties*, which are documented below. For example, `clone_url` is a valid property for
+both `trash_guides`, `config_templates`, and any future repositories that may get added here.
+
+List of supported repositories is below.
+
+- [Trash Guides][trash_repo]: Contains the data synced to your Sonarr/Radarr instances.
+- [Config Templates][template_repo]: Contains pre-made configuration YAML files used by the
+  `recyclarr config` command.
+
+[trash_repo]: https://github.com/TRaSH-/Guides
+[template_repo]: https://github.com/recyclarr/config-templates
+
+## Per-Repository Properties
+
+Default values *may be different* between different repositories for the same property. The example
+YAML code block above shows the default values for corresponding properties documented below.
+
+- `clone_url`<br/>
+  A URL compatible with `git clone` that is used to clone the respective repository (listed above).
+  This setting exists for enthusiasts that may want to instead have Recyclarr pull data from a fork
+  instead of the official repository.
+
+- `branch`<br/>
+  The name of a branch to check out in the repository.
+
+- `sha1`<br/>
+  A SHA1 (commit hash) in Git to use (e.g. `c611e9df00bf9261bddfc749219295fe189ae552`). If
+  specified, it overrides the `branch` setting. This SHA1 is passed to `git reset --hard` to force
+  your local clone to this specific revision in the repository. If not specified, only the `branch`
+  controls what revision is used in the repo.

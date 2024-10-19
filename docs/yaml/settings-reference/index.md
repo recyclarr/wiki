@@ -1,0 +1,57 @@
+---
+id: settings-reference
+title: Settings
+sidebar_position: 5
+---
+
+Settings are specified in a file named `settings.yml` in your [app data directory][app-data].
+Settings in this file affect the behavior of Recyclarr regardless of instance-specific configuration
+for Radarr and Sonarr.
+
+Example of file location (using docker path):
+
+```txt
+/config/settings.yml
+```
+
+If this file does not exist, Recyclarr will create it for you. Starting out, this file will be empty
+and default behavior will be used.
+
+:::warning
+
+There is absolutely no need to touch this file unless you have a specific reason to. It is
+recommended that you only add the specific properties for the customizations you need and leave the
+rest alone.
+
+:::
+
+[app-data]: /file-structure.md#appdata-directory
+
+## Schema Validation {#schema}
+
+Visit the [Schema Validation](/schema-validation.md) page for detailed instructions.
+
+Add this comment to the top of your YAML file:
+
+```yml
+# yaml-language-server: $schema=https://raw.githubusercontent.com/recyclarr/recyclarr/master/schemas/settings-schema.json
+```
+
+## Global Settings
+
+```yml
+enable_ssl_certificate_validation: true
+git_path: /usr/local/bin/git
+```
+
+- `enable_ssl_certificate_validation` *(Default: `true`)*<br/>
+  If set to `false`, SSL certificates are not validated. This is useful if you are connecting to a
+  Sonarr or Radarr instance using `https` and it is set up with self-signed certificates. Note that
+  disabling this setting is a **security risk** and should be avoided unless you are absolutely sure
+  what you are doing.
+
+- `git_path` *(Default: Search on `PATH`)*<br/>
+
+  Provide an explicit path to your `git` executable. Note that this is a path to the actual
+  executable itself and not a directory path. If this setting is not specified, Recyclarr will
+  attempt to find `git` via your `PATH` environment variable.
