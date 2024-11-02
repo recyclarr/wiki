@@ -3,32 +3,41 @@ id: notifications
 title: Notifications
 ---
 
-This page covers two different ways to configure Apprise notifications in Recyclarr: Stateless Mode
-and Stateful Mode.
+:::info
+
+For a deeper understanding of how notifications work in Recyclarr, please refer to the
+[Notifications Behavior](/behavior/notifications-behavior.mdx) page.
+
+:::
+
+## Overview
+
+Notifications in Recyclarr allow you to stay informed about the status and results of your sync
+operations. This page explains how to configure notifications using various methods and customize
+their behavior.
 
 :::caution
 
-Details regarding how to use and configure Apprise itself is outside of the scope of this wiki page
-and, in particular, Recyclarr support channels. Apprise-specific questions should be directed to the
-appropriate Apprise support channels.
+The `notifications` property should only be specified once in your settings YAML file, even though
+it may appear in multiple sections of this documentation.
 
 :::
 
-:::info
+## Apprise Notifications {#apprise}
 
-If you want to learn more about how notifications work, see the [Notifications Behavior][behavior]
-page.
+Apprise is a powerful notification platform that Recyclarr can utilize to send notifications through
+various services. There are two modes of operation for Apprise: Stateful and Stateless.
 
-[behavior]: /behavior/notifications-behavior.mdx
+:::caution
+
+Configuring and using Apprise itself is beyond the scope of this wiki page and Recyclarr support
+channels. For Apprise-specific questions, please consult the appropriate Apprise support resources.
 
 :::
 
-## Stateful Mode
+### Stateful Mode {#stateful}
 
-When using [stateful mode], the details of which specific URLs to publish notifications to is
-controlled by Apprise API configuration.
-
-[stateful mode]: https://github.com/caronc/apprise-api#persistent-stateful-storage-solution
+In stateful mode, Apprise API manages the configuration of notification URLs.
 
 ```yml
 notifications:
@@ -39,30 +48,19 @@ notifications:
     tags: foo bar, baz
 ```
 
-Reference for the `apprise` section is below. Note that most of these values are forwarded directly
-to Apprise API and you should rely on their documentation for more information.
+Configuration options for stateful mode:
 
-- `mode` *(Required)*<br/>
-  Set this to `stateful` to enable stateful mode.
+- `mode` *(Required)*: Set to `stateful` to enable this mode.
+- `base_url` *(Required)*: The base URL of your Apprise API server.
+- `key` *(Required)*: Represents a configuration file on the Apprise API server that determines
+  notification destinations.
+- `tags` *(Optional)*: Filters notifications to URLs with specific tags. Use commas (`,`) for OR
+  logic and spaces (` `) for AND logic.
 
-- `base_url` *(Required)*<br/>
-  This is the base URL of the Apprise API server that Recyclarr should send notifications to.
+### Stateless Mode {#stateless}
 
-- `key` *(Required)*<br/>
-  The key represents a configuration file on the Apprise API server that will be used to determine
-  where notifications are sent.
-
-- `tags` *(Optional)*<br/>
-  Optionally notify only those URLs tagged accordingly. Use a comma (`,`) to `OR` your tags and a
-  space (` `) to `AND` them.
-
-## Stateless Mode
-
-Use [stateless mode] when you want to sidecar the Apprise API without it having access to storage.
-This means that Recyclarr's notification settings will contain the list of URLs to publish
-notifications to.
-
-[stateless mode]: https://github.com/caronc/apprise-api#stateless-mode
+Stateless mode is useful when you want to use Apprise API without persistent storage. In this mode,
+Recyclarr's settings contain the list of notification URLs.
 
 ```yml
 notifications:
@@ -73,17 +71,42 @@ notifications:
       - https://discord.com/api/webhooks/secret
 ```
 
-Reference for the `apprise` section is below. Note that most of these values are forwarded directly
-to Apprise API and you should rely on their documentation for more information.
+Configuration options for stateless mode:
 
-- `mode` *(Required)*<br/>
-  Set this to `stateless` to enable stateless mode.
+- `mode` *(Required)*: Set to `stateless` to enable this mode.
+- `base_url` *(Required)*: The base URL of your Apprise API server.
+- `urls` *(Required)*: One or more URLs where Apprise will send notifications. For supported URL
+  types, consult the [Apprise API
+  documentation](https://github.com/caronc/apprise/wiki#notification-services).
 
-- `base_url` *(Required)*<br/>
-  This is the base URL of the Apprise API server that Recyclarr should send notifications to.
+## Notification Verbosity {#verbosity}
 
-- `urls` *(Required)*<br/>
-  One or more URLs that apprise will forward notifications to. If you want to know what kind of URLs
-  to put here, please visit the [Apprise API documentation][urls].
+You can control the frequency and content of notifications by adjusting the verbosity level:
 
-[urls]: https://github.com/caronc/apprise/wiki#notification-services
+```yml
+notifications:
+  verbosity: normal # Options: normal, detailed, minimal
+```
+
+To help you choose the appropriate verbosity level, it's important to understand the types of
+content that can be included in Recyclarr notifications:
+
+- **Errors**: Critical issues that typically cause sync failures.
+- **Warnings**: Important messages indicating necessary user actions, such as updating deprecated
+  configurations.
+- **Information**: Statistics and details about sync actions, like the number of Custom Formats
+  synced.
+- **Sync Status**: Overall success or failure of the sync operation, usually shown in the
+  notification title.
+
+These content types are used to determine what information is included in notifications based on the
+chosen verbosity level.
+
+Verbosity levels:
+
+- `minimal`: Sends notifications only for warnings or errors. Informational and empty messages are
+  suppressed.
+- `normal` (default): Sends notifications for warnings, errors, and statistical information. Empty
+  messages (e.g., when nothing was synced) are not sent.
+- `detailed`: Includes everything from the `normal` level, plus notifications for empty messages
+  (e.g., when no changes were synced).
