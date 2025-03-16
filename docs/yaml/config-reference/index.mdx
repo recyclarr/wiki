@@ -16,6 +16,16 @@ multiple ways, offering a lot of flexibility:
   from the file relevant for the specific service command you specified (e.g. `recyclarr sync
   sonarr` will only read the Sonarr config in the file, even if Radarr config is present).
 
+  :::caution
+
+  Even when running app-specific synchronization (e.g., `recyclarr sync radarr`), the entire
+  configuration file must be free of syntax errors. While Recyclarr will ignore the configuration
+  for services not being synced, it still validates the entire YAML file during parsing. This means
+  errors in any section, even those for services not being synchronized, will cause the command to
+  fail.
+
+  :::
+
 - Use [a `secrets.yml` file](/yaml/secrets-reference.mdx) to keep sensitive values out of your
   configuration files. This prevents accidentally sharing api_keys and other sensitive values when
   sharing configurations.
