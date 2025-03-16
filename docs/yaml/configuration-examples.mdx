@@ -19,7 +19,7 @@ example refers to sensitive values by [using a `secrets.yml` file](secrets-refer
 
 ```yml
 sonarr:
-  main:
+  sonarr_main:
     base_url: !secret sonarr_url
     api_key: !secret sonarr_apikey
     quality_definition:
@@ -36,7 +36,7 @@ sonarr:
           - name: WEB-1080p
 
 radarr:
-  main:
+  radarr_main:
     base_url: !secret radarr_url
     api_key: !secret radarr_apikey
     quality_definition:
