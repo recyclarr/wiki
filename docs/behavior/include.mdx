@@ -8,10 +8,10 @@ title: YAML Includes
 ### Recyclarr-Specific Terms {#recyclarr-terms}
 
 - **Include Template**<br/>
-  A type of template that may *only* be included.
+  A type of template that may _only_ be included.
 
 - **Config Template**<br/>
-  A type of template that may *only* be used as a configuration file. It *cannot* be included. May
+  A type of template that may _only_ be used as a configuration file. It _cannot_ be included. May
   be created with the `config create` command.
 
 - **Include Directive**<br/>
@@ -27,7 +27,7 @@ list of terms is not comprehensive. It only touches on terms that are relevant t
 Recyclarr's include YAML merge behavior.
 
 - **Sequence**<br/>
-  A *sequence* is a collection that is an ordered list of 0 or more nodes.
+  A _sequence_ is a collection that is an ordered list of 0 or more nodes.
 
   ```yml
   - one
@@ -36,7 +36,7 @@ Recyclarr's include YAML merge behavior.
   ```
 
 - **Mapping**<br/>
-  A *mapping* is a collection that consists of a set of 0 or more key/value pairs. In YAML, both the
+  A _mapping_ is a collection that consists of a set of 0 or more key/value pairs. In YAML, both the
   key and the value can be any kind of node.
 
   ```yml
@@ -46,7 +46,7 @@ Recyclarr's include YAML merge behavior.
   ```
 
 - **Scalar**<br/>
-  A *scalar* is a node that consists of a single value unit. Strings, numbers and boolean values are
+  A _scalar_ is a node that consists of a single value unit. Strings, numbers and boolean values are
   examples of scalar nodes. In the example below, the value `true` is considered a scalar value.
 
   ```yml
@@ -72,7 +72,7 @@ radarr:
           - id2
 ```
 
-Since included YAML is only capable of adding information to *specific instance configurations*,
+Since included YAML is only capable of adding information to _specific instance configurations_,
 they do not contain a service type (e.g. `radarr`) or an instance name (e.g. `instance_name`). If we
 convert the above example into a YAML file that may be included, it would look like this:
 
@@ -99,16 +99,16 @@ Recyclarr handles includes using the following rules:
 ## Merge Behavior {#behavior}
 
 Merge behavior is described in terms of two sides: `A` and `B`. Side `A` typically represents the
-*current merged state* of the included YAML at any point. Side `B` is the YAML data to include next.
+_current merged state_ of the included YAML at any point. Side `B` is the YAML data to include next.
 
 As Recyclarr visits each node in included YAML, it decides what to do based on the following logic.
 
 1. If `B` has a node but not `A`, then it takes the node from `B`.
 1. Otherwise, if `A` has a node but not `B`, then it takes the node from `A`.
-1. Otherwise, if both sides (`A` and `B`) have the same node, then a pre-determined *Merge
-   Operation* is used.
+1. Otherwise, if both sides (`A` and `B`) have the same node, then a pre-determined _Merge
+   Operation_ is used.
 
-Recyclarr uses *Merge Operations* to decide how to aggregate (combine/merge) YAML data that exists
+Recyclarr uses _Merge Operations_ to decide how to aggregate (combine/merge) YAML data that exists
 in two YAML files. These operations are important to understand as they are used in the [Merge
 Reference](#reference) section that follows.
 
@@ -117,7 +117,7 @@ terminology. See the [Terminology](#yaml-terms) section to learn more.
 
 ### Add {#add}
 
-This merge operation involves concatenating two *sequences* together. As such, it only applies to
+This merge operation involves concatenating two _sequences_ together. As such, it only applies to
 sequences. The end result is `B` is simply appended to `A`. The example below demonstrates the
 behavior for the sequences under `custom_formats`.
 
@@ -148,16 +148,16 @@ custom_formats:
 
 ### Join {#join}
 
-A join involves two *sequences* of *mappings*. Based on some key, such as a `name` property, two
+A join involves two _sequences_ of _mappings_. Based on some key, such as a `name` property, two
 sequences are joined together. If sequence `B` has a key that matches any key in sequence `A`, then
-those two mappings are *combined* (see [Union](#union)). For mappings in sequence `B` that have *no
-match*, the behavior is effectively the same as [Add](#add).
+those two mappings are _combined_ (see [Union](#union)). For mappings in sequence `B` that have _no
+match_, the behavior is effectively the same as [Add](#add).
 
 ```yml
 # A
 quality_profiles:
   - name: Bluray|WEB-1080p
-    score_set: sqp-1-1080p
+    score_set: anime-radarr
 
 # B
 quality_profiles:
@@ -170,14 +170,14 @@ quality_profiles:
 quality_profiles:
   - name: Bluray|WEB-1080p
     min_format_score: 1000
-    score_set: sqp-1-1080p
+    score_set: anime-radarr
   - name: Remux + WEB 1080p
     min_format_score: 0
 ```
 
 ### Union {#union}
 
-A *union* involves combining two *mappings* together. Matching properties (keys) in the mapping have
+A _union_ involves combining two _mappings_ together. Matching properties (keys) in the mapping have
 their own merge operations that might be a [replace](#replace), [add](#add), [join](#join), or
 another union (recursive). It depends on the type of the nodes (properties) and which merge
 operation is [assigned to that node](#reference).
@@ -199,8 +199,8 @@ quality_definition:
 
 ### Replace {#replace}
 
-A *replace* operation results in `B` completely overwriting (replacing) `A`. This can happen to any
-YAML node type, but typically applies to *scalars*.
+A _replace_ operation results in `B` completely overwriting (replacing) `A`. This can happen to any
+YAML node type, but typically applies to _scalars_.
 
 ```yml
 # A
@@ -215,7 +215,7 @@ delete_old_custom_formats: false
 
 ## Merge Reference {#reference}
 
-This section documents the *merge operation* used for all configuration values. Note that this first
+This section documents the _merge operation_ used for all configuration values. Note that this first
 table just covers top-level properties for instance configuration. If nested properties have merge
 semantics, those will be documented in later sections. This will especially be the case for
 [union](#union) operations.
@@ -329,14 +329,14 @@ That is to say, qualities you add would simply be appended to the bottom of the 
 order them any other way.
 
 So, even though a "Replace" operation may yield more redundancy (you have to specify qualities from
-an included YAML that you otherwise don't care about), it's *safer* because you can see the entire
-list of qualities in one place *and* can ensure the ordering is exactly as you expect.
+an included YAML that you otherwise don't care about), it's _safer_ because you can see the entire
+list of qualities in one place _and_ can ensure the ordering is exactly as you expect.
 
 ### Custom Formats {#detail-cfs}
 
-The primary purpose of using a *Join* merge operation for `custom_formats` is to facilitate user
+The primary purpose of using a _Join_ merge operation for `custom_formats` is to facilitate user
 overrides of custom format scores that come from included YAML files. The join operates on quality
-profile names as the *key*.
+profile names as the _key_.
 
 If a custom format is assigned to the same quality profile on both side `A` and `B`, the CF on side
 `A` is removed from the `custom_formats` list and the version on side `B` is kept. This ensures that
@@ -393,6 +393,6 @@ custom_formats:
 
 ### Include File Structure {#file-structure}
 
-import IncludeDirectory from '../_include-templates-dir.mdx'
+import IncludeDirectory from "../_include-templates-dir.mdx";
 
 <IncludeDirectory />
