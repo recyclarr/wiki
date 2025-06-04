@@ -91,8 +91,10 @@ that needs to be hard-wrapped and press `ALT+Q`.
 ### Admonitions
 
 Admonitions are the colored sections of text in the guide (Info, Caution, etc). Docusaurus documents
-its admonitions [here](https://docusaurus.io/docs/markdown-features/admonitions). For consistency,
-please use the general guidelines below to know which admonition types to use in what situation.
+its admonitions in [their admonitions documentation][admon]. For consistency, please use the general
+guidelines below to know which admonition types to use in what situation.
+
+[admon]: https://docusaurus.io/docs/markdown-features/admonitions
 
 - 🔵 **INFO** (`:::info`)<br/>
   Optional steps, informational text. Directly related to the subject matter.
