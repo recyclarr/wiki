@@ -1,0 +1,57 @@
+name: Renovate
+
+on:
+  # Daily schedule
+  schedule:
+  - cron: "0 2 * * *" # Daily at 2 AM
+  #
+  # Trigger on renovate config changes
+  push:
+    branches: ["**"]
+    paths:
+    - renovate.json5
+    - .github/workflows/renovate.yaml
+  #
+  # Manual runs
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: Log level
+        required: false
+        default: debug
+        type: choice
+        options: [info, debug, trace]
+      dryRun:
+        description: Dry run (no changes made)
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+jobs:
+  renovate:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v5
+
+    - name: Generate App Token
+      id: generate-token
+      uses: actions/create-github-app-token@v2
+      with:
+        app-id: ${{ secrets.RENOVATE_APP_ID }}
+        private-key: ${{ secrets.RENOVATE_PRIVATE_KEY }}
+
+    - name: Self-hosted Renovate
+      uses: renovatebot/github-action@v43.0.7
+      with:
+        token: ${{ steps.generate-token.outputs.token }}
+      env:
+        LOG_LEVEL: ${{ inputs.logLevel || 'debug' }}
+        RENOVATE_DRY_RUN: ${{ inputs.dryRun == true }}
+        RENOVATE_REPOSITORIES: '["${{ github.repository }}"]'
+        RENOVATE_INTERNAL_CHECKS_FILTER: strict
+        RENOVATE_PLATFORM: github
+        RENOVATE_PLATFORM_COMMIT: true
