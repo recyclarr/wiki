@@ -12,6 +12,10 @@ on:
     - renovate.json5
     - .github/workflows/renovate.yaml
   #
+  # Trigger on Renovate Dashboard interactions
+  issue_comment:
+    types: [created]
+  #
   # Manual runs
   workflow_dispatch:
     inputs:
@@ -33,6 +37,7 @@ permissions:
 jobs:
   renovate:
     runs-on: ubuntu-latest
+    if: github.event_name != 'issue_comment' || contains(github.event.comment.body, '- [x]')
     steps:
     - name: Checkout
       uses: actions/checkout@v5
