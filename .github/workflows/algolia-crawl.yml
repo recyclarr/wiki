@@ -6,6 +6,7 @@ on:
   workflow_run:
     workflows: [Deploy Site]
     types: [completed]
+    branches: [master]
 
 jobs:
   build:
