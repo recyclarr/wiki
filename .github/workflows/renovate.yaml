@@ -1,22 +1,12 @@
 name: Renovate
 
 on:
-  # Daily schedule
   schedule:
   - cron: "0 2 * * *" # Daily at 2 AM
-  #
-  # Trigger on renovate config changes
   push:
-    branches: ["**"]
-    paths:
-    - renovate.json5
-    - .github/workflows/renovate.yaml
-  #
-  # Trigger on Renovate Dashboard interactions
+    branches: ["master"]
   issue_comment:
     types: [created]
-  #
-  # Manual runs
   workflow_dispatch:
     inputs:
       logLevel:
@@ -33,6 +23,10 @@ on:
 
 permissions:
   contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   renovate:
