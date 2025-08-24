@@ -54,3 +54,15 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: pages deploy build --project-name=recyclarr-wiki
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Cleanup old deployments
+        uses: Th3S4mur41/cleanup-cloudflare-deployments@main
+        if: github.event_name != 'pull_request'
+        with:
+          cloudflare-api-token: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          cloudflare-account-id: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          cloudflare-project-name: recyclarr-wiki
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          cleanup-types: all
+          preview-keep: 5
+          production-keep: 5
