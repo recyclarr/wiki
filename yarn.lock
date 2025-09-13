@@ -1909,10 +1909,10 @@
   dependencies:
     "@hapi/hoek" "^9.0.0"
 
-"@iconify/react@^6.0.0":
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/@iconify/react/-/react-6.0.0.tgz#8e7ed943792746a0401cc49b9b4e9a5bd5f09b1a"
-  integrity sha512-eqNscABVZS8eCpZLU/L5F5UokMS9mnCf56iS1nM9YYHdH8ZxqZL9zyjSwW60IOQFsXZkilbBiv+1paMXBhSQnw==
+"@iconify/react@^6.0.1":
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/@iconify/react/-/react-6.0.1.tgz#15e2f5f18ce651666d09a5333f6d8a764bf45793"
+  integrity sha512-fCocnAfiGXjrA0u7KkS3W/OQHNp9LRFICudvOtxmS3Mf7U92aDhP50wyzRbobZli51zYt9ksZ9g0J7H586XvOQ==
   dependencies:
     "@iconify/types" "^2.0.0"
 

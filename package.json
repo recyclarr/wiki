@@ -17,7 +17,7 @@
     "@algolia/client-search": "^5.2.1",
     "@docusaurus/core": "^3.8.0",
     "@docusaurus/preset-classic": "^3.8.0",
-    "@iconify/react": "^6.0.0",
+    "@iconify/react": "^6.0.1",
     "@mdx-js/react": "^3",
     "@types/react": "^19.0.0",
     "clsx": "^2.0.0",
