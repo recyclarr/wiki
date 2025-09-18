@@ -8,8 +8,10 @@ Contributors must follow these guidelines.
 
 You must install these first.
 
-- [NodeJS](https://nodejs.org/en/download/package-manager/)
-- [Yarn](https://classic.yarnpkg.com/lang/en/docs/install)
+- [NodeJS](https://nodejs.org/en/download/package-manager/) (see package.json for version
+  requirements)
+
+Note: Yarn installation is automatic via Corepack - no separate installation required.
 
 ### Installation
 
@@ -18,6 +20,9 @@ To install everything:
 ```bash
 yarn
 ```
+
+The project uses Yarn Classic via Corepack, which will be automatically downloaded when you first
+run `yarn`. No global Yarn installation is needed.
 
 ### Local Development
 
