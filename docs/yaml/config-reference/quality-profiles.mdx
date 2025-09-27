@@ -132,7 +132,7 @@ Radarr/Sonarr.
 
 Does nothing by itself. A container for the `allowed`, `until_quality` and `until_score` properties.
 
-## `allowed` {#until-quality}
+### `allowed` {#until-quality}
 
 **Required.**
 
@@ -141,7 +141,7 @@ Radarr/Sonarr. If `true` is provided, the box is checked and `false` unchecks th
 want Recyclarr to manage this checkbox, you need to delete the entire `upgrade` block (including its
 contents).
 
-## `until_quality` {#until-quality}
+### `until_quality` {#until-quality}
 
 **Conditionally Required.** *Default: leave existing value untouched*
 
@@ -153,7 +153,7 @@ manually editing the profile through the Radarr/Sonarr UI.
 This property is *required* if you also specify a `qualities` list. If you do not have a `qualities`
 list, this property is optional and will leave your manually set cutoff alone.
 
-## `until_score` {#until-score}
+### `until_score` {#until-score}
 
 **Optional.** *Default: leave existing value untouched*
 
