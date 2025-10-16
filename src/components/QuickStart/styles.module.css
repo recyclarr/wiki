@@ -1,6 +1,6 @@
 .quickStart {
   padding: 5rem 2rem;
-  background: #1a1a1a;
+  background: var(--homepage-bg-primary);
 }
 
 .container {
@@ -24,13 +24,13 @@
 .title {
   font-size: 2.5rem;
   font-weight: 700;
-  color: #fff;
+  color: var(--homepage-text-primary);
   margin: 0;
 }
 
 .subtitle {
   font-size: 1.125rem;
-  color: #b0b0b0;
+  color: var(--homepage-text-secondary);
   line-height: 1.6;
   margin: 0;
 }
@@ -59,11 +59,11 @@
 }
 
 .codeSection {
-  background: #0d0d0d;
+  background: var(--homepage-bg-secondary);
   border-radius: 12px;
   overflow: hidden;
-  border: 1px solid rgba(37, 194, 160, 0.2);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--homepage-border);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
 .codeHeader {
@@ -71,8 +71,8 @@
   align-items: center;
   gap: 1rem;
   padding: 1rem 1.5rem;
-  background: #1f1f1f;
-  border-bottom: 1px solid rgba(37, 194, 160, 0.1);
+  background: var(--homepage-bg-tertiary);
+  border-bottom: 1px solid var(--homepage-border);
 }
 
 .codeDots {
@@ -100,7 +100,7 @@
 }
 
 .fileName {
-  color: #888;
+  color: var(--homepage-text-muted);
   font-size: 0.875rem;
   font-family: 'Courier New', monospace;
 }

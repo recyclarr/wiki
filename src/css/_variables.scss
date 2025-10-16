@@ -29,6 +29,17 @@
   /* Layout - Sidebar width and code highlighting */
   --doc-sidebar-width: 266px !important;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+
+  /* Homepage light theme colors */
+  --homepage-bg-primary: #ffffff;
+  --homepage-bg-secondary: #f5f5f5;
+  --homepage-bg-tertiary: #e8e8e8;
+  --homepage-text-primary: #1a1a1a;
+  --homepage-text-secondary: #555555;
+  --homepage-text-muted: #666666;
+  --homepage-border: rgba(37, 194, 160, 0.2);
+  --homepage-card-gradient-start: #ffffff;
+  --homepage-card-gradient-end: #f0f0f0;
 }
 
 /* Dark mode theme overrides */
@@ -43,4 +54,15 @@
   --ifm-color-primary-lighter: #32d8b4;
   --ifm-color-primary-lightest: #4fddbf;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+
+  /* Homepage dark theme colors */
+  --homepage-bg-primary: #1a1a1a;
+  --homepage-bg-secondary: #0d0d0d;
+  --homepage-bg-tertiary: #2d2d2d;
+  --homepage-text-primary: #ffffff;
+  --homepage-text-secondary: #b0b0b0;
+  --homepage-text-muted: #888888;
+  --homepage-border: rgba(37, 194, 160, 0.2);
+  --homepage-card-gradient-start: #2d2d2d;
+  --homepage-card-gradient-end: #1f1f1f;
 }

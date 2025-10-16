@@ -1,7 +1,7 @@
 .features {
   padding: 5rem 2rem;
   width: 100%;
-  background: #1a1a1a;
+  background: var(--homepage-bg-primary);
 }
 
 .container {
@@ -14,7 +14,7 @@
   font-size: 2rem;
   font-weight: 700;
   margin-bottom: 3rem;
-  color: #fff;
+  color: var(--homepage-text-primary);
 }
 
 .featureGrid {
@@ -24,8 +24,8 @@
 }
 
 .featureCard {
-  background: linear-gradient(135deg, #2d2d2d 0%, #1f1f1f 100%);
-  border: 1px solid rgba(37, 194, 160, 0.15);
+  background: linear-gradient(135deg, var(--homepage-card-gradient-start) 0%, var(--homepage-card-gradient-end) 100%);
+  border: 1px solid var(--homepage-border);
   border-radius: 12px;
   padding: 2rem;
   transition: all 0.3s ease;
@@ -46,12 +46,12 @@
 .featureCard h3 {
   font-size: 1.125rem;
   margin-bottom: 0.5rem;
-  color: #fff;
+  color: var(--homepage-text-primary);
   font-weight: 600;
 }
 
 .featureCard p {
-  color: #b0b0b0;
+  color: var(--homepage-text-secondary);
   line-height: 1.5;
   font-size: 0.9rem;
   margin: 0;

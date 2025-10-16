@@ -2,6 +2,7 @@ import React from 'react';
 import Link from '@docusaurus/Link';
 import { Icon } from '@iconify/react';
 import { Highlight, themes } from 'prism-react-renderer';
+import { useColorMode } from '@docusaurus/theme-common';
 import styles from './styles.module.css';
 
 const codeExample = `sonarr:
@@ -16,6 +17,9 @@ const codeExample = `sonarr:
       - template: sonarr-v4-custom-formats-web-1080p`;
 
 export default function QuickStart() {
+  const { colorMode } = useColorMode();
+  const theme = colorMode === 'dark' ? themes.vsDark : themes.github;
+
   return (
     <section className={styles.quickStart}>
       <div className={styles.container}>
@@ -29,7 +33,7 @@ export default function QuickStart() {
               </div>
               <span className={styles.fileName}>recyclarr.yml</span>
             </div>
-            <Highlight theme={themes.vsDark} code={codeExample} language="yaml">
+            <Highlight theme={theme} code={codeExample} language="yaml">
               {({ style, tokens, getLineProps, getTokenProps }) => (
                 <pre className={styles.codeBlock} style={style}>
                   {tokens.map((line, i) => (

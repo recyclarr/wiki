@@ -15,7 +15,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
+  background: linear-gradient(135deg, var(--homepage-bg-primary) 0%, var(--homepage-bg-tertiary) 50%, var(--homepage-bg-primary) 100%);
   z-index: -1;
   overflow: hidden;
 }
@@ -100,7 +100,7 @@
 
 .heroSubtitle {
   font-size: 1.25rem;
-  color: #b0b0b0;
+  color: var(--homepage-text-secondary);
   margin-bottom: 2.5rem;
   line-height: 1.6;
   max-width: 700px;
@@ -141,13 +141,13 @@
 
 .buttonPrimary {
   background: linear-gradient(135deg, #25c2a0 0%, #29d5b0 100%);
-  color: #1a1a1a;
+  color: var(--homepage-bg-primary);
 }
 
 .buttonPrimary:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 20px rgba(37, 194, 160, 0.3);
-  color: #1a1a1a;
+  color: var(--homepage-bg-primary);
   text-decoration: none;
 }
 
@@ -169,7 +169,7 @@
   justify-content: center;
   gap: 3rem;
   padding-top: 2rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid var(--homepage-border);
 }
 
 .serviceItem {
@@ -181,7 +181,7 @@
 
 .serviceLabel {
   font-size: 0.875rem;
-  color: #888;
+  color: var(--homepage-text-muted);
   text-transform: uppercase;
   letter-spacing: 0.05em;
   font-weight: 600;
