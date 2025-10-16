@@ -15,7 +15,7 @@ jobs:
     if: github.event.workflow_run.conclusion == 'success'
     steps:
       - name: Algolia Crawl
-        uses: algolia/algoliasearch-crawler-github-actions@v1.1.13
+        uses: algolia/algoliasearch-crawler-github-actions@3ae4def15d82c60aa02b0e528b50167593cbaaf6 # v1.1.13
         if: github.ref == 'refs/heads/master'
         with:
           crawler-user-id: ${{ secrets.CRAWLER_USER_ID }}
