@@ -1,11 +1,50 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:recommended", ":disableRateLimiting"],
+  "extends": [
+    "config:best-practices",
+    ":disableRateLimiting",
+    "helpers:pinGitHubActionDigests"
+  ],
   "minimumReleaseAge": "5 days",
+  "dependencyDashboardTitle": "Renovate Dashboard 🤖",
+  "dependencyDashboardAutoclose": true,
+  "suppressNotifications": ["prEditedNotification", "prIgnoreNotification"],
+  "configMigration": true,
   "packageRules": [
     {
+      "description": "Semantic commits for major updates",
+      "matchUpdateTypes": ["major"],
+      "commitMessageExtra": "( {{currentVersion}} ➔{{newVersion}} )"
+    },
+    {
+      "description": "Semantic commits for minor updates",
+      "matchUpdateTypes": ["minor"],
+      "commitMessageExtra": "( {{currentVersion}} ➔{{newVersion}} )"
+    },
+    {
+      "description": "Semantic commits for patch updates",
+      "matchUpdateTypes": ["patch"],
+      "commitMessageExtra": "( {{currentVersion}} ➔{{newVersion}} )"
+    },
+    {
+      "description": "Semantic commits for digest updates",
+      "matchUpdateTypes": ["digest"],
+      "commitMessageExtra": "( {{currentDigestShort}} ➔{{newDigestShort}} )"
+    },
+    {
+      "description": "GitHub Actions commit message formatting",
       "matchManagers": ["github-actions"],
-      "commitMessagePrefix": "ci(deps):"
+      "commitMessagePrefix": "ci(deps):",
+      "commitMessageTopic": "action {{depName}}"
+    },
+    {
+      "description": "Auto-merge GitHub Actions",
+      "matchManagers": ["github-actions"],
+      "automerge": true,
+      "automergeType": "pr",
+      "matchUpdateTypes": ["minor", "patch", "digest"],
+      "minimumReleaseAge": "3 days",
+      "ignoreTests": true
     }
   ]
 }
