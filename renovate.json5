@@ -14,27 +14,35 @@
     {
       "description": "Semantic commits for major updates",
       "matchUpdateTypes": ["major"],
+      "semanticCommitType": "build",
+      "semanticCommitScope": "deps",
+      "commitMessagePrefix": "{{semanticCommitType}}({{semanticCommitScope}})!:",
       "commitMessageExtra": "( {{currentVersion}} ➔{{newVersion}} )"
     },
     {
       "description": "Semantic commits for minor updates",
       "matchUpdateTypes": ["minor"],
+      "semanticCommitType": "build",
+      "semanticCommitScope": "deps",
       "commitMessageExtra": "( {{currentVersion}} ➔{{newVersion}} )"
     },
     {
       "description": "Semantic commits for patch updates",
       "matchUpdateTypes": ["patch"],
+      "semanticCommitType": "build",
+      "semanticCommitScope": "deps",
       "commitMessageExtra": "( {{currentVersion}} ➔{{newVersion}} )"
     },
     {
       "description": "Semantic commits for digest updates",
       "matchUpdateTypes": ["digest"],
+      "semanticCommitType": "build",
+      "semanticCommitScope": "deps",
       "commitMessageExtra": "( {{currentDigestShort}} ➔{{newDigestShort}} )"
     },
     {
       "description": "GitHub Actions commit message formatting",
       "matchManagers": ["github-actions"],
-      "commitMessagePrefix": "ci(deps):",
       "commitMessageTopic": "action {{depName}}"
     },
     {
