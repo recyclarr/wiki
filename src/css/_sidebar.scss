@@ -1,0 +1,190 @@
+/**
+ * Sidebar and Menu Styling - React Native Inspired
+ *
+ * Custom sidebar navigation styling following React Native website patterns.
+ * Targets Docusaurus internal menu classes for consistent sidebar appearance.
+ *
+ * Note: Heavy use of attribute selectors like aside[class^="theme-doc-sidebar-container"]
+ * targets Docusaurus 3.8 internal structure. Review when upgrading Docusaurus.
+ *
+ * Compatible with: Docusaurus 3.8+
+ */
+
+/* Sidebar container - remove border, add spacing */
+aside[class^="theme-doc-sidebar-container"] {
+  margin-right: 16px;
+  border-right: 0;
+}
+
+aside[class^="theme-doc-sidebar-container"] .menu__list .menu__list {
+  margin-top: 0;
+}
+
+/* Make all top-level sidebar items consistent (both regular links and categories) */
+aside[class^="theme-doc-sidebar-container"] .menu__list > .menu__list-item > .menu__link {
+  padding-left: 8px;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+/* Category headings - collapsible sections */
+aside[class^="theme-doc-sidebar-container"] .menu__list .menu__link--sublist,
+aside[class^="theme-doc-sidebar-container"] a[class*="menu__link--sublist-caret"] {
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  color: var(--ifm-color-content-secondary) !important;
+}
+
+aside[class^="theme-doc-sidebar-container"] .menu__list .menu__link--sublist:after,
+aside[class^="theme-doc-sidebar-container"] a[class*="menu__link--sublist-caret"]:after {
+  display: none;
+}
+
+aside[class^="theme-doc-sidebar-container"] .menu__list .menu__link--sublist[aria-expanded]:after,
+aside[class^="theme-doc-sidebar-container"] a[class*="menu__link--sublist-caret"][aria-expanded]:after {
+  display: block;
+  background-size: 1.66rem 1.66rem;
+  margin-right: -6px;
+  margin-top: -1px;
+}
+
+/* Nested category headings (sub-sections) */
+aside[class^="theme-doc-sidebar-container"] .menu__list .menu__list .menu__link--sublist,
+aside[class^="theme-doc-sidebar-container"] .menu__list .menu__list a[class*="menu__link--sublist-caret"] {
+  font-weight: 700 !important;
+  font-size: 15px !important;
+}
+
+aside[class^="theme-doc-sidebar-container"] .menu__list-item .menu__list-item .menu__list-item {
+  padding-left: 8px !important;
+}
+
+aside[class^="theme-doc-sidebar-container"] .menu__link {
+  justify-content: space-between;
+}
+
+aside[class^="theme-doc-sidebar-container"] .theme-doc-sidebar-item-category {
+  margin-bottom: 6px;
+}
+
+aside[class^="theme-doc-sidebar-container"] .theme-doc-sidebar-item-category .menu__list .menu__list-item-collapsible {
+  margin-top: 6px;
+}
+
+aside[class^="theme-doc-sidebar-container"] .menu__list-item-collapsible .menu__caret {
+  padding: 0 6px;
+}
+
+aside[class^="theme-doc-sidebar-container"] .menu__list-item-collapsible .menu__caret:before {
+  display: block;
+  background-size: 1.66rem 1.66rem;
+  margin-top: -1px;
+}
+
+aside[class^="theme-doc-sidebar-container"] .menu__list-item-collapsible:hover {
+  background: none !important;
+}
+
+aside[class^="theme-doc-sidebar-container"] .menu__list-item-collapsible:hover .menu__link--sublist-caret:hover {
+  background: var(--ifm-menu-color-background-hover) !important;
+}
+
+/* Responsive sidebar - hide on mobile */
+@media only screen and (min-width: 997px) {
+  aside[class^="theme-doc-sidebar-container"] .menu {
+    padding: 12px;
+  }
+}
+
+@media only screen and (max-width: 996px) {
+  aside[class^="theme-doc-sidebar-container"] {
+    width: 0 !important;
+    min-width: 0 !important;
+    margin-right: 0;
+  }
+}
+
+/* Menu list items - spacing and styling */
+.menu__list {
+  margin-bottom: 8px;
+}
+
+.menu__list .menu__link {
+  border-radius: var(--ifm-global-radius);
+  padding: 6px 12px;
+}
+
+.menu__list .menu__list-item {
+  margin-bottom: 2px;
+  margin-top: 2px;
+  user-select: none;
+}
+
+.menu__list .menu__link--sublist {
+  font-size: 15px;
+  padding: 4px 12px;
+}
+
+.menu__list .menu__link--sublist:after {
+  background-size: 1.66rem 1.66rem;
+  margin-right: -6px;
+}
+
+.menu__list .menu__link--sublist-caret {
+  font-size: 17px;
+}
+
+/* Nested menu items - indented sub-items */
+.menu__list .menu__list .menu__link {
+  line-height: 20px;
+  font-size: 13px;
+  padding: 4px 12px !important;
+  font-weight: 300;
+  color: var(--ifm-font-color-base);
+}
+
+.menu__list .menu__list .menu__link--sublist {
+  font-size: 14px !important;
+}
+
+.menu__list .menu__list .menu__list .menu__link--active {
+  padding-left: 12px !important;
+}
+
+/* Active menu item - highlight current page */
+.menu__list .menu__link.menu__link--active {
+  border-left-width: 0 !important;
+  background-color: var(--sidebar-active-item-background);
+  color: var(--brand);
+  font-weight: 500;
+  transition: none;
+}
+
+.menu__list a[href="#"].menu__link.menu__link--active {
+  border-left-width: 0;
+}
+
+.menu__list .menu__list-item-collapsible .menu__link--active {
+  border-left-color: transparent !important;
+}
+
+.menu__list .menu__list-item-collapsible .menu__link {
+  font-weight: 600;
+  font-size: 15px;
+  padding-left: 8px !important;
+}
+
+/* Table of contents (right sidebar) */
+.table-of-contents {
+  padding-top: 0;
+  padding-bottom: 20px;
+}
+
+.table-of-contents__link:hover {
+  background: none !important;
+  color: var(--brand) !important;
+}
+
+.table-of-contents__link {
+  margin-left: -4px;
+}

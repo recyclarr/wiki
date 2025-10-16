@@ -1,0 +1,19 @@
+/**
+ * Global Styles for Recyclarr Documentation
+ *
+ * This is the main stylesheet that imports all modular SCSS files.
+ * Docusaurus bundles Infima by default, which provides base styling.
+ *
+ * File organization:
+ * - _variables.scss: CSS custom properties and theme variables
+ * - _navbar.scss: Navigation bar styling (React Native inspired)
+ * - _sidebar.scss: Documentation sidebar and menu styling
+ * - _layout.scss: Page layout, responsive breakpoints, utilities
+ *
+ * Compatible with: Docusaurus 3.8+
+ */
+
+@use 'variables';
+@use 'navbar';
+@use 'sidebar';
+@use 'layout';

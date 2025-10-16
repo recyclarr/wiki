@@ -1,0 +1,221 @@
+.hero {
+  position: relative;
+  padding: 4rem 2rem;
+  text-align: center;
+  overflow: hidden;
+  min-height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.heroBackground {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
+  z-index: -1;
+  overflow: hidden;
+}
+
+.heroBackground::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at 30% 50%, rgba(37, 194, 160, 0.25) 0%, transparent 30%),
+              radial-gradient(circle at 70% 50%, rgba(41, 213, 176, 0.2) 0%, transparent 30%),
+              radial-gradient(circle at 50% 80%, rgba(79, 221, 191, 0.15) 0%, transparent 25%);
+  animation: morphGradient 15s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.heroBackground::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(
+    45deg,
+    transparent 0,
+    transparent 40px,
+    rgba(37, 194, 160, 0.06) 40px,
+    rgba(37, 194, 160, 0.06) 80px
+  );
+  background-size: 113.137px 113.137px;
+  animation: slidePattern 20s linear infinite;
+  will-change: background-position;
+}
+
+@keyframes morphGradient {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.7;
+  }
+  33% {
+    transform: translate(-10%, 10%) scale(1.15);
+    opacity: 1;
+  }
+  66% {
+    transform: translate(10%, -10%) scale(0.9);
+    opacity: 0.8;
+  }
+}
+
+@keyframes slidePattern {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 113.137px 0;
+  }
+}
+
+.heroContent {
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.heroTitle {
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+}
+
+.gradient {
+  background: linear-gradient(90deg, #25c2a0 0%, #29d5b0 50%, #4fddbf 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.heroSubtitle {
+  font-size: 1.25rem;
+  color: #b0b0b0;
+  margin-bottom: 2.5rem;
+  line-height: 1.6;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.heroButtons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 3rem;
+}
+
+.buttonPrimary,
+.buttonSecondary {
+  padding: 0.875rem 2rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 200px;
+  justify-content: center;
+}
+
+.buttonPrimary svg,
+.buttonSecondary svg {
+  font-size: 1.25rem;
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+}
+
+.buttonPrimary {
+  background: linear-gradient(135deg, #25c2a0 0%, #29d5b0 100%);
+  color: #1a1a1a;
+}
+
+.buttonPrimary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(37, 194, 160, 0.3);
+  color: #1a1a1a;
+  text-decoration: none;
+}
+
+.buttonSecondary {
+  background: transparent;
+  border: 2px solid #25c2a0;
+  color: #25c2a0;
+}
+
+.buttonSecondary:hover {
+  background: rgba(37, 194, 160, 0.1);
+  transform: translateY(-2px);
+  color: #29d5b0;
+  text-decoration: none;
+}
+
+.supportedServices {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.serviceItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.serviceLabel {
+  font-size: 0.875rem;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+.serviceSvg {
+  width: 64px;
+  height: 64px;
+  color: #25c2a0;
+  transition: all 0.3s ease;
+}
+
+.serviceItem:hover .serviceSvg {
+  color: #29d5b0;
+  transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .heroTitle {
+    font-size: 2.5rem;
+  }
+
+  .heroSubtitle {
+    font-size: 1.125rem;
+  }
+
+  .buttonPrimary,
+  .buttonSecondary {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .hero {
+    min-height: 500px;
+    padding: 3rem 1.5rem;
+  }
+}

@@ -1,0 +1,46 @@
+/**
+ * CSS Custom Properties and Theme Variables
+ *
+ * Defines all CSS custom properties (--ifm-*, --brand, etc.) used throughout the site.
+ * These variables override Docusaurus Infima defaults and provide our custom theming.
+ *
+ * Compatible with: Docusaurus 3.8+
+ */
+
+:root {
+  /* Brand colors - Custom variables for site-specific theming */
+  --brand: #25c2a0;
+  --sidebar-active-item-background: #e6f7ff;
+
+  /* Primary colors - Infima variables for Docusaurus theming */
+  --ifm-color-primary: #25c2a0;
+  --ifm-color-primary-dark: #21af90;
+  --ifm-color-primary-darker: #1fa588;
+  --ifm-color-primary-darkest: #1a8870;
+  --ifm-color-primary-light: #29d5b0;
+  --ifm-color-primary-lighter: #32d8b4;
+  --ifm-color-primary-lightest: #4fddbf;
+
+  /* Typography - Base font sizing and code styling */
+  --ifm-font-size-base: 17px;
+  --ifm-code-font-size: 90%;
+  --ifm-global-radius: 9px;
+
+  /* Layout - Sidebar width and code highlighting */
+  --doc-sidebar-width: 266px !important;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+}
+
+/* Dark mode theme overrides */
+[data-theme='dark'] {
+  --sidebar-active-item-background: rgba(37, 194, 160, 0.15);
+
+  --ifm-color-primary: #25c2a0;
+  --ifm-color-primary-dark: #21af90;
+  --ifm-color-primary-darker: #1fa588;
+  --ifm-color-primary-darkest: #1a8870;
+  --ifm-color-primary-light: #29d5b0;
+  --ifm-color-primary-lighter: #32d8b4;
+  --ifm-color-primary-lightest: #4fddbf;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+}

@@ -1,11 +1,74 @@
 .features {
-  display: flex;
-  align-items: center;
-  padding: 2rem 0;
+  padding: 5rem 2rem;
   width: 100%;
+  background: #1a1a1a;
 }
 
-.featureSvg {
-  height: 200px;
-  width: 200px;
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.featuresTitle {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 3rem;
+  color: #fff;
+}
+
+.featureGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+.featureCard {
+  background: linear-gradient(135deg, #2d2d2d 0%, #1f1f1f 100%);
+  border: 1px solid rgba(37, 194, 160, 0.15);
+  border-radius: 12px;
+  padding: 2rem;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.featureCard:hover {
+  border-color: rgba(37, 194, 160, 0.4);
+  transform: translateY(-2px);
+}
+
+.featureIcon {
+  font-size: 2.5rem;
+  color: #25c2a0;
+  margin-bottom: 1rem;
+}
+
+.featureCard h3 {
+  font-size: 1.125rem;
+  margin-bottom: 0.5rem;
+  color: #fff;
+  font-weight: 600;
+}
+
+.featureCard p {
+  color: #b0b0b0;
+  line-height: 1.5;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+@media (max-width: 996px) {
+  .featureGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .featureGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .featuresTitle {
+    font-size: 1.75rem;
+  }
 }

@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "docusaurus": "docusaurus",
-    "start": "docusaurus start",
+    "start": "docusaurus start --no-open",
+    "launch": "docusaurus start",
     "build": "docusaurus build",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
@@ -15,23 +16,25 @@
   },
   "dependencies": {
     "@algolia/client-search": "^5.2.1",
-    "@docusaurus/core": "^3.8.0",
-    "@docusaurus/preset-classic": "^3.8.0",
-    "@iconify/react": "^6.0.1",
+    "@docusaurus/core": "^3.9.1",
+    "@docusaurus/preset-classic": "^3.9.1",
+    "@iconify/react": "^6.0.2",
     "@mdx-js/react": "^3",
     "@types/react": "^19.0.0",
     "clsx": "^2.0.0",
     "docusaurus-mdx-checker": "^3.0.0",
+    "docusaurus-plugin-sass": "^0.2.6",
     "docusaurus-theme-github-codeblock": "^2.0.2",
     "prism-react-renderer": "^2.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-loadable": "^5.5.0",
+    "sass": "^1.93.2",
     "search-insights": "^2",
     "typescript": "5.9.2"
   },
   "devDependencies": {
-    "@docusaurus/module-type-aliases": "^3.8.0"
+    "@docusaurus/module-type-aliases": "^3.9.1"
   },
   "browserslist": {
     "production": [

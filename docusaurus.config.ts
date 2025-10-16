@@ -21,14 +21,24 @@ const currentInfo = currentOrNextInfo(isNext)
 const otherInfo = currentOrNextInfo(!isNext)
 
 const config: Config = {
+  // Enable Docusaurus v4 future flags for easier future upgrades
+  future: {
+    v4: true,
+  },
+
   title: 'Recyclarr',
   tagline: 'Documentation for Recyclarr',
   url: `https://${currentInfo.hostname}`,
   baseUrl: '/',
   trailingSlash: true,
   onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
+
+  markdown: {
+    hooks: {
+      onBrokenMarkdownLinks: 'warn',
+    },
+  },
 
   customFields: {
     isNext: isNext
@@ -58,10 +68,14 @@ const config: Config = {
         },
         blog: false,
         theme: {
-          customCss: require.resolve('./src/css/custom.css'),
+          customCss: require.resolve('./src/css/custom.scss'),
         },
       }),
     ],
+  ],
+
+  plugins: [
+    'docusaurus-plugin-sass',
   ],
 
   themes: [
@@ -76,29 +90,19 @@ const config: Config = {
           alt: 'Recyclarr Logo',
           src: 'img/recyclarr.png',
         },
+        style: 'dark',
         items: [
           {
             type: 'doc',
             docId: 'wiki-main',
-            position: 'left',
-            label: 'Wiki',
-          },
-          {
-            type: 'doc',
-            docId: 'guide-configs',
-            label: 'Config Templates'
-          },
-          {
-            href: `https://${otherInfo.hostname}/wiki`,
-            target: '_self',
             position: 'right',
-            label: `${otherInfo.versionTitle} Version Docs`,
+            label: 'Docs',
           },
           {
             href: 'https://github.com/recyclarr/recyclarr',
             position: 'right',
             className: "header-github-link",
-            "aria-label": "Github repository"
+            "aria-label": "GitHub repository"
           },
         ],
       },
@@ -127,6 +131,15 @@ const config: Config = {
               },
             ],
           },
+          {
+            title: 'Versions',
+            items: [
+              {
+                label: `${otherInfo.versionTitle} Version Docs`,
+                href: `https://${otherInfo.hostname}/wiki`,
+              },
+            ],
+          },
         ],
       },
       prism: {
@@ -136,7 +149,8 @@ const config: Config = {
       },
       colorMode: {
         defaultMode: 'dark',
-        disableSwitch: true,
+        disableSwitch: false,
+        respectPrefersColorScheme: false,
       },
       algolia: {
         appId: '55D8QHPBTN',

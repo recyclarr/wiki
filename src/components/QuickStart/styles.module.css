@@ -1,0 +1,141 @@
+.quickStart {
+  padding: 5rem 2rem;
+  background: #1a1a1a;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.textSection {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+}
+
+.subtitle {
+  font-size: 1.125rem;
+  color: #b0b0b0;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.docsButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.875rem 2rem;
+  background: transparent;
+  border: 2px solid #25c2a0;
+  color: #25c2a0;
+  font-size: 1.125rem;
+  font-weight: 600;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  align-self: flex-start;
+}
+
+.docsButton:hover {
+  background: rgba(37, 194, 160, 0.1);
+  transform: translateY(-2px);
+  color: #29d5b0;
+  text-decoration: none;
+}
+
+.codeSection {
+  background: #0d0d0d;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(37, 194, 160, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.codeHeader {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  background: #1f1f1f;
+  border-bottom: 1px solid rgba(37, 194, 160, 0.1);
+}
+
+.codeDots {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #888;
+}
+
+.dot:nth-child(1) {
+  background: #ff5f56;
+}
+
+.dot:nth-child(2) {
+  background: #ffbd2e;
+}
+
+.dot:nth-child(3) {
+  background: #27c93f;
+}
+
+.fileName {
+  color: #888;
+  font-size: 0.875rem;
+  font-family: 'Courier New', monospace;
+}
+
+.codeBlock {
+  padding: 1.5rem;
+  margin: 0;
+  overflow-x: auto;
+  font-family: 'Courier New', monospace;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.codeBlock code {
+  color: #b0b0b0;
+  white-space: pre;
+}
+
+@media (max-width: 996px) {
+  .content {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .quickStart {
+    padding: 3rem 1.5rem;
+  }
+
+  .title {
+    font-size: 1.75rem;
+  }
+}

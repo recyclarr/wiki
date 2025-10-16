@@ -1,0 +1,193 @@
+/**
+ * Navbar Styling - React Native Inspired
+ *
+ * Custom navbar styling following React Native website's design patterns.
+ * Targets Docusaurus internal classes (.navbar__*) for customization.
+ *
+ * Note: These selectors target Docusaurus 3.8 internal classes. May need
+ * review when upgrading Docusaurus major versions.
+ *
+ * Compatible with: Docusaurus 3.8+
+ */
+
+/* Base navbar container - removes default padding */
+.navbar {
+  padding: 0;
+}
+
+/* Dark navbar background with transparency for blur effect */
+.navbar.navbar--dark {
+  background-color: rgba(17, 19, 23, 0.93);
+}
+
+/* Inner container - centered with max-width and blur effect */
+.navbar__inner {
+  max-width: 1360px;
+  margin: 0 auto;
+  backdrop-filter: blur(12px);
+}
+
+/* Navbar title/logo styling */
+.navbar__title {
+  font-weight: 600;
+  font-size: 18px;
+}
+
+/* Brand/logo hover effects */
+.navbar__brand:hover {
+  color: var(--ifm-color-primary);
+}
+
+/* Logo hover animation - scale and brightness effect */
+.navbar__logo {
+  transition: transform 0.5s, filter 0.5s;
+}
+
+.navbar__brand:hover .navbar__logo {
+  transform: scale(1.05);
+  filter: brightness(1.2);
+}
+
+/* Navbar item styling - rounded buttons like React Native */
+.navbar__item {
+  border-radius: 32px;
+  padding-inline: 12px;
+  cursor: pointer;
+  transition: scale 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.navbar__item:active {
+  scale: 0.97;
+}
+
+.navbar__item.navbar__link {
+  font-weight: 400;
+  font-size: 17px;
+  user-select: none;
+}
+
+/* Dropdown menu styling */
+.navbar__item.dropdown:not(.dropdown--right) a {
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.navbar__item.dropdown--right .dropdown__menu {
+  min-width: 158px;
+}
+
+.dropdown.navbar__item:active {
+  scale: none;
+}
+
+.dropdown .navbar__link:hover {
+  background-color: transparent;
+}
+
+.dropdown > .navbar__link:after {
+  margin-left: 8px;
+  top: 1px;
+  opacity: 0.75;
+}
+
+.dropdown:hover > .navbar__link:after {
+  color: var(--brand);
+}
+
+.dropdown__menu {
+  min-width: 120px;
+}
+
+.dropdown__menu a.dropdown__link--active {
+  font-weight: 600;
+}
+
+/* Navbar link transitions and hover states */
+.navbar__link {
+  transition: color 0.15s, background-color 0.15s;
+}
+
+.navbar__link:hover {
+  color: #fff;
+  background-color: #282c34;
+}
+
+/* Active link styling - keep consistent across pages */
+.navbar__link--active {
+  background-color: transparent;
+  color: inherit;
+}
+
+.navbar__link--active:hover {
+  color: var(--ifm-color-primary);
+  background-color: rgba(37, 194, 160, 0.067);
+}
+
+/* Navbar items gap */
+.navbar__items {
+  gap: 8px;
+}
+
+/* GitHub link icon styling - always white to match dark navbar */
+.header-github-link:hover {
+  opacity: 0.6;
+}
+
+.header-github-link:before {
+  content: '';
+  width: 24px;
+  height: 24px;
+  display: flex;
+  /* Always use white icon since navbar is always dark */
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='white' d='M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12'/%3E%3C/svg%3E") no-repeat;
+}
+
+/* Force dark navbar styling in light mode */
+html[data-theme='light'] {
+  /* Force dark navbar background */
+  .navbar.navbar--fixed-top {
+    background-color: rgba(17, 19, 23, 0.93);
+  }
+
+  /* Force white text for navbar items */
+  .navbar__link,
+  .navbar__title {
+    color: #fff;
+  }
+
+  /* Force white text on hover */
+  .navbar__link:hover {
+    color: #fff;
+  }
+
+  /* Force dark background on hover */
+  .navbar__link:hover {
+    background-color: #282c34;
+  }
+
+  /* Search button dark styling */
+  .navbar__search-input {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #fff;
+  }
+
+  /* DocSearch button dark styling */
+  .DocSearch-Button {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #fff;
+  }
+
+  .DocSearch-Button-Placeholder,
+  .DocSearch-Button-Keys {
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  .DocSearch-Button:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+  }
+
+  /* Color mode toggle should stay visible */
+  button[class*='colorModeToggle'] {
+    color: #fff;
+  }
+}
