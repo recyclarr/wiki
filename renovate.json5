@@ -58,7 +58,6 @@
     {
       "description": "Auto-merge npm patch updates for React/Node/TypeScript packages",
       "matchDatasources": ["npm"],
-      "matchPackageNames": ["react**", "@types/react**", "node**", "@types/node**", "typescript**"],
       "matchUpdateTypes": ["patch"],
       "automerge": true,
       "automergeType": "pr"
