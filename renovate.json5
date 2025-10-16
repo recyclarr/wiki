@@ -10,6 +10,7 @@
   "dependencyDashboardAutoclose": true,
   "suppressNotifications": ["prEditedNotification", "prIgnoreNotification"],
   "configMigration": true,
+  "gitIgnoredAuthors": ["git@rdailey.me"],
   "packageRules": [
     {
       "description": "Semantic commits for major updates",
