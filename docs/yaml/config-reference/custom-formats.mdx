@@ -72,7 +72,7 @@ A list of one or more sets of custom formats each with an optional set of qualit
 that identify which quality profiles to assign the scores for those custom formats to. The child
 properties documented below apply to each element of this list.
 
-## `trash_ids` {#trash-ids}
+### `trash_ids` {#trash-ids}
 
 **Required.**
 
@@ -110,7 +110,7 @@ trash_ids:
 
 :::
 
-## `assign_scores_to` {#assign-scores-to}
+### `assign_scores_to` {#assign-scores-to}
 
 **Optional.** *Default: No quality profiles are changed*
 
@@ -118,7 +118,7 @@ One or more quality profiles to update with the scores from the custom formats l
 are taken from the guide by default, with an option to override the score for all of them. Each
 object in the list must use the properties below.
 
-### `name` {#qp-name}
+#### `name` {#qp-name}
 
 **Required.**
 
@@ -129,7 +129,7 @@ previously mentioned `quality_profiles` list.
 
 [qps]: ./quality-profiles.mdx
 
-### `score` {#qp-score}
+#### `score` {#qp-score}
 
 **Optional.** *Default: Use scores from the guide*
 
