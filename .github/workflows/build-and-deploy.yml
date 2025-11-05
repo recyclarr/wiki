@@ -45,7 +45,7 @@ jobs:
         run: yarn build
 
       - name: Deploy to Cloudflare Pages
-        uses: cloudflare/wrangler-action@da0e0dfe58b7a431659754fdf3f186c529afbe65 # v3
+        uses: cloudflare/wrangler-action@da0e0dfe58b7a431659754fdf3f186c529afbe65 # v3.14.1
         # Publish all direct pushes to the repo, for secrets access. But ignore pull requests.
         # Non-master branches get published with a temporary URL (not the main site URL).
         if: github.event_name != 'pull_request'
