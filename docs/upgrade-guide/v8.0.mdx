@@ -172,3 +172,52 @@ radarr:
 ```
 
 Refer to the `RENAMED` comments in the above example for exact lines that changed.
+
+## Settings: Repository Configuration Replaced {#resource-providers}
+
+The legacy `repositories` configuration format has been completely removed and replaced with the new
+`resource_providers` system. This change provides support for multiple repositories per content
+type, cleaner configuration structure, and enables future support for non-Git resource access
+mechanisms.
+
+### Old Format (Removed)
+
+```yml
+repositories:
+  trash_guides:
+    clone_url: https://github.com/TRaSH-Guides/Guides.git
+    branch: master
+    sha1: c611e9df00bf9261bddfc749219295fe189ae552
+  config_templates:
+    clone_url: https://github.com/recyclarr/config-templates.git
+    branch: master
+```
+
+### New Format
+
+```yml
+resource_providers:
+  trash_guides:
+    - name: official
+      clone_url: https://github.com/TRaSH-Guides/Guides.git
+      reference: c611e9df00bf9261bddfc749219295fe189ae552
+  config_templates:
+    - name: official
+      clone_url: https://github.com/recyclarr/config-templates.git
+      reference: master
+```
+
+### Key Changes
+
+- **Multiple repositories**: Each content type now accepts an array of repositories
+- **Required naming**: Each repository needs a unique `name` identifier
+- **Unified reference**: `reference` replaces both `branch` and `sha1` properties
+
+### Migration Notes
+
+- If you had no `repositories` configuration, no changes are needed - official sources are automatic
+- If you customized official repositories via forks, you may now use supplemental resources instead
+  of replacing official upstream repositories.
+
+See the [Resource Providers](../yaml/settings-reference/resource-providers.mdx) documentation for
+complete configuration details.

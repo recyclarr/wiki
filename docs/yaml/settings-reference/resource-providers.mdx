@@ -1,0 +1,442 @@
+---
+id: resource-providers
+title: Resource Providers
+---
+
+Resource providers give you control over where Recyclarr gets its configuration data. Instead of
+being locked into the official sources, you can use custom forks, test branches, or even
+multiple sources for different purposes.
+
+## What Resource Providers Do
+
+Resource providers determine where Recyclarr gets essential data like:
+
+- **Trash Guides**: Custom formats, quality settings, and naming schemes from the TRaSH community
+- **Config Templates**: Pre-made YAML configurations for quick setup
+
+By default, Recyclarr automatically uses the official sources. You only need to configure
+resource providers if you want to use custom sources.
+
+## When You'd Use This
+
+Common scenarios for configuring resource providers:
+
+- **Custom Modifications**: Use your own fork with personalized custom formats when you need
+  specific modifications to the official guides. Perfect for users who want to experiment with
+  modified configurations or have specific preferences that differ from the standard
+  recommendations.
+
+- **Supplemental Content**: Add your own repository with additional custom formats alongside the
+  automatic official sources. This lets you use both official guides AND your custom additions
+  without losing access to community updates.
+
+- **Testing and Development**: Use development branches or specific commits for testing new custom
+  formats before they're officially released. Ideal for users who want early access to new
+  features.
+
+- **Offline or Private Setups**: Use local mirrors or private repositories when internet access is
+  restricted or when you need to ensure specific versions remain available.
+
+## Quick Start
+
+For most users, no configuration is needed. Recyclarr automatically includes official sources:
+
+- **Official Trash Guides**: `https://github.com/TRaSH-Guides/Guides.git`
+- **Official Config Templates**: `https://github.com/recyclarr/config-templates.git`
+
+:::info
+
+Official repositories are included automatically unless you explicitly replace them by using the
+name `official`. You only need to configure resource providers if you want to add supplemental
+sources or completely replace the official ones.
+
+:::
+
+If you want to add supplemental sources alongside the automatic defaults:
+
+```yml
+# yaml-language-server: $schema=https://raw.githubusercontent.com/recyclarr/recyclarr/master/schemas/settings-schema.json
+
+resource_providers:
+  trash_guides:
+    - name: my-custom-formats
+      clone_url: https://github.com/yourname/extra-formats.git
+      reference: main
+  config_templates:
+    - name: my-templates
+      clone_url: https://github.com/yourname/personal-templates.git
+      reference: main
+```
+
+## How It Works
+
+### Automatic Official Sources
+
+By default, Recyclarr automatically includes:
+
+- Official Trash Guides repository for custom formats, quality sizes, and naming schemes
+- Official Config Templates repository for template configurations
+
+These work without any configuration and are always available unless explicitly replaced.
+
+### Adding Supplemental Sources
+
+When you configure additional repositories with unique names, they're added alongside the official
+sources. All content is merged together, giving you access to both official and custom data.
+
+### Replacing Official Sources
+
+If you name a repository `official`, it completely replaces the automatic official repository for
+that content type. This gives you full control but removes access to automatic official updates.
+
+:::warning
+
+When you explicitly specify a repository with the name `official`, it completely replaces the
+automatic official repository. The automatic official sources will no longer be used for that
+content type.
+
+:::
+
+## Configuration Reference
+
+### Basic Structure
+
+```yml
+resource_providers:
+  trash_guides:
+    - name: repository-name
+      clone_url: https://github.com/user/repo.git
+      reference: branch-or-tag-or-commit
+  config_templates:
+    - name: repository-name
+      clone_url: https://github.com/user/repo.git
+      reference: branch-or-tag-or-commit
+```
+
+### Repository Properties
+
+Each repository supports these properties:
+
+- `name` *(Required)*<br/>
+  Unique identifier for this repository. Must contain only letters, numbers, hyphens, and
+  underscores. Names must be unique within each content type.
+
+- `clone_url` *(Required)*<br/>
+  A URL compatible with `git clone` that is used to clone the repository.
+
+- `reference` *(Optional)*<br/>
+  Branch name, tag, or commit SHA to check out. **Defaults to `master`** (not the repository's
+  default branch).
+
+:::warning
+
+The `reference` property defaults to `master`, not the repository's default branch. If your
+repository uses `main` or another default branch, you must specify it explicitly.
+
+:::
+
+### Reference Examples
+
+```yml
+resource_providers:
+  trash_guides:
+    # Use a specific branch
+    - name: development
+      clone_url: https://github.com/TRaSH-Guides/Guides.git
+      reference: dev-branch
+
+    # Use a specific tag
+    - name: stable
+      clone_url: https://github.com/TRaSH-Guides/Guides.git
+      reference: v2.1.0
+
+    # Use a specific commit (full SHA or short form)
+    - name: tested
+      clone_url: https://github.com/TRaSH-Guides/Guides.git
+      reference: c611e9df00bf9261bddfc749219295fe189ae552
+
+    # Use main branch (must be explicit)
+    - name: main-branch
+      clone_url: https://github.com/user/custom-guides.git
+      reference: main
+```
+
+## Common Use Cases
+
+### Replacing Official Sources
+
+Replace the official trash guides entirely with your own fork:
+
+```yml
+resource_providers:
+  trash_guides:
+    - name: official  # This replaces the automatic official repository
+      clone_url: https://github.com/yourname/custom-guides.git
+      reference: main
+```
+
+:::warning
+
+Using the name `official` replaces the automatic official repository entirely. Only do this if your
+repository contains all the guides you need, or you'll lose access to official content.
+
+:::
+
+### Adding Supplemental Sources
+
+Add your own repository with custom content alongside the automatic official sources:
+
+```yml
+resource_providers:
+  trash_guides:
+    - name: my-custom-formats  # Unique name adds to official sources
+      clone_url: https://github.com/yourname/extra-formats.git
+      reference: main
+  config_templates:
+    - name: my-templates
+      clone_url: https://github.com/yourname/personal-templates.git
+      reference: main
+```
+
+Recyclarr will automatically use the official Trash Guides and Config Templates repositories plus
+your additional custom sources. All content is merged together.
+
+### Multiple Custom Sources
+
+Use multiple repositories for different types of customizations:
+
+```yml
+resource_providers:
+  trash_guides:
+    - name: personal-standards
+      clone_url: https://github.com/user/my-media-standards.git
+      reference: main
+    - name: experimental
+      clone_url: https://github.com/user/experimental-formats.git
+      reference: test-branch
+    - name: community-extras
+      clone_url: https://github.com/community/additional-formats.git
+      reference: v1.2.0
+```
+
+### Testing Specific Versions
+
+Test specific commits or branches before using them in production:
+
+```yml
+resource_providers:
+  trash_guides:
+    - name: official
+      clone_url: https://github.com/TRaSH-Guides/Guides.git
+      reference: c611e9df00bf9261bddfc749219295fe189ae552  # Specific tested commit
+```
+
+## Complete Examples
+
+### Typical Configuration Adding Supplemental Content
+
+```yml
+# yaml-language-server: $schema=https://raw.githubusercontent.com/recyclarr/recyclarr/master/schemas/settings-schema.json
+
+# Global settings
+enable_ssl_certificate_validation: true
+
+# Resource providers (official sources are automatic)
+resource_providers:
+  trash_guides:
+    - name: my-custom-formats
+      clone_url: https://github.com/yourname/additional-formats.git
+      reference: main
+
+  config_templates:
+    - name: my-templates
+      clone_url: https://github.com/yourname/personal-configs.git
+      reference: main
+```
+
+This configuration provides the automatic official Trash Guides and Config Templates plus your
+additional custom formats and personal templates. All sources are merged together.
+
+### Complete Replacement Example
+
+If you want to replace official sources entirely:
+
+```yml
+resource_providers:
+  trash_guides:
+    - name: official  # Replaces automatic official repository
+      clone_url: https://github.com/yourname/completely-custom-guides.git
+      reference: main
+  config_templates:
+    - name: official  # Replaces automatic official repository
+      clone_url: https://github.com/yourname/custom-templates.git
+      reference: main
+```
+
+:::warning
+
+Using the name `official` replaces the automatic official repository entirely. Only do this if your
+repositories contain all the content you need.
+
+:::
+
+## Best Practices
+
+### Repository Naming
+
+- Use descriptive names that indicate the repository's purpose
+- Avoid generic names like `custom` or `personal` if you might add multiple repositories
+- Use consistent naming patterns if you have multiple custom repositories
+
+### Reference Management
+
+- Use specific tags or commits for your main setup to ensure stability
+- Use branch names for testing new configurations
+- Always specify `reference: main` if your repository uses `main` as the default branch
+
+### Security Considerations
+
+- Only use repositories you trust, as they can contain executable code
+- Verify repository URLs carefully to avoid typos that could lead to malicious repositories
+- Consider using specific commits rather than branches for maximum security
+
+### Testing Changes
+
+- Test custom repositories on a test setup before using on your main system
+- Verify that your custom content follows the expected directory structure
+- Check that custom formats are valid and work as expected
+
+## Validation and Verification
+
+### Verifying Configuration
+
+After configuring resource providers, check that Recyclarr can access your repositories:
+
+1. Run any Recyclarr command that downloads data (like `recyclarr sync`)
+2. Check the logs for repository cloning/updating messages
+3. Verify that custom content appears in list commands
+
+### Expected Behavior
+
+After configuring resource providers:
+
+1. Recyclarr will clone/update each repository to local storage
+2. Multiple repositories for the same content type will be merged together
+3. All configured sources will be available for custom formats, templates, etc.
+4. Repositories are processed in order, with official repositories having highest precedence
+
+## Migration from Legacy Repositories
+
+:::info
+
+The old `repositories` configuration is deprecated and will be removed in a future version.
+
+:::
+
+### Old Format (Deprecated)
+
+```yml
+repositories:
+  trash_guides:
+    clone_url: https://github.com/TRaSH-Guides/Guides.git
+    branch: master
+    sha1: c611e9df00bf9261bddfc749219295fe189ae552
+  config_templates:
+    clone_url: https://github.com/recyclarr/config-templates.git
+    branch: master
+```
+
+### New Format
+
+```yml
+resource_providers:
+  trash_guides:
+    - name: official
+      clone_url: https://github.com/TRaSH-Guides/Guides.git
+      reference: c611e9df00bf9261bddfc749219295fe189ae552
+  config_templates:
+    - name: official
+      clone_url: https://github.com/recyclarr/config-templates.git
+      reference: master
+```
+
+### Key Migration Changes
+
+- **Multiple repositories**: Can now specify multiple sources per content type
+- **Required naming**: Each repository needs a unique `name` identifier
+- **Unified reference**: `reference` replaces both `branch` and `sha1` properties
+- **Array format**: Each content type now accepts an array of repositories
+- **Built-in defaults**: Official repositories are included automatically
+
+## Troubleshooting
+
+### Common Issues
+
+#### Repository names must be unique
+
+```yml
+# Wrong - duplicate names
+resource_providers:
+  trash_guides:
+    - name: custom
+      clone_url: https://github.com/user1/guides.git
+    - name: custom  # Error: duplicate name
+      clone_url: https://github.com/user2/guides.git
+
+# Correct - unique names
+resource_providers:
+  trash_guides:
+    - name: custom-user1
+      clone_url: https://github.com/user1/guides.git
+    - name: custom-user2
+      clone_url: https://github.com/user2/guides.git
+```
+
+#### Invalid characters in repository names
+
+```yml
+# Wrong - invalid characters
+resource_providers:
+  trash_guides:
+    - name: my custom repo  # Error: spaces not allowed
+      clone_url: https://github.com/user/guides.git
+
+# Correct - valid characters only
+resource_providers:
+  trash_guides:
+    - name: my-custom-repo
+      clone_url: https://github.com/user/guides.git
+```
+
+#### Git repository access issues
+
+If you get clone or authentication errors:
+
+1. Verify the repository URL is correct and accessible
+2. For private repositories, ensure your Git credentials are configured
+3. Check that the specified branch/reference exists in the repository
+4. Test the URL manually with `git clone [url]`
+
+#### Wrong default branch
+
+If you get errors about missing `master` branch:
+
+1. Check your repository's actual default branch (often `main`)
+2. Explicitly specify the correct branch in the `reference` property
+3. Remember that `reference` defaults to `master`, not the repo's default branch
+
+### Validation Steps
+
+To verify your configuration is working:
+
+1. **Check configuration syntax**: Run `recyclarr sync --dry-run` to validate YAML
+2. **Verify repository access**: Look for clone/update messages in the logs
+3. **Test content availability**: Use list commands to see if custom content appears
+4. **Confirm merging**: Verify that both official and custom content are available
+
+:::warning
+
+Never edit files in the locally cloned repositories managed by Recyclarr! Local changes will be
+destroyed when repositories are updated.
+
+:::

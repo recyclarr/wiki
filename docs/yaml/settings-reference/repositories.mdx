@@ -1,7 +1,15 @@
 ---
 id: repositories
-title: Repositories
+title: Repositories (Deprecated)
 ---
+
+:::warning
+
+**This configuration format is deprecated and will be removed in a future version.**
+
+Please migrate to [Resource Providers](./resource-providers.mdx) for the new, more flexible system.
+
+:::
 
 :::danger
 
@@ -55,3 +63,9 @@ YAML code block above shows the default values for corresponding properties docu
   specified, it overrides the `branch` setting. This SHA1 is passed to `git reset --hard` to force
   your local clone to this specific revision in the repository. If not specified, only the `branch`
   controls what revision is used in the repo.
+
+## Migration to Resource Providers
+
+The new [Resource Providers](./resource-providers.mdx) system replaces this deprecated format.
+See the [v8.0 upgrade guide](../../upgrade-guide/v8.0.mdx#resource-providers) for complete
+migration instructions.
