@@ -13,6 +13,11 @@
   gitIgnoredAuthors: ["227055450+renohate[bot]@users.noreply.github.com"],
   packageRules: [
     {
+      description: "Group Docusaurus monorepo packages",
+      matchPackagePatterns: ["^@docusaurus/"],
+      groupName: "docusaurus monorepo",
+    },
+    {
       description: "Semantic commits for major updates",
       matchUpdateTypes: ["major"],
       semanticCommitType: "build",

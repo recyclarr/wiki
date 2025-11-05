@@ -1,5 +1,5 @@
 #!/usr/bin/env pwsh
-yarn upgrade --latest `
+yarn up `
     "@docusaurus/core" `
     "@docusaurus/preset-classic" `
     "@docusaurus/module-type-aliases" `

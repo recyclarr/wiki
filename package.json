@@ -16,8 +16,8 @@
   },
   "dependencies": {
     "@algolia/client-search": "^5.2.1",
-    "@docusaurus/core": "^3.9.1",
-    "@docusaurus/preset-classic": "^3.9.1",
+    "@docusaurus/core": "^3.9.2",
+    "@docusaurus/preset-classic": "^3.9.2",
     "@iconify/react": "^6.0.2",
     "@mdx-js/react": "^3",
     "@types/react": "^19.0.0",
@@ -34,7 +34,7 @@
     "typescript": "5.9.3"
   },
   "devDependencies": {
-    "@docusaurus/module-type-aliases": "3.9.2"
+    "@docusaurus/module-type-aliases": "^3.9.2"
   },
   "browserslist": {
     "production": [
