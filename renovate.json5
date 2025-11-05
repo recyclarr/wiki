@@ -14,8 +14,8 @@
   packageRules: [
     {
       description: "Group Docusaurus monorepo packages",
-      matchPackagePatterns: ["^@docusaurus/"],
       groupName: "docusaurus monorepo",
+      matchPackageNames: ["/^@docusaurus//"],
     },
     {
       description: "Semantic commits for major updates",
