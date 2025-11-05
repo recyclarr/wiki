@@ -1,66 +1,66 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:best-practices",
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  extends: [
+    "config:recommended",
+    "helpers:pinGitHubActionDigestsToSemver",
     ":disableRateLimiting",
-    "helpers:pinGitHubActionDigests"
+    ":ignoreUnstable",
   ],
-  "minimumReleaseAge": "5 days",
-  "dependencyDashboardTitle": "Renovate Dashboard 🤖",
-  "dependencyDashboardAutoclose": true,
-  "suppressNotifications": ["prEditedNotification", "prIgnoreNotification"],
-  "configMigration": true,
-  "gitIgnoredAuthors": ["git@rdailey.me"],
-  "packageRules": [
+  minimumReleaseAge: "5 days",
+  dependencyDashboardTitle: "Renovate Dashboard 🤖",
+  dependencyDashboardAutoclose: true,
+  configMigration: true,
+  gitIgnoredAuthors: ["227055450+renohate[bot]@users.noreply.github.com"],
+  packageRules: [
     {
-      "description": "Semantic commits for major updates",
-      "matchUpdateTypes": ["major"],
-      "semanticCommitType": "build",
-      "semanticCommitScope": "deps",
-      "commitMessagePrefix": "{{semanticCommitType}}({{semanticCommitScope}})!:",
-      "commitMessageExtra": "( {{currentVersion}} ➔{{newVersion}} )"
+      description: "Semantic commits for major updates",
+      matchUpdateTypes: ["major"],
+      semanticCommitType: "build",
+      semanticCommitScope: "deps",
+      commitMessagePrefix: "{{semanticCommitType}}({{semanticCommitScope}})!:",
+      commitMessageExtra: "( {{currentVersion}} ➔{{newVersion}} )",
     },
     {
-      "description": "Semantic commits for minor updates",
-      "matchUpdateTypes": ["minor"],
-      "semanticCommitType": "build",
-      "semanticCommitScope": "deps",
-      "commitMessageExtra": "( {{currentVersion}} ➔{{newVersion}} )"
+      description: "Semantic commits for minor updates",
+      matchUpdateTypes: ["minor"],
+      semanticCommitType: "build",
+      semanticCommitScope: "deps",
+      commitMessageExtra: "( {{currentVersion}} ➔{{newVersion}} )",
     },
     {
-      "description": "Semantic commits for patch updates",
-      "matchUpdateTypes": ["patch"],
-      "semanticCommitType": "build",
-      "semanticCommitScope": "deps",
-      "commitMessageExtra": "( {{currentVersion}} ➔{{newVersion}} )"
+      description: "Semantic commits for patch updates",
+      matchUpdateTypes: ["patch"],
+      semanticCommitType: "build",
+      semanticCommitScope: "deps",
+      commitMessageExtra: "( {{currentVersion}} ➔{{newVersion}} )",
     },
     {
-      "description": "Semantic commits for digest updates",
-      "matchUpdateTypes": ["digest"],
-      "semanticCommitType": "build",
-      "semanticCommitScope": "deps",
-      "commitMessageExtra": "( {{currentDigestShort}} ➔{{newDigestShort}} )"
+      description: "Semantic commits for digest updates",
+      matchUpdateTypes: ["digest"],
+      semanticCommitType: "build",
+      semanticCommitScope: "deps",
+      commitMessageExtra: "( {{currentDigestShort}} ➔{{newDigestShort}} )",
     },
     {
-      "description": "GitHub Actions commit message formatting",
-      "matchManagers": ["github-actions"],
-      "commitMessageTopic": "action {{depName}}"
+      description: "GitHub Actions commit message formatting",
+      matchManagers: ["github-actions"],
+      commitMessageTopic: "action {{depName}}",
     },
     {
-      "description": "Auto-merge GitHub Actions",
-      "matchManagers": ["github-actions"],
-      "automerge": true,
-      "automergeType": "pr",
-      "matchUpdateTypes": ["minor", "patch", "digest"],
-      "minimumReleaseAge": "3 days",
-      "ignoreTests": true
+      description: "Auto-merge GitHub Actions",
+      matchManagers: ["github-actions"],
+      automerge: true,
+      automergeType: "pr",
+      matchUpdateTypes: ["minor", "patch", "digest"],
+      minimumReleaseAge: "3 days",
+      ignoreTests: true,
     },
     {
-      "description": "Auto-merge npm patch updates for React/Node/TypeScript packages",
-      "matchDatasources": ["npm"],
-      "matchUpdateTypes": ["patch"],
-      "automerge": true,
-      "automergeType": "pr"
-    }
-  ]
+      description: "Auto-merge npm patch updates for React/Node/TypeScript packages",
+      matchDatasources: ["npm"],
+      matchUpdateTypes: ["patch"],
+      automerge: true,
+      automergeType: "pr",
+    },
+  ],
 }
