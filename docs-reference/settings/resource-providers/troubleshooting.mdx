@@ -1,0 +1,236 @@
+---
+title: Troubleshooting Resource Providers
+sidebar_label: Troubleshooting
+---
+
+Common issues and solutions when working with resource providers.
+
+## Configuration Errors
+
+### Repository names must be unique
+
+Each provider needs a unique `name` across all your resource providers:
+
+```yml
+# Wrong - duplicate names
+resource_providers:
+  - name: custom
+    type: trash-guides
+    clone_url: https://github.com/user1/guides.git
+  - name: custom  # Error: duplicate name
+    type: config-templates
+    clone_url: https://github.com/user1/templates.git
+
+# Correct - unique names
+resource_providers:
+  - name: custom-guides
+    type: trash-guides
+    clone_url: https://github.com/user1/guides.git
+  - name: custom-templates
+    type: config-templates
+    clone_url: https://github.com/user1/templates.git
+```
+
+### Invalid characters in names
+
+Names may only contain letters, numbers, hyphens, and underscores:
+
+```yml
+# Wrong
+- name: my custom repo  # Spaces not allowed
+- name: my/custom/repo  # Slashes not allowed
+
+# Correct
+- name: my-custom-repo
+- name: my_custom_repo
+```
+
+### Service required for custom-formats
+
+The `service` property is required when using `type: custom-formats` with a local path:
+
+```yml
+# Wrong - missing service
+- name: my-cfs
+  type: custom-formats
+  path: /home/user/cfs
+
+# Correct
+- name: my-cfs
+  type: custom-formats
+  path: /home/user/cfs
+  service: radarr
+```
+
+### Only one replace_default per type
+
+Only one provider per type can have `replace_default: true`:
+
+```yml
+# Wrong - multiple replace_default for same type
+resource_providers:
+  - name: fork1
+    type: trash-guides
+    clone_url: https://github.com/user1/guides.git
+    replace_default: true
+  - name: fork2
+    type: trash-guides
+    clone_url: https://github.com/user2/guides.git
+    replace_default: true  # Error: only one allowed
+```
+
+## Git Repository Issues
+
+### Wrong default branch
+
+If you get errors about a missing `master` branch:
+
+```yml
+# Wrong - repository uses 'main' but reference defaults to 'master'
+- name: my-guides
+  type: trash-guides
+  clone_url: https://github.com/yourname/guides.git
+
+# Correct - explicitly specify the branch
+- name: my-guides
+  type: trash-guides
+  clone_url: https://github.com/yourname/guides.git
+  reference: main
+```
+
+The `reference` property defaults to `master`. If your repository uses `main` or another default
+branch, you must specify it explicitly.
+
+### Git repository access issues
+
+If you get clone or authentication errors:
+
+1. **Verify the URL**: Ensure the repository URL is correct and the repository exists
+2. **Check access permissions**: For private repositories, ensure your Git credentials are
+   configured on the system running Recyclarr
+3. **Verify the reference**: Check that the specified branch, tag, or commit exists in the
+   repository
+4. **Test manually**: Try cloning the repository manually to isolate the issue:
+
+   ```bash
+   git clone https://github.com/yourname/guides.git
+   ```
+
+### Repository structure not recognized
+
+If Recyclarr doesn't find your resources:
+
+1. **Check `metadata.json`** (for `trash-guides` type): Ensure paths in `metadata.json` match your
+   actual directory structure
+2. **Check `includes.json`/`templates.json`** (for `config-templates` type): Verify the file paths
+   are correct and relative to the repository root
+3. **Verify file extensions**: Custom format files must be `.json`, include/template files must be
+   `.yml` or `.yaml`
+
+## Precedence Issues
+
+### Which resource gets used when IDs collide?
+
+When multiple providers have the same ID, the **last provider in the list wins**. Official providers
+are implicitly added first, so your providers always have higher precedence.
+
+**Example**: If both official Trash Guides and your local folder have a custom format with Trash ID
+`abc123`, your local version is used because local providers are listed after the implicit official
+provider.
+
+**Precedence order** (lowest to highest):
+
+1. Official providers (implicit, added at top)
+2. Your first listed provider
+3. Your second listed provider
+4. ... and so on (last listed = highest precedence)
+
+### Custom format not overriding official
+
+If your custom format isn't overriding the official one:
+
+1. **Verify the Trash ID matches exactly**: The `trash_id` in your JSON must be identical to the
+   official one (case-sensitive)
+2. **Check provider order**: Your provider must be listed (explicitly or implicitly after official)
+3. **Verify provider type**: Make sure you're using `type: custom-formats` or `type: trash-guides`
+   appropriately
+
+### Template not overriding official
+
+If your template isn't overriding the official one:
+
+1. **Verify the ID matches exactly**: The `id` in your `includes.json` or `templates.json` must
+   match the official ID exactly
+2. **Check the JSON structure**: Ensure your JSON files are valid and properly formatted
+
+## Local Directory Issues
+
+### Path not found
+
+If Recyclarr can't find your local directory:
+
+1. **Use absolute paths**: Always use full absolute paths, not relative paths
+2. **Check path exists**: Verify the directory exists and is accessible
+3. **Check permissions**: Ensure Recyclarr has read access to the directory
+
+```yml
+# Wrong - relative path
+- name: my-cfs
+  type: custom-formats
+  path: ./custom-formats/radarr
+  service: radarr
+
+# Correct - absolute path
+- name: my-cfs
+  type: custom-formats
+  path: /home/user/custom-formats/radarr
+  service: radarr
+```
+
+### Custom formats not loading from local directory
+
+If custom formats in your local directory aren't being recognized:
+
+1. **Check file extension**: Files must have `.json` extension
+2. **Validate JSON syntax**: Ensure each file is valid JSON (use a JSON validator)
+3. **Check required fields**: Each custom format must have a `trash_id` field
+4. **Verify service property**: The `service` property must match the custom formats (use `radarr`
+   for Radarr custom formats, `sonarr` for Sonarr)
+
+## Debugging Tips
+
+### Check Recyclarr logs
+
+Run Recyclarr with debug logging to see detailed information about resource provider processing:
+
+```bash
+recyclarr sync --debug
+```
+
+Look for messages about:
+
+- Repository cloning/updating
+- Resource file discovery
+- ID collisions and precedence resolution
+
+### List available resources
+
+Use the list command to see what resources Recyclarr has loaded:
+
+```bash
+recyclarr list custom-formats radarr
+recyclarr list templates
+```
+
+If your custom resources don't appear, there's likely a configuration or structure issue.
+
+### Verify JSON files manually
+
+For custom formats, validate your JSON files:
+
+```bash
+# Check if a file is valid JSON
+python -m json.tool /path/to/your/custom-format.json
+```
+
+Or use an online JSON validator.

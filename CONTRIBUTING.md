@@ -6,14 +6,20 @@ Contributors must follow these guidelines.
 
 ### Requirements
 
-You must install these first.
-
-- [NodeJS](https://nodejs.org/en/download/package-manager/)
-- [Yarn](https://classic.yarnpkg.com/lang/en/docs/install)
+Install [mise](https://mise.jdx.dev/installing-mise.html), a tool version manager that handles all
+project dependencies automatically.
 
 ### Installation
 
-To install everything:
+First, install all required tools (Node.js, Yarn, etc.) using mise:
+
+```bash
+mise install
+```
+
+This reads the project's `mise.toml` file and installs the correct versions automatically.
+
+Next, install project dependencies:
 
 ```bash
 yarn

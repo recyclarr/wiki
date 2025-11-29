@@ -172,3 +172,60 @@ radarr:
 ```
 
 Refer to the `RENAMED` comments in the above example for exact lines that changed.
+
+## Settings: Repository Configuration Replaced {#resource-providers}
+
+The legacy `repositories` configuration format has been completely removed and replaced with the new
+`resource_providers` system. This change provides support for multiple repositories per content
+type, local directory support, and enables future extensibility.
+
+### Old Format (Removed)
+
+```yml
+repositories:
+  trash_guides:
+    clone_url: https://github.com/TRaSH-Guides/Guides.git
+    branch: master
+    sha1: c611e9df00bf9261bddfc749219295fe189ae552
+  config_templates:
+    clone_url: https://github.com/recyclarr/config-templates.git
+    branch: master
+```
+
+### New Format
+
+```yml
+resource_providers:
+  - name: trash-guides
+    type: trash-guides
+    clone_url: https://github.com/TRaSH-Guides/Guides.git
+    reference: c611e9df00bf9261bddfc749219295fe189ae552
+    replace_default: true
+
+  - name: config-templates
+    type: config-templates
+    clone_url: https://github.com/recyclarr/config-templates.git
+    reference: master
+    replace_default: true
+```
+
+### Key Changes
+
+| Old                                                     | New                                         |
+| ------------------------------------------------------- | ------------------------------------------- |
+| Nested structure (`trash_guides:`, `config_templates:`) | Flat list with explicit `type` property     |
+| `branch` and `sha1` properties                          | Unified `reference` property                |
+| Implicit replacement of official sources                | Explicit `replace_default: true` required   |
+| Single repository per type                              | Multiple repositories per type supported    |
+| Git repositories only                                   | Local directories also supported via `path` |
+
+### Migration Notes
+
+- **No `repositories` config?** No changes needed - official sources are included automatically
+- **Had custom repositories?** Add `type` property and use `replace_default: true` if you want to
+  replace official sources, or omit it to use your repository as a supplement
+- **Using forks?** Consider using supplemental providers instead of replacing official sources -
+  this lets you get official updates while adding your customizations
+
+See the [Resource Providers](/reference/settings/resource-providers/) documentation for complete
+configuration details.

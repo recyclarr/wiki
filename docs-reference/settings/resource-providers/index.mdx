@@ -1,0 +1,356 @@
+---
+title: Resource Providers
+---
+
+Resource providers control where Recyclarr gets its configuration data. By default, Recyclarr
+automatically uses official sources and works out of the box. You only need this feature if you want
+to add your own custom formats, use modified guides, or replace the official sources entirely.
+
+## Default Behavior
+
+Recyclarr automatically includes official sources with zero configuration:
+
+- **Trash Guides**: `https://github.com/TRaSH-Guides/Guides.git` (custom formats, quality sizes,
+  media naming)
+- **Config Templates**: `https://github.com/recyclarr/config-templates.git` (pre-made YAML
+  configurations)
+
+For most users, no `resource_providers` configuration is needed.
+
+## When You'd Use This
+
+Common reasons to configure resource providers:
+
+- **Add Custom Formats**: Create your own custom formats (like language detection) in a local folder
+  without managing a git repository
+- **Use Modified Guides**: Fork the official guides and customize them for your needs
+- **Add Supplemental Content**: Use your own repository alongside official sources
+
+## Understanding How It Works
+
+### Settings vs Configuration
+
+Resource providers work in two phases:
+
+1. **Settings (resource_providers)**: Makes resources *available* to Recyclarr
+2. **Config YAML**: Chooses *which* resources each instance actually uses
+
+Adding resources to `resource_providers` doesn't force any instance to use them. You're simply
+making those resources known to Recyclarr so you can reference them in your configuration files.
+
+For example, you could add 20 custom formats to your resource providers, then in your config assign
+10 to Sonarr Anime and the other 10 to Sonarr TV. Each instance only uses what you explicitly
+configure.
+
+### Provider Types
+
+Each provider has a `type` that determines what kind of content it provides:
+
+| Type               | Description                                                               | Structure Required                                       |
+| ------------------ | ------------------------------------------------------------------------- | -------------------------------------------------------- |
+| `trash-guides`     | Full TRaSH Guides structure (custom formats, quality sizes, media naming) | Requires `metadata.json` at root                         |
+| `config-templates` | Template configurations for quick setup                                   | Requires `includes.json` and/or `templates.json` at root |
+| `custom-formats`   | Simple flat folder of custom format JSON files                            | No structure required                                    |
+
+For details on creating your own repositories with proper structure, see:
+
+- [Creating a Trash Guides Repository](./trash-guides-structure.mdx)
+- [Creating a Config Templates Repository](./config-templates-structure.mdx)
+
+### Provider Locations
+
+Resources can come from two locations:
+
+- **Git repositories** (`clone_url`): Cloned and cached automatically
+- **Local directories** (`path`): Used directly from your filesystem
+
+### How Precedence Works
+
+When multiple providers have resources with the same ID:
+
+- **Bottom-up precedence**: The last provider in the list wins
+- **Official sources have lowest precedence**: They're implicitly added at the top of the list
+- **Different IDs are additive**: Resources with unique IDs from all providers are combined
+
+This means your custom resources can override official ones by using the same Trash ID.
+
+## Quick Start: Adding Local Custom Formats
+
+The most common use case is adding your own custom formats (like language detection) without
+managing a git repository.
+
+**Step 1**: Create a folder on your system and add your custom format JSON files:
+
+```txt
+/home/user/custom-formats/radarr/
+  ├── German-Language.json
+  ├── French-Language.json
+  └── Spanish-Language.json
+```
+
+Each JSON file defines a custom format. Here's a minimal example (`German-Language.json`):
+
+```json
+{
+  "trash_id": "my-german-language",
+  "name": "German Language",
+  "specifications": [
+    {
+      "name": "German",
+      "implementation": "LanguageSpecification",
+      "negate": false,
+      "required": true,
+      "fields": {
+        "value": 4
+      }
+    }
+  ]
+}
+```
+
+For more details on the JSON structure and available fields, see
+[Custom Format JSON Structure](./trash-guides-structure.mdx#custom-format-json-structure).
+
+**Step 2**: Add the folder to your `settings.yml`:
+
+```yml
+resource_providers:
+  - name: my-language-cfs
+    type: custom-formats
+    path: /home/user/custom-formats/radarr
+    service: radarr
+```
+
+**Step 3**: Reference the custom formats in your config by their Trash ID (defined in each JSON
+file).
+
+:::tip
+
+The `custom-formats` type is the simplest option when you just want to add a few custom formats. No
+special folder structure or metadata files are required - just drop your JSON files in a folder.
+
+:::
+
+## Configuration Reference
+
+### Basic Structure
+
+Resource providers use a flat list where each entry specifies its type:
+
+```yml
+resource_providers:
+  - name: provider-name
+    type: trash-guides
+    clone_url: https://github.com/user/repo.git
+    reference: main
+```
+
+### Provider Properties
+
+#### All Providers
+
+| Property          | Required | Description                                                                     |
+| ----------------- | -------- | ------------------------------------------------------------------------------- |
+| `name`            | Yes      | Unique identifier. May only contain letters, numbers, hyphens, and underscores. |
+| `type`            | Yes      | Content type: `trash-guides`, `config-templates`, or `custom-formats`           |
+| `replace_default` | No       | When `true`, replaces the official provider for this type. Default: `false`     |
+
+#### Git Repositories
+
+| Property    | Required | Description                                        |
+| ----------- | -------- | -------------------------------------------------- |
+| `clone_url` | Yes      | URL compatible with `git clone`                    |
+| `reference` | No       | Branch name, tag, or commit SHA. Default: `master` |
+
+:::warning
+
+The `reference` property defaults to `master`, not your repository's default branch. If your
+repository uses `main` or another default branch, you must specify it explicitly.
+
+:::
+
+#### Local Directories
+
+| Property  | Required    | Description                                                     |
+| --------- | ----------- | --------------------------------------------------------------- |
+| `path`    | Yes         | Absolute path to the directory                                  |
+| `service` | Conditional | Required for `custom-formats` type. Value: `radarr` or `sonarr` |
+
+:::info
+
+The `service` property identifies the service type (Radarr vs Sonarr), not specific instances.
+Custom formats aren't interchangeable between Radarr and Sonarr, so you must specify which service
+your custom formats are designed for.
+
+:::
+
+## Common Use Cases
+
+### Adding Supplemental Custom Formats
+
+Add your own custom formats alongside the official Trash Guides:
+
+```yml
+resource_providers:
+  - name: my-language-cfs
+    type: custom-formats
+    path: /home/user/custom-formats/radarr
+    service: radarr
+
+  - name: my-sonarr-cfs
+    type: custom-formats
+    path: /home/user/custom-formats/sonarr
+    service: sonarr
+```
+
+Your custom formats are combined with the official ones. If any share the same Trash ID, your
+version takes precedence.
+
+### Adding Supplemental Git Repositories
+
+Add your own TRaSH-style repository alongside official sources:
+
+```yml
+resource_providers:
+  - name: my-custom-guides
+    type: trash-guides
+    clone_url: https://github.com/yourname/custom-guides.git
+    reference: main
+```
+
+This adds your repository's content to the official Trash Guides. Both sources are available for use
+in your configurations.
+
+### Replacing Official Sources
+
+Completely replace the official Trash Guides with your own fork:
+
+```yml
+resource_providers:
+  - name: my-fork
+    type: trash-guides
+    clone_url: https://github.com/yourname/trash-guides-fork.git
+    reference: main
+    replace_default: true
+```
+
+:::warning
+
+When `replace_default: true` is set, the official repository for that type is not used. Only do this
+if your repository contains all the content you need.
+
+:::
+
+### Using a Specific Version
+
+Pin to a specific commit or tag for stability:
+
+```yml
+resource_providers:
+  - name: stable-guides
+    type: trash-guides
+    clone_url: https://github.com/TRaSH-Guides/Guides.git
+    reference: c611e9df00bf9261bddfc749219295fe189ae552
+    replace_default: true
+```
+
+### Multiple Sources Combined
+
+A realistic setup with official sources (implicit), supplemental git repository, and local custom
+formats:
+
+```yml
+resource_providers:
+  # Supplemental guides from a community repository
+  - name: community-extras
+    type: trash-guides
+    clone_url: https://github.com/community/extra-guides.git
+    reference: main
+
+  # Local custom formats for Radarr
+  - name: my-radarr-cfs
+    type: custom-formats
+    path: /home/user/custom-formats/radarr
+    service: radarr
+
+  # Local custom formats for Sonarr
+  - name: my-sonarr-cfs
+    type: custom-formats
+    path: /home/user/custom-formats/sonarr
+    service: sonarr
+
+  # Custom config templates
+  - name: my-templates
+    type: config-templates
+    clone_url: https://github.com/yourname/my-templates.git
+    reference: main
+```
+
+With this configuration:
+
+- Official Trash Guides and Config Templates are automatically included (lowest precedence)
+- Community extras are added next
+- Local custom formats have highest precedence (listed last)
+
+## Overriding Official Content
+
+You can override specific official content by providing your own version with the same ID.
+
+### Overriding a Custom Format
+
+1. Copy the official custom format JSON file you want to modify
+2. Place it in your local custom formats folder
+3. Modify it as needed (keep the same `trash_id`)
+4. Add the folder to your resource providers
+
+Since your provider is listed after the implicit official provider, your version takes precedence.
+
+### Overriding a Config Template
+
+1. Create a repository following the config-templates structure
+2. Include an `includes.json` or `templates.json` with the same ID as the official template
+3. Add your repository to resource providers
+
+```yml
+resource_providers:
+  - name: my-template-overrides
+    type: config-templates
+    clone_url: https://github.com/yourname/custom-templates.git
+    reference: main
+```
+
+Your template with the matching ID will override the official version.
+
+## Best Practices
+
+### Naming Conventions
+
+- Use descriptive names that indicate the provider's purpose
+- Use consistent naming patterns across your providers
+- Avoid generic names like `custom` if you have multiple providers
+
+### Reference Management
+
+- Use specific commits or tags for production stability
+- Use branch names for testing new changes
+- Always specify `reference` explicitly if your repository doesn't use `master`
+
+### Security Considerations
+
+- Only use repositories you trust
+- Verify repository URLs carefully
+- Consider using specific commits for maximum security and reproducibility
+
+### Testing Changes
+
+- Test custom providers on a non-production setup first
+- Verify that custom content follows the expected structure for its type
+- Check that custom formats are valid JSON and work as expected
+
+:::warning
+
+Never edit files in repositories managed by Recyclarr (in the cache directory). Local changes will
+be destroyed when repositories are updated. Always maintain your customizations in separate
+locations.
+
+:::
