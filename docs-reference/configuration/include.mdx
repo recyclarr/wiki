@@ -325,6 +325,10 @@ semantics, those will be documented in later sections. This will especially be t
 | ----------------- | --------- | --------------- |
 | `type`            | Scalar    | Replace         |
 | `preferred_ratio` | Scalar    | Replace         |
+| `qualities`       | Sequence  | Join            |
+
+Items in `qualities` are joined by `name`. Individual properties (`min`, `max`, `preferred`) use
+Replace.
 
 ### Quality Profiles {#merge-quality-profiles}
 
