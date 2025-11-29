@@ -1,0 +1,80 @@
+---
+id: git-install
+title: Install Git on Windows
+---
+
+This guide will walk you through the process of installing Git on Windows. Git is essential for
+running Recyclarr, as it's used to download and update the application.
+
+## Quick Start
+
+For those familiar with package managers, you can quickly install Git using one of the following
+methods:
+
+- Using [Winget CLI](https://git-scm.com/downloads/win):
+
+  ```cmd
+  winget install --id Git.Git -e --source winget
+  ```
+
+- Using [Chocolatey](https://community.chocolatey.org/packages/git):
+
+  ```cmd
+  choco install git
+  ```
+
+If you prefer a more guided approach or don't use package managers, continue reading for detailed
+instructions using the official Git installer.
+
+## Detailed Installation Guide
+
+### Using the Git for Windows Installer
+
+:::info
+
+Skip this section if you've already installed Git using Winget or Chocolatey.
+
+:::
+
+1. Download the official [Git for Windows installer](https://gitforwindows.org/).
+
+2. Before running the installer, close any open terminal windows (PowerShell, CMD, etc.). This is
+   important because the installer will modify your `PATH` environment variable, and open terminals
+   won't reflect these changes.
+
+3. Run the downloaded installer.
+
+4. During the installation wizard, you can keep all options at their default settings for a standard
+   installation.
+
+5. Pay special attention to the following page in the wizard:
+
+   ![Git Setup Add Path](/doc-img/git-setup-add-path.png)
+
+   Ensure that the option "Git from the command line and also from 3rd-party software" is selected.
+   This should be the default choice.
+
+6. Complete the installation process.
+
+### Verifying the Installation
+
+After installation, you can verify that Git is correctly installed by opening a new terminal window
+and running:
+
+```cmd
+git --version
+```
+
+If Git is properly installed, this command will display the installed version of Git.
+
+## Next Steps
+
+With Git successfully installed, you're now ready to use Recyclarr. If you haven't already, check
+out our [Getting Started](/guide/getting-started) guide to begin using Recyclarr.
+
+:::tip
+
+Remember to always use a new terminal window after installing Git to ensure that your system
+recognizes the new installation.
+
+:::

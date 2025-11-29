@@ -1,0 +1,79 @@
+---
+id: basic
+title: Basic Setup
+sidebar_position: 1
+description: Learn about service setup, URLs, and API keys
+---
+
+<ServiceSupport sonarr="full" radarr="full" />
+
+```yml
+service_type:
+  instance_name:
+    base_url: http://localhost:1234
+    api_key: f7e74ba6c80046e39e076a27af5a8444
+```
+
+## `service_type` {#service-type}
+
+**Required.**
+
+Must be one of `sonarr` or `radarr`. The service type will correspond to one of the more specific
+sections later on. Each service type may be configured in different ways.
+
+## `instance_name` {#instance-name}
+
+**Required.**
+
+A custom name used to identify this particular instance. This name must meet the following
+requirements:
+
+- Must contain only numbers, letters, and underscores (`_`).
+- Must be unique across all other instances in your YAML config.
+
+The purpose of the name is to be human readable and self-documenting. It is used in different ways:
+
+- In log messages to more easily point out where issues are in your configuration.
+- On the CLI, it allows executing actions against specific instances.
+
+## `base_url` {#base-url}
+
+**Required.**
+
+The base URL of your instance. Basically this is the URL you bookmark to get to the front page. Must
+begin with `http` or `https`.
+
+:::tip
+
+This property can be implicitly set via secrets if you follow a naming convention. See the
+[Secrets][impliciturlkey] page for more details.
+
+:::
+
+:::warning
+
+The `base_url` value is used to uniquely identify an instance of a service (such as Radarr). This
+means that if you relocate your instances to a new URL (change of port, hostname, or path),
+Recyclarr *will think this is a completely different instance*. This has implications with regards
+to [caching].
+
+[caching]: /guide/troubleshooting/cache#relocating
+
+:::
+
+## `api_key` {#api-key}
+
+**Required.**
+
+The API key that Recyclarr should use to synchronize settings to your instance. You can obtain your
+API key by going to `Settings > General` and copy & paste the "API Key" under the "Security"
+group/header.
+
+:::tip
+
+This property can be implicitly set via secrets if you follow a naming convention. See the
+[Secrets][impliciturlkey] page for more details.
+
+:::
+
+[impliciturlkey]: /reference/secrets#implicit-url-key

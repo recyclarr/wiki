@@ -8,7 +8,7 @@ import config from '@generated/docusaurus.config';
 type Props = WrapperProps<typeof ContentType>;
 
 function CurrentVersionLink(props) {
-  return <b><Link to="https://recyclarr.dev/wiki" target='_self'>Current Version</Link></b>
+  return <b><Link to="https://recyclarr.dev/guide" target='_self'>Current Version</Link></b>
 }
 
 function NextBanner(): JSX.Element | null {

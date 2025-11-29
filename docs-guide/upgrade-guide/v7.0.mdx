@@ -1,0 +1,67 @@
+---
+title: Version 7.0
+sidebar_position: 995
+---
+
+Features have been removed *or* behavior changed. Most of the items here would have been deprecated
+in the past. Deprecations are always mentioned in release notes for feature releases.
+
+## Path Change on MacOS {#osx-path-change}
+
+:::warning
+
+If you are not running Recyclarr on MacOS, **no action is needed!**
+
+:::
+
+The [app data directory](/guide/file-structure#appdata-directory) path has changed for only the MacOS
+platform. This is due to a [breaking change][net8] introduced in .NET 8.
+
+In Recyclarr v6 and earlier, the path to the app data directory is:
+
+```sh
+~/.config/recyclarr
+```
+
+Starting in v7, the new path is located at:
+
+```sh
+~/Library/Application Support/recyclarr
+```
+
+There is a required [migration step][mig] that will inform you if the data directory should be
+moved. Use the [`recyclarr migrate`][cmd] command to have Recyclarr attempt to move the directory
+for you.
+
+[net8]: https://learn.microsoft.com/en-us/dotnet/core/compatibility/core-libraries/8.0/getfolderpath-unix
+[mig]: /cli/migrate
+[cmd]: /cli/migrate
+
+## Removed Sonarr v3 Support {#sonarr-removed}
+
+With this release, Sonarr version 3 support has been completely dropped. The most impactful aspect
+of this is the removal of Release Profile syncing. If you're already running Sonarr v4, then there
+should be no action required. For those still using Sonarr v3, you have two options:
+
+### Option 1: Stay on Recyclarr v6.0
+
+If you prefer to stay on Sonarr version 3.0, then you should not upgrade to this release of
+Recyclarr. For now, stay on the latest release of Recyclarr v6.0. It is recommended that you
+eventually upgrade your instances of Sonarr, however, so that you can continue using the latest
+release of Recyclarr. Older versions of Recyclarr stop working once there are breaking changes in
+the Trash Guides.
+
+### Option 2: Upgrade your instances of Sonarr
+
+1. Upgrade your v3 instance(s) of Sonarr to v4.0 or higher. **It is <ins>your</ins> responsibility
+   to follow proper upgrade procedure** (e.g. do proper backups), as this is outside the scope of
+   Recyclarr itself.
+
+1. Go through all of your configuration YAML files and replace usage of `release_profiles` with
+   `custom_formats`. See the [Configuration Reference][ref] page for details. With Sonarr v4, you
+   will also have access to Sonarr configuration templates. You may decide to replace your
+   hand-written Sonarr v3 configuration with a pre-made template instead. See the [`config
+   create`][config_create] command for details on how to list available templates and create them.
+
+[ref]: /reference/configuration
+[config_create]: /cli/config/create#template

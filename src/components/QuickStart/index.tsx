@@ -53,7 +53,7 @@ export default function QuickStart() {
               Define your Sonarr and Radarr instances, reference pre-built templates, and let
               Recyclarr handle the synchronization automatically.
             </p>
-            <Link className={styles.docsButton} to="/wiki/getting-started">
+            <Link className={styles.docsButton} to="/guide/getting-started">
               <Icon icon="mdi:book-open-page-variant" />
               Get Started
             </Link>

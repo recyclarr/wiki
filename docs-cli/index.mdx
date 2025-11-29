@@ -1,0 +1,37 @@
+---
+id: cli
+title: Command Line Reference
+sidebar_position: 0
+---
+
+Command line interface (CLI) documentation for the `recyclarr` executable.
+
+## Terminology
+
+- **Command**: A sub-category of functionality that defines its own options and arguments, such as
+  `sync` and `list`.
+- **Option**: Looks like `-f` (short form) or `--foo` (long form) and is never required.
+- **Argument**: A positional value that is either required or optional (e.g. In `recyclarr sync
+sonarr`, `sonarr` is an argument of the `sync` command)
+
+:::info
+
+If you see a section title with a pipe character (`|`) in it, like `-d|--debug`, that means that
+option has both a short *and* long form. So you can specify `-d` or `--debug`.
+
+Headings for argument-based parameters can be enclosed in either square-brackets (e.g. `[optional]`)
+or angle-brackets (e.g. `<required>`).
+
+:::
+
+## Commands
+
+Also visit the [Common Options](/cli/common) page to learn about options and environment variables
+usable across *all* commands.
+
+- [recyclarr](main)
+- [recyclarr sync](sync)
+- [recyclarr list](list)
+- [recyclarr migrate](migrate)
+- [recyclarr config](config)
+- [recyclarr delete](delete)

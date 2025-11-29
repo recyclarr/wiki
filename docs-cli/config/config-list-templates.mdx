@@ -1,0 +1,36 @@
+---
+id: templates
+title: recyclarr config list templates
+---
+
+## Usage
+
+```js
+recyclarr config list templates [OPTIONS]
+```
+
+## Description
+
+Lists available template configuration files in the [Trash Guides repo][1].
+
+[1]: https://trash-guides.info/Recyclarr/recyclarr-configs/
+
+## Options
+
+### `-i|--includes` {#include}
+
+If specified, this command lists the IDs of all include templates. In contrast to configuration
+templates, which are only usable with the `config create` command, include templates may only be
+included with the [`include` property][include].
+
+[include]: /reference/configuration/include
+
+## Command Line Examples
+
+```bash
+# List available configuration templates
+recyclarr config list templates
+
+# List available include templates
+recyclarr config list templates --includes
+```

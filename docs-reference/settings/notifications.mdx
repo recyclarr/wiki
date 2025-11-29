@@ -1,0 +1,149 @@
+---
+id: notifications
+title: Notifications
+---
+
+## Overview
+
+Notifications in Recyclarr allow you to stay informed about the status and results of your sync
+operations. This page explains how to configure notifications using various methods and customize
+their behavior.
+
+:::caution
+
+The `notifications` property should only be specified once in your settings YAML file, even though
+it may appear in multiple sections of this documentation.
+
+:::
+
+## Apprise Notifications {#apprise}
+
+Apprise is a powerful notification platform that Recyclarr can utilize to send notifications through
+various services. There are two modes of operation for Apprise: Stateful and Stateless.
+
+:::caution
+
+Configuring and using Apprise itself is beyond the scope of this wiki page and Recyclarr support
+channels. For Apprise-specific questions, please consult the appropriate Apprise support resources.
+
+:::
+
+### Stateful Mode {#stateful}
+
+In stateful mode, Apprise API manages the configuration of notification URLs.
+
+```yml
+notifications:
+  apprise:
+    mode: stateful
+    base_url: http://localhost:8000
+    key: recyclarr
+    tags: foo bar, baz
+```
+
+Configuration options for stateful mode:
+
+- `mode` *(Required)*: Set to `stateful` to enable this mode.
+- `base_url` *(Required)*: The base URL of your Apprise API server.
+- `key` *(Required)*: Represents a configuration file on the Apprise API server that determines
+  notification destinations.
+- `tags` *(Optional)*: Filters notifications to URLs with specific tags. Use commas (`,`) for OR
+  logic and spaces (` `) for AND logic.
+
+### Stateless Mode {#stateless}
+
+Stateless mode is useful when you want to use Apprise API without persistent storage. In this mode,
+Recyclarr's settings contain the list of notification URLs.
+
+```yml
+notifications:
+  apprise:
+    mode: stateless
+    base_url: http://localhost:8000
+    urls:
+      - https://discord.com/api/webhooks/secret
+```
+
+Configuration options for stateless mode:
+
+- `mode` *(Required)*: Set to `stateless` to enable this mode.
+- `base_url` *(Required)*: The base URL of your Apprise API server.
+- `urls` *(Required)*: One or more URLs where Apprise will send notifications. For supported URL
+  types, consult the [Apprise API
+  documentation](https://github.com/caronc/apprise/wiki#notification-services).
+
+## Notification Verbosity {#verbosity}
+
+You can control the frequency and content of notifications by adjusting the verbosity level:
+
+```yml
+notifications:
+  verbosity: normal # Options: normal, detailed, minimal
+```
+
+To help you choose the appropriate verbosity level, it's important to understand the types of
+content that can be included in Recyclarr notifications:
+
+- **Errors**: Critical issues that typically cause sync failures.
+- **Warnings**: Important messages indicating necessary user actions, such as updating deprecated
+  configurations.
+- **Information**: Statistics and details about sync actions, like the number of Custom Formats
+  synced.
+- **Sync Status**: Overall success or failure of the sync operation, usually shown in the
+  notification title.
+
+These content types are used to determine what information is included in notifications based on the
+chosen verbosity level.
+
+Verbosity levels:
+
+- `minimal`: Sends notifications only for warnings or errors. Informational and empty messages are
+  suppressed.
+- `normal` (default): Sends notifications for warnings, errors, and statistical information. Empty
+  messages (e.g., when nothing was synced) are not sent.
+- `detailed`: Includes everything from the `normal` level, plus notifications for empty messages
+  (e.g., when no changes were synced).
+
+## Notification Behavior {#notification-behavior}
+
+Recyclarr integrates with [Apprise API][apprise], a versatile notification platform, to offer robust
+notification capabilities. This integration allows Recyclarr to send notifications to a wide array
+of services, including popular platforms like Discord and Email. For a comprehensive list of
+supported notification targets, please refer to the [Apprise documentation][apprise-urls].
+
+Notifications in Recyclarr are designed to keep you informed about sync operations, providing
+real-time updates on the process and detailed information about the results.
+
+[apprise]: https://github.com/caronc/apprise-api
+[apprise-urls]: https://github.com/caronc/apprise/wiki#notification-services
+
+### Key Points
+
+Currently, Recyclarr's notification system is focused on [sync operations](/cli/sync). Notifications
+are designed to be comprehensive, providing a complete overview of the operation without
+overwhelming you with too many messages:
+
+- **Single Notification per Sync**: Recyclarr sends one consolidated notification for each `sync`
+  command execution, regardless of the number of service instances configured in your YAML file.
+
+- **Multi-Service Support**: If you have multiple service instances configured (e.g., 2 Radarr and 1
+  Sonarr), the single notification will include information about the sync operation for all
+  services.
+
+- **Timing**: The notification is sent upon completion of the entire sync operation across all
+  configured services.
+
+### Notification Content {#notification-content}
+
+The notification sent after each sync operation includes the following information:
+
+- **Overall Status**: An indication of whether the sync operation was successful or if it failed.
+
+- **Service-Specific Statistics**: For each service instance synced (e.g., Radarr, Sonarr), you'll
+  receive high-level statistical information, such as:
+  - Number of custom formats synced
+  - How many quality profiles were updated
+  - Other relevant metrics specific to the service
+
+- **Error and Warning Reports**: Any errors or warnings that occurred during the sync operation are
+  included in the notification.

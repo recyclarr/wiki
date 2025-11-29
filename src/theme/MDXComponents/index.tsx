@@ -11,6 +11,8 @@ import MDXImg from '@theme/MDXComponents/Img';
 import Admonition from '@theme/Admonition';
 import Mermaid from '@theme/Mermaid';
 import { Icon } from '@iconify/react';
+import ServiceSupport from '@site/src/components/ServiceSupport';
+import SupportLegend from '@site/src/components/SupportLegend';
 
 import type {MDXComponentsObject} from '@theme/MDXComponents';
 
@@ -33,6 +35,8 @@ const MDXComponents: MDXComponentsObject = {
   admonition: Admonition,
   mermaid: Mermaid,
   icon: Icon,
+  ServiceSupport,
+  SupportLegend,
 };
 
 export default MDXComponents;

@@ -30,7 +30,6 @@ const config: Config = {
   tagline: 'Documentation for Recyclarr',
   url: `https://${currentInfo.hostname}`,
   baseUrl: '/',
-  trailingSlash: true,
   onBrokenLinks: 'throw',
   favicon: 'img/favicon.ico',
 
@@ -62,9 +61,10 @@ const config: Config = {
       'classic',
       ({
         docs: {
-          routeBasePath: '/wiki',
-          sidebarPath: require.resolve('./sidebars.js'),
-          editUrl: 'https://github.com/recyclarr/wiki/tree/master/'
+          path: 'docs-guide',
+          routeBasePath: '/guide',
+          sidebarPath: require.resolve('./sidebars-guide.js'),
+          editUrl: 'https://github.com/recyclarr/wiki/tree/master/',
         },
         blog: false,
         theme: {
@@ -76,6 +76,26 @@ const config: Config = {
 
   plugins: [
     'docusaurus-plugin-sass',
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'reference',
+        path: 'docs-reference',
+        routeBasePath: '/reference',
+        sidebarPath: require.resolve('./sidebars-reference.js'),
+        editUrl: 'https://github.com/recyclarr/wiki/tree/master/',
+      },
+    ],
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'cli',
+        path: 'docs-cli',
+        routeBasePath: '/cli',
+        sidebarPath: require.resolve('./sidebars-cli.js'),
+        editUrl: 'https://github.com/recyclarr/wiki/tree/master/',
+      },
+    ],
   ],
 
   themes: [
@@ -94,9 +114,23 @@ const config: Config = {
         items: [
           {
             type: 'doc',
-            docId: 'wiki-main',
-            position: 'right',
-            label: 'Docs',
+            docId: 'index',
+            position: 'left',
+            label: 'Guide',
+          },
+          {
+            type: 'doc',
+            docId: 'index',
+            docsPluginId: 'reference',
+            position: 'left',
+            label: 'Reference',
+          },
+          {
+            type: 'doc',
+            docId: 'cli',
+            docsPluginId: 'cli',
+            position: 'left',
+            label: 'CLI',
           },
           {
             href: 'https://github.com/recyclarr/recyclarr',
@@ -136,7 +170,7 @@ const config: Config = {
             items: [
               {
                 label: `${otherInfo.versionTitle} Version Docs`,
-                href: `https://${otherInfo.hostname}/wiki`,
+                href: `https://${otherInfo.hostname}/guide`,
               },
             ],
           },

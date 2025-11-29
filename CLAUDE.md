@@ -5,7 +5,7 @@ repository.
 
 ## Project Overview
 
-This is the official documentation website for Recyclarr, built using Docusaurus 3.8. The site
+This is the official documentation website for Recyclarr, built using Docusaurus. The site
 serves as both a wiki and documentation hub, with dual deployment environments:
 
 - Production: `recyclarr.dev` (master branch)
@@ -24,20 +24,29 @@ serves as both a wiki and documentation hub, with dual deployment environments:
 - ALWAYS use Playwright MCP for visual feedback when testing documentation changes
 - NEVER run `yarn start` unless Playwright gives connectivity errors (user typically already running
   it)
-- Navigate to `http://localhost:3000/wiki/[page]` to verify rendered output
+- Navigate to `http://localhost:3000/guide/[page]` to verify rendered output
 - Use `browser_snapshot` to inspect page structure and verify content appears correctly
 
 ## Architecture
 
-- Homepage redirects to `/wiki/` via `src/pages/index.js`
-- All content in `docs/` directory (MDX format), routed to `/wiki/` path
-- Auto-generated sidebar from folder structure via `sidebars.js`
+- Homepage links to `/guide/getting-started`
+- Multi-instance docs: `docs-guide/` → `/guide/`, `docs-reference/` → `/reference/`,
+  `docs-cli/` → `/cli/`
+- Separate sidebars per instance: `sidebars-guide.js`, `sidebars-reference.js`, `sidebars-cli.js`
 - Category files (`_category_.yml`) control section organization
 - `docusaurus.config.ts` - Main config with environment-aware hostname switching
 - SCSS styling in `src/css/` (not plain CSS) - see Styling Architecture section
 - Dark mode default, Algolia search, GitHub codeblock theme
 
 ## Content Guidelines
+
+### Document IDs and File Naming
+
+Omit explicit `id` in frontmatter. Docusaurus derives ID from filepath - filename becomes the URL
+segment. Parent directory provides scope, so avoid redundant prefixes:
+
+- `docs-cli/list/custom-formats.mdx` → URL `/cli/list/custom-formats` (no `id` needed)
+- `docs-reference/secrets.mdx` → URL `/reference/secrets` (not `secrets-reference`)
 
 ### Markdown Standards
 
@@ -67,7 +76,7 @@ CRITICAL: YOU MUST verify against actual Recyclarr codebase behavior
 
 **ALL page types follow this beginner-friendly pattern:**
 
-1. **Frontmatter**: Required fields (`id`, `title`, `sidebar_position` for config pages)
+1. **Frontmatter**: Required fields (`title`, `sidebar_position` for config pages)
 2. **Overview/Purpose**: What this does and why users want it (plain language outcomes)
 3. **Quick Start**: Simplest working example first
 4. **Detailed Content**: Step-by-step with context, organized basic → advanced
@@ -108,8 +117,8 @@ CRITICAL: YOU MUST verify against actual Recyclarr codebase behavior
 **Code blocks (MUST specify language):** `bash` (commands), `yml` (configs), `js` (CLI syntax),
 `txt` (file structures)
 
-**Links:** Relative paths (`../page.mdx`) or root-relative (`/section/page.mdx`); define at bottom
-if used multiple times
+**Links:** Prefer absolute paths (`/guide/page`, `/reference/config`); omit `.mdx` extension. Define
+link references at bottom if used multiple times.
 
 **Tables:** Properly formatted with headers; use compatibility tables for version requirements
 
@@ -118,7 +127,7 @@ if used multiple times
 NEVER retroactively update upgrade guides (historical snapshots). Create unreleased guides when
 deprecations are introduced.
 
-**File:** `docs/upgrade-guide/v[X].0.mdx` with frontmatter:
+**File:** `docs-guide/upgrade-guide/v[X].0.mdx` with frontmatter:
 
 ```txt
 ---
@@ -132,8 +141,7 @@ sidebar_position: [number]
 
 ## Dependencies
 
-Docusaurus 3.8 (TypeScript), React 19 (MDX), Node.js >=22.0.0, Algolia search, Iconify React,
-docusaurus-plugin-sass
+Docusaurus (TypeScript), React (MDX), Algolia search, Iconify React, docusaurus-plugin-sass
 
 ## Styling Architecture
 
@@ -149,7 +157,7 @@ Custom styling uses SCSS (not plain CSS) organized into modular files:
 
 ### Docusaurus Version Compatibility
 
-Current version: **Docusaurus 3.8**
+Check `package.json` for current Docusaurus version.
 
 **Important**: Custom styles target Docusaurus internal classes (`.navbar__*`, `.menu__*`,
 `aside[class^="theme-doc-sidebar-container"]`). These selectors are version-specific.
@@ -163,7 +171,7 @@ When upgrading Docusaurus major or minor versions:
 3. **Test Dev Server**: Run `yarn start` - verify no console errors
 4. **Visual Regression Testing**:
    - Visit `/` - verify homepage navbar, logo animation, layout
-   - Visit `/wiki/` - verify docs navbar, sidebar, menu items
+   - Visit `/guide/` - verify docs navbar, sidebar, menu items
    - Check navbar consistency between pages (same styling on both)
    - Test sidebar active states and category collapsing
    - Verify responsive design (resize browser window)

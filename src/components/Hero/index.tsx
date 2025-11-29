@@ -17,7 +17,7 @@ export default function Hero() {
         <div className={styles.heroButtons}>
           <Link
             className={styles.buttonPrimary}
-            to="/wiki/getting-started">
+            to="/guide/getting-started">
             <Icon icon="mdi:book-open-page-variant" />
             Get Started
           </Link>
