@@ -151,18 +151,27 @@ Quality size files define file size ranges for different quality levels:
 
 ## Media Naming JSON Structure
 
-Media naming files define file and folder naming patterns:
+Media naming files define file and folder naming patterns. Each pattern type (`folder` and `file`)
+contains named variants for different media servers and use cases:
 
 ```json
 {
-  "trash_id": "your-naming-id",
-  "file": "{Movie Title} ({Release Year}) {Quality Full}",
-  "folder": "{Movie Title} ({Release Year})"
+  "folder": {
+    "default": "{Movie CleanTitle} ({Release Year})",
+    "plex-imdb": "{Movie CleanTitle} ({Release Year}) {imdb-{ImdbId}}",
+    "jellyfin-tmdb": "{Movie CleanTitle} ({Release Year}) [tmdbid-{TmdbId}]"
+  },
+  "file": {
+    "standard": "{Movie CleanTitle} {(Release Year)} - {{Edition Tags}} {[Custom Formats]}{[Quality Full]}{-Release Group}",
+    "plex-imdb": "{Movie CleanTitle} {(Release Year)} {imdb-{ImdbId}} - {edition-{Edition Tags}} {[Custom Formats]}{[Quality Full]}{-Release Group}",
+    "jellyfin-tmdb": "{Movie CleanTitle} {(Release Year)} [tmdbid-{TmdbId}] - {{Edition Tags}} {[Custom Formats]}{[Quality Full]}{-Release Group}"
+  }
 }
 ```
 
-The exact fields depend on whether it's for Radarr or Sonarr, as they have different naming token
-systems.
+The variant names (like `default`, `standard`, `plex-imdb`) are what you reference in your Recyclarr
+configuration. The exact naming tokens depend on whether it's for Radarr or Sonarr, as they have
+different token systems.
 
 ## Category Organization (Optional)
 

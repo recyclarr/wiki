@@ -19,14 +19,6 @@ serves as both a wiki and documentation hub, with dual deployment environments:
 - `yarn serve` - Serve built site locally for testing
 - `yarn clear` - Clear Docusaurus cache and generated files
 
-**Testing with Playwright MCP:**
-
-- ALWAYS use Playwright MCP for visual feedback when testing documentation changes
-- NEVER run `yarn start` unless Playwright gives connectivity errors (user typically already running
-  it)
-- Navigate to `http://localhost:3000/guide/[page]` to verify rendered output
-- Use `browser_snapshot` to inspect page structure and verify content appears correctly
-
 ## Architecture
 
 - Homepage links to `/guide/getting-started`
