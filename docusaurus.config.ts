@@ -2,23 +2,12 @@ import type {Config} from '@docusaurus/types'
 import { themes } from 'prism-react-renderer';
 // import darkCodeTheme from 'prism-react-renderer/themes/dracula';
 
-function currentOrNextInfo(getNext) {
-  var master = {
-    hostname: 'recyclarr.dev',
-    versionTitle: 'Current'
-  }
+const isNext = process.env.GITHUB_REF === 'refs/heads/next';
 
-  var next = {
-    hostname: 'next.recyclarr.dev',
-    versionTitle: 'Next'
-  }
-
-  return getNext ? next : master;
-}
-
-const isNext = process.env.GITHUB_REF === 'refs/heads/next'
-const currentInfo = currentOrNextInfo(isNext)
-const otherInfo = currentOrNextInfo(!isNext)
+// URLs can be overridden via environment variables for local development
+const currentUrl = process.env.CURRENT_URL || (isNext ? 'https://next.recyclarr.dev' : 'https://recyclarr.dev');
+const otherUrl = process.env.OTHER_URL || (isNext ? 'https://recyclarr.dev' : 'https://next.recyclarr.dev');
+const otherVersionTitle = isNext ? 'Current' : 'Next';
 
 const config: Config = {
   // Enable Docusaurus v4 future flags for easier future upgrades
@@ -28,7 +17,7 @@ const config: Config = {
 
   title: 'Recyclarr',
   tagline: 'Documentation for Recyclarr',
-  url: `https://${currentInfo.hostname}`,
+  url: currentUrl,
   baseUrl: '/',
   onBrokenLinks: 'throw',
   favicon: 'img/favicon.ico',
@@ -40,7 +29,9 @@ const config: Config = {
   },
 
   customFields: {
-    isNext: isNext
+    isNext: isNext,
+    otherUrl: otherUrl,
+    otherVersionTitle: otherVersionTitle,
   },
 
   // GitHub pages deployment config.
@@ -133,6 +124,10 @@ const config: Config = {
             label: 'CLI',
           },
           {
+            type: 'custom-versionSwitch',
+            position: 'right',
+          },
+          {
             href: 'https://github.com/recyclarr/recyclarr',
             position: 'right',
             className: "header-github-link",
@@ -169,8 +164,8 @@ const config: Config = {
             title: 'Versions',
             items: [
               {
-                label: `${otherInfo.versionTitle} Version Docs`,
-                href: `https://${otherInfo.hostname}/guide`,
+                label: `${otherVersionTitle} Version Docs`,
+                href: `${otherUrl}/guide`,
               },
             ],
           },
