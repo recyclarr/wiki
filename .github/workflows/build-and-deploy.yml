@@ -5,21 +5,23 @@ on:
   push:
     paths:
       - .github/workflows/build-and-deploy.yml
-      - "docs/**"
-      - "src/**"
-      - "static/**"
-      - "**.js"
-      - "**.json"
-      - "**.lock"
+      - docs-*/**
+      - src/**
+      - static/**
+      - "*.js"
+      - "*.ts"
+      - "*.json"
+      - "*.lock"
   pull_request:
     paths:
       - .github/workflows/build-and-deploy.yml
-      - "docs/**"
-      - "src/**"
-      - "static/**"
-      - "**.js"
-      - "**.json"
-      - "**.lock"
+      - docs-*/**
+      - src/**
+      - static/**
+      - "*.js"
+      - "*.ts"
+      - "*.json"
+      - "*.lock"
 
 permissions:
   contents: read
