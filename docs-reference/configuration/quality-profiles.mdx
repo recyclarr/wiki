@@ -24,6 +24,7 @@ service_type:
           until_quality: Remux-1080p
           until_score: 456
         min_format_score: 123
+        min_upgrade_format_score: 100
         score_set: sqp-1-1080p
         quality_sort: bottom
         qualities:
@@ -122,6 +123,14 @@ used with this property. Visit the [relevant CLI reference page][cliscoresets] f
 
 Correlates directly to the "Minimum Custom Format Score" field in the Quality Profile edit dialog in
 Radarr/Sonarr.
+
+## `min_upgrade_format_score` {#min-upgrade-format-score}
+
+**Optional.** *Default: leave existing value untouched*
+
+Correlates directly to the "Minimum Custom Format Score For Upgrades" field in the Quality Profile
+edit dialog in Radarr/Sonarr. This controls the minimum custom format score required to upgrade an
+already-downloaded release, separate from `min_format_score` which controls initial downloads.
 
 ## `upgrade` {#upgrade}
 
