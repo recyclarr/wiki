@@ -1,75 +1,156 @@
 ---
 id: getting-started
-sidebar_position: 4
+sidebar_position: 1
 title: Getting Started
 ---
 
-:::warning
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
-Please make sure you've reviewed the various [installation methods](/guide/installation) before
-getting started here.
+Recyclarr automatically syncs recommended settings from [TRaSH Guides](https://trash-guides.info/)
+to your Sonarr and Radarr instances. This guide walks you through installation to your first sync.
 
-:::
+## Step 1: Install Recyclarr
 
-Recyclarr requires one or more YAML configuration files in order to work. The main configuration
-file, by default, is named `recyclarr.yml` and lives in your [application data directory][appdata],
-which varies depending on your chosen platform.
-
-Choose the section below representing your chosen installation method and run those steps if you
-want to get started with a minimal configuration file.
+Choose your preferred installation method:
 
 <details>
-<summary>Docker</summary>
+<summary>Docker Compose (Recommended)</summary>
 
-[Installation Instructions](/guide/installation/docker)
+Create a `docker-compose.yml` file:
 
-The steps below assume you are using Docker Compose with a service named `recyclarr`. You are
-responsible for translating these steps appropriately for other solutions like Docker Swarm,
-Kubernetes, raw Docker, etc.
+```yml
+services:
+  recyclarr:
+    image: ghcr.io/recyclarr/recyclarr
+    container_name: recyclarr
+    user: 1000:1000
+    volumes:
+      - ./config:/config
+    environment:
+      TZ: America/Santiago
+```
 
-1. Run `docker compose run --rm recyclarr config create` to create a starter `recyclarr.yml` file in
-   the [application data directory][appdata] (for Docker, this will be in `/config/recyclarr.yml`).
-1. Open the generated YAML file from the previous step. At a minimum you must update the `base_url`
-   and `api_key` properties for each service that you want to use. Use the configuration [reference]
-   and [examples] pages to assist you in understanding an editing other parts of the file as you see
-   fit.
-
-If you're using [Cron Mode](/guide/installation/docker#cron-mode), your work ends here. If you want to
-verify the behavior by [running manually](/guide/installation/docker#manual-mode), then you can execute
-`docker compose run --rm recyclarr sync` to update all instances using the configuration provided in
-the previous step.
+For networking setup, image tags, and advanced options, see the [Docker Compose guide][docker].
 
 </details>
 
 <details>
-<summary>Manual Installation</summary>
+<summary>Homebrew (macOS & Linux)</summary>
 
-[Installation Instructions](/guide/installation/manual-install)
+```bash
+brew tap recyclarr/recyclarr
+brew install recyclarr
+```
 
-1. Run `recyclarr config create` to create a starter `recyclarr.yml` file in the [application data
-   directory][appdata].
-1. Open the generated YAML file from the previous step. At a minimum you must update the `base_url`
-   and `api_key` properties for each service that you want to use. Use the configuration [reference]
-   and [examples] pages to assist you in understanding an editing other parts of the file as you see
-   fit.
-1. Run `recyclarr sync` to update all instances using the configuration provided in the previous
-   step.
+To upgrade later: `brew update && brew upgrade recyclarr`
+
+Source: [github.com/recyclarr/homebrew-recyclarr][brew-tap]
 
 </details>
 
-Each command supports printing help on the command line. Simply run `recyclarr --help` for the main
-help output and a list of commands. You can then see the help for each command by running `recyclarr
-[command] --help`, where `[command]` is one of those commands (e.g. `sync`). You can also visit the
-[CLI Reference](/cli) page for detailed documentation as well.
+<details>
+<summary>Manual Download</summary>
 
-:::tip
+Download the latest release for your platform:
 
-If you want to organize your configuration into multiple YAML files, learn about [how YAML files are
-loaded](/guide/file-structure#default-yaml) and look at [examples of how to split your
-files](/reference/config-examples)
+| Platform | 64-bit                                                   |
+| -------- | -------------------------------------------------------- |
+| Windows  | [x64][win-x64], [arm64][win-arm64]                       |
+| Linux    | [x64][linux-x64], [arm64][linux-arm64], [arm][linux-arm] |
+| macOS    | [x64][osx-x64], [arm64][osx-arm64]                       |
 
-:::
+Extract and place the `recyclarr` binary somewhere in your `$PATH`.
 
+For installation scripts and details, see the [Manual Installation guide][manual].
+
+</details>
+
+<details>
+<summary>Unraid</summary>
+
+Search for "recyclarr" in the Community Apps tab, or use the un.recyclarr plugin.
+
+See the [Unraid guide][unraid] for details.
+
+</details>
+
+## Step 2: Create Configuration
+
+<Tabs groupId="install-method">
+  <TabItem value="native" label="Native" default>
+
+```bash
+recyclarr config create
+```
+
+  </TabItem>
+  <TabItem value="docker" label="Docker">
+
+```bash
+docker compose run --rm recyclarr config create
+```
+
+  </TabItem>
+</Tabs>
+
+This creates `recyclarr.yml` in your [application data directory][appdata].
+
+## Step 3: Edit Configuration
+
+Open `recyclarr.yml` and configure at minimum:
+
+- `base_url`: Your Sonarr/Radarr instance URL
+- `api_key`: Found in Sonarr/Radarr under Settings → General
+
+See the [configuration reference][reference] and [examples][examples] for guidance.
+
+## Step 4: Run Sync
+
+<Tabs groupId="install-method">
+  <TabItem value="native" label="Native" default>
+
+```bash
+recyclarr sync
+```
+
+  </TabItem>
+  <TabItem value="docker" label="Docker">
+
+To run manually:
+
+```bash
+docker compose run --rm recyclarr sync
+```
+
+Or start in [Cron Mode][cron] for automatic daily syncs:
+
+```bash
+docker compose up -d
+```
+
+  </TabItem>
+</Tabs>
+
+## Next Steps
+
+- [Configuration Reference][reference] - All available settings
+- [Config Examples][examples] - Real-world configuration patterns
+- [CLI Reference](/cli) - All commands and options
+- [File Structure][appdata] - Where Recyclarr stores data
+
+[docker]: /guide/installation/docker
+[manual]: /guide/installation/manual-install
+[unraid]: /guide/installation/unraid
+[brew-tap]: https://github.com/recyclarr/homebrew-recyclarr
 [appdata]: /guide/file-structure#appdata-directory
 [reference]: /reference/configuration
 [examples]: /reference/config-examples
+[cron]: /guide/installation/docker#cron-mode
+[win-x64]: https://github.com/recyclarr/recyclarr/releases/latest/download/recyclarr-win-x64.zip
+[win-arm64]: https://github.com/recyclarr/recyclarr/releases/latest/download/recyclarr-win-arm64.zip
+[linux-x64]: https://github.com/recyclarr/recyclarr/releases/latest/download/recyclarr-linux-x64.tar.xz
+[linux-arm64]: https://github.com/recyclarr/recyclarr/releases/latest/download/recyclarr-linux-arm64.tar.xz
+[linux-arm]: https://github.com/recyclarr/recyclarr/releases/latest/download/recyclarr-linux-arm.tar.xz
+[osx-x64]: https://github.com/recyclarr/recyclarr/releases/latest/download/recyclarr-osx-x64.tar.xz
+[osx-arm64]: https://github.com/recyclarr/recyclarr/releases/latest/download/recyclarr-osx-arm64.tar.xz
