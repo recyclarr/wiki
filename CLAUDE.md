@@ -83,6 +83,11 @@ CRITICAL: YOU MUST verify against actual Recyclarr codebase behavior
 - **Setup pages**: Prerequisites with verification, alternative methods
 - **Troubleshooting pages**: Root cause explanation, diagnostic steps
 
+**Special pages:**
+
+- **Features page** (`docs-guide/features.mdx`): High-level capability overview only. Do not add
+  granular details like individual configuration fields. Link to reference docs for details.
+
 ### Writing Style Guidelines
 
 **Beginner-Friendly Requirements (CRITICAL):**
