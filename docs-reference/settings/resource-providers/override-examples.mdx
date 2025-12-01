@@ -1,0 +1,212 @@
+---
+title: Override Examples
+sidebar_label: Override Examples
+---
+
+This page demonstrates how to extend or override official resources using custom providers. Each
+resource type uses a different identification key for merging - see [Resource Identification
+Keys](./index.mdx#resource-identification-keys) for the complete reference.
+
+## Key Concepts
+
+When working with resource providers:
+
+- **Extend**: Use a unique key to add new resources alongside official ones
+- **Override**: Use the same key as an official resource to replace it entirely
+
+All key comparisons are case-insensitive.
+
+## Media Naming
+
+Media naming uses **dictionary keys** (like `default`, `no-episode-title`) for identification.
+
+### Sonarr Naming Example
+
+Official TRaSH Guides provides naming schemes with keys like `default`. To add your own schemes or
+override existing ones:
+
+```json
+{
+  "season": {
+    "default": "Season {season:00}"
+  },
+  "series": {
+    "default": "{Series TitleYear}",
+    "plex": "{Series TitleYear} {tvdb-{TvdbId}}"
+  },
+  "episodes": {
+    "standard": {
+      "default": "{Series TitleYear} - S{season:00}E{episode:00} - {Episode CleanTitle}",
+      "my-compact": "{Series Title} - {season:00}x{episode:00} - {Episode Title}"
+    },
+    "daily": {
+      "default": "{Series TitleYear} - {Air-Date} - {Episode CleanTitle}"
+    },
+    "anime": {
+      "default": "{Series TitleYear} - S{season:00}E{episode:00} - {absolute:000} - {Episode CleanTitle}"
+    }
+  }
+}
+```
+
+In this example:
+
+- `default` keys override the official TRaSH naming schemes
+- `plex` and `my-compact` are new keys that extend the available options
+
+### Radarr Naming Example
+
+```json
+{
+  "folder": {
+    "default": "{Movie CleanTitle} ({Release Year})",
+    "plex-imdb": "{Movie CleanTitle} ({Release Year}) {imdb-{ImdbId}}"
+  },
+  "file": {
+    "default": "{Movie CleanTitle} ({Release Year}) {[Quality Full]}",
+    "my-detailed": "{Movie CleanTitle} ({Release Year}) - {Edition Tags} {[Custom Formats]}{[Quality Full]}{-Release Group}"
+  }
+}
+```
+
+## Config Includes
+
+Config includes use the **`id` field** in `includes.json` for identification.
+
+### Overriding an Official Include
+
+To replace the official `radarr-cf-remux-web-1080p` include with your own version:
+
+**includes.json:**
+
+```json
+[
+  {
+    "id": "radarr-cf-remux-web-1080p",
+    "template": "radarr/includes/cf-remux-web-1080p.yml"
+  }
+]
+```
+
+Your include with the same ID completely replaces the official version.
+
+### Adding New Includes
+
+Use unique IDs to add alongside official includes:
+
+```json
+[
+  {
+    "id": "my-radarr-anime-quality",
+    "template": "radarr/includes/anime-quality.yml"
+  },
+  {
+    "id": "my-sonarr-language-german",
+    "template": "sonarr/includes/language-german.yml"
+  }
+]
+```
+
+## Config Templates
+
+Config templates use the **`id` field** in `templates.json` for identification.
+
+### Overriding an Official Template
+
+To replace the official `radarr-sqp-1-1080p` template:
+
+**templates.json:**
+
+```json
+[
+  {
+    "id": "radarr-sqp-1-1080p",
+    "template": "radarr/templates/sqp-1-1080p.yml"
+  }
+]
+```
+
+### Adding New Templates
+
+```json
+[
+  {
+    "id": "my-radarr-4k-hdr",
+    "template": "radarr/templates/4k-hdr.yml"
+  }
+]
+```
+
+## Custom Formats
+
+Custom formats use the **`trash_id` field** in each JSON file for identification.
+
+### Overriding an Official Custom Format
+
+Copy the official custom format JSON, modify it as needed, and keep the same `trash_id`:
+
+```json
+{
+  "trash_id": "496f355514737f7d83bf7aa4d24f8169",
+  "name": "TrueHD ATMOS (Modified)",
+  "specifications": [
+    {
+      "name": "TrueHD ATMOS",
+      "implementation": "ReleaseTitleSpecification",
+      "fields": {
+        "value": "\\b(TrueHD.?Atmos|Atmos.?TrueHD)\\b"
+      }
+    }
+  ]
+}
+```
+
+Since your provider is listed after the implicit official provider, your version takes precedence.
+
+### Adding New Custom Formats
+
+Use a unique `trash_id` (UUID or descriptive slug):
+
+```json
+{
+  "trash_id": "my-german-dub",
+  "name": "German Dub",
+  "specifications": [
+    {
+      "name": "German Language",
+      "implementation": "LanguageSpecification",
+      "fields": {
+        "value": 4
+      }
+    }
+  ]
+}
+```
+
+## Provider Configuration
+
+For all override scenarios, add your provider to `settings.yml`:
+
+```yml
+resource_providers:
+  # For trash-guides content (naming, quality sizes, custom formats)
+  - name: my-guides
+    type: trash-guides
+    clone_url: https://github.com/yourname/my-guides.git
+    reference: main
+
+  # For config templates and includes
+  - name: my-templates
+    type: config-templates
+    clone_url: https://github.com/yourname/my-templates.git
+    reference: main
+
+  # For simple custom format additions (no metadata.json needed)
+  - name: my-cfs
+    type: custom-formats
+    path: /home/user/custom-formats/radarr
+    service: radarr
+```
+
+Resources from your providers override official ones with matching keys. Resources with unique keys
+are added alongside official content.

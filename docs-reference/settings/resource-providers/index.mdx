@@ -66,13 +66,30 @@ Resources can come from two locations:
 
 ### How Precedence Works
 
-When multiple providers have resources with the same ID:
+When multiple providers have resources with the same identification key:
 
 - **Bottom-up precedence**: The last provider in the list wins
 - **Official sources have lowest precedence**: They're implicitly added at the top of the list
-- **Different IDs are additive**: Resources with unique IDs from all providers are combined
+- **Different keys are additive**: Resources with unique keys from all providers are combined
 
-This means your custom resources can override official ones by using the same Trash ID.
+This means your custom resources can override official ones by using the same identification key.
+
+### Resource Identification Keys
+
+Different resource types use different fields to determine uniqueness when merging across providers.
+All comparisons are case-insensitive.
+
+| Resource Type    | Identification Key | Example                            |
+| ---------------- | ------------------ | ---------------------------------- |
+| Custom Formats   | `trash_id` field   | `adb69736c7c245bcb3661ad1c36ae6a3` |
+| Quality Profiles | `trash_id` field   | `ebf5f3740e3d4e7a9e68c7e9c5f8a1d2` |
+| Quality Sizes    | `type` field       | `series`, `movie`                  |
+| Media Naming     | Dictionary key     | `default`, `no-episode-title`      |
+| Config Templates | `id` field         | `radarr-sqp-1-1080p`               |
+| Config Includes  | `id` field         | `radarr-cf-remux-web-1080p`        |
+
+See [Override Examples](./override-examples.mdx) for practical examples of extending and replacing
+resources.
 
 ## Quick Start: Adding Local Custom Formats
 
@@ -108,8 +125,8 @@ Each JSON file defines a custom format. Here's a minimal example (`German-Langua
 }
 ```
 
-For more details on the JSON structure and available fields, see
-[Custom Format JSON Structure](./trash-guides-structure.mdx#custom-format-json-structure).
+For more details on the JSON structure and available fields, see [Custom Format JSON
+Structure](./trash-guides-structure.mdx#custom-format-json-structure).
 
 **Step 2**: Add the folder to your `settings.yml`:
 
