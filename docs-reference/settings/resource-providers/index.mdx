@@ -79,14 +79,14 @@ This means your custom resources can override official ones by using the same id
 Different resource types use different fields to determine uniqueness when merging across providers.
 All comparisons are case-insensitive.
 
-| Resource Type    | Identification Key | Example                            |
-| ---------------- | ------------------ | ---------------------------------- |
-| Custom Formats   | `trash_id` field   | `adb69736c7c245bcb3661ad1c36ae6a3` |
-| Quality Profiles | `trash_id` field   | `ebf5f3740e3d4e7a9e68c7e9c5f8a1d2` |
-| Quality Sizes    | `type` field       | `series`, `movie`                  |
-| Media Naming     | Dictionary key     | `default`, `no-episode-title`      |
-| Config Templates | `id` field         | `radarr-sqp-1-1080p`               |
-| Config Includes  | `id` field         | `radarr-cf-remux-web-1080p`        |
+| Resource Type    | Identification Key | Example                               |
+| ---------------- | ------------------ | ------------------------------------- |
+| Custom Formats   | `trash_id` field   | `ae4cfaa9283a4f2150ac3da08e388723`    |
+| Quality Profiles | `trash_id` field   | `d1d67249d3890e49bc12e275d989a7e9`    |
+| Quality Sizes    | `type` field       | `series`, `movie`                     |
+| Media Naming     | Dictionary key     | `default`, `plex-imdb`                |
+| Config Templates | `id` field         | `hd-bluray-web`                       |
+| Config Includes  | `id` field         | `radarr-custom-formats-hd-bluray-web` |
 
 See [Override Examples](./override-examples.mdx) for practical examples of extending and replacing
 resources.

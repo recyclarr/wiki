@@ -46,7 +46,8 @@ Static assets: `/img/` (logos), `/doc-img/` (screenshots)
 - Admonitions: `:::info` (optional/context), `:::tip` (best practices), `:::warning` (pitfalls),
   `:::danger` (data loss risks)
 
-Target audience: Beginners to Recyclarr. Lead with outcomes, simple examples first.
+Target audience: Beginners to Recyclarr. Lead with outcomes, simple examples first. Never use "SQP"
+in examples - those quality profile names are intentionally undocumented.
 
 ## Documentation Accuracy
 

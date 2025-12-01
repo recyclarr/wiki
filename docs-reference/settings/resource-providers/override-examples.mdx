@@ -18,7 +18,7 @@ All key comparisons are case-insensitive.
 
 ## Media Naming
 
-Media naming uses **dictionary keys** (like `default`, `no-episode-title`) for identification.
+Media naming uses **dictionary keys** (like `default`, `plex-imdb`) for identification.
 
 ### Sonarr Naming Example
 
@@ -32,7 +32,7 @@ override existing ones:
   },
   "series": {
     "default": "{Series TitleYear}",
-    "plex": "{Series TitleYear} {tvdb-{TvdbId}}"
+    "plex-tvdb": "{Series TitleYear} {tvdb-{TvdbId}}"
   },
   "episodes": {
     "standard": {
@@ -52,7 +52,7 @@ override existing ones:
 In this example:
 
 - `default` keys override the official TRaSH naming schemes
-- `plex` and `my-compact` are new keys that extend the available options
+- `plex-tvdb` overrides the official key; `my-compact` extends with a new option
 
 ### Radarr Naming Example
 
@@ -63,7 +63,7 @@ In this example:
     "plex-imdb": "{Movie CleanTitle} ({Release Year}) {imdb-{ImdbId}}"
   },
   "file": {
-    "default": "{Movie CleanTitle} ({Release Year}) {[Quality Full]}",
+    "standard": "{Movie CleanTitle} ({Release Year}) {[Quality Full]}",
     "my-detailed": "{Movie CleanTitle} ({Release Year}) - {Edition Tags} {[Custom Formats]}{[Quality Full]}{-Release Group}"
   }
 }
@@ -75,15 +75,15 @@ Config includes use the **`id` field** in `includes.json` for identification.
 
 ### Overriding an Official Include
 
-To replace the official `radarr-cf-remux-web-1080p` include with your own version:
+To replace the official `radarr-custom-formats-hd-bluray-web` include with your own version:
 
 **includes.json:**
 
 ```json
 [
   {
-    "id": "radarr-cf-remux-web-1080p",
-    "template": "radarr/includes/cf-remux-web-1080p.yml"
+    "id": "radarr-custom-formats-hd-bluray-web",
+    "template": "radarr/includes/custom-formats/hd-bluray-web.yml"
   }
 ]
 ```
@@ -113,15 +113,15 @@ Config templates use the **`id` field** in `templates.json` for identification.
 
 ### Overriding an Official Template
 
-To replace the official `radarr-sqp-1-1080p` template:
+To replace the official `hd-bluray-web` template:
 
 **templates.json:**
 
 ```json
 [
   {
-    "id": "radarr-sqp-1-1080p",
-    "template": "radarr/templates/sqp-1-1080p.yml"
+    "id": "hd-bluray-web",
+    "template": "radarr/templates/hd-bluray-web.yml"
   }
 ]
 ```
