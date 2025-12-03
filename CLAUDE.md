@@ -15,8 +15,8 @@ Recyclarr documentation site built with Docusaurus. Dual deployment:
 
 ## Architecture
 
-- Multi-instance docs: `docs-guide/` → `/guide/`, `docs-reference/` → `/reference/`,
-  `docs-cli/` → `/cli/`
+- Multi-instance docs: `docs-guide/` → `/guide/`, `docs-reference/` → `/reference/`, `docs-cli/` →
+  `/cli/`
 - Sidebars: `sidebars-guide.js`, `sidebars-reference.js`, `sidebars-cli.js`
 - Category organization: `_category_.yml` files
 - Styling: SCSS in `src/css/` (not plain CSS)
@@ -42,7 +42,8 @@ Static assets: `/img/` (logos), `/doc-img/` (screenshots)
 - Omit `id` in frontmatter - Docusaurus derives from filepath
 - Max line length: 100 chars (markdownlint enforced)
 - Code blocks require language: `bash`, `yml`, `txt`
-- Links: absolute paths (`/guide/page`), omit `.mdx`
+- Links: within-instance use relative paths with `.mdx` (`./page.mdx`, `../folder/page.mdx`);
+  cross-instance use absolute paths (`/reference/page`)
 - Admonitions: `:::info` (optional/context), `:::tip` (best practices), `:::warning` (pitfalls),
   `:::danger` (data loss risks)
 
@@ -57,8 +58,9 @@ examples against schema, cross-reference CLI help output.
 ## Special Pages
 
 - `docs-guide/features.mdx` - High-level overview only; link to reference docs for details
-- Upgrade guides (`docs-guide/upgrade-guide/`) are historical snapshots - never retroactively update.
-  Use anchor IDs for breaking changes, `# <<< RENAMED` comments in before/after YAML examples
+- Upgrade guides (`docs-guide/upgrade-guide/`) are historical snapshots - never retroactively
+  update. Use anchor IDs for breaking changes, `# <<< RENAMED` comments in before/after YAML
+  examples
 
 ## Styling
 
