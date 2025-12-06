@@ -59,16 +59,13 @@ git_path: /usr/local/bin/git
 
 ```yml
 resource_providers:
-  trash_guides:
-    - name: official
-      clone_url: https://github.com/TRaSH-Guides/Guides.git
-      reference: master
-  config_templates:
-    - name: official
-      clone_url: https://github.com/recyclarr/config-templates.git
+  - name: my-custom-guides
+    type: trash-guides
+    clone_url: https://github.com/yourname/custom-guides.git
+    reference: main
 ```
 
-Resource providers control where Recyclarr downloads configuration data like custom formats and
+Resource providers control where Recyclarr gets configuration data like custom formats and
 templates. By default, official repositories are automatically included, so configuration is only
 needed for custom sources.
 
