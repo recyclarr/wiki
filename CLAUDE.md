@@ -7,6 +7,11 @@ Recyclarr documentation site built with Docusaurus. Dual deployment:
 - Production: `recyclarr.dev` (master branch)
 - Preview: `next.recyclarr.dev` (next branch)
 
+## Authoritative Reference
+
+Look at existing Recyclarr code via local path at `../recyclarr` (absolute path is
+platform-dependent) OR via `github.com/recyclarr/recyclarr` if local clone is not available.
+
 ## Commands
 
 - `yarn start` - Dev server at `localhost:3000`
