@@ -3,6 +3,8 @@ title: Settings
 sidebar_position: 5
 ---
 
+import DocCardList from '@theme/DocCardList';
+
 Settings are specified in a file named `settings.yml` in your [app data directory][app-data].
 Settings in this file affect the behavior of Recyclarr regardless of instance-specific configuration
 for Radarr and Sonarr.
@@ -55,18 +57,4 @@ git_path: /usr/local/bin/git
   executable itself and not a directory path. If this setting is not specified, Recyclarr will
   attempt to find `git` via your `PATH` environment variable.
 
-## Resource Providers
-
-```yml
-resource_providers:
-  - name: my-custom-guides
-    type: trash-guides
-    clone_url: https://github.com/yourname/custom-guides.git
-    reference: main
-```
-
-Resource providers control where Recyclarr gets configuration data like custom formats and
-templates. By default, official repositories are automatically included, so configuration is only
-needed for custom sources.
-
-See the [Resource Providers](./resource-providers/index.mdx) page for complete documentation.
+<DocCardList />
