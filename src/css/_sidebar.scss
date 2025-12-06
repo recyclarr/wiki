@@ -48,12 +48,6 @@ aside[class^="theme-doc-sidebar-container"] a[class*="menu__link--sublist-caret"
   margin-top: -1px;
 }
 
-/* Nested category headings (sub-sections) */
-aside[class^="theme-doc-sidebar-container"] .menu__list .menu__list .menu__link--sublist,
-aside[class^="theme-doc-sidebar-container"] .menu__list .menu__list a[class*="menu__link--sublist-caret"] {
-  font-weight: 700 !important;
-  font-size: 15px !important;
-}
 
 aside[class^="theme-doc-sidebar-container"] .menu__list-item .menu__list-item .menu__list-item {
   padding-left: 8px !important;
@@ -114,7 +108,6 @@ aside[class^="theme-doc-sidebar-container"] .menu__list-item-collapsible .menu__
 }
 
 .menu__list .menu__link--sublist {
-  font-size: 15px;
   padding: 4px 12px;
 }
 
@@ -123,21 +116,12 @@ aside[class^="theme-doc-sidebar-container"] .menu__list-item-collapsible .menu__
   margin-right: -6px;
 }
 
-.menu__list .menu__link--sublist-caret {
-  font-size: 17px;
-}
-
 /* Nested menu items - indented sub-items */
 .menu__list .menu__list .menu__link {
   line-height: 20px;
   font-size: 13px;
   padding: 4px 12px !important;
-  font-weight: 300;
   color: var(--ifm-font-color-base);
-}
-
-.menu__list .menu__list .menu__link--sublist {
-  font-size: 14px !important;
 }
 
 .menu__list .menu__list .menu__list .menu__link--active {
@@ -162,8 +146,6 @@ aside[class^="theme-doc-sidebar-container"] .menu__list-item-collapsible .menu__
 }
 
 .menu__list .menu__list-item-collapsible .menu__link {
-  font-weight: 500;
-  font-size: 15px;
   padding-left: 8px !important;
 }
 
