@@ -1,0 +1,214 @@
+---
+sidebar_position: 2
+title: "Tutorial: Your First Sync"
+---
+
+This tutorial walks you through setting up Recyclarr to sync TRaSH Guide quality profiles to Radarr.
+By the end, you'll have a working quality profile with custom formats and proper media naming.
+
+:::info No YAML expertise required
+
+You don't need to understand YAML structure or dig into template files. Recyclarr provides
+ready-to-use configuration templates that mirror the TRaSH Guides exactly.
+
+:::
+
+## Prerequisites
+
+- Radarr is running and accessible (Sonarr setup is similar — just use `sonarr` templates)
+- You know where to find your API key (Settings → General → Security)
+
+## Step 1: Install Recyclarr
+
+Create a `docker-compose.yml` file:
+
+```yml
+services:
+  recyclarr:
+    image: ghcr.io/recyclarr/recyclarr
+    container_name: recyclarr
+    user: 1000:1000
+    volumes:
+      - ./config:/config
+    environment:
+      TZ: America/Santiago
+```
+
+For detailed installation options (networking, tags, native install), see the [Installation
+Guide](./installation/index.mdx).
+
+## Step 2: Choose a Quality Profile
+
+Recyclarr provides ready-to-use templates that match TRaSH Guide quality profiles. List them with:
+
+```bash
+docker compose run --rm recyclarr config list templates
+```
+
+You'll see available templates:
+
+```txt
+┌────────────────────┬─────────────────┐
+│ Sonarr             │ Radarr          │
+├────────────────────┼─────────────────┤
+│ web-1080p-v4       │ hd-bluray-web   │
+│ web-2160p-v4       │ uhd-bluray-web  │
+│ anime-sonarr-v4    │ remux-web-1080p │
+│ ...                │ remux-web-2160p │
+│                    │ anime-radarr    │
+│                    │ ...             │
+└────────────────────┴─────────────────┘
+```
+
+These correspond to profiles on the [TRaSH Guides Radarr Quality Profiles][trash-radarr] page.
+
+[trash-radarr]: https://trash-guides.info/Radarr/radarr-setup-quality-profiles/
+
+## Step 3: Create Your Configuration
+
+Generate a config file from your chosen template:
+
+```bash
+docker compose run --rm recyclarr config create --template hd-bluray-web
+```
+
+This creates `config/recyclarr.yml` with everything pre-configured. Open it and update two lines:
+
+```yml
+radarr:
+  hd-bluray-web:
+    base_url: http://radarr:7878  # Your Radarr URL
+    api_key: your_api_key_here    # Settings → General → API Key
+```
+
+That's it. The template already includes the quality definition, quality profile, and custom formats
+from the TRaSH Guide.
+
+## Step 4: Run Your First Sync
+
+```bash
+docker compose run --rm recyclarr sync
+```
+
+You should see output like:
+
+```txt
+===========================================
+Processing Radarr Server: [hd-bluray-web]
+===========================================
+
+[INF] Created 35 New Custom Formats
+[INF] Total of 35 custom formats were synced
+[INF] Created 1 Profiles: ["HD Bluray + WEB"]
+[INF] A total of 1 profiles were synced. 1 contain quality changes and 1 contain updated scores
+[INF] Total of 14 sizes were synced for quality definition movie
+[INF] Completed at 12/7/2025 6:07:14 PM
+```
+
+## Step 5: Verify in Radarr
+
+Check these locations in Radarr to confirm the sync worked:
+
+- **Settings → Profiles** — Your new quality profile appears ("HD Bluray + WEB")
+- **Settings → Custom Formats** — New custom formats with scores assigned
+- **Settings → Quality** — Size ranges updated for each quality level
+
+## Adding More Profiles
+
+Want multiple quality profiles (e.g., both 1080p and 4K)? Add more templates to your existing config
+file.
+
+First, see what include templates are available:
+
+```bash
+docker compose run --rm recyclarr config list templates --includes
+```
+
+Then edit your `recyclarr.yml` to add them. Here's an example with four profiles:
+
+```yml
+radarr:
+  main:
+    base_url: http://radarr:7878
+    api_key: your_api_key_here
+    delete_old_custom_formats: true
+
+    include:
+      # Quality sizes (only needed once)
+      - template: radarr-quality-definition-movie
+
+      # HD Bluray + WEB (1080p)
+      - template: radarr-quality-profile-hd-bluray-web
+      - template: radarr-custom-formats-hd-bluray-web
+
+      # UHD Bluray + WEB (4K)
+      - template: radarr-quality-profile-uhd-bluray-web
+      - template: radarr-custom-formats-uhd-bluray-web
+
+      # Remux + WEB 1080p
+      - template: radarr-quality-profile-remux-web-1080p
+      - template: radarr-custom-formats-remux-web-1080p
+
+      # Remux + WEB 2160p
+      - template: radarr-quality-profile-remux-web-2160p
+      - template: radarr-custom-formats-remux-web-2160p
+```
+
+:::tip The pattern
+
+For each quality profile you want:
+
+1. Add the `quality-profile` template (creates the profile)
+2. Add the matching `custom-formats` template (adds CF scores to that profile)
+
+The `quality-definition` template only needs to be included once.
+
+:::
+
+Run `docker compose run --rm recyclarr sync` again, and all profiles will be created.
+
+## Adding Media Naming
+
+To sync TRaSH Guide naming formats, first see what's available:
+
+```bash
+docker compose run --rm recyclarr list naming radarr
+```
+
+Then add a `media_naming` section to your config:
+
+```yml
+radarr:
+  main:
+    base_url: http://radarr:7878
+    api_key: your_api_key_here
+
+    # Results visible in: Radarr → Settings → Media Management
+    media_naming:
+      folder: plex-tmdb
+      movie:
+        rename: true
+        standard: plex-tmdb
+
+    include:
+      # ... your templates
+```
+
+## When to Customize
+
+The templates provide the full TRaSH Guide recommendation. For most users, that's everything you
+need.
+
+You only need a `custom_formats:` section if you want to:
+
+- **Override a score** — Change the default score for a specific custom format
+- **Add optional custom formats** — Include CFs marked as "optional" in the TRaSH Guides
+
+For customization examples, see the [Configuration Examples](/reference/config-examples) page.
+
+## Next Steps
+
+- [Configuration Reference](/reference/configuration) — All available settings
+- [Quick Setup Templates](/guide/guide-configs) — Browse all available templates
+- [Secrets](/reference/secrets) — Store API keys securely
+- [Docker Guide](./installation/docker.mdx) — Cron mode for automatic daily syncs
