@@ -9,8 +9,11 @@ Recyclarr documentation site built with Docusaurus. Dual deployment:
 
 ## Authoritative Reference
 
-Look at existing Recyclarr code via local path at `../recyclarr` (absolute path is
-platform-dependent) OR via `github.com/recyclarr/recyclarr` if local clone is not available.
+Use octocode to access files in these upstream official repos as an authoritative reference for
+factually correct information in the docs:
+
+- Recyclarr Code: `https://github.com/recyclarr/recyclarr`
+- Recyclarr Config Templates: `https://github.com/recyclarr/config-templates`
 
 ## Commands
 
