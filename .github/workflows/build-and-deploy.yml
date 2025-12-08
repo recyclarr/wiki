@@ -57,7 +57,8 @@ jobs:
         uses: cloudflare/wrangler-action@da0e0dfe58b7a431659754fdf3f186c529afbe65 # v3.14.1
         # Publish all direct pushes to the repo, for secrets access. But ignore pull requests.
         # Non-master branches get published with a temporary URL (not the main site URL).
-        if: github.event_name != 'pull_request'
+        # Skip renovate branches - build verifies no breakage, deploy is unnecessary.
+        if: github.event_name != 'pull_request' && !startsWith(github.ref_name, 'renovate/')
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
@@ -66,12 +67,12 @@ jobs:
 
       - name: Cleanup old deployments
         uses: Th3S4mur41/cleanup-cloudflare-deployments@main
-        if: github.event_name != 'pull_request'
+        if: github.event_name != 'pull_request' && !startsWith(github.ref_name, 'renovate/')
         with:
           cloudflare-api-token: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           cloudflare-account-id: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           cloudflare-project-name: recyclarr-wiki
           github-token: ${{ secrets.GITHUB_TOKEN }}
           cleanup-types: all
-          preview-keep: 5
+          preview-keep: 2
           production-keep: 5
