@@ -186,6 +186,10 @@ const config: Config = {
       appId: "55D8QHPBTN",
       apiKey: "0473b22a41705ad31b85bdad1ee940f5",
       indexName: "recyclarr",
+      askAi: {
+        assistantId: "4mvhMSEVS5Td",
+        indexName: "recyclarr-md-index",
+      },
     },
     codeblock: {
       showGithubLink: true,
