@@ -23,6 +23,7 @@ const config: Config = {
   tagline: "Documentation for Recyclarr",
   url: currentUrl,
   baseUrl: "/",
+  trailingSlash: true,
   onBrokenLinks: "throw",
   favicon: "img/favicon.ico",
 
