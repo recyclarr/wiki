@@ -21,6 +21,17 @@ factually correct information in the docs:
 - `yarn build` - Build static site
 - `yarn clear` - Clear cache
 
+## Deployment
+
+Hosted on Cloudflare Pages. Redirects are configured in `static/_redirects`.
+
+Redirect capabilities:
+
+- Can redirect TO fragments: `/old /new#anchor 301`
+- Cannot redirect FROM fragments (anchors are client-side, never sent to server)
+
+Limits: 2,000 static + 100 dynamic redirects, 1,000 chars per rule.
+
 ## Architecture
 
 - Multi-instance docs: `docs-guide/` → `/guide/`, `docs-reference/` → `/reference/`, `docs-cli/` →
