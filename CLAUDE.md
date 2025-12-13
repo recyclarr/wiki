@@ -59,6 +59,7 @@ Static assets: `/img/` (logos), `/doc-img/` (screenshots)
 ## Content Conventions
 
 - Omit `id` in frontmatter - Docusaurus derives from filepath
+- Headings MUST use explicit anchors: `## Heading {#anchor-id}` - concise, rely on page context
 - Max line length: 100 chars (markdownlint enforced)
 - Code blocks require language: `bash`, `yml`, `txt`
 - Links: within-instance use relative paths with `.mdx` (`./page.mdx`, `../folder/page.mdx`);
