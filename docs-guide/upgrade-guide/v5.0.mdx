@@ -8,7 +8,7 @@ sidebar_position: 997
 Features have been removed *or* behavior changed. Most of the items here would have been deprecated
 in the past. Deprecations are always mentioned in release notes for minor version bumps.
 
-### Instances Must Now Be Named
+### Instances Must Now Be Named {#instances-must-now-be-named}
 
 This was deprecated starting in v3.0. With this major release, array-style syntax support is now
 completely removed. Prior to the v3.0 release, your list of instances used *array-style* syntax,
@@ -41,7 +41,7 @@ names are useful for several reasons, such as:
 - They allow easier identification in logs, cache, and other places.
 - They are used by the CLI for selective updates.
 
-### Reset Unmatched Scores
+### Reset Unmatched Scores {#reset-unmatched-scores}
 
 The `reset_unmatched_scores` property has moved. Previously, you would have specified it like this:
 
@@ -99,7 +99,7 @@ responsible for ensuring that the quality profile (in the above example, `SD`) e
 
 :::
 
-### Replace Existing Custom Formats
+### Replace Existing Custom Formats {#replace-existing-custom-formats}
 
 One of the principles of Recyclarr is that it does not touch manually created custom formats in
 Radarr or Sonarr. Unfortunately, the implementation wasn't completely respectful of this. There are
@@ -158,7 +158,7 @@ The following CLI commands were previously deprecated and now removed:
 | `recyclarr sonarr`        | [`recyclarr sync sonarr`](/cli/sync)                   |
 | `recyclarr create-config` | [`recyclarr config create`](/cli/config/create) |
 
-### Settings: Repository Changes
+### Settings: Repository Changes {#settings-repository-changes}
 
 Repository setting structure has changed. The new structure allows for more repositories to be
 configured in the future. The old structure assumed that we'd only ever have one git repo in the app
