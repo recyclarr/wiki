@@ -27,22 +27,23 @@ configuration property to have Recyclarr communicate with that service at its ne
 Recyclarr uniquely identifies an instance by its `base_url` value. If the hostname, port, path,
 scheme, or any other part of the URL changes (including adding or removing a trailing slash!),
 Recyclarr will no longer use the previous cache data and instead will create a new one. This often
-results in confusion because users start to see this warning:
+results in confusion because users start to see this error:
 
-> [WRN] Custom Format with name CRiT (Trash ID: 16622a6911d1ab5d5b8b713d5b0036d4) will be skipped
-> because another CF already exists with that name (ID: 246). To fix the conflict, delete or rename
-> the CF with the mentioned name
+> [ERR] Custom Format 'CRiT' (Trash ID: 16622a6911d1ab5d5b8b713d5b0036d4) cannot be synced because
+> another CF already exists with that name (ID: 246). To adopt the existing CF, run: recyclarr cache
+> rebuild --adopt
 
 This happens because Recyclarr no longer believes it owns that CF, even though it created it before
-the `base_url` changed. To recover, run the [cache rebuild][cache-rebuild] command:
+the `base_url` changed. To recover, run the [cache rebuild][cache-rebuild] command with the
+`--adopt` flag:
 
 ```bash
-recyclarr cache rebuild
+recyclarr cache rebuild --adopt
 ```
 
 This rebuilds the cache by matching your configured custom formats to existing ones in the service
-by name. After rebuilding, Recyclarr will recognize the CFs it previously created and resume
-managing them normally.
+by name. The `--adopt` flag tells Recyclarr to take ownership of matching CFs. After rebuilding,
+Recyclarr will recognize the CFs it previously created and resume managing them normally.
 
 [app-data]: ../file-structure.mdx#appdata-directory
 [cache-rebuild]: ../../cli/cache/cache-rebuild.mdx
