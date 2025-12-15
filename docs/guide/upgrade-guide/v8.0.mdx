@@ -229,5 +229,23 @@ resource_providers:
 
 See the [Resource Providers][resource-providers] documentation for complete configuration details.
 
+## YAML: `replace_existing_custom_formats` Removed {#replace-existing-removed}
+
+The `replace_existing_custom_formats` option has been removed. Custom format sync now uses ID-first
+matching: if a custom format is in the cache, Recyclarr trusts that cached ID regardless of name
+changes in the service.
+
+To adopt manually-created custom formats into Recyclarr management, use the cache rebuild command:
+
+```bash
+recyclarr cache rebuild --adopt
+```
+
+This adds existing custom formats (matched by name) to the cache. After adoption, Recyclarr will
+update them on subsequent syncs.
+
+Remove `replace_existing_custom_formats` from your configuration - it will trigger a deprecation
+warning if present.
+
 [include-config]: ../../reference/configuration/include.mdx#config
 [resource-providers]: ../../reference/settings/resource-providers/index.mdx
