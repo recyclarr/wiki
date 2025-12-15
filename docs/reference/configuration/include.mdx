@@ -310,14 +310,13 @@ table just covers top-level properties for instance configuration. If nested pro
 semantics, those will be documented in later sections. This will especially be the case for
 [union](#union) operations.
 
-| Property Name                     | Node Type | Merge Operation     |
-|-----------------------------------|-----------|---------------------|
-| `custom_formats`                  | Sequence  | [Join](#detail-cfs) |
-| `quality_profiles`                | Sequence  | Join                |
-| `quality_definition`              | Mapping   | Union               |
-| `delete_old_custom_formats`       | Scalar    | Replace             |
-| `replace_existing_custom_formats` | Scalar    | Replace             |
-| `media_naming`                    | Mapping   | Union               |
+| Property Name               | Node Type | Merge Operation     |
+|-----------------------------|-----------|---------------------|
+| `custom_formats`            | Sequence  | [Join](#detail-cfs) |
+| `quality_profiles`          | Sequence  | Join                |
+| `quality_definition`        | Mapping   | Union               |
+| `delete_old_custom_formats` | Scalar    | Replace             |
+| `media_naming`              | Mapping   | Union               |
 
 ### Quality Definition {#merge-quality-definition}
 
