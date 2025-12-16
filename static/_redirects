@@ -28,6 +28,7 @@
 /wiki/yaml/settings-reference /reference/settings 301
 /wiki/yaml/settings-reference/* /reference/settings/:splat 301
 /wiki/yaml/configuration-examples /reference/config-examples 301
+/wiki/yaml/config-examples /reference/config-examples 301
 /wiki/yaml/environment-variables /reference/env-vars 301
 /wiki/yaml/secrets-reference /reference/secrets 301
 /wiki/behavior/custom-formats /reference/configuration/custom-formats 301
