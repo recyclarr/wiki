@@ -72,7 +72,8 @@ Generate a config file from your chosen template:
 docker compose run --rm recyclarr config create --template hd-bluray-web
 ```
 
-This creates `config/recyclarr.yml` with everything pre-configured. Open it and update two lines:
+This creates `config/configs/hd-bluray-web.yml` with everything pre-configured. Open it and update
+two lines:
 
 ```yml
 radarr:
@@ -97,12 +98,12 @@ You should see output like:
 Processing Radarr Server: [hd-bluray-web]
 ===========================================
 
-[INF] Created 35 New Custom Formats
-[INF] Total of 35 custom formats were synced
+[INF] Created 34 New Custom Formats
+[INF] Total of 34 custom formats were synced
 [INF] Created 1 Profiles: ["HD Bluray + WEB"]
 [INF] A total of 1 profiles were synced. 1 contain quality changes and 1 contain updated scores
 [INF] Total of 14 sizes were synced for quality definition movie
-[INF] Completed at 12/7/2025 6:07:14 PM
+[INF] Completed at 12/16/2025 10:55:42
 ```
 
 ## Step 5: Verify in Radarr
@@ -124,7 +125,8 @@ First, see what include templates are available:
 docker compose run --rm recyclarr config list templates --includes
 ```
 
-Then edit your `recyclarr.yml` to add them. Here's an example with four profiles:
+Then edit your `hd-bluray-web.yml` (or create a new config file) to add them. Here's an example with
+four profiles:
 
 ```yml
 radarr:
