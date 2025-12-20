@@ -244,8 +244,27 @@ recyclarr cache rebuild --adopt
 This adds existing custom formats (matched by name) to the cache. After adoption, Recyclarr will
 update them on subsequent syncs.
 
-Remove `replace_existing_custom_formats` from your configuration - it will trigger a deprecation
-warning if present.
+Remove `replace_existing_custom_formats` from your configuration - it is no longer recognized.
+
+## CLI: `--debug` Option Removed {#debug-removed}
+
+The `-d|--debug` option has been removed. Use `--log debug` instead.
+
+**Before:**
+
+```bash
+recyclarr sync --debug
+```
+
+**After:**
+
+```bash
+recyclarr sync --log debug
+```
+
+The `--log` option enables log output mode and accepts three levels: `debug`, `info` (default), and
+`warn`. See the [CLI Common Options][common-log] documentation for details.
 
 [include-config]: ../../reference/configuration/include.mdx#config
 [resource-providers]: ../../reference/settings/resource-providers/index.mdx
+[common-log]: ../../cli/common.mdx#log-arg

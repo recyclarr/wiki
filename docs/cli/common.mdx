@@ -12,11 +12,28 @@ These are options shared by *all* commands.
 Print help output. Help is also context-aware, so you can get help output specific to any command.
 For example, `recyclarr sync -h` will print help specific to the `sync` command.
 
-### `-d|--debug` {#debug-arg}
+### `--log [LEVEL]` {#log-arg}
 
-By default, Info, Warning and Error log levels are displayed in the console. This option enables
-Debug level logs to be displayed. This is designed for debugging and development purposes and
-generally will be too noisy for normal program usage.
+Enable log output mode. When used, Recyclarr switches from interactive UI output to traditional log
+output (the same format written to log files). This is useful for scripts, automation, or debugging.
+
+Valid levels:
+
+- `debug` - Show debug, info, warning, and error messages
+- `info` - Show info, warning, and error messages (default)
+- `warn` - Show only warning and error messages
+
+When used without a level argument (`--log`), defaults to `info`.
+
+:::info Output Modes
+
+Recyclarr has two mutually exclusive output modes:
+
+- **Interactive mode** (default): Shows progress bars, tables, and formatted output. No logs are
+  printed to console (but still written to log files).
+- **Log mode** (`--log`): Shows traditional log output. Interactive UI elements are disabled.
+
+:::
 
 ### `--app-data` {#app-data}
 
