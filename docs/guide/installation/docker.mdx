@@ -223,7 +223,7 @@ docker compose run --rm recyclarr [command] [options]
 Where:
 
 - `[command]` is one of the supported Recyclarr commands, such as `sync` and `list`.
-- `[options]` are any options/arguments supported by that command (e.g. `--debug`, `--preview`).
+- `[options]` are any options/arguments supported by that command (e.g. `--log debug`, `--preview`).
 
 Examples:
 
@@ -232,10 +232,10 @@ Examples:
 docker compose run --rm recyclarr config create
 
 # Sync Sonarr with debug logs
-docker compose run --rm recyclarr sync sonarr --debug
+docker compose run --rm recyclarr sync sonarr --log debug
 
 # Do a preview (dry run) sync for Radarr
-docker compose run --rm recyclarr sync radarr --preview --debug
+docker compose run --rm recyclarr sync radarr --preview --log debug
 ```
 
 :::tip
@@ -268,7 +268,7 @@ docker exec recyclarr recyclarr [command] [options]
 Where:
 
 - `[command]` is one of the supported Recyclarr commands, such as `sync` and `list`.
-- `[options]` are any options/arguments supported by that command (e.g. `--debug`, `--preview`).
+- `[options]` are any options/arguments supported by that command (e.g. `--log debug`, `--preview`).
 
 Examples:
 
@@ -277,10 +277,10 @@ Examples:
 docker exec recyclarr recyclarr config create
 
 # Sync Sonarr with debug logs (with compose)
-docker compose exec recyclarr recyclarr sync sonarr --debug
+docker compose exec recyclarr recyclarr sync sonarr --log debug
 
 # Do a preview (dry run) sync for Radarr (without compose)
-docker exec recyclarr recyclarr sync radarr --preview --debug
+docker exec recyclarr recyclarr sync radarr --preview --log debug
 ```
 
 </details>
