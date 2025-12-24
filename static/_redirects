@@ -3,6 +3,10 @@
 # Format: [old-path] [new-path] [status-code]
 # Redirects are grouped by date (newest first). Add new redirects at the top with a date comment.
 
+# 2025-12-23: Consolidated secrets into value-substitution page
+/reference/secrets /reference/configuration/value-substitution#secrets 301
+/reference/secrets/ /reference/configuration/value-substitution#secrets 301
+
 # 2025-11-28: Reorganization from /wiki/ to multi-instance docs (/guide/, /reference/, /cli/)
 /wiki/ /guide/getting-started 301
 /wiki /guide/getting-started 301
@@ -50,8 +54,8 @@
 /wiki/yaml/config-examples/ /reference/config-examples 301
 /wiki/yaml/environment-variables /reference/env-vars 301
 /wiki/yaml/environment-variables/ /reference/env-vars 301
-/wiki/yaml/secrets-reference /reference/secrets 301
-/wiki/yaml/secrets-reference/ /reference/secrets 301
+/wiki/yaml/secrets-reference /reference/configuration/value-substitution#secrets 301
+/wiki/yaml/secrets-reference/ /reference/configuration/value-substitution#secrets 301
 /wiki/behavior/custom-formats /reference/configuration/custom-formats 301
 /wiki/behavior/custom-formats/ /reference/configuration/custom-formats 301
 /wiki/behavior/quality-profiles /reference/configuration/quality-profiles 301
