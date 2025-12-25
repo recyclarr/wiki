@@ -15,23 +15,30 @@ ready-to-use configuration templates that mirror the TRaSH Guides exactly.
 
 ## Prerequisites
 
-- Radarr is running and accessible (Sonarr setup is similar — just use `sonarr` templates)
-- You know where to find your API key (Settings → General → Security)
+- **Radarr is running:** You should already have Radarr installed and running (Sonarr setup is similar — just use `sonarr` templates)
+- **API Key:** Have your Radarr API Key ready (`Settings` → `General` → `Security`)
+- **User IDs:** Know your PUID/PGID.
+  ```bash
+  id -u  # PUID
+  id -g  # PGID
+  ```
 
 ## Step 1: Install Recyclarr
 
-Create a `docker-compose.yml` file:
+Add the Recyclarr service to your existing `docker-compose.yml` file, or create a new one.
 
 ```yml
 services:
   recyclarr:
-    image: ghcr.io/recyclarr/recyclarr
+    image: ghcr.io/recyclarr/recyclarr:latest
     container_name: recyclarr
-    user: 1000:1000
+    user: 1000:1000 # Change to your PUID:PGID
+    restart: unless-stopped
+    # Set the time zone to match your location
+    environment:
+      - TZ=America/New_York
     volumes:
       - ./config:/config
-    environment:
-      TZ: America/Santiago
 ```
 
 For detailed installation options (networking, tags, native install), see the [Installation
@@ -66,29 +73,87 @@ These correspond to profiles on the [TRaSH Guides Radarr Quality Profiles][trash
 
 ## Step 3: Create Your Configuration
 
-Generate a config file from your chosen template:
+Generate a config file from your chosen template. For example, to create the `HD Bluray + WEB` profile, run:
 
 ```bash
 docker compose run --rm recyclarr config create --template hd-bluray-web
 ```
 
-This creates `config/configs/hd-bluray-web.yml` with everything pre-configured. Open it and update
-two lines:
+This creates `config/configs/hd-bluray-web.yml` with everything pre-configured.
 
-```yml
-radarr:
-  hd-bluray-web:
-    base_url: http://radarr:7878  # Your Radarr URL
-    api_key: your_api_key_here    # Settings → General → API Key
-```
+**To use this configuration:**
+- Open the file and update the `base_url` and `api_key`.
+  ```yml
+  radarr:
+    hd-bluray-web:
+      base_url: http://radarr:7878  # Your Radarr URL
+      api_key: your_api_key_here    # Radarr → Settings → General → API Key
+  ```
+- (Optional) Add these lines if you want Recyclarr to manage custom formats exclusively (recommended):
+  ```yml
+      delete_old_custom_formats: true
+      replace_existing_custom_formats: true
+  ```
 
-That's it. The template already includes the quality definition, quality profile, and custom formats
+That's it! The template already includes the quality definition, quality profile, and custom formats
 from the TRaSH Guide.
 
-## Step 4: Run Your First Sync
+## Step 4: Adding Media Naming
+
+Recyclarr can also enforce proper file naming for Plex/Jellyfin. First, check the available naming formats:
+```bash
+$ docker compose run --rm recyclarr list naming radarr
+```
+
+Output preview:
+```
+Media Naming Formats (Preview)
+
+Movie Folder Format
+┌───────────────┬───────────────────────────────────────────────────────┐
+│ Key           │ Format                                                │
+├───────────────┼───────────────────────────────────────────────────────┤
+│ plex-tmdb     │ {Movie CleanTitle} ({Release Year}) {tmdb-{TmdbId}}   │
+│ (...other formats removed for brevity)                                │
+└───────────────┴───────────────────────────────────────────────────────┘
+
+Standard Movie Format
+┌───────────────┬────────────────────────────────────────────────────────┐
+│ Key           │ Format                                                 │
+├───────────────┼────────────────────────────────────────────────────────┤
+│ plex-tmdb     │ {Movie CleanTitle} {(Release Year)} {tmdb-{TmdbId}} -  │
+│               │ {edition-{Edition Tags}} {[MediaInfo 3D]}{[Custom      │
+│               │ Formats]}{[Quality Full]}{[Mediainfo AudioCodec}{      │
+│               │ Mediainfo AudioChannels]}{[MediaInfo                   │
+│               │ VideoDynamicRangeType]}{[Mediainfo                     │
+│               │ VideoCodec]}{-Release Group}                           │
+│ (...other formats removed for brevity)                                 │
+└───────────────┴────────────────────────────────────────────────────────┘
+```
+
+Based on this output, add the `media_naming` block to your `recyclarr.yml` file (under `api_key`).
+
+I'm using Plex, so I'm choosing `plex-tmdb` for both folder and movie naming.
+For your setup, choose whatever you like from the available options.
+
+```yml
+    # Seen in Radarr > Settings > Media Management > Movie Naming
+    media_naming:
+      folder: plex-tmdb
+      movie:
+        rename: true
+        standard: plex-tmdb
+```
+
+## Step 5: Run Your First Sync
+Now start the container in daemon mode (so it runs automatically every day) and trigger the first sync manually.
 
 ```bash
-docker compose run --rm recyclarr sync
+# 1. Start the container
+docker compose up -d recyclarr
+
+# 2. Trigger the sync
+docker exec recyclarr recyclarr sync
 ```
 
 You should see output like:
@@ -103,58 +168,109 @@ Processing Radarr Server: [hd-bluray-web]
 [INF] Created 1 Profiles: ["HD Bluray + WEB"]
 [INF] A total of 1 profiles were synced. 1 contain quality changes and 1 contain updated scores
 [INF] Total of 14 sizes were synced for quality definition movie
-[INF] Completed at 12/16/2025 10:55:42
+[INF] Media naming has been updated
+[INF] Completed at 12/25/2025 12:46:01
 ```
 
-## Step 5: Verify in Radarr
+## Step 6: Verify in Radarr
 
 Check these locations in Radarr to confirm the sync worked:
 
-- **Settings → Profiles** — Your new quality profile appears ("HD Bluray + WEB")
+- **Settings → Profiles** — Your new quality profile appears (`HD Bluray + WEB`)
+  - (Optional) You can delete other existing profiles if you don't need them
 - **Settings → Custom Formats** — New custom formats with scores assigned
 - **Settings → Quality** — Size ranges updated for each quality level
+- **Settings → Media Management → Movie Naming** — Media naming formats applied
 
 ## Adding More Profiles
 
-Want multiple quality profiles (e.g., both 1080p and 4K)? Add more templates to your existing config
-file.
+Want multiple quality profiles (e.g., both 1080p and 4K) in your 1 Radarr instance? Add more templates to your existing config file.
 
-First, see what include templates are available:
+- Find the corresponding `include` templates for each of those profiles.
+  ```bash
+  docker compose run --rm recyclarr config list templates --includes
+  ```
 
-```bash
-docker compose run --rm recyclarr config list templates --includes
-```
+  This will be the output. I've only included the Radarr column and removed the language specific and SQP Ids for brevity.
+  ```
+  ┌──────────────────────────────────────────────────────────────┐
+  │ Radarr                                                       │
+  ├──────────────────────────────────────────────────────────────┤
+  │ radarr-custom-formats-anime                                  │
+  │ radarr-custom-formats-hd-bluray-web                          │
+  │ radarr-custom-formats-remux-web-1080p                        │
+  │ radarr-custom-formats-remux-web-2160p                        │
+  │ radarr-custom-formats-uhd-bluray-web                         │
+  │ (...sqp custom-formats)                                      │
+  │ radarr-quality-definition-movie                              │
+  │ radarr-quality-definition-anime                              │
+  │ (...sqp quality-definition streaming)                        │
+  │ (...sqp quality-definition uhd)                              │
+  │ radarr-quality-profile-anime                                 │
+  │ radarr-quality-profile-hd-bluray-web                         │
+  │ radarr-quality-profile-remux-web-1080p                       │
+  │ radarr-quality-profile-remux-web-2160p                       │
+  │ radarr-quality-profile-uhd-bluray-web                        │
+  │ (...sqp quality-profiles)                                    │
+  └──────────────────────────────────────────────────────────────┘
+  ```
 
-Then edit your `hd-bluray-web.yml` (or create a new config file) to add them. Here's an example with
-four profiles:
+  Here it is visualized in a tree structure to see it better.
 
-```yml
-radarr:
-  main:
-    base_url: http://radarr:7878
-    api_key: your_api_key_here
-    delete_old_custom_formats: true
-
-    include:
-      # Quality sizes (only needed once)
-      - template: radarr-quality-definition-movie
-
-      # HD Bluray + WEB (1080p)
-      - template: radarr-quality-profile-hd-bluray-web
-      - template: radarr-custom-formats-hd-bluray-web
-
-      # UHD Bluray + WEB (4K)
-      - template: radarr-quality-profile-uhd-bluray-web
-      - template: radarr-custom-formats-uhd-bluray-web
-
-      # Remux + WEB 1080p
-      - template: radarr-quality-profile-remux-web-1080p
-      - template: radarr-custom-formats-remux-web-1080p
-
-      # Remux + WEB 2160p
-      - template: radarr-quality-profile-remux-web-2160p
-      - template: radarr-custom-formats-remux-web-2160p
-```
+  We're going to "include" the `custom-formats` and `quality-profiles` of the templates we want.
+  ```
+  radarr
+  ├── includes
+  │   ├── custom-formats
+  │   │   ├── sqp
+  │   │   │   └── ...
+  │   │   ├── radarr-custom-formats-anime.yml
+  │   │   ├── radarr-custom-formats-hd-bluray-web.yml    👈 Use this in include for "HD Bluray + WEB (1080p)"
+  │   │   ├── radarr-custom-formats-remux-web-1080p.yml  👈 Use this in include for "Remux + WEB 1080p"
+  │   │   ├── radarr-custom-formats-remux-web-2160p.yml  👈 Use this in include for "Remux + WEB 2160p"
+  │   │   └── radarr-custom-formats-uhd-bluray-web.yml   👈 Use this in include for "UHD Bluray + WEB (4K)"
+  │   │
+  │   ├── quality-definitions
+  │   │   ├── sqp
+  │   │   │   └── ...
+  │   │   ├── radarr-quality-definition-anime.yml
+  │   │   └── radarr-quality-definition-movie.yml    👈 Use this in include
+  │   │
+  │   └── quality-profiles
+  │       ├── sqp
+  │       │   └── ...
+  │       ├── radarr-quality-profile-anime.yml
+  │       ├── radarr-quality-profile-hd-bluray-web.yml      👈 Use this in include for "HD Bluray + WEB (1080p)"
+  │       ├── radarr-quality-profile-remux-web-1080p.yml    👈 Use this in include for "Remux + WEB 1080p"
+  │       ├── radarr-quality-profile-remux-web-2160p.yml    👈 Use this in include for "Remux + WEB 2160p"
+  │       └── radarr-quality-profile-uhd-bluray-web.yml     👈 Use this in include for "UHD Bluray + WEB (4K)"
+  ```
+- Move and rename the generated file `config/configs/hd-bluray-web.yml` from earlier to `config/recyclarr.yml`.
+- Now based on above information, we can populate the `include`s in `recyclarr.yml` file quite easily.
+  ```yml
+  radarr:
+    main:
+      base_url: http://radarr:7878
+      api_key: your_api_key_here
+      delete_old_custom_formats: true
+      replace_existing_custom_formats: true
+  
+      include:
+        # Quality sizes (only needed once)
+        - template: radarr-quality-definition-movie
+  
+        # Quality Profiles
+        - template: radarr-quality-profile-hd-bluray-web
+        - template: radarr-quality-profile-uhd-bluray-web
+        - template: radarr-quality-profile-remux-web-1080p
+        - template: radarr-quality-profile-remux-web-2160p
+  
+        # Custom Format Definitions
+        - template: radarr-custom-formats-hd-bluray-web
+        - template: radarr-custom-formats-uhd-bluray-web
+        - template: radarr-custom-formats-remux-web-1080p
+        - template: radarr-custom-formats-remux-web-2160p
+  ```
 
 :::tip The pattern
 
@@ -169,44 +285,299 @@ The `quality-definition` template only needs to be included once.
 
 Run `docker compose run --rm recyclarr sync` again, and all profiles will be created.
 
-## Adding Media Naming
-
-To sync TRaSH Guide naming formats, first see what's available:
-
-```bash
-docker compose run --rm recyclarr list naming radarr
-```
-
-Then add a `media_naming` section to your config:
-
-```yml
-radarr:
-  main:
-    base_url: http://radarr:7878
-    api_key: your_api_key_here
-
-    # Results visible in: Radarr → Settings → Media Management
-    media_naming:
-      folder: plex-tmdb
-      movie:
-        rename: true
-        standard: plex-tmdb
-
-    include:
-      # ... your templates
-```
-
 ## When to Customize
 
-The templates provide the full TRaSH Guide recommendation. For most users, that's everything you
-need.
+The templates provide the full TRaSH Guide recommendation. For most users, that's everything you need.
 
 You only need a `custom_formats:` section if you want to:
 
 - **Override a score** — Change the default score for a specific custom format
-- **Add optional custom formats** — Include CFs marked as "optional" in the TRaSH Guides
+- **Add optional custom formats** — Include CFs marked as "optional" in the TRaSH Guides.
+  - For example if you want releases with hybrid `DV + HDR10` to be preferred, simply uncomment that section in your config file.
+  - See it in action in [Level Up setup](#level-up-the-power-user-config) below.
 
 For customization examples, see the [Configuration Examples](../reference/config-examples.mdx) page.
+
+## Level Up: The "Power User" Config
+Ready for the full setup? The configuration below is a "One and Done" setup. It includes:
+
+- **Radarr**: 1080p, 4K, and Remux profiles.
+- **Sonarr**: 1080p and 4K profiles.
+- **Customizations**: Enabled DV/HDR10+ support.
+
+### Steps
+1. Make sure Radarr and Sonarr are running.
+2. Check out the templates that you want to combine.
+   ```bash
+   docker exec recyclarr recyclarr config list templates
+   ```
+   These are the common ones for Radarr:
+    - `hd-bluray-web`
+    - `uhd-bluray-web`
+    - `remux-web-1080p`
+    - `remux-web-2160p`
+    - `anime-radarr`
+
+   And these for Sonarr:
+    - `web-1080p-v4`
+    - `web-2160p-v4`
+    - `anime-sonarr-v4`
+3. Create config file for all the templates you want to combine.
+   ```bash
+   docker compose run --rm recyclarr config create --template hd-bluray-web
+   docker compose run --rm recyclarr config create --template uhd-bluray-web
+   docker compose run --rm recyclarr config create --template remux-web-1080p
+   docker compose run --rm recyclarr config create --template remux-web-2160p
+   docker compose run --rm recyclarr config create --template web-1080p-v4
+   docker compose run --rm recyclarr config create --template web-2160p-v4
+   ```
+   This will create 6 files in `config/configs` folder. You can combine all their contents into a single `config/recyclarr.yml` file and delete the generated files.
+   
+   How to combine them is documented here: https://recyclarr.dev/reference/config-examples/#merge-single-instance
+
+   But I'll show how to combine them all in the next step for you. You can simply copy-paste it into your `recyclarr.yml` file.
+4. Merge them
+
+   This config also enables `Dolby Vision (DV)` and `HDR10+` support by uncommenting the relevant custom format sections. This is an example of when/ how to customize your config. 
+   
+   It's just a matter of commenting or uncommenting lines when you use `recyclarr` CLI to generate the config.
+   
+   :::details Click to expand the Full Configuration
+   ```yml
+   radarr:
+     main:
+       base_url: http://radarr:7878
+       api_key: your_api_key_here
+   
+       # -------------------------------------------------------------------------
+       # UPDATE BEHAVIOR
+       # -------------------------------------------------------------------------
+       delete_old_custom_formats: true
+       replace_existing_custom_formats: true
+   
+       # -------------------------------------------------------------------------
+       # NAMING
+       # -------------------------------------------------------------------------
+       # Results visible in Radarr > Settings > Media Management > Movie Naming
+       media_naming:
+         folder: plex-tmdb
+         movie:
+           rename: true
+           standard: plex-tmdb
+   
+       # -------------------------------------------------------------------------
+       # INCLUDES
+       # -------------------------------------------------------------------------
+       include:
+         # Quality Definition
+         - template: radarr-quality-definition-movie
+   
+         # Quality Profiles
+         - template: radarr-quality-profile-hd-bluray-web
+         - template: radarr-quality-profile-uhd-bluray-web
+         - template: radarr-quality-profile-remux-web-1080p
+         - template: radarr-quality-profile-remux-web-2160p
+   
+         # Custom Format Definitions
+         - template: radarr-custom-formats-hd-bluray-web
+         - template: radarr-custom-formats-uhd-bluray-web
+         - template: radarr-custom-formats-remux-web-1080p
+         - template: radarr-custom-formats-remux-web-2160p
+   
+       # Optional section for modifying included templates
+   
+       # -------------------------------------------------------------------------
+       # CUSTOM FORMAT ASSIGNMENTS
+       # -------------------------------------------------------------------------
+       custom_formats:
+         # 1. Movie Versions
+         - trash_ids:
+           # Uncomment any of the following lines to prefer these movie versions
+           # - 570bc9ebecd92723d2d21500f4be314c # Remaster
+           # - eca37840c13c6ef2dd0262b141a5482f # 4K Remaster
+           # - e0c07d59beb37348e975a930d5e50319 # Criterion Collection
+           # - 9d27d9d2181838f76dee150882bdc58c # Masters of Cinema
+           # - db9b4c4b53d312a3ca5f1378f6440fc9 # Vinegar Syndrome
+           # - 957d0f44b592285f26449575e8b1167e # Special Edition
+           # - eecf3a857724171f968a66cb5719e152 # IMAX
+           # - 9f6cbff8cfe4ebbc1bde14c7b7bec0de # IMAX Enhanced
+   
+           # Optional
+           # - b6832f586342ef70d9c128d40c07b872 # Bad Dual Groups
+           # - cc444569854e9de0b084ab2b8b1532b2 # Black and White Editions
+           # - ae9b7c9ebde1f3bd336a8cbd1ec4c5e5 # No-RlsGroup
+           # - 7357cf5161efbf8c4d5d0c30b4815ee2 # Obfuscated
+           # - 5c44f52a8714fdd79bb4d98e2673be1f # Retags
+           # - f537cf427b64c38c8e36298f657e4828 # Scene
+   
+           assign_scores_to:
+             - name: HD Bluray + WEB
+             - name: UHD Bluray + WEB
+             - name: Remux + WEB 1080p
+             - name: Remux + WEB 2160p
+   
+         - trash_ids:
+           # Uncomment the next six lines to allow x265 HD releases with HDR/DV
+           #          - dc98083864ea246d05a42df0d05f81cc # x265 (HD)
+           #        assign_scores_to:
+           #          - name: HD Bluray + WEB #1
+           #          - name: UHD Bluray + WEB #1
+           #          - name: Remux + WEB 1080p #1
+           #          - name: Remux + WEB 2160p
+           #            score: 0
+           #      - trash_ids:
+           #         - 839bea857ed2c0a8e084f3cbdbd65ecb # x265 (no HDR/DV)
+           assign_scores_to:
+             - name: HD Bluray + WEB
+             - name: UHD Bluray + WEB
+             - name: Remux + WEB 1080p
+             - name: Remux + WEB 2160p
+   
+         # 2. Audio (Applies to High-End Profiles only)
+         - trash_ids:
+           # Uncomment the next section to enable Advanced Audio Formats
+           # - 496f355514737f7d83bf7aa4d24f8169 # TrueHD Atmos
+           # - 2f22d89048b01681dde8afe203bf2e95 # DTS X
+           # - 417804f7f2c4308c1f4c5d380d4c4475 # ATMOS (undefined)
+           # - 1af239278386be2919e1bcee0bde047e # DD+ ATMOS
+           # - 3cafb66171b47f226146a0770576870f # TrueHD
+           # - dcf3ec6938fa32445f590a4da84256cd # DTS-HD MA
+           # - a570d4a0e56a2874b64e5bfa55202a1b # FLAC
+           # - e7c2fcae07cbada050a0af3357491d7b # PCM
+           # - 8e109e50e0a0b83a5098b056e13bf6db # DTS-HD HRA
+           # - 185f1dd7264c4562b9022d963ac37424 # DD+
+           # - f9f847ac70a0af62ea4a08280b859636 # DTS-ES
+           # - 1c1a4c5e823891c75bc50380a6866f73 # DTS
+           # - 240770601cc226190c367ef59aba7463 # AAC
+           # - c2998bd0d90ed5621d8df281e839436e # DD
+           assign_scores_to:
+             - name: UHD Bluray + WEB
+             - name: Remux + WEB 1080p
+             - name: Remux + WEB 2160p
+   
+         # 3. 4K & HDR (Applies to 4K Profiles only)
+         - trash_ids:
+             # Comment out the next line if you and all of your users' setups are fully DV compatible
+             - 923b6abef9b17f937fab56cfcf89e1f1 # DV (w/o HDR fallback)
+   
+             # HDR10+ Boost - Uncomment the HDR10+ Boost line if you want to prefer HDR10+ releases
+             # DV Boost - Uncomment the DV Boost line if you want to prefer DV releases
+             # Uncomment both lines if you want to prefer both (DV HDR10+)
+             - b337d6812e06c200ec9a2d3cfa9d20a7 # DV Boost
+             - caa37d0df9c348912df1fb1d88f9273a # HDR10+ Boost
+           assign_scores_to:
+             - name: UHD Bluray + WEB
+             - name: Remux + WEB 2160p
+   
+         # 4. Optional SDR
+         # Only ever use ONE of the following custom formats:
+         # SDR - block ALL SDR releases
+         # SDR (no WEBDL) - block UHD/4k Remux and Bluray encode SDR releases, but allow SDR WEB
+         - trash_ids:
+             - 9c38ebb7384dada637be8899efa68e6f # SDR
+             # - 25c12f78430a3a23413652cbd1d48d77 # SDR (no WEBDL)
+           assign_scores_to:
+             - name: UHD Bluray + WEB
+             - name: Remux + WEB 2160p
+   
+   sonarr:
+     main:
+       base_url: http://sonarr:8989
+       api_key: your_api_key_here
+   
+       # -------------------------------------------------------------------------
+       # UPDATE BEHAVIOR
+       # -------------------------------------------------------------------------
+       delete_old_custom_formats: true
+       replace_existing_custom_formats: true
+   
+       # -------------------------------------------------------------------------
+       # NAMING
+       # -------------------------------------------------------------------------
+       media_naming:
+         series: plex-tvdb
+         season: default
+         episodes:
+           rename: true
+           standard: default
+           daily: default
+           anime: default
+   
+       # -------------------------------------------------------------------------
+       # INCLUDES
+       # -------------------------------------------------------------------------
+       include:
+         # Quality Definition (Using Series as Master)
+         - template: sonarr-quality-definition-series
+   
+           # Quality Profiles
+           # Choose between the standard or alternative quality profile setup (choose one only)
+         - template: sonarr-v4-quality-profile-web-1080p
+         # - template: sonarr-v4-quality-profile-web-1080p-alternative
+         - template: sonarr-v4-quality-profile-web-2160p
+         # - template: sonarr-v4-quality-profile-web-2160p-alternative
+   
+         # Custom Format Definitions
+         - template: sonarr-v4-custom-formats-web-1080p
+         - template: sonarr-v4-custom-formats-web-2160p
+   
+       # -------------------------------------------------------------------------
+       # CUSTOM FORMAT ASSIGNMENTS
+       # -------------------------------------------------------------------------
+       custom_formats:
+         # 1. Optional
+         - trash_ids:
+           # - 32b367365729d530ca1c124a0b180c64 # Bad Dual Groups
+           # - 82d40da2bc6923f41e14394075dd4b03 # No-RlsGroup
+           # - e1a997ddb54e3ecbfe06341ad323c458 # Obfuscated
+           # - 06d66ab109d4d2eddb2794d21526d140 # Retags
+           # - 1b3994c551cbb92a2c781af061f4ab44 # Scene
+           assign_scores_to:
+             - name: WEB-1080p
+             - name: WEB-2160p
+   
+         # 2. x265
+         - trash_ids:
+           # Uncomment the next six lines to allow x265 HD releases with HDR/DV
+           #          - 47435ece6b99a0b477caf360e79ba0bb # x265 (HD)
+           #        assign_scores_to:
+           #          - name: WEB-1080p
+           #            score: 0
+           #      - trash_ids:
+           #          - 9b64dff695c2115facf1b6ea59c9bd07 # x265 (no HDR/DV)
+           assign_scores_to:
+             - name: WEB-1080p
+             - name: WEB-2160p
+   
+         # 3. HDR Formats
+         - trash_ids:
+             # Comment out the next line if you and all of your users' setups are fully DV compatible
+             - 9b27ab6498ec0f31a3353992e19434ca # DV (w/o HDR fallback)
+   
+             # HDR10+ Boost - Uncomment the HDR10+ Boost line if you want to prefer HDR10+ releases
+             # DV Boost - Uncomment the DV Boost line if you want to prefer DV releases
+             # Uncomment both lines if you want to prefer both (DV HDR10+)
+             - 0c4b99df9206d2cfac3c05ab897dd62a # HDR10+ Boost
+             - 7c3a61a9c6cb04f52f1544be6d44a026 # DV Boost
+           assign_scores_to:
+             - name: WEB-2160p
+   
+         # 4. Optional SDR
+         # Only ever use ONE of the following custom formats:
+         # SDR - block ALL SDR releases
+         # SDR (no WEBDL) - block UHD/4k Remux and Bluray encode SDR releases, but allow SDR WEB
+         - trash_ids:
+             - 2016d1676f5ee13a5b7257ff86ac9a93 # SDR
+             # - 83304f261cf516bb208c18c54c0adf97 # SDR (no WEBDL)
+           assign_scores_to:
+             - name: WEB-2160p
+   ```
+   :::
+5. Run the container and trigger the sync
+   ```bash
+   docker compose up -d recyclarr # Run it in daemon mode so it runs automatically every day
+   docker exec recyclarr recyclarr sync # Run the sync now
+   ```
 
 ## Next Steps
 
