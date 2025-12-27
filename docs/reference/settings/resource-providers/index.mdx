@@ -7,6 +7,10 @@ Resource providers control where Recyclarr gets its configuration data. By defau
 automatically uses official sources and works out of the box. You only need this feature if you want
 to add your own custom formats, use modified guides, or replace the official sources entirely.
 
+For property details, see the [configuration reference][config-ref].
+
+[config-ref]: ./configuration.mdx
+
 ## Default Behavior
 
 Recyclarr automatically includes official sources with zero configuration:
@@ -148,68 +152,6 @@ The `custom-formats` type is the simplest option when you just want to add a few
 special folder structure or metadata files are required - just drop your JSON files in a folder.
 
 :::
-
-## Configuration Reference
-
-### Basic Structure
-
-Resource providers use a flat list where each entry specifies its type:
-
-```yml
-resource_providers:
-  - name: provider-name
-    type: trash-guides
-    clone_url: https://github.com/user/repo.git
-    reference: main
-```
-
-### Provider Properties
-
-#### All Providers
-
-| Property          | Required | Description                                                                     |
-|-------------------|----------|---------------------------------------------------------------------------------|
-| `name`            | Yes      | Unique identifier. May only contain letters, numbers, hyphens, and underscores. |
-| `type`            | Yes      | Content type: `trash-guides`, `config-templates`, or `custom-formats`           |
-| `replace_default` | No       | When `true`, replaces the official provider for this type. Default: `false`     |
-
-#### Git Repositories
-
-| Property    | Required | Description                                        |
-|-------------|----------|----------------------------------------------------|
-| `clone_url` | Yes      | URL compatible with `git clone`                    |
-| `reference` | No       | Branch name, tag, or commit SHA. Default: `master` |
-
-:::warning
-
-The `reference` property defaults to `master`, not your repository's default branch. If your
-repository uses `main` or another default branch, you must specify it explicitly.
-
-:::
-
-#### Local Directories
-
-| Property  | Required    | Description                                                        |
-|-----------|-------------|--------------------------------------------------------------------|
-| `path`    | Yes         | Path to the directory (absolute or relative to app data directory) |
-| `service` | Conditional | Required for `custom-formats` type. Value: `radarr` or `sonarr`    |
-
-:::info
-
-The `service` property identifies the service type (Radarr vs Sonarr), not specific instances.
-Custom formats aren't interchangeable between Radarr and Sonarr, so you must specify which service
-your custom formats are designed for.
-
-:::
-
-:::tip
-
-Relative paths are resolved against the [app data directory][appdata]. This is useful for keeping
-custom resources alongside Recyclarr's other data.
-
-:::
-
-[appdata]: ../../../guide/file-structure.mdx#appdata-directory
 
 ## Common Use Cases
 
