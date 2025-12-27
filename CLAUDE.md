@@ -88,7 +88,8 @@ Never mix types: tutorials teach concepts progressively; reference docs describe
 
 ### Reference Documentation Completeness
 
-Reference pages for YAML configuration follow a consistent structure:
+Reference pages for YAML configuration (`docs/reference/configuration/`) follow a consistent
+structure:
 
 **Page structure:**
 
@@ -97,6 +98,10 @@ Reference pages for YAML configuration follow a consistent structure:
 3. Complete YAML example showing all properties in context
 4. Brief intro paragraph explaining the parent node
 5. Each property as a heading: `## \`property_name\` {#anchor}`
+
+Settings reference pages (`docs/reference/settings/`) omit `<ServiceSupport>` because settings are
+configuration-agnostic (they apply regardless of Sonarr/Radarr). Otherwise they follow the same
+structure.
 
 **Requirement markers** (first line after heading, always in this format):
 
