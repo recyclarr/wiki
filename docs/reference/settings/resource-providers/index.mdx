@@ -135,7 +135,7 @@ Structure](./trash-guides-structure.mdx#custom-format-json-structure).
 resource_providers:
   - name: my-language-cfs
     type: custom-formats
-    path: /home/user/custom-formats/radarr
+    path: /home/user/custom-formats/radarr  # Or use relative: custom-formats/radarr
     service: radarr
 ```
 
@@ -189,10 +189,10 @@ repository uses `main` or another default branch, you must specify it explicitly
 
 #### Local Directories
 
-| Property  | Required    | Description                                                     |
-|-----------|-------------|-----------------------------------------------------------------|
-| `path`    | Yes         | Absolute path to the directory                                  |
-| `service` | Conditional | Required for `custom-formats` type. Value: `radarr` or `sonarr` |
+| Property  | Required    | Description                                                        |
+|-----------|-------------|--------------------------------------------------------------------|
+| `path`    | Yes         | Path to the directory (absolute or relative to app data directory) |
+| `service` | Conditional | Required for `custom-formats` type. Value: `radarr` or `sonarr`    |
 
 :::info
 
@@ -201,6 +201,15 @@ Custom formats aren't interchangeable between Radarr and Sonarr, so you must spe
 your custom formats are designed for.
 
 :::
+
+:::tip
+
+Relative paths are resolved against the [app data directory][appdata]. This is useful for keeping
+custom resources alongside Recyclarr's other data.
+
+:::
+
+[appdata]: ../../../guide/file-structure.mdx#appdata-directory
 
 ## Common Use Cases
 
