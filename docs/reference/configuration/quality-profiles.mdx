@@ -330,13 +330,14 @@ Syncing this will yield the following qualities list when you view them from the
 
 </details>
 
-## Unsupported Features {#unsupported}
+## Limitations {#limitations}
+
+This section covers features with partial support or known constraints.
 
 ### Language {#language}
 
-At the moment, it is not possible to set the language in a quality profile through Recyclarr. If you
-need to specify a language, you must do so manually through the Radarr/Sonarr UI. The reason why
-language is not supported is because both Radarr and Sonarr do it differently. Sonarr v4, for
-example, has removed the field entirely. You would use a custom format to specify a language
-instead. It is expected that in the future, Radarr follows suit. Because of this inconsistency,
-Recyclarr did not adopt support for it.
+For guide-backed Radarr profiles, language settings from guide resources sync automatically. Sonarr
+quality profiles do not have a language field; use custom formats for language filtering instead.
+
+Manual configuration of language via YAML is not yet supported. The language value from the guide
+passes through automatically and cannot be overridden.
