@@ -1,0 +1,122 @@
+---
+title: Resource Provider Configuration
+sidebar_label: Configuration Reference
+sidebar_position: 0
+description: Configuration reference for resource providers
+---
+
+```yml
+resource_providers:
+  # Git-based provider (trash-guides or config-templates)
+  - name: my-custom-guides
+    type: trash-guides
+    clone_url: https://github.com/yourname/custom-guides.git
+    reference: main
+    depth: 1
+    replace_default: false
+
+  # Local directory provider (custom-formats)
+  - name: my-language-cfs
+    type: custom-formats
+    path: /home/user/custom-formats/radarr
+    service: radarr
+    replace_default: false
+```
+
+Each resource provider entry configures a source for configuration data. Properties are divided into
+common properties (all providers) and location-specific properties (git or local).
+
+## All Providers {#all-providers}
+
+### `name` {#name}
+
+**Required.**
+
+Unique identifier for the provider. May only contain letters, numbers, hyphens, and underscores.
+Referenced in logs and error messages.
+
+### `type` {#type}
+
+**Required.**
+
+Content type that determines what kind of data the provider supplies:
+
+- `trash-guides`: Full TRaSH Guides structure (custom formats, quality sizes, media naming).
+  Requires `metadata.json` at root.
+- `config-templates`: Template configurations for quick setup. Requires `includes.json` and/or
+  `templates.json` at root.
+- `custom-formats`: Simple flat folder of custom format JSON files. No structure required.
+
+### `replace_default` {#replace-default}
+
+**Optional.** *Default: `false`*
+
+When `true`, replaces the official provider for this type instead of supplementing it. Only one
+provider per type can have this set.
+
+:::warning
+
+When `replace_default: true` is set, the official repository for that type is not used. Only do this
+if your repository contains all the content you need.
+
+:::
+
+## Git Repositories {#git-repositories}
+
+### `clone_url` {#clone-url}
+
+**Conditionally Required.**
+
+URL compatible with `git clone`. Required when using a git repository as the provider source.
+Mutually exclusive with [`path`](#path).
+
+### `reference` {#reference}
+
+**Optional.** *Default: `master`*
+
+Git reference to checkout: branch name, tag, or commit SHA.
+
+:::warning
+
+The default is `master`, not your repository's default branch. If your repository uses `main` or
+another default branch, you must specify it explicitly.
+
+:::
+
+### `depth` {#depth}
+
+**Optional.** *Default: full clone*
+
+Shallow clone depth. Set to `1` for latest commit only, reducing clone time and disk usage. Useful
+for large repositories when you don't need commit history.
+
+## Local Directories {#local-directories}
+
+### `path` {#path}
+
+**Conditionally Required.**
+
+Path to a local directory containing provider content. Can be absolute or relative to the [app data
+directory][appdata]. Required when using a local directory as the provider source. Mutually
+exclusive with [`clone_url`](#clone-url).
+
+:::tip
+
+Relative paths are resolved against the app data directory. This is useful for keeping custom
+resources alongside Recyclarr's other data.
+
+:::
+
+[appdata]: ../../../guide/file-structure.mdx#appdata-directory
+
+## custom-formats Type {#custom-formats-type}
+
+### `service` {#service}
+
+**Conditionally Required.**
+
+Required when `type` is `custom-formats`. Specifies which service the custom formats are designed
+for: `radarr` or `sonarr`.
+
+Custom formats aren't interchangeable between Radarr and Sonarr, so you must specify which service
+your custom formats target.
