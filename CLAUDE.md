@@ -70,6 +70,97 @@ Static assets: `/img/` (logos), `/doc-img/` (screenshots)
 Target audience: Beginners to Recyclarr. Lead with outcomes, simple examples first. Never use "SQP"
 in examples - those quality profile names are intentionally undocumented.
 
+## Documentation Principles
+
+### Document Type Separation
+
+The site uses three documentation types aligned to the Divio system:
+
+- `docs-guide/` (tutorials/how-to): Learning and task-oriented. Step-by-step, complete workflows
+- `docs-reference/` (reference): Technical descriptions. Terse, structured around configuration
+- `docs-cli/` (reference): CLI command documentation. Mirrors `--help` output structure
+
+Never mix types: tutorials teach concepts progressively; reference docs describe exhaustively.
+
+### Reference Documentation Completeness
+
+Reference pages for YAML configuration follow a consistent structure:
+
+**Page structure:**
+
+1. Frontmatter with `title` and `description`
+2. `<ServiceSupport>` component showing Sonarr/Radarr compatibility
+3. Complete YAML example showing all properties in context
+4. Brief intro paragraph explaining the parent node
+5. Each property as a heading: `## \`property_name\` {#anchor}`
+
+**Requirement markers** (first line after heading, always in this format):
+
+- `**Required.**` - no default needed
+- `**Optional.** *Default: \`value\`*` - literal defaults in backticks
+- `**Optional.** *Default: No custom formats are synced*` - descriptive defaults in plain text
+- `**Conditionally Required.** *Default: ...*` - explain the condition in the description
+
+**Property documentation includes:**
+
+- Requirement marker with default (as above)
+- What the property does (1-2 sentences)
+- Valid values or constraints (if applicable)
+- Relationship to Sonarr/Radarr UI fields when relevant
+
+**Nested property anchors** use prefixes to avoid conflicts: `{#rus-enabled}` for
+`reset_unmatched_scores.enabled`, `{#qualities-name}` for `qualities[].name`.
+
+Use admonitions (see Content Conventions) sparingly—only when behavior is non-obvious or has
+important interactions with other options.
+
+### Progressive Disclosure
+
+Present essential information first. Use collapsible `<details>` sections for advanced details, edge
+cases, or extended examples. Beginners get what they need; experienced users can expand.
+
+### Cross-Linking
+
+Link selectively—each link adds cognitive load. On first mention of a concept:
+
+- Recyclarr concept: link to its reference page
+- Sonarr/Radarr concept: link to official docs
+- TRaSH Guides concept: link to TRaSH Guides
+- General knowledge (YAML, CLI basics): explain briefly inline
+
+Use descriptive link text matching the destination title. Never "click here" or raw URLs.
+
+### Self-Sufficiency
+
+- State prerequisites at page start (versions, prior configuration)
+- Define acronyms on first use per page
+- Provide complete, runnable YAML examples—not fragments requiring assembly
+- State expected outcomes after significant steps ("You should see...")
+
+### Limitations and Partial Support
+
+Document limitations in a dedicated "Limitations" heading after the main feature description:
+
+```markdown
+### Limitations {#limitations}
+
+- **Sonarr only**: Not supported in Radarr. See [issue #123] for status.
+- **Partial support**: Only quality profiles sync; custom formats require manual configuration.
+```
+
+Use `<ServiceSupport>` component for feature compatibility matrices.
+
+### Platform Differences (Sonarr/Radarr)
+
+Default to unified documentation with inline callouts for minor differences:
+
+```markdown
+> **Radarr only**: The `preferred_ratio` option is not available in Sonarr.
+```
+
+Use Docusaurus tabs when the same task has different steps per platform. Split into separate pages
+only when workflows are fundamentally different (>30% divergent content).
+
 ## Documentation Accuracy
 
 Verify against Recyclarr source code - never assume existing docs are correct. Validate YAML
