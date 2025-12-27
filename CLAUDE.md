@@ -21,6 +21,8 @@ factually correct information in the docs:
 - `yarn build` - Build static site
 - `yarn clear` - Clear cache
 
+Run `pre-commit run --files <files>` on modified files after making changes.
+
 ## Deployment
 
 Hosted on Cloudflare Pages. Redirects are configured in `static/_redirects`.
@@ -170,7 +172,8 @@ examples against schema, cross-reference CLI help output.
 
 ## Special Pages
 
-- `docs-guide/features.mdx` - High-level overview only; link to reference docs for details
+- `docs-guide/features.mdx` - High-level overview only; link to reference docs for details. When
+  adding or modifying docs, check if features.mdx needs corresponding updates
 - Upgrade guides (`docs-guide/upgrade-guide/`) are historical snapshots - never retroactively
   update. Use anchor IDs for breaking changes, `# <<< RENAMED` comments in before/after YAML
   examples
