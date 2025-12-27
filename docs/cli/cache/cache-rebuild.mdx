@@ -1,0 +1,111 @@
+---
+id: rebuild
+title: recyclarr cache rebuild
+---
+
+## Usage {#usage}
+
+```txt
+recyclarr cache rebuild [resource] [OPTIONS]
+```
+
+## Description {#description}
+
+Rebuilds cache mappings by matching configured resources to existing resources in the service by
+name. This is useful when:
+
+- Cache was accidentally deleted or corrupted
+- Migrating Recyclarr to a new machine
+- Relocating a Sonarr/Radarr instance to a new URL
+- Fixing incorrect cache mappings caused by case-variant names in the service
+- Adopting manually-created custom formats into Recyclarr management
+
+The command matches your configured custom formats (from YAML) against custom formats in the service
+using case-insensitive name matching. It does not process custom formats that aren't in your
+configuration.
+
+## Examples {#examples}
+
+```sh
+# Preview what cache rebuild would do for all instances
+recyclarr cache rebuild --preview
+
+# Rebuild cache for a specific instance
+recyclarr cache rebuild -i my-radarr
+
+# Rebuild cache with verbose output showing all cache states
+recyclarr cache rebuild --verbose
+
+# Rebuild cache and adopt manually-created CFs that match by name
+recyclarr cache rebuild --adopt
+
+# Rebuild only custom format cache entries
+recyclarr cache rebuild custom-formats
+```
+
+## Arguments {#arguments}
+
+### `[resource]` {#resource}
+
+The resource type to rebuild cache for. If omitted, all resource types are processed.
+
+Valid values:
+
+- `custom-formats` - Rebuild custom format cache mappings
+
+## Options {#options}
+
+Visit [Common Options](../common.mdx) to read about options usable by all commands.
+
+### `-i|--instance` {#instance}
+
+One or more instance names to process. Can be specified multiple times to process specific
+instances. If omitted, all instances defined in your configuration are processed.
+
+```bash
+# Process two specific instances
+recyclarr cache rebuild -i my-radarr -i my-sonarr
+```
+
+### `-p|--preview` {#preview}
+
+Show what changes would be made to the cache without actually saving them. Use this to verify the
+rebuild results before committing changes.
+
+### `-v|--verbose` {#verbose}
+
+Show detailed output including cache file paths and per-item state information. Useful for
+troubleshooting or understanding exactly what the command is doing.
+
+### `--adopt` {#adopt}
+
+Take ownership of existing custom formats in the service that match configured custom formats by
+name. Use this when you have manually created custom formats that you want Recyclarr to manage going
+forward.
+
+Without this option, custom formats that exist in the service but aren't in the cache are reported
+as "Not in service" (meaning they would be created on the next sync). With `--adopt`, these are
+added to the cache so Recyclarr will update them instead of creating duplicates.
+
+## Output {#output}
+
+The command displays results grouped into two sections:
+
+**Changes** (cache modifications made):
+
+- **Added** - New cache entries created for CFs found in service
+- **Corrected** - Cache entries updated with correct service ID
+- **Removed** - Stale entries deleted (service CF no longer exists)
+
+**Summary** (informational, no cache change):
+
+- **Unchanged** - Cache entries already correct
+- **Not in service** - Configured CFs not found in service (will be created on next sync)
+- **Preserved** - Non-configured cache entries kept for deletion tracking
+- **Ambiguous** - Multiple service CFs match the same name (error condition)
+
+## Ambiguous Matches {#ambiguous-matches}
+
+If the service contains multiple custom formats with the same name (differing only in case, such as
+"HULU" and "hulu"), the command reports an ambiguous match error. To resolve this, you must manually
+delete or rename the duplicate custom formats in Sonarr/Radarr so each name is unique.
