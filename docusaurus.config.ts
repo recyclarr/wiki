@@ -57,9 +57,9 @@ const config: Config = {
       "classic",
       {
         docs: {
-          path: "docs-guide",
-          routeBasePath: "/guide",
-          sidebarPath: require.resolve("./sidebars-guide.js"),
+          path: "docs",
+          routeBasePath: "/",
+          sidebarPath: require.resolve("./sidebars.js"),
           editUrl: "https://github.com/recyclarr/wiki/tree/master/",
         },
         blog: false,
@@ -70,29 +70,7 @@ const config: Config = {
     ],
   ],
 
-  plugins: [
-    "docusaurus-plugin-sass",
-    [
-      "@docusaurus/plugin-content-docs",
-      {
-        id: "reference",
-        path: "docs-reference",
-        routeBasePath: "/reference",
-        sidebarPath: require.resolve("./sidebars-reference.js"),
-        editUrl: "https://github.com/recyclarr/wiki/tree/master/",
-      },
-    ],
-    [
-      "@docusaurus/plugin-content-docs",
-      {
-        id: "cli",
-        path: "docs-cli",
-        routeBasePath: "/cli",
-        sidebarPath: require.resolve("./sidebars-cli.js"),
-        editUrl: "https://github.com/recyclarr/wiki/tree/master/",
-      },
-    ],
-  ],
+  plugins: ["docusaurus-plugin-sass"],
 
   themes: ["docusaurus-theme-github-codeblock"],
 
@@ -107,21 +85,19 @@ const config: Config = {
       items: [
         {
           type: "doc",
-          docId: "index",
+          docId: "guide/index",
           position: "left",
           label: "Guide",
         },
         {
           type: "doc",
-          docId: "index",
-          docsPluginId: "reference",
+          docId: "reference/index",
           position: "left",
           label: "Reference",
         },
         {
           type: "doc",
-          docId: "cli",
-          docsPluginId: "cli",
+          docId: "cli/index",
           position: "left",
           label: "CLI",
         },
