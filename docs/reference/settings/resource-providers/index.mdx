@@ -48,7 +48,7 @@ configure.
 Each provider has a `type` that determines what kind of content it provides:
 
 | Type               | Description                                                               | Structure Required                                       |
-| ------------------ | ------------------------------------------------------------------------- | -------------------------------------------------------- |
+|--------------------|---------------------------------------------------------------------------|----------------------------------------------------------|
 | `trash-guides`     | Full TRaSH Guides structure (custom formats, quality sizes, media naming) | Requires `metadata.json` at root                         |
 | `config-templates` | Template configurations for quick setup                                   | Requires `includes.json` and/or `templates.json` at root |
 | `custom-formats`   | Simple flat folder of custom format JSON files                            | No structure required                                    |
@@ -81,7 +81,7 @@ Different resource types use different fields to determine uniqueness when mergi
 All comparisons are case-insensitive.
 
 | Resource Type    | Identification Key | Example                               |
-| ---------------- | ------------------ | ------------------------------------- |
+|------------------|--------------------|---------------------------------------|
 | Custom Formats   | `trash_id` field   | `ae4cfaa9283a4f2150ac3da08e388723`    |
 | Quality Profiles | `trash_id` field   | `d1d67249d3890e49bc12e275d989a7e9`    |
 | Quality Sizes    | `type` field       | `series`, `movie`                     |
@@ -168,7 +168,7 @@ resource_providers:
 #### All Providers
 
 | Property          | Required | Description                                                                     |
-| ----------------- | -------- | ------------------------------------------------------------------------------- |
+|-------------------|----------|---------------------------------------------------------------------------------|
 | `name`            | Yes      | Unique identifier. May only contain letters, numbers, hyphens, and underscores. |
 | `type`            | Yes      | Content type: `trash-guides`, `config-templates`, or `custom-formats`           |
 | `replace_default` | No       | When `true`, replaces the official provider for this type. Default: `false`     |
@@ -176,7 +176,7 @@ resource_providers:
 #### Git Repositories
 
 | Property    | Required | Description                                        |
-| ----------- | -------- | -------------------------------------------------- |
+|-------------|----------|----------------------------------------------------|
 | `clone_url` | Yes      | URL compatible with `git clone`                    |
 | `reference` | No       | Branch name, tag, or commit SHA. Default: `master` |
 
@@ -190,7 +190,7 @@ repository uses `main` or another default branch, you must specify it explicitly
 #### Local Directories
 
 | Property  | Required    | Description                                                     |
-| --------- | ----------- | --------------------------------------------------------------- |
+|-----------|-------------|-----------------------------------------------------------------|
 | `path`    | Yes         | Absolute path to the directory                                  |
 | `service` | Conditional | Required for `custom-formats` type. Value: `radarr` or `sonarr` |
 

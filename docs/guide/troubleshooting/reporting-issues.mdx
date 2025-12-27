@@ -64,7 +64,7 @@ by default in the console output.
 Below is a list of locations where you can find the log directory depending on platform.
 
 | Platform | Location                                       |
-| -------- | ---------------------------------------------- |
+|----------|------------------------------------------------|
 | Windows  | `%APPDATA%\recyclarr\logs`                     |
 | Linux    | `~/.config/recyclarr/logs`                     |
 | MacOS    | `~/Library/Application Support/recyclarr/logs` |
@@ -88,7 +88,7 @@ by Recyclarr.
 
 :::tip
 
-Use [secrets](/reference/configuration/value-substitution#secrets) so you don't have to do this by hand!
+Use [secrets] so you don't have to do this by hand!
 
 :::
 
@@ -97,8 +97,10 @@ particular, the Base URL and API Key for each service you've configured. Typical
 this information shared to others when you request help or file bug reports on Github. As such, you
 should ensure that this information is redacted. You can do this in multiple ways.
 
-- Use [secrets](/reference/configuration/value-substitution#secrets)
+- Use [secrets]
 - Manually edit your YAML before sharing it to redact `base_url` and `api_key` values.
+
+[secrets]: ../../reference/configuration/value-substitution.mdx#secrets
 
 ## Reporting Issues
 

@@ -20,7 +20,7 @@ in the past. Deprecations are always mentioned in release notes for feature rele
 ## Dedicated Includes Directory {#include-dir}
 
 The root directory for relative local include paths has changed. Previously, relative paths provided
-to the [`config` include directive](/reference/configuration/include#config) were rooted in
+to the [`config` include directive][include-config] were rooted in
 `${appdatadir}/configs`. Putting includes in the `configs` directory is no longer supported. Going
 forward, all includes should reside in `${appdatadir}/includes`.
 
@@ -212,7 +212,7 @@ resource_providers:
 ### Key Changes
 
 | Old                                                     | New                                         |
-| ------------------------------------------------------- | ------------------------------------------- |
+|---------------------------------------------------------|---------------------------------------------|
 | Nested structure (`trash_guides:`, `config_templates:`) | Flat list with explicit `type` property     |
 | `branch` and `sha1` properties                          | Unified `reference` property                |
 | Implicit replacement of official sources                | Explicit `replace_default: true` required   |
@@ -227,5 +227,7 @@ resource_providers:
 - **Using forks?** Consider using supplemental providers instead of replacing official sources -
   this lets you get official updates while adding your customizations
 
-See the [Resource Providers](/reference/settings/resource-providers/) documentation for complete
-configuration details.
+See the [Resource Providers][resource-providers] documentation for complete configuration details.
+
+[include-config]: ../../reference/configuration/include.mdx#config
+[resource-providers]: ../../reference/settings/resource-providers/index.mdx

@@ -48,7 +48,7 @@ Use this directive to include YAML files on your local filesystem.
 An absolute or relative path to the YAML file you wish to include. If relative paths are used, see
 the [app data directory][appdata] page for where those files should be located.
 
-[appdata]: /guide/file-structure#include-directory
+[appdata]: ../../guide/file-structure.mdx#include-directory
 
 ### Examples
 
@@ -81,7 +81,7 @@ will be included. IDs matching include templates from a non-matching service typ
 
 To get a list of eligible **include templates**, see the [`config list templates` command][list].
 
-[list]: /cli/config/templates#include
+[list]: ../../cli/config/config-list-templates.mdx#include
 
 :::
 
@@ -311,7 +311,7 @@ semantics, those will be documented in later sections. This will especially be t
 [union](#union) operations.
 
 | Property Name                     | Node Type | Merge Operation     |
-| --------------------------------- | --------- | ------------------- |
+|-----------------------------------|-----------|---------------------|
 | `custom_formats`                  | Sequence  | [Join](#detail-cfs) |
 | `quality_profiles`                | Sequence  | Join                |
 | `quality_definition`              | Mapping   | Union               |
@@ -322,7 +322,7 @@ semantics, those will be documented in later sections. This will especially be t
 ### Quality Definition {#merge-quality-definition}
 
 | Property Name     | Node Type | Merge Operation |
-| ----------------- | --------- | --------------- |
+|-------------------|-----------|-----------------|
 | `type`            | Scalar    | Replace         |
 | `preferred_ratio` | Scalar    | Replace         |
 | `qualities`       | Sequence  | Join            |
@@ -333,7 +333,7 @@ Replace.
 ### Quality Profiles {#merge-quality-profiles}
 
 | Property Name            | Node Type | Merge Operation              |
-| ------------------------ | --------- | ---------------------------- |
+|--------------------------|-----------|------------------------------|
 | `upgrade`                | Mapping   | Union                        |
 | `min_format_score`       | Scalar    | Replace                      |
 | `quality_sort`           | Scalar    | Replace                      |
@@ -344,7 +344,7 @@ Replace.
 Merge operations for properties of `upgrade`:
 
 | Property Name   | Node Type | Merge Operation |
-| --------------- | --------- | --------------- |
+|-----------------|-----------|-----------------|
 | `allowed`       | Scalar    | Replace         |
 | `until_quality` | Scalar    | Replace         |
 | `until_score`   | Scalar    | Replace         |
@@ -352,7 +352,7 @@ Merge operations for properties of `upgrade`:
 Merge operations for properties of `reset_unmatched_scores`:
 
 | Property Name | Node Type | Merge Operation |
-| ------------- | --------- | --------------- |
+|---------------|-----------|-----------------|
 | `enabled`     | Scalar    | Replace         |
 | `except`      | Sequence  | Add             |
 
@@ -363,7 +363,7 @@ Merge operations for properties of `reset_unmatched_scores`:
 Under `media_naming`:
 
 | Property Name | Node Type | Merge Operation |
-| ------------- | --------- | --------------- |
+|---------------|-----------|-----------------|
 | `series`      | Scalar    | Replace         |
 | `season`      | Scalar    | Replace         |
 | `episodes`    | Mapping   | Union           |
@@ -371,7 +371,7 @@ Under `media_naming`:
 Under `episodes`:
 
 | Property Name | Node Type | Merge Operation |
-| ------------- | --------- | --------------- |
+|---------------|-----------|-----------------|
 | `rename`      | Scalar    | Replace         |
 | `standard`    | Scalar    | Replace         |
 | `daily`       | Scalar    | Replace         |
@@ -382,14 +382,14 @@ Under `episodes`:
 Under `media_naming`:
 
 | Property Name | Node Type | Merge Operation |
-| ------------- | --------- | --------------- |
+|---------------|-----------|-----------------|
 | `folder`      | Scalar    | Replace         |
 | `movie`       | Mapping   | Union           |
 
 Under `movie`:
 
 | Property Name | Node Type | Merge Operation |
-| ------------- | --------- | --------------- |
+|---------------|-----------|-----------------|
 | `rename`      | Scalar    | Replace         |
 | `standard`    | Scalar    | Replace         |
 

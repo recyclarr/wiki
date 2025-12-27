@@ -39,7 +39,8 @@
     "@docusaurus/module-type-aliases": "^3.9.2",
     "@playwright/test": "^1.57.0",
     "concurrently": "^9.2.1",
-    "cross-env": "^10.1.0"
+    "cross-env": "^10.1.0",
+    "markdown-table-formatter": "^1.7.0"
   },
   "browserslist": {
     "production": [

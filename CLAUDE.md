@@ -63,7 +63,9 @@ Static assets: `/img/` (logos), `/doc-img/` (screenshots)
 - Max line length: 100 chars (markdownlint enforced)
 - Code blocks require language: `bash`, `yml`, `txt`
 - Links: within-instance use relative paths with `.mdx` (`./page.mdx`, `../folder/page.mdx`);
-  cross-instance use absolute paths (`/reference/page`)
+  cross-instance use absolute paths (`/reference/page`). Use reference-style links to simplify line
+  wrapping: `[text][id]` with `[id]: url` at page end. When editing existing docs, convert inline
+  links to reference-style opportunistically
 - Admonitions: `:::info` (optional/context), `:::tip` (best practices), `:::warning` (pitfalls),
   `:::danger` (data loss risks)
 
