@@ -36,8 +36,7 @@ Limits: 2,000 static + 100 dynamic redirects, 1,000 chars per rule.
 
 ## Architecture
 
-- Multi-instance docs: `docs-guide/` → `/guide/`, `docs-reference/` → `/reference/`, `docs-cli/` →
-  `/cli/`
+- Unified docs directory: `docs/guide/`, `docs/reference/`, `docs/cli/`
 - Sidebars: `sidebars-guide.js`, `sidebars-reference.js`, `sidebars-cli.js`
 - Category organization: `_category_.yml` files
 - Styling: SCSS in `src/css/` (not plain CSS)
@@ -60,14 +59,15 @@ Static assets: `/img/` (logos), `/doc-img/` (screenshots)
 
 ## Content Conventions
 
-- Omit `id` in frontmatter - Docusaurus derives from filepath
+- Omit `id` in frontmatter when filename matches desired id; keep `id` when filename differs (e.g.,
+  `cache-rebuild.mdx` with `id: rebuild` for URL `/cli/cache/rebuild`)
 - Headings MUST use explicit anchors: `## Heading {#anchor-id}` - concise, rely on page context
 - Max line length: 100 chars (markdownlint enforced)
 - Code blocks require language: `bash`, `yml`, `txt`
-- Links: within-instance use relative paths with `.mdx` (`./page.mdx`, `../folder/page.mdx`);
-  cross-instance use absolute paths (`/reference/page`). Use reference-style links to simplify line
-  wrapping: `[text][id]` with `[id]: url` at page end. When editing existing docs, convert inline
-  links to reference-style opportunistically
+- Links: use relative file paths with `.mdx` extension (`./page.mdx`, `../folder/page.mdx`,
+  `../../reference/page.mdx`). Use reference-style links to simplify line wrapping: `[text][id]`
+  with `[id]: path.mdx` at page end. When editing existing docs, convert inline links to
+  reference-style opportunistically
 - Admonitions: `:::info` (optional/context), `:::tip` (best practices), `:::warning` (pitfalls),
   `:::danger` (data loss risks)
 
@@ -80,9 +80,9 @@ in examples - those quality profile names are intentionally undocumented.
 
 The site uses three documentation types aligned to the Divio system:
 
-- `docs-guide/` (tutorials/how-to): Learning and task-oriented. Step-by-step, complete workflows
-- `docs-reference/` (reference): Technical descriptions. Terse, structured around configuration
-- `docs-cli/` (reference): CLI command documentation. Mirrors `--help` output structure
+- `docs/guide/` (tutorials/how-to): Learning and task-oriented. Step-by-step, complete workflows
+- `docs/reference/` (reference): Technical descriptions. Terse, structured around configuration
+- `docs/cli/` (reference): CLI command documentation. Mirrors `--help` output structure
 
 Never mix types: tutorials teach concepts progressively; reference docs describe exhaustively.
 
@@ -172,9 +172,9 @@ examples against schema, cross-reference CLI help output.
 
 ## Special Pages
 
-- `docs-guide/features.mdx` - High-level overview only; link to reference docs for details. When
+- `docs/guide/features.mdx` - High-level overview only; link to reference docs for details. When
   adding or modifying docs, check if features.mdx needs corresponding updates
-- Upgrade guides (`docs-guide/upgrade-guide/`) are historical snapshots - never retroactively
+- Upgrade guides (`docs/guide/upgrade-guide/`) are historical snapshots - never retroactively
   update. Use anchor IDs for breaking changes, `# <<< RENAMED` comments in before/after YAML
   examples
 
