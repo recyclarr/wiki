@@ -35,12 +35,16 @@ YAML examples must use real trash_ids - never placeholders. Query octocode using
 - `docs/Sonarr/sonarr-setup-quality-profiles.md` - Sonarr QP setup
 - `docs/Sonarr/sonarr-collection-of-custom-formats.md` - Sonarr CF collection
 
-### Git History Investigation
+### Mandatory Recyclarr Investigation
 
-When documenting features, investigate commit history to understand context and intent:
+When documenting features, investigate the recyclarr repository including any commit history to
+understand context and intent:
 
+- Look at any `docs/**.md` files to understand more about relevant features.
 - `gh search commits "<keyword>" --repo recyclarr/recyclarr` - find commits by message
 - `gh api 'repos/recyclarr/recyclarr/commits?path=<file>'` - file change history
+- You MUST look for any memory bank markdown files (`docs/memory-bank/*.md`) that may offer valuable
+  context for a target commit of interest.
 
 ## Commands
 
