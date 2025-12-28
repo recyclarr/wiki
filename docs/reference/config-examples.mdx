@@ -58,6 +58,34 @@ radarr:
 Even though it's all in one file, Radarr settings are ignored when you run `recyclarr sync sonarr`
 and vice versa. To update both use `recyclarr sync` (without the positional argument).
 
+## Renaming a guide-backed quality profile {#rename-guide-profile}
+
+Scenario: *I want to use a TRaSH Guide quality profile but with my own custom name instead of the
+guide's default name.*
+
+Solution:
+
+When using `trash_id` to sync a guide-backed profile, specify `name` to override the guide's
+default:
+
+```yml
+radarr:
+  main:
+    base_url: !secret radarr_url
+    api_key: !secret radarr_apikey
+
+    quality_profiles:
+      - trash_id: 9a0e43cb7a892e3e9c4f2f5c5e0dcf8e
+        name: My Movies - High Quality
+```
+
+Because Recyclarr tracks the profile by `trash_id` (not by name), you can change the name at any
+time. Simply update `name` in your YAML and run sync - Recyclarr will rename the existing profile
+rather than creating a new one.
+
+This is different from profiles without `trash_id`, where the name is the identifier and changing it
+would target a different profile entirely.
+
 ## Adding additional qualities to a template
 
 Scenario: *I want to use a pre-built Recyclarr template for Sonarr, but would like to add additional
@@ -283,8 +311,8 @@ you add/remove custom formats from a profile.
 ## What does the file structure look like with multiple YAML configuration files? {#yaml-structure}
 
 Suppose you want to use `recyclarr.yml` and multiple YAML files in the `configs` directory, as
-documented on [the File Structure page](../guide/file-structure.mdx#default-yaml). What would that file
-structure look like?
+documented on [the File Structure page](../guide/file-structure.mdx#default-yaml). What would that
+file structure look like?
 
 Using docker as an example, it would look like this:
 

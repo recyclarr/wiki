@@ -13,6 +13,10 @@ service_type:
   instance_name:
     # Quality Profile Configuration
     quality_profiles:
+      # Guide-backed profile (name derived from guide)
+      - trash_id: 9a0e43cb7a892e3e9c4f2f5c5e0dcf8e
+
+      # Manual configuration
       - name: SD
         reset_unmatched_scores:
           enabled: true
@@ -53,16 +57,63 @@ mentioned in the relevant sections below as needed.
 
 ## `name` {#name}
 
-**Required.**
+**Conditionally Required.** Required if `trash_id` is not specified.
 
-The name of the quality profile to which settings should apply. The name can identify either an
-existing profile or serve as the name for a new profile that gets created.
+The name of the quality profile. How this property behaves depends on whether `trash_id` is
+specified:
+
+**Without `trash_id`:** The name acts as the profile's identifier. Recyclarr matches profiles by
+name, so changing the name here means targeting a different profile entirely (either modifying an
+existing one with that name, or creating a new profile).
+
+**With `trash_id`:** The trash ID becomes the profile's identifier (tracked in Recyclarr's cache).
+The name becomes optional and defaults to the guide's recommended name. You can specify a custom
+name to override the guide's default, and you can change this name freely without losing the
+connection to your existing profile.
+
+## `trash_id` {#trash-id}
+
+**Optional.**
+
+The trash ID of a TRaSH Guide quality profile definition. When specified, Recyclarr automatically
+syncs configuration from the guide, including:
+
+- Qualities and quality groups
+- Score set (`score_set`)
+- Custom formats and their scores
+- Language (Radarr only)
+
+This significantly reduces YAML complexity. Instead of manually configuring all properties, specify
+the `trash_id` and let Recyclarr pull the configuration from the guide. The profile name is also
+derived from the guide when `name` is omitted:
+
+```yml
+quality_profiles:
+  - trash_id: 9a0e43cb7a892e3e9c4f2f5c5e0dcf8e
+```
+
+You can override specific properties, including the name. Any property you explicitly specify takes
+precedence over the guide values:
+
+```yml
+quality_profiles:
+  - trash_id: 9a0e43cb7a892e3e9c4f2f5c5e0dcf8e
+    name: My Custom Profile Name   # Override guide's name
+    min_format_score: 100          # Override guide's value
+```
+
+See [Renaming a guide-backed quality profile][config-rename] for a complete example.
+
+[config-rename]: ../config-examples.mdx#rename-guide-profile
 
 :::tip
 
-At the moment, it is not possible to *rename* a quality profile. If you change the name here, you
-are telling Recyclarr to modify an entirely different profile (if a profile exists with the new
-name) *or* create a brand new quality profile using the new name.
+Quality profile trash IDs can be found in the TRaSH Guide JSON files under the
+[`radarr/quality-profiles`][trashqp-radarr] or [`sonarr/quality-profiles`][trashqp-sonarr]
+directories.
+
+[trashqp-radarr]: https://github.com/TRaSH-/Guides/tree/master/docs/json/radarr/quality-profiles
+[trashqp-sonarr]: https://github.com/TRaSH-/Guides/tree/master/docs/json/sonarr/quality-profiles
 
 :::
 
