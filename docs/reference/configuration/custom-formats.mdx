@@ -21,7 +21,7 @@ service_type:
           - dc98083864ea246d05a42df0d05f81cc # x265 (720/1080p)
         assign_scores_to:
           - name: HD-1080p
-          - name: HD-720p
+          - trash_id: abc123def456   # Guide-backed QP by trash_id
             score: -1000
       - trash_ids:
           - 496f355514737f7d83bf7aa4d24f8169 # TrueHD ATMOS
@@ -118,12 +118,13 @@ trash_ids:
 **Optional.** *Default: No quality profiles are changed*
 
 One or more quality profiles to update with the scores from the custom formats listed above. Scores
-are taken from the guide by default, with an option to override the score for all of them. Each
-object in the list must use the properties below.
+are taken from the guide by default, with an option to override the score for all of them. Profiles
+can be referenced by `name` or `trash_id`. Each object in the list must use one of these properties
+(but not both).
 
 #### `name` {#qp-name}
 
-**Required.**
+**Conditionally Required.** Required if `trash_id` is not specified.
 
 The name of *an existing* quality profile. This name is **not required** to appear in the top-level
 [`quality_profiles` list][qps]. If the profile name specified here does not exist, an error will be
@@ -131,6 +132,16 @@ shown. If you want this profile to be created by Recyclarr, you must also add an
 previously mentioned `quality_profiles` list.
 
 [qps]: ./quality-profiles.mdx
+
+#### `trash_id` {#qp-trash-id}
+
+**Conditionally Required.** Required if `name` is not specified.
+
+The trash ID of a [guide-backed quality profile][guide-qp]. Use this instead of `name` when
+referencing profiles managed by Recyclarr through guide synchronization. This is useful because
+guide-backed profile names may change with guide updates, while the trash ID remains stable.
+
+[guide-qp]: ./quality-profiles.mdx#trash-id
 
 #### `score` {#qp-score}
 
