@@ -14,6 +14,26 @@ factually correct information in the docs:
 
 - Recyclarr Code: `https://github.com/recyclarr/recyclarr`
 - Recyclarr Config Templates: `https://github.com/recyclarr/config-templates`
+- TRaSH Guides: `https://github.com/TRaSH-Guides/Guides`
+
+### TRaSH Guides Structure
+
+YAML examples must use real trash_ids - never placeholders. Query octocode using these paths:
+
+**JSON data** (per `metadata.json`): Replace `{service}` with `radarr` or `sonarr`.
+
+- `docs/json/{service}/cf/` - Custom formats (individual CF trash_ids)
+- `docs/json/{service}/cf-groups/` - Custom format groups
+- `docs/json/{service}/quality-profiles/` - Quality profiles
+- `docs/json/{service}/quality-size/` - Quality definitions
+- `docs/json/{service}/naming/` - Naming formats
+
+**Markdown guides** (for understanding usage context):
+
+- `docs/Radarr/radarr-setup-quality-profiles.md` - How QPs and CFs work together
+- `docs/Radarr/Radarr-collection-of-custom-formats.md` - CF descriptions and categories
+- `docs/Sonarr/sonarr-setup-quality-profiles.md` - Sonarr QP setup
+- `docs/Sonarr/sonarr-collection-of-custom-formats.md` - Sonarr CF collection
 
 ## Commands
 
@@ -177,11 +197,15 @@ examples against schema, cross-reference CLI help output.
 
 ## Special Pages
 
-- `docs/guide/features.mdx` - High-level overview only; link to reference docs for details. When
-  adding or modifying docs, check if features.mdx needs corresponding updates
-- Upgrade guides (`docs/guide/upgrade-guide/`) are historical snapshots - never retroactively
-  update. Use anchor IDs for breaking changes, `# <<< RENAMED` comments in before/after YAML
-  examples
+### Features Page
+
+`docs/guide/features.mdx` - High-level capabilities overview. Describe *what* users can do, not
+*how* (no field names, config details). When modifying docs, check if this page needs updates.
+
+### Upgrade Guides
+
+`docs/guide/upgrade-guide/` pages are historical snapshots - never retroactively update. Use anchor
+IDs for breaking changes, `# <<< RENAMED` comments in before/after YAML examples.
 
 ## Styling
 
