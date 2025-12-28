@@ -9,42 +9,13 @@ Recyclarr documentation site built with Docusaurus. Dual deployment:
 
 ## Authoritative Reference
 
-Use octocode to access files in these upstream official repos as an authoritative reference for
-factually correct information in the docs:
+Use research agents to access upstream repositories for factually correct information:
 
-- Recyclarr Code: `https://github.com/recyclarr/recyclarr`
-- Recyclarr Config Templates: `https://github.com/recyclarr/config-templates`
-- TRaSH Guides: `https://github.com/TRaSH-Guides/Guides`
+- `recyclarr-code-researcher` - Recyclarr source code and memory bank
+- `config-templates-researcher` - Official configuration templates
+- `trash-guides-researcher` - TRaSH Guides custom formats, quality profiles, trash_ids
 
-### TRaSH Guides Structure
-
-YAML examples must use real trash_ids - never placeholders. Query octocode using these paths:
-
-**JSON data** (per `metadata.json`): Replace `{service}` with `radarr` or `sonarr`.
-
-- `docs/json/{service}/cf/` - Custom formats (individual CF trash_ids)
-- `docs/json/{service}/cf-groups/` - Custom format groups
-- `docs/json/{service}/quality-profiles/` - Quality profiles
-- `docs/json/{service}/quality-size/` - Quality definitions
-- `docs/json/{service}/naming/` - Naming formats
-
-**Markdown guides** (for understanding usage context):
-
-- `docs/Radarr/radarr-setup-quality-profiles.md` - How QPs and CFs work together
-- `docs/Radarr/Radarr-collection-of-custom-formats.md` - CF descriptions and categories
-- `docs/Sonarr/sonarr-setup-quality-profiles.md` - Sonarr QP setup
-- `docs/Sonarr/sonarr-collection-of-custom-formats.md` - Sonarr CF collection
-
-### Mandatory Recyclarr Investigation
-
-When documenting features, investigate the recyclarr repository including any commit history to
-understand context and intent:
-
-- Look at any `docs/**.md` files to understand more about relevant features.
-- `gh search commits "<keyword>" --repo recyclarr/recyclarr` - find commits by message
-- `gh api 'repos/recyclarr/recyclarr/commits?path=<file>'` - file change history
-- You MUST look for any memory bank markdown files (`docs/memory-bank/*.md`) that may offer valuable
-  context for a target commit of interest.
+YAML examples must use real trash_ids - never placeholders.
 
 ## Commands
 
