@@ -193,6 +193,26 @@ radarr:
 With this enabled, any CF scores not set by your config or templates are reset to zero. This
 prevents stale scores from accumulating when you remove CFs from your config.
 
+## Rename a guide-backed quality profile {#rename-guide-profile}
+
+When syncing a guide-backed profile using `trash_id`, add `name` to use a custom name instead of the
+guide's default:
+
+```yml
+radarr:
+  movies:
+    base_url: !secret radarr_url
+    api_key: !secret radarr_apikey
+
+    quality_profiles:
+      - trash_id: 9a0e43cb7a892e3e9c4f2f5c5e0dcf8e
+        name: My Custom Profile Name
+```
+
+Recyclarr tracks the profile by `trash_id`, not by name. This means you can rename the profile at
+any time - update `name` in your config and Recyclarr renames the existing profile rather than
+creating a new one.
+
 ## Configure multiple arr instances {#multiple-instances}
 
 ### Single file with multiple instances {#single-file-multi-instance}
