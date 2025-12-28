@@ -35,6 +35,13 @@ YAML examples must use real trash_ids - never placeholders. Query octocode using
 - `docs/Sonarr/sonarr-setup-quality-profiles.md` - Sonarr QP setup
 - `docs/Sonarr/sonarr-collection-of-custom-formats.md` - Sonarr CF collection
 
+### Git History Investigation
+
+When documenting features, investigate commit history to understand context and intent:
+
+- `gh search commits "<keyword>" --repo recyclarr/recyclarr` - find commits by message
+- `gh api 'repos/recyclarr/recyclarr/commits?path=<file>'` - file change history
+
 ## Commands
 
 - `yarn start` - Dev server at `localhost:3000`
