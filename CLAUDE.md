@@ -72,6 +72,7 @@ Static assets: `/img/` (logos), `/doc-img/` (screenshots)
   reference-style opportunistically
 - Admonitions: `:::info` (optional/context), `:::tip` (best practices), `:::warning` (pitfalls),
   `:::danger` (data loss risks)
+- Emdashes (—) are acceptable in documentation for parenthetical phrases and emphasis
 
 Target audience: Beginners to Recyclarr. Lead with outcomes, simple examples first. Never use "SQP"
 in examples - those quality profile names are intentionally undocumented.
