@@ -1,0 +1,73 @@
+---
+title: Sync Behavior
+---
+
+When you run `recyclarr sync`, Recyclarr processes your configuration through four *pipelines*—
+independent stages that each handle a specific type of data. Understanding how these pipelines work
+helps you interpret sync output and diagnose issues.
+
+## Pipelines {#pipelines}
+
+- **Custom Formats** - Syncs custom format definitions from the TRaSH Guides
+- **Quality Profiles** - Syncs quality profile settings and assigns custom format scores
+- **Quality Sizes** - Syncs quality definition size limits (min/max/preferred)
+- **Media Naming** - Syncs file and folder naming formats
+
+## Dependencies and Failure Handling {#dependencies}
+
+Quality Profiles depends on Custom Formats - scores can only be assigned to custom formats that
+exist. The other pipelines are independent.
+
+When a pipeline fails, Recyclarr skips any pipelines that depend on it but continues with
+independent ones. For example, if Custom Formats fails, Quality Profiles is skipped, but Quality
+Sizes and Media Naming continue normally.
+
+## Progress Table {#progress-table}
+
+During sync, the progress table shows status for each instance and pipeline:
+
+| Symbol | Color | Meaning                                |
+|--------|-------|----------------------------------------|
+| `✓`    | green | Succeeded with no changes              |
+| Number | green | Items synced                           |
+| `✗`    | red   | Failed with errors                     |
+| `--`   | grey  | Skipped (not configured or dependency) |
+
+The row prefix indicates overall instance status. If it shows `✗`, check **Sync Diagnostics** after
+the progress table for error details.
+
+## Example {#example}
+
+Here's output from a sync where Custom Formats failed for one instance:
+
+```txt
+Legend: ✓ ok · ✗ failed · -- skipped
+
+           Custom  Quality Quality  Media
+          Formats Profiles   Sizes Naming
+✓ sonarr        ✓        ✓       ✓     --
+✓ shows         ✓        ✓       ✓      2
+✗ radarr        ✗       --       ✓     --
+```
+
+The `radarr` instance shows:
+
+- **Custom Formats** shows `✗` (failed) - the pipeline encountered errors
+- **Quality Profiles** shows `--` (skipped) - skipped because it depends on Custom Formats
+- **Quality Sizes** shows `✓` - succeeded despite the Custom Formats failure
+- **Media Naming** shows `--` - not configured for this instance
+
+The `shows` instance synced 2 media naming fields. The row prefix `✗` on `radarr` indicates
+failures. Check Sync Diagnostics for details:
+
+```txt
+╭─Sync Diagnostics─────────────────────────────────────────────────────────────╮
+│ Errors                                                                       │
+│ ──────                                                                       │
+│   • [radarr] — 70 Custom Formats cannot be synced because CFs with matching  │
+│     names already exist (e.g., '1080p', '10bit', '3D', and 67 more). To      │
+│     adopt existing CFs, run: `recyclarr cache rebuild --adopt`               │
+╰──────────────────────────────────────────────────────────────────────────────╯
+```
+
+The error explains why Custom Formats failed and what to do about it.
