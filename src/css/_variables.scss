@@ -7,6 +7,14 @@
  * Compatible with: Docusaurus 3.8+
  */
 
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('/fonts/JetBrainsMono-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   /* Brand colors - Custom variables for site-specific theming */
   --brand: #25c2a0;
@@ -24,6 +32,8 @@
   /* Typography - Base font sizing and code styling */
   --ifm-font-size-base: 17px;
   --ifm-code-font-size: 90%;
+  --ifm-font-family-monospace: 'JetBrains Mono', SFMono-Regular, Menlo, Monaco, Consolas,
+    'Liberation Mono', 'Courier New', monospace;
   --ifm-global-radius: 9px;
 
   /* Layout - Sidebar width and code highlighting */
