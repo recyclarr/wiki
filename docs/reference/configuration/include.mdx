@@ -238,10 +238,10 @@ custom_formats:
 
 ### Join {#join}
 
-A join involves two *sequences* of *mappings*. Based on some key, such as a `name` property, two
-sequences are joined together. If sequence `B` has a key that matches any key in sequence `A`, then
-those two mappings are *combined* (see [Union](#union)). For mappings in sequence `B` that have *no
-match*, the behavior is effectively the same as [Add](#add).
+A join involves two *sequences* of *mappings*. Based on some key, such as a `trash_id` or `name`
+property, two sequences are joined together. If sequence `B` has a key that matches any key in
+sequence `A`, then those two mappings are *combined* (see [Union](#union)). For mappings in sequence
+`B` that have *no match*, the behavior is effectively the same as [Add](#add).
 
 ```yml
 # A
@@ -263,6 +263,28 @@ quality_profiles:
     score_set: sqp-1-1080p
   - name: Remux + WEB 1080p
     min_format_score: 0
+```
+
+Guide-backed profiles can also be joined by `trash_id`:
+
+```yml
+# A
+quality_profiles:
+  - trash_id: 64fb5f9858489bdac2af690e27c8f42f
+    min_format_score: 1000
+
+# B
+quality_profiles:
+  - trash_id: 64fb5f9858489bdac2af690e27c8f42f
+    upgrade:
+      until_score: 10000
+
+# A + B
+quality_profiles:
+  - trash_id: 64fb5f9858489bdac2af690e27c8f42f
+    min_format_score: 1000
+    upgrade:
+      until_score: 10000
 ```
 
 ### Union {#union}
@@ -313,6 +335,7 @@ semantics, those will be documented in later sections. This will especially be t
 | Property Name               | Node Type | Merge Operation     |
 |-----------------------------|-----------|---------------------|
 | `custom_formats`            | Sequence  | [Join](#detail-cfs) |
+| `custom_format_groups`      | Sequence  | Join                |
 | `quality_profiles`          | Sequence  | Join                |
 | `quality_definition`        | Mapping   | Union               |
 | `delete_old_custom_formats` | Scalar    | Replace             |
@@ -330,6 +353,9 @@ Items in `qualities` are joined by `name`. Individual properties (`min`, `max`, 
 Replace.
 
 ### Quality Profiles {#merge-quality-profiles}
+
+Items in `quality_profiles` are joined by `trash_id` if present, otherwise by `name`. This allows
+guide-backed profiles to merge correctly even if the guide renames a profile.
 
 | Property Name            | Node Type | Merge Operation              |
 |--------------------------|-----------|------------------------------|
@@ -354,6 +380,15 @@ Merge operations for properties of `reset_unmatched_scores`:
 |---------------|-----------|-----------------|
 | `enabled`     | Scalar    | Replace         |
 | `except`      | Sequence  | Add             |
+
+### Custom Format Groups {#merge-custom-format-groups}
+
+Items in `custom_format_groups` are joined by `trash_id`.
+
+| Property Name      | Node Type | Merge Operation |
+|--------------------|-----------|-----------------|
+| `assign_scores_to` | Sequence  | Replace         |
+| `exclude`          | Sequence  | Replace         |
 
 ### Media Naming {#merge-media-naming}
 
@@ -429,7 +464,7 @@ list of qualities in one place *and* can ensure the ordering is exactly as you e
 
 The primary purpose of using a *Join* merge operation for `custom_formats` is to facilitate user
 overrides of custom format scores that come from included YAML files. The join operates on quality
-profile names as the *key*.
+profile `trash_id` if present, otherwise `name`, as the *key*.
 
 If a custom format is assigned to the same quality profile on both side `A` and `B`, the CF on side
 `A` is removed from the `custom_formats` list and the version on side `B` is kept. This ensures that
@@ -481,6 +516,13 @@ custom_formats:
       - name: profile1
         score: 50
 ```
+
+### Custom Format Groups {#detail-cfg}
+
+The `assign_scores_to` and `exclude` properties use Replace rather than Add or Join. This provides
+simpler override semantics: when you specify these properties in your root config, they completely
+replace any values from included YAML for that group. This makes it clear which profiles receive
+scores and which custom formats are excluded without needing to mentally combine multiple lists.
 
 ## Tips & Information {#tips}
 
