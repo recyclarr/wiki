@@ -14,12 +14,45 @@ factually correct information in the docs:
 
 - Recyclarr Code: `https://github.com/recyclarr/recyclarr`
 - Recyclarr Config Templates: `https://github.com/recyclarr/config-templates`
+- TRaSH Guides: `https://github.com/TRaSH-Guides/Guides`
+
+### TRaSH Guides Structure
+
+YAML examples must use real trash_ids - never placeholders. Query octocode using these paths:
+
+**JSON data** (per `metadata.json`): Replace `{service}` with `radarr` or `sonarr`.
+
+- `docs/json/{service}/cf/` - Custom formats (individual CF trash_ids)
+- `docs/json/{service}/cf-groups/` - Custom format groups
+- `docs/json/{service}/quality-profiles/` - Quality profiles
+- `docs/json/{service}/quality-size/` - Quality definitions
+- `docs/json/{service}/naming/` - Naming formats
+
+**Markdown guides** (for understanding usage context):
+
+- `docs/Radarr/radarr-setup-quality-profiles.md` - How QPs and CFs work together
+- `docs/Radarr/Radarr-collection-of-custom-formats.md` - CF descriptions and categories
+- `docs/Sonarr/sonarr-setup-quality-profiles.md` - Sonarr QP setup
+- `docs/Sonarr/sonarr-collection-of-custom-formats.md` - Sonarr CF collection
+
+### Mandatory Recyclarr Investigation
+
+When documenting features, investigate the recyclarr repository including any commit history to
+understand context and intent:
+
+- Look at any `docs/**.md` files to understand more about relevant features.
+- `gh search commits "<keyword>" --repo recyclarr/recyclarr` - find commits by message
+- `gh api 'repos/recyclarr/recyclarr/commits?path=<file>'` - file change history
+- You MUST look for any memory bank markdown files (`docs/memory-bank/*.md`) that may offer valuable
+  context for a target commit of interest.
 
 ## Commands
 
 - `yarn start` - Dev server at `localhost:3000`
 - `yarn build` - Build static site
 - `yarn clear` - Clear cache
+
+Run `pre-commit run --files <files>` on modified files after making changes.
 
 ## Deployment
 
@@ -34,8 +67,7 @@ Limits: 2,000 static + 100 dynamic redirects, 1,000 chars per rule.
 
 ## Architecture
 
-- Multi-instance docs: `docs-guide/` → `/guide/`, `docs-reference/` → `/reference/`, `docs-cli/` →
-  `/cli/`
+- Unified docs directory: `docs/guide/`, `docs/reference/`, `docs/cli/`
 - Sidebars: `sidebars-guide.js`, `sidebars-reference.js`, `sidebars-cli.js`
 - Category organization: `_category_.yml` files
 - Styling: SCSS in `src/css/` (not plain CSS)
@@ -58,17 +90,116 @@ Static assets: `/img/` (logos), `/doc-img/` (screenshots)
 
 ## Content Conventions
 
-- Omit `id` in frontmatter - Docusaurus derives from filepath
+- Omit `id` in frontmatter when filename matches desired id; keep `id` when filename differs (e.g.,
+  `cache-rebuild.mdx` with `id: rebuild` for URL `/cli/cache/rebuild`)
 - Headings MUST use explicit anchors: `## Heading {#anchor-id}` - concise, rely on page context
 - Max line length: 100 chars (markdownlint enforced)
 - Code blocks require language: `bash`, `yml`, `txt`
-- Links: within-instance use relative paths with `.mdx` (`./page.mdx`, `../folder/page.mdx`);
-  cross-instance use absolute paths (`/reference/page`)
+- Links: use relative file paths with `.mdx` extension (`./page.mdx`, `../folder/page.mdx`,
+  `../../reference/page.mdx`). Use reference-style links to simplify line wrapping: `[text][id]`
+  with `[id]: path.mdx` at page end. When editing existing docs, convert inline links to
+  reference-style opportunistically
 - Admonitions: `:::info` (optional/context), `:::tip` (best practices), `:::warning` (pitfalls),
   `:::danger` (data loss risks)
 
 Target audience: Beginners to Recyclarr. Lead with outcomes, simple examples first. Never use "SQP"
 in examples - those quality profile names are intentionally undocumented.
+
+## Documentation Principles
+
+### Document Type Separation
+
+The site uses three documentation types aligned to the Divio system:
+
+- `docs/guide/` (tutorials/how-to): Learning and task-oriented. Step-by-step, complete workflows
+- `docs/reference/` (reference): Technical descriptions. Terse, structured around configuration
+- `docs/cli/` (reference): CLI command documentation. Mirrors `--help` output structure
+
+Never mix types: tutorials teach concepts progressively; reference docs describe exhaustively.
+
+### Reference Documentation Completeness
+
+Reference pages for YAML configuration (`docs/reference/configuration/`) follow a consistent
+structure:
+
+**Page structure:**
+
+1. Frontmatter with `title` and `description`
+2. `<ServiceSupport>` component showing Sonarr/Radarr compatibility
+3. Complete YAML example showing all properties in context
+4. Brief intro paragraph explaining the parent node
+5. Each property as a heading: `## \`property_name\` {#anchor}`
+
+Settings reference pages (`docs/reference/settings/`) omit `<ServiceSupport>` because settings are
+configuration-agnostic (they apply regardless of Sonarr/Radarr). Otherwise they follow the same
+structure.
+
+**Requirement markers** (first line after heading, always in this format):
+
+- `**Required.**` - no default needed
+- `**Optional.** *Default: \`value\`*` - literal defaults in backticks
+- `**Optional.** *Default: No custom formats are synced*` - descriptive defaults in plain text
+- `**Conditionally Required.** *Default: ...*` - explain the condition in the description
+
+**Property documentation includes:**
+
+- Requirement marker with default (as above)
+- What the property does (1-2 sentences)
+- Valid values or constraints (if applicable)
+- Relationship to Sonarr/Radarr UI fields when relevant
+
+**Nested property anchors** use prefixes to avoid conflicts: `{#rus-enabled}` for
+`reset_unmatched_scores.enabled`, `{#qualities-name}` for `qualities[].name`.
+
+Use admonitions (see Content Conventions) sparingly—only when behavior is non-obvious or has
+important interactions with other options.
+
+### Progressive Disclosure
+
+Present essential information first. Use collapsible `<details>` sections for advanced details, edge
+cases, or extended examples. Beginners get what they need; experienced users can expand.
+
+### Cross-Linking
+
+Link selectively—each link adds cognitive load. On first mention of a concept:
+
+- Recyclarr concept: link to its reference page
+- Sonarr/Radarr concept: link to official docs
+- TRaSH Guides concept: link to TRaSH Guides
+- General knowledge (YAML, CLI basics): explain briefly inline
+
+Use descriptive link text matching the destination title. Never "click here" or raw URLs.
+
+### Self-Sufficiency
+
+- State prerequisites at page start (versions, prior configuration)
+- Define acronyms on first use per page
+- Provide complete, runnable YAML examples—not fragments requiring assembly
+- State expected outcomes after significant steps ("You should see...")
+
+### Limitations and Partial Support
+
+Document limitations in a dedicated "Limitations" heading after the main feature description:
+
+```markdown
+### Limitations {#limitations}
+
+- **Sonarr only**: Not supported in Radarr. See [issue #123] for status.
+- **Partial support**: Only quality profiles sync; custom formats require manual configuration.
+```
+
+Use `<ServiceSupport>` component for feature compatibility matrices.
+
+### Platform Differences (Sonarr/Radarr)
+
+Default to unified documentation with inline callouts for minor differences:
+
+```markdown
+> **Radarr only**: The `preferred_ratio` option is not available in Sonarr.
+```
+
+Use Docusaurus tabs when the same task has different steps per platform. Split into separate pages
+only when workflows are fundamentally different (>30% divergent content).
 
 ## Documentation Accuracy
 
@@ -77,10 +208,15 @@ examples against schema, cross-reference CLI help output.
 
 ## Special Pages
 
-- `docs-guide/features.mdx` - High-level overview only; link to reference docs for details
-- Upgrade guides (`docs-guide/upgrade-guide/`) are historical snapshots - never retroactively
-  update. Use anchor IDs for breaking changes, `# <<< RENAMED` comments in before/after YAML
-  examples
+### Features Page
+
+`docs/guide/features.mdx` - High-level capabilities overview. Describe *what* users can do, not
+*how* (no field names, config details). When modifying docs, check if this page needs updates.
+
+### Upgrade Guides
+
+`docs/guide/upgrade-guide/` pages are historical snapshots - never retroactively update. Use anchor
+IDs for breaking changes, `# <<< RENAMED` comments in before/after YAML examples.
 
 ## Styling
 

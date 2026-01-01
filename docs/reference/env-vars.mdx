@@ -1,0 +1,40 @@
+---
+title: Environment Variables
+sidebar_position: 3
+---
+
+These environment variables control Recyclarr's behavior across all commands.
+
+:::tip Looking for config substitution?
+
+To substitute environment variable values into your YAML configuration files, see [Value
+Substitution](./configuration/value-substitution.mdx#env-vars).
+
+:::
+
+## `RECYCLARR_APP_DATA` {#app-data}
+
+Overrides the default [application data directory][appdata] location.
+
+[appdata]: ../guide/file-structure.mdx#appdata-directory
+
+```bash
+export RECYCLARR_APP_DATA="/custom/path/to/appdata"
+```
+
+This is equivalent to using the [`--app-data` CLI option][appdata-cli] on every command. If both are
+set, the CLI option takes precedence.
+
+[appdata-cli]: ../cli/common.mdx#app-data
+
+## `NO_COLOR` {#no-color}
+
+Disables ANSI color output when set to any non-empty value.
+
+```bash
+export NO_COLOR=1
+```
+
+Useful for scripting, piping output to files, or terminals that don't support colors.
+
+See [no-color.org](https://no-color.org/) for more information about this standard convention.

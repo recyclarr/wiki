@@ -1,0 +1,109 @@
+---
+id: sync
+title: recyclarr sync
+---
+
+## Usage
+
+```js
+recyclarr sync [service] [OPTIONS]
+```
+
+## Description
+
+Synchronizes the guide with various services.
+
+## Arguments
+
+### `[service]`
+
+An optional positional argument that indicates the specific service type to sync. If not specified,
+*all* service types are synced. Valid values for this argument are:
+
+- `radarr`
+- `sonarr`
+
+#### Command Line Examples
+
+```bash
+# Sync both Radarr and Sonarr
+recyclarr sync
+
+# Sync just Radarr
+recyclarr sync radarr
+
+# Sync just Sonarr
+recyclarr sync sonarr
+```
+
+## Options
+
+### `-c|--config` {#config}
+
+One or more paths to YAML configuration files. If this argument is not specified, default
+configuration files will be used according to rules documented on the [File
+Structure](../guide/file-structure.mdx) page.
+
+:::tip
+
+If you specify more than one configuration file, you must repeat the `-c` option for each file. See
+the examples below.
+
+:::
+
+#### Command Line Examples
+
+```bash
+# Sync using default configs (recyclarr.yml or files in the 'configs' directory)
+recyclarr sync
+
+# Use a single config
+recyclarr sync --config ../myconfig.yml
+
+# Use multiple configs
+recyclarr sync -c ../myconfig1.yml -c "files/my config 2.yml"
+```
+
+### `-p|--preview` {#preview}
+
+Instructs Recyclarr to perform all the work it normally would do during a sync, except it won't
+update your actual instance configuration. This gives you the opportunity to see what Recyclarr
+would do without actually committing those changes.
+
+Note that, in this mode, Recyclarr will still make API calls to services but only to *fetch* data;
+it will never invoke the API to make actual changes.
+
+### `-i|--instance` {#instance}
+
+One or more instance names to sync. Instance names are the names you give each of your instances in
+your YAML configuration files. In the example `recyclarr.yml` below, `movies` and `series` are
+instance names:
+
+```yml
+radarr:
+  movies:
+    base_url: http://localhost:7878
+    api_key: abc123
+sonarr:
+  series:
+    base_url: http://localhost:8989
+    api_key: def456
+```
+
+:::info
+
+The `[service]` argument influences the behavior of instance-based syncing. If you specify a
+specific service to sync, such as `radarr`, then the `--instance` option will only look at instances
+for that specific service type (in this example, it will only look at Radarr instances).
+
+:::
+
+#### Command Line Examples
+
+```bash
+# Sync instances named `movies` and `series` across both Radarr and Sonarr
+recyclarr sync -i movies -i series
+
+# Sync an instance named 'series' only if they are in Sonarr
+recyclarr sync sonarr --instance series
+```

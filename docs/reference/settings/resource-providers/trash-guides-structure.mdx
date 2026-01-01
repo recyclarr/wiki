@@ -1,0 +1,259 @@
+---
+title: Creating a Trash Guides Repository
+sidebar_label: Trash Guides Structure
+---
+
+This page explains how to create a repository compatible with the `trash-guides` provider type. This
+is an advanced topic for users who want to create their own complete guide structure with custom
+formats, quality sizes, and media naming schemes.
+
+:::tip
+
+If you just want to add a few custom formats, use the simpler `custom-formats` type instead. It
+requires no special structure - just a folder of JSON files. See the
+[main resource providers page](./index.mdx#quick-start-adding-local-custom-formats) for details.
+
+:::
+
+## When You Need This
+
+Use the `trash-guides` type when you need:
+
+- Custom formats with category organization
+- Quality size definitions
+- Media naming schemes
+- A complete alternative to or supplement for the official TRaSH Guides
+
+## Required Structure
+
+A `trash-guides` compatible repository must have a `metadata.json` file at the root that defines
+where resources are located within the repository.
+
+### Directory Layout Example
+
+```txt
+my-guides-repo/
+├── metadata.json              # Required: defines resource locations
+├── docs/
+│   └── json/
+│       └── radarr/
+│           ├── cf/            # Custom formats
+│           │   ├── my-format-1.json
+│           │   └── my-format-2.json
+│           ├── quality-size/  # Quality sizes
+│           │   └── my-quality.json
+│           └── naming/        # Media naming
+│               └── my-naming.json
+└── categories/                # Optional: category definitions
+    └── radarr/
+        └── cf-categories.json
+```
+
+### The metadata.json File
+
+The `metadata.json` file tells Recyclarr where to find each type of resource. Here's a minimal
+example:
+
+```json
+{
+  "json_paths": {
+    "radarr": {
+      "custom_formats": ["docs/json/radarr/cf"],
+      "qualities": ["docs/json/radarr/quality-size"],
+      "naming": ["docs/json/radarr/naming"]
+    },
+    "sonarr": {
+      "custom_formats": ["docs/json/sonarr/cf"],
+      "qualities": ["docs/json/sonarr/quality-size"],
+      "naming": ["docs/json/sonarr/naming"]
+    }
+  }
+}
+```
+
+Each path is relative to the repository root. You can specify multiple paths per resource type if
+your files are organized across different directories.
+
+## Custom Format JSON Structure
+
+Each custom format JSON file must include a `trash_id` field that uniquely identifies it:
+
+```json
+{
+  "trash_id": "your-unique-id-here",
+  "trash_scores": {
+    "default": 100
+  },
+  "trash_description": "Description of what this custom format detects",
+  "name": "My Custom Format",
+  "includeCustomFormatWhenRenaming": false,
+  "specifications": [
+    {
+      "name": "Specification Name",
+      "implementation": "ReleaseTitleSpecification",
+      "negate": false,
+      "required": true,
+      "fields": {
+        "value": "regex-pattern-here"
+      }
+    }
+  ]
+}
+```
+
+### Key Fields
+
+| Field               | Required | Description                                        |
+|---------------------|----------|----------------------------------------------------|
+| `trash_id`          | Yes      | Unique identifier. Use a UUID or descriptive slug. |
+| `name`              | Yes      | Display name shown in Radarr/Sonarr                |
+| `specifications`    | Yes      | Array of conditions that define the format         |
+| `trash_scores`      | No       | Default scores for quality profiles                |
+| `trash_description` | No       | Description for documentation purposes             |
+
+### Generating Trash IDs
+
+Trash IDs should be unique. You can generate UUIDs using:
+
+```bash
+# Linux/macOS
+uuidgen | tr '[:upper:]' '[:lower:]'
+
+# Or use an online UUID generator
+```
+
+Alternatively, use descriptive slugs like `my-language-german` if you prefer readable IDs.
+
+## Quality Size JSON Structure
+
+Quality size files define file size ranges for different quality levels:
+
+```json
+{
+  "trash_id": "your-quality-size-id",
+  "type": "movie",
+  "qualities": [
+    {
+      "quality": "Bluray-1080p",
+      "min": 3.0,
+      "preferred": 12.0,
+      "max": 25.0
+    },
+    {
+      "quality": "WEBDL-1080p",
+      "min": 2.0,
+      "preferred": 10.0,
+      "max": 20.0
+    }
+  ]
+}
+```
+
+## Media Naming JSON Structure
+
+Media naming files define file and folder naming patterns. Each pattern type (`folder` and `file`)
+contains named variants for different media servers and use cases:
+
+```json
+{
+  "folder": {
+    "default": "{Movie CleanTitle} ({Release Year})",
+    "plex-imdb": "{Movie CleanTitle} ({Release Year}) {imdb-{ImdbId}}",
+    "jellyfin-tmdb": "{Movie CleanTitle} ({Release Year}) [tmdbid-{TmdbId}]"
+  },
+  "file": {
+    "standard": "{Movie CleanTitle} {(Release Year)} - {{Edition Tags}} {[Custom Formats]}{[Quality Full]}{-Release Group}",
+    "plex-imdb": "{Movie CleanTitle} {(Release Year)} {imdb-{ImdbId}} - {edition-{Edition Tags}} {[Custom Formats]}{[Quality Full]}{-Release Group}",
+    "jellyfin-tmdb": "{Movie CleanTitle} {(Release Year)} [tmdbid-{TmdbId}] - {{Edition Tags}} {[Custom Formats]}{[Quality Full]}{-Release Group}"
+  }
+}
+```
+
+The variant names (like `default`, `standard`, `plex-imdb`) are what you reference in your Recyclarr
+configuration. The exact naming tokens depend on whether it's for Radarr or Sonarr, as they have
+different token systems.
+
+## Category Organization (Optional)
+
+Categories help organize custom formats in the Recyclarr documentation and `list` commands. Create a
+categories JSON file:
+
+```json
+[
+  {
+    "name": "Language",
+    "trash_ids": [
+      "your-german-cf-id",
+      "your-french-cf-id"
+    ]
+  },
+  {
+    "name": "Release Groups",
+    "trash_ids": [
+      "your-release-group-cf-id"
+    ]
+  }
+]
+```
+
+Reference the categories file in `metadata.json`:
+
+```json
+{
+  "json_paths": {
+    "radarr": {
+      "custom_formats": ["docs/json/radarr/cf"]
+    }
+  },
+  "category_paths": {
+    "radarr": {
+      "custom_formats": "categories/radarr/cf-categories.json"
+    }
+  }
+}
+```
+
+## Using Your Repository
+
+Once your repository is set up, add it to your `settings.yml`:
+
+```yml
+resource_providers:
+  # As a supplemental source (adds to official)
+  - name: my-guides
+    type: trash-guides
+    clone_url: https://github.com/yourname/my-guides.git
+    reference: main
+
+  # Or as a replacement (replaces official)
+  - name: my-guides
+    type: trash-guides
+    clone_url: https://github.com/yourname/my-guides.git
+    reference: main
+    replace_default: true
+```
+
+For local directories:
+
+```yml
+resource_providers:
+  - name: my-local-guides
+    type: trash-guides
+    path: /home/user/my-guides
+```
+
+## Reference Implementation
+
+The official TRaSH Guides repository serves as the reference implementation:
+
+- Repository: https://github.com/TRaSH-Guides/Guides
+- View the `metadata.json` structure and directory organization
+- Examine existing custom format JSON files for formatting examples
+
+:::warning
+
+The TRaSH Guides structure is complex because it serves documentation purposes beyond Recyclarr. For
+simple use cases, the `custom-formats` type with a flat folder of JSON files is much easier to
+maintain.
+
+:::

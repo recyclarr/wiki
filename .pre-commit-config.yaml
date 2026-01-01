@@ -1,0 +1,29 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: trailing-whitespace
+        exclude: (\.svg$|^\.yarn/)
+      - id: end-of-file-fixer
+        exclude: (\.svg$|^\.yarn/)
+      - id: check-yaml
+      - id: check-json
+        exclude: ^\.vscode/
+      - id: check-added-large-files
+      - id: check-merge-conflict
+
+  - repo: https://github.com/DavidAnson/markdownlint-cli2
+    rev: v0.20.0
+    hooks:
+      - id: markdownlint-cli2
+        args: [--fix]
+        types: [file]
+        types_or: [markdown, mdx]
+
+  - repo: local
+    hooks:
+      - id: markdown-table-formatter
+        name: Format Markdown Tables
+        entry: yarn markdown-table-formatter
+        language: node
+        types_or: [markdown, mdx]

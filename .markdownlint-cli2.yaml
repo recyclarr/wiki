@@ -1,0 +1,14 @@
+config:
+  default: true
+  line-length:
+    line_length: 100
+    tables: false
+    code_blocks: false
+  no-inline-html: false
+  no-duplicate-heading: false
+  no-trailing-spaces:
+    br_spaces: 0
+  first-line-heading: false
+  single-h1: false
+  link-fragments: false
+  no-bare-urls: false
