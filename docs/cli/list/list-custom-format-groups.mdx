@@ -1,0 +1,63 @@
+---
+id: custom-format-groups
+title: recyclarr list custom-format-groups
+---
+
+## Usage
+
+```txt
+recyclarr list custom-format-groups <service>
+```
+
+## Description
+
+For a specific service, this command prints a list of all available custom format groups from the
+TRaSH Guides in YAML format, ready to be copied and pasted directly into your configuration YAML
+file. Here is an example of the output you will see:
+
+```txt
+List of Custom Format Groups in the TRaSH Guides:
+
+          - 9d5acd8f1da78dfbae788182f7605200 # [Audio] Audio Formats (12 CFs)
+          - ef20e67b95a381fb3bc6d1f06ea24f46 # [HDR Formats] HDR (1 CFs)
+          - f4f1474b963b24cf983455743aa9906c # [Movie Versions] Movie Versions (5 CFs)
+          - d9cc9a504e5ede6294c8b973aad4f028 # [Streaming Services] General (24 CFs)
+
+The above Custom Format Groups are in YAML format and ready to be copied & pasted under the `custom_format_groups:` property.
+```
+
+You can copy and paste these directly into your config YAML, like this:
+
+```yml
+radarr:
+  main:
+    base_url: http://127.0.0.1:7878
+    api_key: 2424b3643507485ea2e06382d3f0b8a3
+    custom_format_groups:
+      - trash_id: 9d5acd8f1da78dfbae788182f7605200 # [Audio] Audio Formats (12 CFs)
+      - trash_id: ef20e67b95a381fb3bc6d1f06ea24f46 # [HDR Formats] HDR (1 CFs)
+```
+
+## Examples
+
+```bash
+# List all custom format groups in the guide for Radarr
+recyclarr list custom-format-groups radarr
+
+# List all custom format groups in the guide for Sonarr
+recyclarr list custom-format-groups sonarr
+```
+
+## Arguments
+
+### `<service>` {#service}
+
+A required positional argument that indicates the specific service type to list custom format groups
+for. Valid values for this argument are:
+
+- `radarr`: List Radarr custom format groups
+- `sonarr`: List Sonarr custom format groups
+
+## Options
+
+Visit [Common Options](../common.mdx) to read about options usable by all commands.
