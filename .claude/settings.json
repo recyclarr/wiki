@@ -6,8 +6,7 @@
       "Bash(yarn build)",
       "Bash(yarn install)",
       "Bash(yarn start:*)",
-      "mcp__playwright__*",
-      "mcp__linear__*"
+      "mcp__plugin_recyclarr_linear__*"
     ],
     "deny": [],
     "ask": []
