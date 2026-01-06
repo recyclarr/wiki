@@ -265,6 +265,22 @@ recyclarr sync --log debug
 The `--log` option enables log output mode and accepts three levels: `debug`, `info` (default), and
 `warn`. See the [CLI Common Options][common-log] documentation for details.
 
+## CLI: `list score-sets` Command {#score-sets-command}
+
+The `--score-sets` flag on `list custom-formats` has been replaced with a dedicated subcommand.
+
+**Before:**
+
+```bash
+recyclarr list custom-formats radarr --score-sets
+```
+
+**After:**
+
+```bash
+recyclarr list score-sets radarr
+```
+
 [include-config]: ../../reference/configuration/include.mdx#config
 [resource-providers]: ../../reference/settings/resource-providers/index.mdx
 [common-log]: ../../cli/common.mdx#log-arg
