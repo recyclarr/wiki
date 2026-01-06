@@ -1,0 +1,65 @@
+---
+id: score-sets
+title: recyclarr list score-sets
+sidebar_label: score-sets
+---
+
+## Usage
+
+```txt
+recyclarr list score-sets <service>
+```
+
+## Description
+
+For a specific service, this command prints a list of all available score sets from the TRaSH
+Guides. A "score set" is a preset collection of scores across multiple custom formats designed for
+specific types of quality profiles, such as 1080p vs 2160p.
+
+Here is an example of the output you will see:
+
+```txt
+List of Score Sets in the TRaSH Guides:
+
+              anime-radarr
+              anime-sonarr
+              default
+              sqp-1-1080p
+              sqp-1-2160p
+              sqp-1-uhd
+              sqp-2
+              sqp-3
+              sqp-4
+              sqp-5
+              streaming-services-anime-optional
+              streaming-services-only-optional
+```
+
+These score set names can be used with the [`score_set` property][scoresetyaml] in your quality
+profile configuration.
+
+## Examples
+
+```bash
+# List all score sets for Radarr
+recyclarr list score-sets radarr
+
+# List all score sets for Sonarr
+recyclarr list score-sets sonarr
+```
+
+## Arguments
+
+### `<service>` {#service}
+
+A required positional argument that indicates the specific service type to list score sets for.
+Valid values for this argument are:
+
+- `radarr`: List Radarr score sets
+- `sonarr`: List Sonarr score sets
+
+## Options
+
+Visit [Common Options](../common.mdx) to read about options usable by all commands.
+
+[scoresetyaml]: ../../reference/configuration/quality-profiles.mdx#score-set

@@ -50,9 +50,6 @@ recyclarr list custom-formats radarr
 # List all custom formats in the guide for Sonarr
 recyclarr list custom-formats sonarr
 
-# List all score sets in custom formats for Radarr
-recyclarr list custom-formats radarr --score-sets
-
 # List all custom formats without any formatting (e.g. for scripts)
 recyclarr list custom-formats radarr --raw
 ```
@@ -73,13 +70,6 @@ Valid values for this argument are:
 ## Options
 
 Visit [Common Options](../common.mdx) to read about options usable by all commands.
-
-### `--score-sets` {#score-sets}
-
-Instead of listing custom format names, output a list of score sets that can be used with the
-[`score_set` YAML property][scoresetyaml].
-
-[scoresetyaml]: ../../reference/configuration/quality-profiles.mdx#score-set
 
 ### `--raw` {#raw}
 
