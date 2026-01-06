@@ -188,7 +188,9 @@ examples against schema, cross-reference CLI help output.
 ### Upgrade Guides
 
 `docs/guide/upgrade-guide/` pages are historical snapshots - never retroactively update. Use anchor
-IDs for breaking changes, `# <<< RENAMED` comments in before/after YAML examples.
+IDs for breaking changes, `# <<< RENAMED` comments in before/after YAML examples. Avoid statements
+about future releases (e.g., "will be removed in a future version") - document current behavior
+only.
 
 ## Styling
 
