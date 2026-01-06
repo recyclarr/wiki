@@ -190,8 +190,9 @@ want to override scores, or need to assign to user-defined profiles.
 
 **Required.**
 
-The trash ID of a custom format group from the TRaSH Guides. Group trash IDs can be found in the
-[TRaSH Guide CF group JSON files][cfgroups].
+The trash ID of a custom format group from the TRaSH Guides. Group trash IDs can be discovered
+using the [`list custom-format-groups` command][listcfgroups] or found in the [TRaSH Guide CF group
+JSON files][cfgroups].
 
 ### `assign_scores_to` {#cfg-assign-scores-to}
 
@@ -232,6 +233,6 @@ formats via [`custom_formats`][cf] instead.
 :::
 
 [cf]: #custom-formats
-
 [cf-assign]: #assign-scores-to
 [cfgroups]: https://github.com/TRaSH-Guides/Guides/tree/master/docs/json/radarr/cf-groups
+[listcfgroups]: ../../cli/list/list-custom-format-groups.mdx
