@@ -71,7 +71,7 @@ Static assets: `/img/` (logos), `/doc-img/` (screenshots)
   with `[id]: path.mdx` at page end. When editing existing docs, convert inline links to
   reference-style opportunistically
 - Admonitions: `:::info` (optional/context), `:::tip` (best practices), `:::warning` (pitfalls),
-  `:::danger` (data loss risks)
+  `:::danger` (data loss risks). MUST have blank line after opening `:::type` and before `:::`
 - Emdashes (—) are acceptable in documentation for parenthetical phrases and emphasis
 
 Target audience: Beginners to Recyclarr. Lead with outcomes, simple examples first. Never use "SQP"
