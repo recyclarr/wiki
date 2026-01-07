@@ -54,3 +54,28 @@ values for this argument are:
 ## Options
 
 Visit [Common Options](../common.mdx) to read about options usable by all commands.
+
+### `--raw` {#raw}
+
+Output in TSV format for scripting. Suppresses table formatting.
+
+**Radarr columns** (tab-separated):
+
+1. **Format Type** - The naming category (`movie_folder`, `standard_movie`)
+2. **Key** - The key to use in `media_naming` configuration
+3. **Naming Format** - The actual naming pattern string
+
+**Sonarr columns** (tab-separated):
+
+1. **Format Type** - The naming category (`season_folder`, `series_folder`, `standard_episode`,
+   `daily_episode`, `anime_episode`)
+2. **Key** - The key to use in `media_naming` configuration
+3. **Version** - The Sonarr version compatibility (`All`, `v3`, `v4`)
+4. **Naming Format** - The actual naming pattern string
+
+:::info
+
+The `--raw` and `--log` options are mutually exclusive. Use `--raw` for machine-readable output or
+`--log` for diagnostics.
+
+:::

@@ -281,6 +281,38 @@ recyclarr list custom-formats radarr --score-sets
 recyclarr list score-sets radarr
 ```
 
+## CLI: List Command Output Format {#list-output-format}
+
+List commands now display formatted tables instead of plain text. The global `--raw` option has been
+removed and is now specific to list commands, outputting TSV (tab-separated values) format for
+scripting.
+
+**Before (v7.x):**
+
+```txt
+List of Custom Formats in the TRaSH Guides:
+
+          - b124be9b146540f8e62f98fe32e49a2a # 1.0 Mono
+          - 820b09bb9acbfde9c35c71e0e565dad8 # 1080p
+```
+
+**After (v8.0):**
+
+List commands display formatted tables with category groupings and helpful instructions. Use
+`--raw` for machine-readable TSV output suitable for scripting.
+
+### Migration for Scripts {#list-scripts}
+
+If you have scripts that parse list command output, update them to use `--raw`:
+
+```bash
+recyclarr list custom-formats radarr --raw
+```
+
+The `--raw` option outputs TSV format. Each list command documents its specific column format in the
+[CLI reference][list-commands].
+
 [include-config]: ../../reference/configuration/include.mdx#config
+[list-commands]: ../../cli/list/index.mdx
 [resource-providers]: ../../reference/settings/resource-providers/index.mdx
 [common-log]: ../../cli/common.mdx#log-arg

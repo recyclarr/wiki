@@ -13,22 +13,10 @@ recyclarr list custom-formats <service> [OPTIONS]
 ## Description
 
 For a specific service, this command prints a list of all available Custom Formats from the TRaSH
-Guides in YAML format, ready to be copied & pasted directly into your configuration YAML file (e.g.
-`recyclarr.yml`). Here is an example of the output you will see:
+Guides in a formatted table grouped by category. Use the Trash ID values with the `trash_ids`
+property in your configuration YAML file.
 
-```txt
-List of Custom Formats in the TRaSH Guides:
-
-          - b124be9b146540f8e62f98fe32e49a2a # 1.0 Mono
-          - 820b09bb9acbfde9c35c71e0e565dad8 # 1080p
-          - 89dac1be53d5268a7e10a19d3c896826 # 2.0 Stereo
-          - fb392fb0d61a010ae38e49ceaa24a1ef # 2160p
-          - 205125755c411c3b8622ca3175d27b37 # 3.0 Sound
-
-The above Custom Formats are in YAML format and ready to be copied & pasted under the `trash_ids:` property.
-```
-
-You can copy & paste these directly into your config YAML, like this:
+Example usage in your config:
 
 ```yml
 radarr:
@@ -50,7 +38,7 @@ recyclarr list custom-formats radarr
 # List all custom formats in the guide for Sonarr
 recyclarr list custom-formats sonarr
 
-# List all custom formats without any formatting (e.g. for scripts)
+# Output in TSV format for scripting
 recyclarr list custom-formats radarr --raw
 ```
 
@@ -73,6 +61,17 @@ Visit [Common Options](../common.mdx) to read about options usable by all comman
 
 ### `--raw` {#raw}
 
-Omit boilerplate text in the output. This excludes superfluous instructional text, formatting, and
-colors. This option is useful to use in scripting scenarios, such as taking the CF output list and
-automatically building a YAML configuration file from it.
+Output in TSV format for scripting. Suppresses table formatting, colors, and instructional text.
+
+Columns (tab-separated):
+
+1. **Trash ID** - The unique identifier to use in `trash_ids`
+2. **Name** - The custom format name
+3. **Category** - The category grouping (may be empty)
+
+:::info
+
+The `--raw` and `--log` options are mutually exclusive. Use `--raw` for machine-readable output or
+`--log` for diagnostics.
+
+:::
