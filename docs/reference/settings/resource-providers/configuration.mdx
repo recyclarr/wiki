@@ -12,7 +12,6 @@ resource_providers:
     type: trash-guides
     clone_url: https://github.com/yourname/custom-guides.git
     reference: main
-    depth: 1
     replace_default: false
 
   # Local directory provider (custom-formats)
@@ -82,13 +81,6 @@ The default is `master`, not your repository's default branch. If your repositor
 another default branch, you must specify it explicitly.
 
 :::
-
-### `depth` {#depth}
-
-**Optional.** *Default: full clone*
-
-Shallow clone depth. Set to `1` for latest commit only, reducing clone time and disk usage. Useful
-for large repositories when you don't need commit history.
 
 ## Local Directories {#local-directories}
 
