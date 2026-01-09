@@ -1,6 +1,7 @@
 ---
 description: Choose a Linear issue to work on
 ---
+
 Look at all open Linear issues that:
 
 - are either in the `Backlog` or `In Progress` status
