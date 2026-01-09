@@ -1,5 +1,3 @@
-# CLAUDE.md
-
 ## Project Overview
 
 Recyclarr documentation site built with Docusaurus. Dual deployment:
@@ -123,55 +121,25 @@ structure.
 **Nested property anchors** use prefixes to avoid conflicts: `{#rus-enabled}` for
 `reset_unmatched_scores.enabled`, `{#qualities-name}` for `qualities[].name`.
 
-Use admonitions (see Content Conventions) sparingly—only when behavior is non-obvious or has
-important interactions with other options.
+Use admonitions sparingly - only when behavior is non-obvious or has important interactions.
 
-### Progressive Disclosure
+### Writing for Readers
 
-Present essential information first. Use collapsible `<details>` sections for advanced details, edge
-cases, or extended examples. Beginners get what they need; experienced users can expand.
-
-### Cross-Linking
-
-Link selectively—each link adds cognitive load. On first mention of a concept:
-
-- Recyclarr concept: link to its reference page
-- Sonarr/Radarr concept: link to official docs
-- TRaSH Guides concept: link to TRaSH Guides
-- General knowledge (YAML, CLI basics): explain briefly inline
-
-Use descriptive link text matching the destination title. Never "click here" or raw URLs.
-
-### Self-Sufficiency
-
-- State prerequisites at page start (versions, prior configuration)
-- Define acronyms on first use per page
-- Provide complete, runnable YAML examples—not fragments requiring assembly
-- State expected outcomes after significant steps ("You should see...")
-
-### Limitations and Partial Support
-
-Document limitations in a dedicated "Limitations" heading after the main feature description:
-
-```markdown
-### Limitations {#limitations}
-
-- **Sonarr only**: Not supported in Radarr. See [issue #123] for status.
-- **Partial support**: Only quality profiles sync; custom formats require manual configuration.
-```
-
-Use `<ServiceSupport>` component for feature compatibility matrices.
+- Present essential information first; use `<details>` for advanced content
+- Link selectively - each link adds cognitive load. On first mention: Recyclarr concepts link to
+  reference pages, Sonarr/Radarr to official docs, TRaSH Guides to their site
+- State prerequisites at page start; define acronyms on first use
+- Provide complete, runnable YAML examples - not fragments requiring assembly
+- State expected outcomes after significant steps
 
 ### Platform Differences (Sonarr/Radarr)
 
-Default to unified documentation with inline callouts for minor differences:
+Default to unified documentation with inline callouts (e.g., `> **Radarr only**: ...`) for minor
+differences. Use Docusaurus tabs when steps differ per platform. Split into separate pages only when
+workflows are fundamentally different (>30% divergent content).
 
-```markdown
-> **Radarr only**: The `preferred_ratio` option is not available in Sonarr.
-```
-
-Use Docusaurus tabs when the same task has different steps per platform. Split into separate pages
-only when workflows are fundamentally different (>30% divergent content).
+Document limitations in a dedicated `### Limitations {#limitations}` heading. Use `<ServiceSupport>`
+for feature compatibility matrices.
 
 ## Documentation Accuracy
 
