@@ -1,0 +1,78 @@
+---
+id: quality-profiles
+title: recyclarr list quality-profiles
+sidebar_label: quality-profiles
+---
+
+## Usage
+
+```txt
+recyclarr list quality-profiles <service> [OPTIONS]
+```
+
+## Description
+
+For a specific service, this command prints a list of all available quality profiles from the
+TRaSH Guides in a formatted table. Each profile shows its name, trash ID, and the qualities
+enabled within it.
+
+In terminals that support hyperlinks, profile names are clickable links that open the
+corresponding TRaSH Guides documentation page.
+
+Use the trash ID with the `trash_id` property under `quality_profiles` in your configuration:
+
+```yml
+radarr:
+  main:
+    base_url: http://127.0.0.1:7878
+    api_key: 2424b3643507485ea2e06382d3f0b8a3
+    quality_profiles:
+      - trash_id: d1d67249d3890e49bc12e275d989a7e9 # HD Bluray + WEB
+```
+
+## Examples
+
+```bash
+# List all quality profiles in the guide for Radarr
+recyclarr list quality-profiles radarr
+
+# List all quality profiles in the guide for Sonarr
+recyclarr list quality-profiles sonarr
+
+# Output in TSV format for scripting
+recyclarr list quality-profiles radarr --raw
+```
+
+## Arguments
+
+### `<service>` {#service}
+
+A required positional argument that indicates the specific service type to list quality profiles
+for. Valid values:
+
+- `radarr`: List [Radarr quality profiles][radarrqp]
+- `sonarr`: List [Sonarr quality profiles][sonarrqp]
+
+[radarrqp]: https://trash-guides.info/Radarr/radarr-setup-quality-profiles/
+[sonarrqp]: https://trash-guides.info/Sonarr/sonarr-setup-quality-profiles/
+
+## Options
+
+Visit [Common Options](../common.mdx) to read about options usable by all commands.
+
+### `--raw` {#raw}
+
+Output in TSV format for scripting. Suppresses table formatting, colors, and instructional text.
+
+Columns (tab-separated):
+
+1. **Trash ID** - The unique identifier to use in `trash_id`
+2. **Name** - The quality profile name
+3. **URL** - Link to the TRaSH Guides page (may be empty)
+
+:::info
+
+The `--raw` and `--log` options are mutually exclusive. Use `--raw` for machine-readable output
+or `--log` for diagnostics.
+
+:::
