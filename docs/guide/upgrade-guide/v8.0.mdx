@@ -301,6 +301,32 @@ recyclarr list custom-formats radarr --raw
 The `--raw` option outputs TSV format. Each list command documents its specific column format in the
 [CLI reference][list-commands].
 
+## Config Templates Changes {#config-templates}
+
+### Version-Aware Branch Selection {#version-aware-templates}
+
+Config-templates providers now use version-aware branch selection. Recyclarr automatically selects
+the `v{major}` branch matching your version (e.g., `v8` for Recyclarr 8.x), falling back to
+`master`/`main` if unavailable. This ensures template compatibility with your Recyclarr version.
+
+No user action is required. If you have an explicit `reference` in your settings, it continues to
+override auto-detection.
+
+### v7 Templates Maintenance Policy {#v7-maintenance}
+
+With the introduction of version-aware branches, v7 templates (the `master` branch) are now in
+maintenance mode:
+
+- **No new features**: v7 templates will not receive updates for new guide changes
+- **Critical fixes only**: Only severe issues will be addressed on the v7 branch
+- **Template drift expected**: v7 templates may diverge from current TRaSH Guides recommendations
+
+**If you're experiencing template drift from the guides**: The recommended path is upgrading to
+Recyclarr v8, which uses the `v8` branch with actively maintained templates.
+
+v8 templates are being simplified to leverage guide-backed quality profiles and custom format
+groups, providing better alignment with the TRaSH Guides while reducing configuration complexity.
+
 [include-config]: ../../reference/configuration/include.mdx#config
 [list-commands]: ../../cli/list/index.mdx
 [resource-providers]: ../../reference/settings/resource-providers/index.mdx
