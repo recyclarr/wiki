@@ -81,25 +81,23 @@ resource_providers:
 
 ## Git Repository Issues
 
-### Wrong default branch
+### Branch not found
 
-If you get errors about a missing `master` branch:
+Recyclarr auto-detects the default branch by trying `master` then `main`. If your repository uses a
+different branch name (e.g., `develop`, `stable`), you must specify it explicitly:
 
 ```yml
-# Wrong - repository uses 'main' but reference defaults to 'master'
+# Wrong - repository uses 'develop' which isn't auto-detected
 - name: my-guides
   type: trash-guides
   clone_url: https://github.com/yourname/guides.git
 
-# Correct - explicitly specify the branch
+# Correct - explicitly specify non-standard branch names
 - name: my-guides
   type: trash-guides
   clone_url: https://github.com/yourname/guides.git
-  reference: main
+  reference: develop
 ```
-
-The `reference` property defaults to `master`. If your repository uses `main` or another default
-branch, you must specify it explicitly.
 
 ### Git repository access issues
 
