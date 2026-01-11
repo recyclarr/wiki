@@ -71,16 +71,18 @@ Mutually exclusive with [`path`](#path).
 
 ### `reference` {#reference}
 
-**Optional.** *Default: `master`*
+**Optional.** *Default: auto-detected*
 
 Git reference to checkout: branch name, tag, or commit SHA.
 
-:::warning
+When omitted, Recyclarr auto-detects the default branch by trying `master` then `main`. For
+`config-templates` providers, Recyclarr first tries `v{major}` (matching your Recyclarr version) to
+ensure template compatibility.
 
-The default is `master`, not your repository's default branch. If your repository uses `main` or
-another default branch, you must specify it explicitly.
+Specify `reference` explicitly when:
 
-:::
+- Pinning to a specific commit or tag for stability
+- Your repository uses a non-standard branch name (not `master` or `main`)
 
 ## Local Directories {#local-directories}
 
