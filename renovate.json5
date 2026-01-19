@@ -8,7 +8,7 @@
   ],
   minimumReleaseAge: "5 days",
   dependencyDashboardTitle: "Renovate Dashboard 🤖",
-  dependencyDashboardAutoclose: true,
+  dependencyDashboardAutoclose: false,
   configMigration: true,
   gitIgnoredAuthors: ["227055450+renohate[bot]@users.noreply.github.com"],
   packageRules: [
