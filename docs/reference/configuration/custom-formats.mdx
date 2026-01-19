@@ -202,13 +202,13 @@ One or more quality profiles to assign the group's custom format scores to. Unli
 [`custom_formats.assign_scores_to`][cf-assign], this property only accepts `trash_id` references to
 [guide-backed quality profiles][guide-qp], not profile names.
 
-When omitted, scores are assigned to guide-backed quality profiles in your configuration (those with
-a `trash_id` property), except profiles the group excludes. User-defined profiles (those with only a
-`name`) do not receive scores from groups.
+When omitted, scores are assigned to guide-backed quality profiles in your configuration that the
+group includes. Each group specifies which profiles are compatible—for example, HDR groups include
+only UHD profiles since HDR is a UHD feature. User-defined profiles (those with only a `name`) do
+not receive scores from groups.
 
-Each group in the TRaSH Guides excludes incompatible quality profiles. For example, HDR groups
-exclude HD profiles since HDR is a UHD feature. These exclusions are enforced even when you
-explicitly specify `assign_scores_to`—referencing an excluded profile results in a validation error.
+The include list is enforced even when you explicitly specify `assign_scores_to`—referencing a
+profile not in the group's include list results in a validation error.
 
 #### `trash_id` {#cfg-ast-trash-id}
 
