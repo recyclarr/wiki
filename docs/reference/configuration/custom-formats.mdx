@@ -31,13 +31,11 @@ service_type:
 
     # Custom Format Groups (bundles of related CFs from the guide)
     custom_format_groups:
-      - trash_id: d9cc9a504e5ede6294c8b973aad4f028 # Streaming Services - General
-      - trash_id: f4f1474b963b24cf983455743aa9906c # Movie Versions
+      - trash_id: 9d5acd8f1da78dfbae788182f7605200 # [Audio] Audio Formats
         assign_scores_to:
-          - trash_id: d1d67249d3890e49bc12e275d989a7e9 # HD Bluray + WEB
-        exclude:
-          - eecf3a857724171f968a66cb5719e152 # IMAX
-          - 9f6cbff8cfe4ebbc1bde14c7b7bec0de # IMAX Enhanced
+          - trash_id: 64fb5f9858489bdac2af690e27c8f42f # UHD Bluray + WEB
+        select:
+          - 7357cf5161efbf8c4d5d0c30b4815ee2 # Obfuscated
 ```
 
 ## Synchronization Behavior {#synchronization}
@@ -172,11 +170,16 @@ without having to delete them.
 A list of custom format groups from the TRaSH Guides. Groups bundle related custom formats with
 guide-recommended scores, simplifying configuration compared to listing individual custom formats.
 
-Groups are fully opt-in: you must explicitly list each group you want. The `default` flags in the
-TRaSH Guide JSON (at both group and CF level) are intentionally ignored, giving you complete control
-over what gets synced. When you add a group, all its custom formats sync—both required and optional.
-Groups are additive, so you can combine multiple related groups (e.g., several HDR format groups)
-without conflict.
+Which custom formats sync from a group depends on flags in the TRaSH Guide JSON:
+
+- **Required** (`required: true`) — Always synced when the group is enabled. Cannot be deselected.
+- **Default** (`default: true`) — Synced automatically unless you override via [`select`][cfg-sel].
+- **Optional** (no `default` flag) — NOT synced unless explicitly listed in `select`.
+
+This opt-in model means many groups work without any `select` property—you get all required and
+default CFs automatically. Use `select` only when you need to swap defaults or add optional CFs.
+
+[cfg-sel]: #cfg-select
 
 :::info Groups vs Individual Custom Formats
 
@@ -216,23 +219,26 @@ profile not in the group's include list results in a validation error.
 
 The trash ID of a [guide-backed quality profile][guide-qp].
 
-### `exclude` {#cfg-exclude}
+### `select` {#cfg-select}
 
-**Optional.** *Default: No custom formats are excluded*
+**Optional.** *Default: Sync required and default CFs only*
 
-A list of custom format trash IDs to exclude from this group. Use this to opt out of specific custom
-formats while syncing the rest of the group.
+A list of custom format trash IDs to select from this group. Use this to opt-in to optional CFs or
+override default selections.
 
-:::warning
+Listed CFs are synced in addition to required CFs. When a group contains mutually exclusive CFs
+(where only one should be active), selecting a non-default CF automatically replaces the default.
 
-You cannot exclude custom formats marked as **required** by the TRaSH Guides. Attempting to do so
-results in a validation error. If you find yourself wanting to exclude required custom formats,
-consider whether the group fits your needs—you may be better served by selecting individual custom
-formats via [`custom_formats`][cf] instead.
+See the [CF Groups guide][cfg-guide] for usage patterns and examples.
+
+:::info
+
+Selecting a required CF is allowed but redundant—required CFs sync regardless. Recyclarr logs a
+warning to help identify unnecessary entries.
 
 :::
 
-[cf]: #custom-formats
 [cf-assign]: #assign-scores-to
+[cfg-guide]: ../../guide/cf-groups.mdx
 [cfgroups]: https://github.com/TRaSH-Guides/Guides/tree/master/docs/json/radarr/cf-groups
 [listcfgroups]: ../../cli/list/list-custom-format-groups.mdx

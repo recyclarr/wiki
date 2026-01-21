@@ -388,7 +388,7 @@ Items in `custom_format_groups` are joined by `trash_id`.
 | Property Name      | Node Type | Merge Operation |
 |--------------------|-----------|-----------------|
 | `assign_scores_to` | Sequence  | Replace         |
-| `exclude`          | Sequence  | Replace         |
+| `select`           | Sequence  | Replace         |
 
 ### Media Naming {#merge-media-naming}
 
@@ -519,10 +519,10 @@ custom_formats:
 
 ### Custom Format Groups {#detail-cfg}
 
-The `assign_scores_to` and `exclude` properties use Replace rather than Add or Join. This provides
+The `assign_scores_to` and `select` properties use Replace rather than Add or Join. This provides
 simpler override semantics: when you specify these properties in your root config, they completely
 replace any values from included YAML for that group. This makes it clear which profiles receive
-scores and which custom formats are skipped without needing to mentally combine multiple lists.
+scores and which optional CFs are selected without needing to mentally combine multiple lists.
 
 ## Tips & Information {#tips}
 
