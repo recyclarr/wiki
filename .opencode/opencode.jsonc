@@ -6,5 +6,11 @@
       "type": "remote",
       "url": "https://mcp.linear.app/sse"
     }
-  }
+  },
+  "permission": {
+    // Fine tune linear tools in context
+    "*linear_*": "deny",
+    "*linear_*_comment*": "allow",
+    "*linear_*_issue*": "allow",
+  },
 }
