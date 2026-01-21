@@ -1,0 +1,94 @@
+---
+title: Custom Format Groups
+description: Using CF groups to sync curated bundles of custom formats
+---
+
+Custom format groups bundle related custom formats with guide-recommended scores. Instead of listing
+dozens of individual custom formats, you reference a single group and get all the CFs that work
+together.
+
+## When to Use Groups {#when-to-use}
+
+Use [`custom_format_groups`][cfg-ref] when you want to adopt curated sets of related custom formats
+without managing each one individually.
+
+Groups handle:
+
+- Audio codec formats (TrueHD, DTS-HD, Atmos, etc.)
+- HDR formats (DV, HDR10+, HDR10, etc.)
+- Streaming service identification
+- Unwanted release types (LQ, scene, etc.)
+
+Use [`custom_formats`][cf] instead when you need fine-grained control, want to override scores, or
+need to assign CFs to user-defined profiles.
+
+[cfg-ref]: ../reference/configuration/custom-formats.mdx#custom-format-groups
+[cf]: ../reference/configuration/custom-formats.mdx#custom-formats
+
+## How Selection Works {#selection}
+
+Which custom formats sync from a group depends on flags set in the TRaSH Guide JSON:
+
+| Flag in Guide    | Behavior                                              |
+|------------------|-------------------------------------------------------|
+| `required: true` | Always synced. Cannot be deselected.                  |
+| `default: true`  | Synced automatically. Can be overridden via `select`. |
+| No flag          | NOT synced unless explicitly listed in `select`.      |
+
+Most groups work without any `select` property—you get all required and default CFs automatically.
+
+## Usage Patterns {#patterns}
+
+### Sync All Required and Default CFs {#pattern-defaults}
+
+For groups where you want the standard configuration, just reference the group:
+
+```yml
+custom_format_groups:
+  - trash_id: 9d5acd8f1da78dfbae788182f7605200  # [Audio] Audio Formats
+```
+
+All required CFs sync unconditionally. All CFs marked `default: true` sync as well. Optional CFs
+(those without a `default` flag) are skipped.
+
+### Swap a Default for an Alternative {#pattern-swap}
+
+Some groups contain mutually exclusive CFs where you should only use one. For example, a group might
+default to "x265 (no 720/1080p)" but you prefer "x265 (HD)" instead:
+
+```yml
+custom_format_groups:
+  - trash_id: ff204bbcecdd487d1cefcefdbf0c278d  # [Required] Golden Rule UHD
+    select:
+      - dc98083864ea246d05a42df0d05f81cc  # x265 (HD)
+```
+
+When you select a non-default CF from a mutually exclusive set, it replaces the default. You don't
+need to explicitly remove the default—selecting an alternative handles it.
+
+### Select Optional CFs {#pattern-optional}
+
+Some groups have no defaults—every CF is optional. Use `select` to pick the ones you want:
+
+```yml
+custom_format_groups:
+  - trash_id: 9337080378236ce4c0b183e35790d2a7  # [Optional] Miscellaneous
+    select:
+      - 7357cf5161efbf8c4d5d0c30b4815ee2  # Obfuscated
+      - f537cf427b64c38c8e36298f657e4828  # Scene
+```
+
+Only the selected CFs sync. Required CFs (if any) still sync regardless of your selections.
+
+## Finding Group IDs {#finding-ids}
+
+Use the [`list custom-format-groups`][list-cfg] command to discover available groups and their
+trash IDs:
+
+```bash
+recyclarr list custom-format-groups radarr
+```
+
+The output shows each group's name, trash ID, and the CFs it contains.
+
+[list-cfg]: ../cli/list/list-custom-format-groups.mdx
