@@ -340,6 +340,7 @@ semantics, those will be documented in later sections. This will especially be t
 | `quality_definition`        | Mapping   | Union               |
 | `delete_old_custom_formats` | Scalar    | Replace             |
 | `media_naming`              | Mapping   | Union               |
+| `media_management`          | Mapping   | Union               |
 
 ### Quality Definition {#merge-quality-definition}
 
@@ -426,6 +427,12 @@ Under `movie`:
 |---------------|-----------|-----------------|
 | `rename`      | Scalar    | Replace         |
 | `standard`    | Scalar    | Replace         |
+
+### Media Management {#merge-media-management}
+
+| Property Name         | Node Type | Merge Operation |
+|-----------------------|-----------|-----------------|
+| `propers_and_repacks` | Scalar    | Replace         |
 
 ### Unsupported Properties {#merge-unsupported}
 
