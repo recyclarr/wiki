@@ -6,7 +6,7 @@ const FeatureList = [
   {
     title: 'Automatic TRaSH Sync',
     icon: 'mdi:sync',
-    description: 'Continuously synchronize custom formats, quality profiles, and naming schemes from TRaSH Guides',
+    description: 'Continuously synchronize custom formats, quality profiles, naming schemes, and more from TRaSH Guides',
   },
   {
     title: 'Multi-Instance Management',
