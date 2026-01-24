@@ -1,0 +1,44 @@
+---
+title: Media Management
+sidebar_position: 8
+description: Configure media management settings like Propers and Repacks handling
+---
+
+<ServiceSupport sonarr="full" radarr="full" />
+
+```yml
+radarr:
+  movies:
+    base_url: http://localhost:7878
+    api_key: !secret radarr_api_key
+
+    media_management:
+      propers_and_repacks: do_not_prefer
+```
+
+The `media_management` section configures settings found in **Settings > Media Management** in the
+Sonarr/Radarr UI. If a property is not specified, Recyclarr will not sync that setting — this is
+useful if you prefer to manage it manually.
+
+## `propers_and_repacks` {#propers-and-repacks}
+
+**Optional.** *Default: not synced*
+
+Controls how Sonarr/Radarr handles Propers and Repacks. This corresponds to the "Propers and
+Repacks" dropdown in the Media Management settings.
+
+Valid values:
+
+| Value                | Behavior                                                 |
+|----------------------|----------------------------------------------------------|
+| `prefer_and_upgrade` | Prefer propers/repacks and automatically upgrade to them |
+| `do_not_upgrade`     | Prefer propers/repacks but don't upgrade existing files  |
+| `do_not_prefer`      | Don't give any preference to propers/repacks             |
+
+:::tip
+
+When using TRaSH Guides Custom Formats for repack/proper handling (the recommended approach), set
+this to `do_not_prefer`. This disables the built-in handling so the Custom Format scores control
+upgrade behavior instead.
+
+:::
