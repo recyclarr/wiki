@@ -24,9 +24,19 @@ radarr:
     base_url: http://127.0.0.1:7878
     api_key: 2424b3643507485ea2e06382d3f0b8a3
     custom_format_groups:
-      - trash_id: 9d5acd8f1da78dfbae788182f7605200 # [Audio] Audio Formats (12 CFs)
-      - trash_id: ef20e67b95a381fb3bc6d1f06ea24f46 # [HDR Formats] HDR (1 CFs)
+      add:
+        - trash_id: 9d5acd8f1da78dfbae788182f7605200 # [Audio] Audio Formats
+        - trash_id: ef20e67b95a381fb3bc6d1f06ea24f46 # [HDR Formats] HDR
 ```
+
+:::tip
+
+When using [guide-backed quality profiles][guide-qp], default CF groups sync automatically. You only
+need `custom_format_groups` to opt-out of defaults (`skip`) or add non-default groups (`add`).
+
+:::
+
+[guide-qp]: ../../reference/configuration/quality-profiles.mdx#trash-id
 
 ## Examples
 
