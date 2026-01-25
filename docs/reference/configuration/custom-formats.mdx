@@ -29,13 +29,17 @@ service_type:
         assign_scores_to:
           - name: SD
 
-    # Custom Format Groups (bundles of related CFs from the guide)
+    # Custom Format Groups
+    # Default groups auto-sync when using guide-backed quality profiles.
+    # Use `skip` to opt-out, `add` to include non-default groups.
     custom_format_groups:
-      - trash_id: 9d5acd8f1da78dfbae788182f7605200 # [Audio] Audio Formats
-        assign_scores_to:
-          - trash_id: 64fb5f9858489bdac2af690e27c8f42f # UHD Bluray + WEB
-        select:
-          - 7357cf5161efbf8c4d5d0c30b4815ee2 # Obfuscated
+      skip:
+        - 9d5acd8f1da78dfbae788182f7605200 # Opt-out of Audio Formats
+      add:
+        - trash_id: f737e18b5824d6ebb2d57b957ae2fd6c # Streaming Services (UK)
+        - trash_id: 9d5acd8f1da78dfbae788182f7605200 # Customize Audio Formats
+          select:
+            - 7357cf5161efbf8c4d5d0c30b4815ee2 # Select specific CFs
 ```
 
 ## Synchronization Behavior {#synchronization}
@@ -165,31 +169,35 @@ without having to delete them.
 
 ## `custom_format_groups` {#custom-format-groups}
 
-**Optional.** *Default: No CF groups are synced*
+**Optional.** *Default: Auto-sync default groups for guide-backed quality profiles*
 
-A list of custom format groups from the TRaSH Guides. Groups bundle related custom formats with
-guide-recommended scores, simplifying configuration compared to listing individual custom formats.
+Controls which CF groups sync from the TRaSH Guides. Groups bundle related custom formats with
+guide-recommended scores.
 
-Which custom formats sync from a group depends on flags in the TRaSH Guide JSON:
+**Auto-sync:** When you use a [guide-backed quality profile][guide-qp], Recyclarr automatically
+syncs groups that have `default: true` in the guide and include your profile in their compatibility
+list. Use `skip` to opt-out of auto-synced groups; use `add` to include non-default groups or
+customize which CFs sync.
 
-- **Required** (`required: true`) — Always synced when the group is enabled. Cannot be deselected.
-- **Default** (`default: true`) — Synced automatically unless you override via [`select`][cfg-sel].
-- **Optional** (no `default` flag) — NOT synced unless explicitly listed in `select`.
+See the [CF Groups guide][cfg-guide] for usage patterns and examples.
 
-This opt-in model means many groups work without any `select` property—you get all required and
-default CFs automatically. Use `select` only when you need to swap defaults or add optional CFs.
+### `skip` {#cfg-skip}
 
-[cfg-sel]: #cfg-select
+**Optional.** *Default: No groups are skipped*
 
-:::info Groups vs Individual Custom Formats
+A list of group trash IDs to exclude from auto-sync. Groups in this list are ignored even if they
+match your quality profiles.
 
-Use `custom_format_groups` to adopt curated sets of related custom formats with guide-recommended
-scores. Use `custom_formats` when you need fine-grained control over individual custom formats,
-want to override scores, or need to assign to user-defined profiles.
+If the same group appears in both `skip` and `add`, the explicit `add` entry takes precedence.
 
-:::
+### `add` {#cfg-add}
 
-### `trash_id` {#cfg-trash-id}
+**Optional.** *Default: No additional groups*
+
+A list of groups to explicitly sync. Use this to opt-in to non-default groups or customize a
+default group's behavior (e.g., specify `select` to change which CFs sync).
+
+#### `trash_id` {#cfg-trash-id}
 
 **Required.**
 
@@ -197,48 +205,34 @@ The trash ID of a custom format group from the TRaSH Guides. Group trash IDs can
 using the [`list custom-format-groups` command][listcfgroups] or found in the [TRaSH Guide CF group
 JSON files][cfgroups].
 
-### `assign_scores_to` {#cfg-assign-scores-to}
+#### `assign_scores_to` {#cfg-assign-scores-to}
 
 **Optional.** *Default: All applicable guide-backed quality profiles*
 
-One or more quality profiles to assign the group's custom format scores to. Unlike
-[`custom_formats.assign_scores_to`][cf-assign], this property only accepts `trash_id` references to
-[guide-backed quality profiles][guide-qp], not profile names.
+One or more quality profiles to assign the group's CF scores to. Only accepts `trash_id` references
+to [guide-backed quality profiles][guide-qp], not profile names.
 
-When omitted, scores are assigned to guide-backed quality profiles in your configuration that the
-group includes. Each group specifies which profiles are compatible—for example, HDR groups include
-only UHD profiles since HDR is a UHD feature. User-defined profiles (those with only a `name`) do
-not receive scores from groups.
+When omitted, scores are assigned to guide-backed profiles in your configuration that the group
+includes. Each group specifies compatible profiles—for example, HDR groups include only UHD
+profiles. User-defined profiles (those with only a `name`) do not receive scores from groups.
 
-The include list is enforced even when you explicitly specify `assign_scores_to`—referencing a
-profile not in the group's include list results in a validation error.
+Referencing a profile not in the group's include list results in a validation error.
 
-#### `trash_id` {#cfg-ast-trash-id}
+##### `trash_id` {#cfg-ast-trash-id}
 
 **Required.**
 
 The trash ID of a [guide-backed quality profile][guide-qp].
 
-### `select` {#cfg-select}
+#### `select` {#cfg-select}
 
 **Optional.** *Default: Sync required and default CFs only*
 
-A list of custom format trash IDs to select from this group. Use this to opt-in to optional CFs or
-override default selections.
+A list of CF trash IDs to select from this group. Only the listed CFs (plus required CFs) sync.
 
-Listed CFs are synced in addition to required CFs. When a group contains mutually exclusive CFs
-(where only one should be active), selecting a non-default CF automatically replaces the default.
+When a group contains mutually exclusive CFs, selecting a non-default CF automatically replaces the
+default.
 
-See the [CF Groups guide][cfg-guide] for usage patterns and examples.
-
-:::info
-
-Selecting a required CF is allowed but redundant—required CFs sync regardless. Recyclarr logs a
-warning to help identify unnecessary entries.
-
-:::
-
-[cf-assign]: #assign-scores-to
 [cfg-guide]: ../../guide/cf-groups.mdx
 [cfgroups]: https://github.com/TRaSH-Guides/Guides/tree/master/docs/json/radarr/cf-groups
 [listcfgroups]: ../../cli/list/list-custom-format-groups.mdx
