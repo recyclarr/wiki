@@ -51,6 +51,48 @@ After adding the comment to the top, you should begin to see contextual editing 
 edit. It will suggest properties you can use and show you documentation for each without having to
 reference the corresponding reference page.
 
+## Choosing a Schema Version {#choosing-version}
+
+Schemas are hosted at `schemas.recyclarr.dev` with versioned paths:
+
+- `latest/` - Always points to the newest release
+- `vX/` - Latest within a major version (e.g., `v7/` includes all v7.x releases)
+- `vX.Y/` - Latest within a feature version (e.g., `v7.5/` includes all v7.5.x releases)
+
+The `latest/` path is recommended for most users. This ensures your editor notifies you when new
+configuration options become available or when breaking changes occur after upgrading Recyclarr.
+
+Use a versioned path only if you intentionally stay on an older Recyclarr version and want to avoid
+warnings about features you cannot use yet.
+
+:::info Supported Versions
+
+Schemas are published for the **3 most recent major versions**. When a new major version releases,
+the oldest supported major drops off. Users on older versions can reference schemas directly from
+the [repository][repo-schemas] at their version tag.
+
+:::
+
+<details>
+<summary>Edge schemas for unstable builds</summary>
+
+The [schemas in the GitHub repository][repo-schemas] reflect the latest unreleased changes. Use
+these only if you are running the `edge` Docker tag or another unstable build.
+
+Configuration schema:
+
+```txt
+https://raw.githubusercontent.com/recyclarr/recyclarr/master/schemas/config-schema.json
+```
+
+Settings schema:
+
+```txt
+https://raw.githubusercontent.com/recyclarr/recyclarr/master/schemas/settings-schema.json
+```
+
+</details>
+
 ## Custom YAML Tags
 
 If you are editing YAML in VS Code and using custom tags like `!secret` or `!env_var`, you will get
@@ -73,3 +115,4 @@ The `yaml.customTags` setting is documented in the [VS Code YAML extension docs]
 [Configuration YAML]: ../reference/configuration/index.mdx#schema
 [Settings YAML]: ../reference/settings/index.mdx#schema
 [custom-tags]: https://github.com/redhat-developer/vscode-yaml#extension-settings
+[repo-schemas]: https://github.com/recyclarr/recyclarr/tree/master/schemas
