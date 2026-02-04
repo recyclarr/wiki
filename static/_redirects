@@ -3,6 +3,14 @@
 # Format: [old-path] [new-path] [status-code]
 # Redirects are grouped by date (newest first). Add new redirects at the top with a date comment.
 
+# 2026-02-04: cache→state rename
+/cli/cache /cli/state 301
+/cli/cache/ /cli/state 301
+/cli/cache/rebuild /cli/state/repair 301
+/cli/cache/rebuild/ /cli/state/repair 301
+/guide/troubleshooting/cache /guide/troubleshooting/state 301
+/guide/troubleshooting/cache/ /guide/troubleshooting/state 301
+
 # 2025-12-23: Consolidated secrets into value-substitution page
 /reference/secrets /reference/configuration/value-substitution#secrets 301
 /reference/secrets/ /reference/configuration/value-substitution#secrets 301
@@ -66,8 +74,8 @@
 /wiki/behavior/quality-profiles/ /reference/configuration/quality-profiles 301
 /wiki/behavior/include /reference/configuration/include 301
 /wiki/behavior/include/ /reference/configuration/include 301
-/wiki/behavior/cache /guide/troubleshooting/cache 301
-/wiki/behavior/cache/ /guide/troubleshooting/cache 301
+/wiki/behavior/cache /guide/troubleshooting/state 301
+/wiki/behavior/cache/ /guide/troubleshooting/state 301
 /wiki/behavior/migration /cli/migrate 301
 /wiki/behavior/migration/ /cli/migrate 301
 /wiki/behavior/notifications /reference/settings/notifications 301
