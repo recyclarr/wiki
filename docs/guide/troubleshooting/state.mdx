@@ -1,20 +1,20 @@
 ---
-id: cache
-title: Cache
+id: state
+title: Sync State
 ---
 
-## Summary
+## Summary {#summary}
 
-The synchronization cache in Recyclarr allows it to more accurately detect changes to custom formats
-in the TRaSH guides. This mainly helps cover changes done on the \*arr side, like renames.
+The sync state in Recyclarr allows it to more accurately detect changes to custom formats in the
+TRaSH guides. This mainly helps cover changes done on the \*arr side, like renames.
 
 Once Recyclarr creates or updates a custom format in \*arr, it records information about it in a
-cache file located in the `cache` subdirectory under the main app data location. The [location
+state file located in the `state` subdirectory under the main app data location. The [location
 varies][app-data] depending on platform.
 
 :::info
 
-The cache files are not meant to be edited by users. In general I recommend leaving them alone.
+The state files are not meant to be edited by users. In general I recommend leaving them alone.
 Recyclarr will manage it for you.
 
 :::
@@ -26,24 +26,24 @@ configuration property to have Recyclarr communicate with that service at its ne
 
 Recyclarr uniquely identifies an instance by its `base_url` value. If the hostname, port, path,
 scheme, or any other part of the URL changes (including adding or removing a trailing slash!),
-Recyclarr will no longer use the previous cache data and instead will create a new one. This often
+Recyclarr will no longer use the previous state data and instead will create a new one. This often
 results in confusion because users start to see this error:
 
 > [ERR] Custom Format 'CRiT' (Trash ID: 16622a6911d1ab5d5b8b713d5b0036d4) cannot be synced because
-> another CF already exists with that name (ID: 246). To adopt the existing CF, run: recyclarr cache
-> rebuild --adopt
+> another CF already exists with that name (ID: 246). To adopt the existing CF, run: recyclarr state
+> repair --adopt
 
 This happens because Recyclarr no longer believes it owns that CF, even though it created it before
-the `base_url` changed. To recover, run the [cache rebuild][cache-rebuild] command with the
-`--adopt` flag:
+the `base_url` changed. To recover, run the [state repair][state-repair] command with the `--adopt`
+flag:
 
 ```bash
-recyclarr cache rebuild --adopt
+recyclarr state repair --adopt
 ```
 
-This rebuilds the cache by matching your configured custom formats to existing ones in the service
-by name. The `--adopt` flag tells Recyclarr to take ownership of matching CFs. After rebuilding,
+This repairs the state by matching your configured custom formats to existing ones in the service by
+name. The `--adopt` flag tells Recyclarr to take ownership of matching CFs. After repairing,
 Recyclarr will recognize the CFs it previously created and resume managing them normally.
 
 [app-data]: ../file-structure.mdx#appdata-directory
-[cache-rebuild]: ../../cli/cache/cache-rebuild.mdx
+[state-repair]: ../../cli/state/repair.mdx
