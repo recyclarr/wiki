@@ -132,6 +132,12 @@ Use admonitions sparingly - only when behavior is non-obvious or has important i
 - Provide complete, runnable YAML examples - not fragments requiring assembly
 - State expected outcomes after significant steps
 
+### Avoiding Content Duplication
+
+Each fact should have one canonical page. Other pages may reference it with a brief characterization
+and a link, but should not re-enumerate details (lists, trees, tables) that the canonical page
+already covers. Removed or deprecated features belong only in upgrade guides, not in reference pages.
+
 ### Platform Differences (Sonarr/Radarr)
 
 Default to unified documentation with inline callouts (e.g., `> **Radarr only**: ...`) for minor
