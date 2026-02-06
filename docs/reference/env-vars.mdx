@@ -8,24 +8,33 @@ These environment variables control Recyclarr's behavior across all commands.
 :::tip Looking for config substitution?
 
 To substitute environment variable values into your YAML configuration files, see [Value
-Substitution](./configuration/value-substitution.mdx#env-vars).
+Substitution][value-sub].
 
 :::
 
-## `RECYCLARR_APP_DATA` {#app-data}
+## `RECYCLARR_CONFIG_DIR` {#config-dir}
 
-Overrides the default [application data directory][appdata] location.
-
-[appdata]: ../guide/file-structure.mdx#appdata-directory
+Overrides the default [configuration directory][configdir] location. This directory holds user
+configuration and state that should be backed up. See [File Structure][configdir] for platform
+defaults and directory contents.
 
 ```bash
-export RECYCLARR_APP_DATA="/custom/path/to/appdata"
+export RECYCLARR_CONFIG_DIR="/custom/path/to/config"
 ```
 
-This is equivalent to using the [`--app-data` CLI option][appdata-cli] on every command. If both are
-set, the CLI option takes precedence.
+## `RECYCLARR_DATA_DIR` {#data-dir}
 
-[appdata-cli]: ../cli/common.mdx#app-data
+Overrides the location for ephemeral [data directory][datadir] used for regenerable files like
+downloaded resources and logs.
+
+```bash
+export RECYCLARR_DATA_DIR="/custom/path/to/data"
+```
+
+If unset, defaults to the same path as `RECYCLARR_CONFIG_DIR`. When both variables are set, only the
+config directory needs to be backed up.
+
+Relative paths are resolved from the config directory.
 
 ## `NO_COLOR` {#no-color}
 
@@ -38,3 +47,7 @@ export NO_COLOR=1
 Useful for scripting, piping output to files, or terminals that don't support colors.
 
 See [no-color.org](https://no-color.org/) for more information about this standard convention.
+
+[value-sub]: ./configuration/value-substitution.mdx#env-vars
+[configdir]: ../guide/file-structure.mdx#config-directory
+[datadir]: ../guide/file-structure.mdx#data-directory
