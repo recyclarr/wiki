@@ -3,8 +3,8 @@ id: backups
 title: Backups
 ---
 
-If you plan on making backups of Recyclarr, The items below should be preserved. Note that all items
-below are relative to the [application data directory][app-data].
+The following items should be preserved when backing up Recyclarr. All paths are relative to the
+[configuration directory][config-dir].
 
 - `recyclarr.yml`
 - `settings.yml`
@@ -14,11 +14,14 @@ below are relative to the [application data directory][app-data].
 
 :::info
 
-Be sure to include `*.yaml` in the above patterns as necessary. Both `yml` and `yaml` extensions are
-accepted by Recyclarr.
+Be sure to include `*.yaml` in the above patterns as necessary. Both `yml` and `yaml` extensions
+are accepted by Recyclarr.
 
 :::
 
-Files and directories *not* listed above are considered unimportant for backup purposes.
+Files not listed above are regenerable and do not need to be backed up. If you use
+[`RECYCLARR_DATA_DIR`][env-data] to separate ephemeral data (logs, resources) from configuration,
+only the config directory needs backup.
 
-[app-data]: ./file-structure.mdx#appdata-directory
+[config-dir]: ./file-structure.mdx#config-directory
+[env-data]: ../reference/env-vars.mdx#data-dir

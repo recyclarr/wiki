@@ -13,9 +13,8 @@ Recyclarr has an official Docker image hosted on the following platforms:
 
 :::info
 
-The installation guide here will refer exclusively to the image on Github, but all the steps are
-equally valid for the image on Docker Hub as well. Simply adjust the image name to pull it from
-where you prefer.
+This guide refers exclusively to the GHCR image, but all steps apply equally to the Docker Hub
+image. Adjust the image name as needed.
 
 :::
 
@@ -24,16 +23,13 @@ where you prefer.
 
 ## Docker Compose Example
 
-Before we get into the details of how to use the Docker image, I want to start with an example. I
-personally hardly ever run `docker` commands directly. Instead, I use `docker compose` mainly
-because the `docker-compose.yml` file is a fantastic way to keep configuration details in one place.
-Thus, for the remainder of this page, all instruction and advice will be based on the example YAML
-below. I highly recommend you set up your own `docker-compose.yml` this way.
+The examples on this page use `docker compose` with a `docker-compose.yml` file, which is the
+recommended approach for managing container configuration in one place.
 
 :::warning
 
-The below example should not be used verbatim. It's meant for example purposes only. Copy & paste it
-but make the appropriate and necessary changes to it for your specific use case.
+The example below should not be used verbatim. Copy and paste it, then make the appropriate changes
+for your specific use case.
 
 :::
 
@@ -58,34 +54,30 @@ services:
 Here is a breakdown of the above YAML:
 
 - `networks`<br/>
-  You are going to ultimately want Recyclarr to be able to connect to your Sonarr and Radarr
-  instances. How you have Radarr and Sonarr hosted on your system will greatly impact how this part
-  gets set up. In my case, I have a dedicated docker bridge network (in this example, named
-  `recyclarr`) for those services. Naturally, that means I want Recyclarr to also run on that bridge
-  network so it can access those services without going out and back in through my reverse proxy.
+  Recyclarr needs network access to Sonarr and Radarr instances. How those services are hosted
+  determines the network configuration. This example uses a dedicated Docker bridge network (named
+  `recyclarr`) shared with those services, allowing Recyclarr to reach them directly without going
+  through a reverse proxy.
 - `image`<br/>
   The official Recyclarr image, hosted on Github.
 - `container_name`<br/>
-  Optional, but I don't want the funky `prefix_recyclarr` name that Docker Compose uses for services
-  by default.
+  Optional. Prevents Docker Compose from generating a prefixed name like `prefix_recyclarr`.
 - `user`<br/>
-  Optional User and Group ID you want to run the container as. Recyclarr will run using this UID:GID
-  and any files it creates in your `/config` volume will also be owned by this user and group. The
-  default for this, if not specified, is `1000:1000`.
+  Optional user and group ID for the container process. Recyclarr runs as this UID:GID, and any
+  files it creates in the `/config` volume are owned by this user and group. Defaults to `1000:1000`
+  if not specified.
 
 ## Tags
 
-A series of docker tags are provided which represent various components of the semantic version
-number following the format of `X.Y.Z`, where:
+Docker tags represent components of the semantic version number following the format `X.Y.Z`, where:
 
 - `X`: Represents a *major* release containing breaking changes.
 - `Y`: Represents a *feature* release.
 - `Z`: Represents a *bugfix* release.
 
-The structure of the tags are described by the following table. Assume for example purposes we're
-talking about `v2.1.2`. The table is sorted by *risk* in descending order. In other words, if you
-value *stability* the most,  you want the bottom row. If you value being on the latest version
-(highest risk), you want the top row.
+The following table describes the available tags. Using `v2.1.2` as an example, the table is sorted
+by *risk* in descending order. For maximum *stability*, use the bottom row. For the latest version
+(highest risk), use the top row.
 
 | Tag      | Description                                                             |
 |----------|-------------------------------------------------------------------------|
@@ -106,114 +98,116 @@ of Recyclarr.
 
 :::danger
 
-The `edge` and prerelease tags should be considered **extremely unstable**. These tags contain
-unreleased code on the `master` branch and most likely have bugs.
+The `edge` tag should be considered **extremely unstable**. It contains unreleased code on the
+`master` branch and most likely has bugs.
 
-These tags should **not** be a general recommendation to folks just to get the latest features. They
-are intended for people that wish to help test new features prior to the next release. These builds
-should not be run against your production instances of Radarr or Sonarr.
+This tag should **not** be used just to get the latest features. It is intended for testing new
+features prior to the next release and should not be run against production instances of Radarr or
+Sonarr.
 
-*Use these tags at your own risk!*
+*Use this tag at your own risk!*
 
 :::
-
-Users that wish to be on the bleeding edge have several options available to them.
-
-#### The `edge` Tag
 
 A *mutable* docker tag named `edge` is available and semantically similar to `latest`, except it
-contains the absolute latest code changes on the `master` branch. This is considered the most
-volatile and risky tag. You should only use this tag if you full understand the consequences.
-
-#### Prerelease Tags
-
-If you prefer *immutable* docker tags (i.e. you want to explicitly upgrade) but still want
-unreleased changes, then the prerelease tags are for you. These are in the format of `X.Y.Z-dev.N`,
-where:
-
-- `X.Y.Z` is the *next* (unreleased) semantic version of Recyclarr. This value changes depending on
-  commits made to the `master` branch.
-- `-dev.` is a fixed prerelease string indicating that this is a *dev build*.
-- `N` is a build number, used mainly to identify unique dev builds when they share an identical
-  semantic version number.
-
-Using the table at the start of the Tags section, an example might be `2.1.3-dev.50` where `2.1.3`
-is the *current* next version after `2.1.2`.
-
-:::warning
-
-Prerelease tags do not live indefinitely. An unspecified *retention period* is applied to them,
-meaning that these tags are **permanently deleted from upstream docker registries** after that
-period of time.
-
-**These tags are not intended for long-term use.** The exact retention details are not documented
-here since they may change at any time.
-
-:::
+contains the absolute latest code changes on the `master` branch. This is the most volatile and
+risky tag. Only use it with full understanding of the consequences.
 
 ## Configuration
 
-### Volumes
+### Volumes {#volumes}
 
 - `/config`<br/>
-  This is the application data directory for Recyclarr. In this directory, files like
-  `recyclarr.yml` and `settings.yml` exist, as well as `logs`, `state`, `resources`, and other
-  directories.
+  The default directory for all Recyclarr files: configuration, state, logs, and downloaded
+  resources.
+
+<details>
+<summary>Separating config from data for backups</summary>
+
+Recyclarr supports splitting its files into a **config directory** (user configuration, state) and a
+**data directory** (logs, downloaded resources). This lets you back up only the config directory
+while treating data as disposable.
+
+```yml
+services:
+  recyclarr:
+    image: ghcr.io/recyclarr/recyclarr
+    container_name: recyclarr
+    user: 1000:1000
+    environment:
+      - TZ=America/Santiago
+      - RECYCLARR_CONFIG_DIR=/config
+      - RECYCLARR_DATA_DIR=/data
+    volumes:
+      - ./recyclarr:/config      # back this up
+      - recyclarr_data:/data     # ephemeral, no backup needed
+volumes:
+  recyclarr_data:
+```
+
+With this setup, `/config` holds user configuration and state (back this up), while `/data` holds
+only regenerable files. See [File Structure][file-structure] for details on what lives in each
+directory.
+
+</details>
 
 ### Environment {#docker-env}
 
 :::info
 
-The `PUID` and `PGID` environment variables are **not** utilized by the official Docker image for
-Recyclarr. Many people think these two environment variables are built into Docker, but they are
-not.
+The `PUID` and `PGID` environment variables are **not** supported by the official Recyclarr Docker
+image. These are not built-in Docker features.
 
-Recyclarr's docker container is **rootless**. You must use the `user` property (in your docker
-compose) or the `--user` option (with the docker cli) to specify the user and group IDs that
-Recyclarr runs as.
+Recyclarr's Docker container is **rootless**. Use the `user` property (in Docker Compose) or the
+`--user` option (with the Docker CLI) to specify the user and group IDs.
 
 :::
 
 - `CRON_SCHEDULE` (Default: `@daily`)<br/>
-  Standard cron syntax for how often you want Recyclarr to run (see [Cron Mode](#cron-mode)).
+  Standard cron syntax for how often Recyclarr should run (see [Cron Mode](#cron-mode)).
 
 - `TZ` (Default: `UTC`)<br/>
-  The time zone you want to use for Recyclarr's local time in the container.
+  The time zone for Recyclarr's local time in the container.
 
 - `RECYCLARR_CREATE_CONFIG` (Default: `false`)<br/>
-  Set to `true` if you want `/config/recyclarr.yml` to be created for you automatically when the
-  container starts. If the file already exists, it will not create the file again.
+  Set to `true` to have `/config/recyclarr.yml` created automatically when the container starts. If
+  the file already exists, it will not be recreated.
+
+- `RECYCLARR_CONFIG_DIR` (Default: `/config`)<br/>
+  Override the configuration directory path inside the container. See [Environment
+  Variables][env-config].
+
+- `RECYCLARR_DATA_DIR` (Default: same as `RECYCLARR_CONFIG_DIR`)<br/>
+  Override the data directory path inside the container for ephemeral files (resources, logs). See
+  [Environment Variables][env-data].
 
 ## Modes
 
-The docker container can operate in one of two different ways, which are documented below.
+The Docker container can operate in one of two modes, documented below.
 
 :::info
 
-`recyclarr.yml` does not exist the first time you run the container. You will get an error until you
-either copy it manually into the volume or run `recyclarr config create` manually.
+`recyclarr.yml` does not exist the first time the container runs. An error will occur until the file
+is either copied manually into the volume or created via `recyclarr config create`.
 
 :::
 
 ### Manual Mode {#manual-mode}
 
-There are two ways to invoke Recyclarr in manual mode. Both work equally well, but you may consider
-one or the other depending on the following:
+There are two ways to invoke Recyclarr in manual mode:
 
 - Prefer `docker exec` if:
   - The Recyclarr container is already running
-  - You're using Unraid OS
+  - Using Unraid OS
 - Prefer `docker run` if:
   - The container is *not* running
-
-See the respective sections below for whichever mode you wish to use.
 
 <details>
 <summary>Using Docker Run</summary>
 
-When using `docker run` to invoke Recyclarr in manual mode, the container starts up, runs a
-user-specified operation, and then exits. This is semantically identical to running Recyclarr
-directly on your host machine, but without all of the set up requirements.
+When using `docker run`, the container starts, runs a specified operation, and then exits. This is
+semantically identical to running Recyclarr directly on the host machine, but without the setup
+requirements.
 
 The general syntax is:
 
@@ -229,7 +223,7 @@ Where:
 Examples:
 
 ```bash
-# Create a default `recyclarr.yml` in your `/config` volume
+# Create a default `recyclarr.yml` in the `/config` volume
 docker compose run --rm recyclarr config create
 
 # Sync Sonarr with debug logs
@@ -241,8 +235,8 @@ docker compose run --rm recyclarr sync radarr --preview --log debug
 
 :::tip
 
-The `--rm` option ensures the container is deleted after it runs (without it, your list of stopped
-containers will start to grow the more often you run it manually).
+The `--rm` option ensures the container is deleted after it runs. Without it, stopped containers
+accumulate with each manual invocation.
 
 :::
 
@@ -260,7 +254,7 @@ Using Docker Compose, the general syntax is:
 docker compose exec recyclarr recyclarr [command] [options]
 ```
 
-Or if you prefer to use Docker directly:
+Or using Docker directly:
 
 ```txt
 docker exec recyclarr recyclarr [command] [options]
@@ -274,7 +268,7 @@ Where:
 Examples:
 
 ```bash
-# Create a default `recyclarr.yml` in your `/config` volume (without compose)
+# Create a default `recyclarr.yml` in the `/config` volume (without compose)
 docker exec recyclarr recyclarr config create
 
 # Sync Sonarr with debug logs (with compose)
@@ -288,16 +282,16 @@ docker exec recyclarr recyclarr sync radarr --preview --log debug
 
 ### Cron Mode {#cron-mode}
 
-In this mode, no immediate action is performed. Rather, the container remains alive and continuously
-runs sync at whatever `CRON_SCHEDULE` you set (default is daily).
+In this mode, no immediate action is performed. The container remains alive and continuously runs
+sync at whatever `CRON_SCHEDULE` is set (default is daily).
 
-To enter Cron Mode, you simply start the container in background mode:
+To enter Cron Mode, start the container in background mode:
 
 ```bash
 docker compose up -d
 ```
 
-This runs it without any command or options, which will result in this mode being used.
+Running without any command or options causes the container to use this mode.
 
 ## Troubleshooting
 
@@ -307,17 +301,15 @@ See the [Troubleshooting](../troubleshooting/errors-warnings.mdx#docker) page.
 
 ### Read-Only Container
 
-For additional security, you may [make your Recyclarr container's filesystem read only][read_only].
-To do this in Docker Compose, you need to make two changes.
+For additional security, the [container filesystem can be made read-only][read_only]. This requires
+two changes in Docker Compose:
 
-1. Add the `read_only: true` setting to your service configuration.
-1. Mount `/tmp` (inside the container) to a volume. This must be done because this path must be
-   writable for Recyclarr to run. I recommend you use `tmpfs` for this since the files located at
-   this path are temporary by design and keeping everything in memory offers some performance
-   benefits.
+1. Add the `read_only: true` setting to the service configuration.
+1. Mount `/tmp` (inside the container) to a volume. This path must be writable for Recyclarr to run.
+   Using `tmpfs` is recommended since these files are temporary by design, and keeping them in
+   memory offers some performance benefits.
 
-Using the example `docker-compose.yml` presented at the start of this page, make the following
-modification:
+Using the example `docker-compose.yml` from the top of this page, add the following:
 
 ```yml
 services:
@@ -330,14 +322,11 @@ services:
 
 ### Prevent in-container privilege escalation
 
-For additional security, you may [run Recyclarr with
-`--security-opt=no-new-privileges`][security_opt] in order to prevent privilege escalation. This
-will prevent the container from potentially gaining new privileges via `setuid` and `setgid`
-binaries, like `su` and `sudo`.
+For additional security, [run Recyclarr with `--security-opt=no-new-privileges`][security_opt] to
+prevent privilege escalation. This prevents the container from gaining new privileges via `setuid`
+and `setgid` binaries like `su` and `sudo`.
 
-To do this in Docker Compose, you need to add the `security_opt: ['no-new-privileges:true']` setting
-to your service configuration. Using the example `docker-compose.yml` presented at the start of this
-page, make the following modification:
+Add `security_opt: ['no-new-privileges:true']` to the service configuration:
 
 ```yml
 services:
@@ -349,3 +338,6 @@ services:
 
 [read_only]: https://docs.docker.com/reference/cli/docker/container/run/#read-only
 [security_opt]: https://docs.docker.com/reference/cli/docker/container/run/#security-opt
+[file-structure]: ../file-structure.mdx
+[env-config]: ../../reference/env-vars.mdx#config-dir
+[env-data]: ../../reference/env-vars.mdx#data-dir

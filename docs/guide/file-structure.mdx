@@ -3,20 +3,54 @@ id: file-structure
 title: File Structure
 ---
 
-This page describes the general file structure used by Recyclarr for its data. Many of these are
-platform-specific.
+This page describes the directory structure used by Recyclarr. Recyclarr separates its files into
+two root directories: a **configuration directory** for user data that should be backed up, and a
+**data directory** for ephemeral files that can be regenerated.
 
-## Application Data Directory {#appdata-directory}
+By default, both directories point to the same location. You can separate them using [environment
+variables][env-vars] for cleaner backup workflows.
 
-The application data directory is the root location for Recyclarr's files. Everything that Recyclarr
-reads or writes, by default, starts with this path.
+## Configuration Directory {#config-directory}
 
-| Platform | Location                                  |
+The configuration directory holds user configuration and state. Everything here should be included
+in [backups][backups].
+
+| Platform | Default Location                          |
 |----------|-------------------------------------------|
 | Windows  | `%APPDATA%\recyclarr`                     |
 | Linux    | `~/.config/recyclarr`                     |
 | MacOS    | `~/Library/Application Support/recyclarr` |
 | Docker   | `/config`                                 |
+
+Override with the [`RECYCLARR_CONFIG_DIR`][env-config] environment variable.
+
+### Contents {#config-contents}
+
+```txt
+<config directory>/
+├── recyclarr.yml
+├── configs/
+├── includes/
+├── settings.yml
+└── state/
+```
+
+## Data Directory {#data-directory}
+
+The data directory holds ephemeral files that Recyclarr can regenerate on its own. These do not need
+to be backed up.
+
+If [`RECYCLARR_DATA_DIR`][env-data] is not set, data files are stored in the configuration directory
+(the default behavior from prior versions).
+
+### Contents {#data-contents}
+
+```txt
+<data directory>/
+├── resources/
+└── logs/
+    └── cli/
+```
 
 ## Default YAML Configuration Files {#default-yaml}
 
@@ -31,15 +65,15 @@ For all supported locations, the following behavior applies:
 ### File: `recyclarr.yml` {#recyclarr-yaml}
 
 The default YAML configuration file is named `recyclarr.yml` and it is always located in the
-application data directory (listed above based on platform). Example (using docker path):
+configuration directory (listed above based on platform). Example (using docker path):
 
 ```txt
 /config/recyclarr.yml
 ```
 
-### Directory: `configs` {#config-directory}
+### Directory: `configs` {#config-directory-yaml}
 
-Under the application data directory, there is a subdirectory named `configs` in which you can place
+Under the configuration directory, there is a subdirectory named `configs` in which you can place
 any number of configuration YAML files. This system works especially well in Docker, where you don't
 really have an easy way to specify custom CLI arguments. The following requirements must be met:
 
@@ -61,3 +95,8 @@ instead.
 import IncludeDirectory from '@site/src/partials/_include-templates-dir.mdx'
 
 <IncludeDirectory />
+
+[env-vars]: ../reference/env-vars.mdx
+[env-config]: ../reference/env-vars.mdx#config-dir
+[env-data]: ../reference/env-vars.mdx#data-dir
+[backups]: ./backups.mdx
