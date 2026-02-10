@@ -2044,8 +2044,8 @@ __metadata:
   linkType: hard
 
 "@docsearch/core@npm:^4.5.0":
-  version: 4.5.3
-  resolution: "@docsearch/core@npm:4.5.3"
+  version: 4.5.4
+  resolution: "@docsearch/core@npm:4.5.4"
   peerDependencies:
     "@types/react": ">= 16.8.0 < 20.0.0"
     react: ">= 16.8.0 < 20.0.0"
@@ -2057,7 +2057,7 @@ __metadata:
       optional: true
     react-dom:
       optional: true
-  checksum: 10c0/0e158032ec5024986c84d77f7c84b21b6ad37ad43c405a8204456103c5b0aa843db7e725c82eb7a092680e7d0af1ccd70bcb28a3021d8d8deae6a00f1cad31fc
+  checksum: 10c0/d629fbc9db3ace56e3b0940e01f33b08f1e388f03dec29a0e25564d5d496c40cd55b37314419cff4a896128a7e4bc3f66f15faa681162011dbb82b84b9245b8c
   languageName: node
   linkType: hard
 
