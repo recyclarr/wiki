@@ -173,6 +173,84 @@ radarr:
 With this enabled, any CF scores not set by your config are reset to zero. This prevents stale
 scores from accumulating when you remove CFs from your config.
 
+## Build a custom quality profile {#custom-profile}
+
+If you need a profile that doesn't match any TRaSH Guide recommendation, you can build one from
+scratch. Instead of `trash_id`, use `name` to define the profile and manually select your custom
+formats, qualities, and scores.
+
+This is common for users who want to combine elements from different guides or have unique
+requirements (e.g., a mixed Anime + regular TV profile in Sonarr, or a Radarr profile with specific
+codec and HDR preferences).
+
+```yml
+radarr:
+  movies:
+    base_url: !secret radarr_url
+    api_key: !secret radarr_apikey
+
+    quality_definition:
+      type: movie
+
+    quality_profiles:
+      - name: My Custom Profile
+        reset_unmatched_scores:
+          enabled: true
+        upgrade:
+          allowed: true
+          until_quality: Bluray-1080p
+          until_score: 10000
+        min_format_score: 0
+        qualities:
+          - name: Bluray-1080p
+          - name: WEB 1080p
+            qualities:
+              - WEBDL-1080p
+              - WEBRip-1080p
+          - name: Bluray-720p
+          - name: WEB 720p
+            qualities:
+              - WEBDL-720p
+              - WEBRip-720p
+
+    custom_formats:
+      - trash_ids:
+          - e7718d7a3ce595f289bfee26adc178f5 # Repack/Proper
+          - ae43b294509409a6a13919dedd4764c4 # Repack2
+        assign_scores_to:
+          - name: My Custom Profile
+            score: 5
+
+      - trash_ids:
+          - ed38b889b31be83fda192888e2286d83 # BR-DISK
+        assign_scores_to:
+          - name: My Custom Profile
+            score: -10000
+
+      - trash_ids:
+          - 2899d84dc9372de3408e6d8cc18e9666 # x264
+        assign_scores_to:
+          - name: My Custom Profile
+            score: 10
+
+      - trash_ids:
+          - a570d4a0e56a2874b64e5bfa55202a1b # FLAC
+        assign_scores_to:
+          - name: My Custom Profile
+            score: 5
+```
+
+With a manual profile, you are responsible for selecting all custom formats and assigning their
+scores. Guide-backed profiles automate this, so use manual profiles only when you have specific
+needs that the guides don't cover.
+
+:::tip
+
+Use `recyclarr list custom-formats radarr` to find trash IDs for all available custom formats. Add
+`--raw` for machine-readable TSV output.
+
+:::
+
 ## Rename a guide-backed quality profile {#rename-guide-profile}
 
 When syncing a guide-backed profile using `trash_id`, add `name` to use a custom name instead of the

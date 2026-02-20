@@ -200,15 +200,20 @@ radarr:
     base_url: http://radarr:7878
     api_key: your_api_key_here
 
+    quality_definition:
+      type: movie
+
+    quality_profiles:
+      - trash_id: d1d67249d3890e49bc12e275d989a7e9  # HD Bluray + WEB
+        reset_unmatched_scores:
+          enabled: true
+
     # Results visible in: Radarr → Settings → Media Management
     media_naming:
       folder: plex-tmdb
       movie:
         rename: true
         standard: plex-tmdb
-
-    include:
-      # ... your templates
 ```
 
 ## When to Customize {#customize}
