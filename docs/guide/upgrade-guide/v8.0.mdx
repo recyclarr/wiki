@@ -327,6 +327,61 @@ Recyclarr v8, which uses the `v8` branch with actively maintained templates.
 v8 templates are being simplified to leverage guide-backed quality profiles and custom format
 groups, providing better alignment with the TRaSH Guides while reducing configuration complexity.
 
+### Official Include Templates Removed {#include-templates-removed}
+
+All official include templates have been removed from the v8 config-templates branch. If your
+configuration uses `include: - template:` directives referencing official include templates (such as
+`radarr-custom-formats-hd-bluray-web` or `radarr-quality-profile-hd-bluray-web`), those references
+will no longer resolve.
+
+The old include templates were static lists of trash IDs for custom formats and quality profiles.
+This approach has been replaced by [guide-backed quality profiles][qp-trash-id] and [custom format
+groups][cf-groups], which reference TRaSH Guides content dynamically instead of hardcoding
+individual trash IDs.
+
+**Before (v7):**
+
+```yml
+radarr:
+  movies:
+    base_url: http://localhost:7878
+    api_key: your_api_key
+
+    include:
+      - template: radarr-custom-formats-hd-bluray-web
+      - template: radarr-quality-profile-hd-bluray-web
+      - template: radarr-quality-definition-movie
+```
+
+**After (v8):**
+
+```yml
+radarr:
+  movies:
+    base_url: http://localhost:7878
+    api_key: your_api_key
+
+    quality_definition:
+      type: movie
+
+    quality_profiles:
+      - trash_id: d1d67249d3890e49bc12e275d989a7e9  # HD Bluray + WEB
+        reset_unmatched_scores:
+          enabled: true
+```
+
+Guide-backed profiles pull their quality profile settings and custom format scores directly from the
+TRaSH Guides, so you no longer need separate includes for custom formats, quality profiles, and
+quality definitions. A single `trash_id` reference replaces what previously required multiple
+include templates.
+
+:::info
+
+Local file includes (`include: - config: my-include.yml`) are unaffected by this change. Only
+official include templates from the config-templates repository have been removed.
+
+:::
+
 ## Environment: `RECYCLARR_APP_DATA` Removed {#app-data-removed}
 
 The `RECYCLARR_APP_DATA` environment variable has been removed. If it is set, Recyclarr exits with
@@ -374,3 +429,5 @@ environment variable instead.
 [common-log]: ../../cli/common.mdx#log-arg
 [env-vars]: ../../reference/env-vars.mdx
 [env-config]: ../../reference/env-vars.mdx#config-dir
+[qp-trash-id]: ../../reference/configuration/quality-profiles.mdx#trash-id
+[cf-groups]: ../../reference/configuration/custom-formats.mdx#custom-format-groups
