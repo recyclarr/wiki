@@ -101,8 +101,8 @@ include:
 ### Recyclarr-Specific Terms {#recyclarr-terms}
 
 - **Include Template**<br/>
-  A type of template that may *only* be included. The official config-templates repository no
-  longer provides include templates; this concept applies only to custom resource providers.
+  A type of template that may *only* be included. The official config-templates repository no longer
+  provides include templates; this concept applies only to custom resource providers.
 
 - **Config Template**<br/>
   A type of template that may *only* be used as a configuration file. It *cannot* be included. May
@@ -392,6 +392,7 @@ Items in `custom_format_groups` are joined by `trash_id`.
 |--------------------|-----------|-----------------|
 | `assign_scores_to` | Sequence  | Replace         |
 | `select`           | Sequence  | Replace         |
+| `exclude`          | Sequence  | Replace         |
 
 ### Media Naming {#merge-media-naming}
 
@@ -528,10 +529,11 @@ custom_formats:
 
 ### Custom Format Groups {#detail-cfg}
 
-The `assign_scores_to` and `select` properties use Replace rather than Add or Join. This provides
-simpler override semantics: when you specify these properties in your root config, they completely
-replace any values from included YAML for that group. This makes it clear which profiles receive
-scores and which optional CFs are selected without needing to mentally combine multiple lists.
+The `assign_scores_to`, `select`, and `exclude` properties use Replace rather than Add or Join. This
+provides simpler override semantics: when you specify these properties in your root config, they
+completely replace any values from included YAML for that group. This makes it clear which profiles
+receive scores and which CFs are included or excluded without needing to mentally combine multiple
+lists.
 
 ## Tips & Information {#tips}
 

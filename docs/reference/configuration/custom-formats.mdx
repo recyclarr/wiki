@@ -42,7 +42,9 @@ service_type:
             - name: HD-1080p
         - trash_id: 9d5acd8f1da78dfbae788182f7605200 # Customize Audio Formats
           select:
-            - 7357cf5161efbf8c4d5d0c30b4815ee2 # Select specific CFs
+            - 7357cf5161efbf8c4d5d0c30b4815ee2 # Add non-default CFs
+          exclude:
+            - dc98083864ea246d05a42df0d05f81cc # Remove unwanted defaults
 ```
 
 ## Synchronization Behavior {#synchronization}
@@ -198,7 +200,7 @@ If the same group appears in both `skip` and `add`, the explicit `add` entry tak
 **Optional.** *Default: No additional groups*
 
 A list of groups to explicitly sync. Use this to opt-in to non-default groups or customize a default
-group's behavior (e.g., specify `select` to change which CFs sync).
+group's behavior (e.g., use `select` and `exclude` to control which CFs sync).
 
 #### `trash_id` {#cfg-trash-id}
 
@@ -238,12 +240,24 @@ configuration's `quality_profiles` list.
 
 #### `select` {#cfg-select}
 
-**Optional.** *Default: Sync required and default CFs only*
+**Optional.** *Default: No additional CFs are selected*
 
-A list of CF trash IDs to select from this group. Only the listed CFs (plus required CFs) sync.
+A list of CF trash IDs to include alongside the defaults. Use this to opt-in to non-default CFs from
+the group. Required and default CFs are always included regardless of this list.
 
-When a group contains mutually exclusive CFs, selecting a non-default CF automatically replaces the
-default.
+Selecting a CF that is already a default produces a warning since it has no effect.
+
+#### `exclude` {#cfg-exclude}
+
+**Optional.** *Default: No default CFs are excluded*
+
+A list of CF trash IDs to remove from the group's defaults. Use this to opt-out of specific default
+CFs you don't want synced. Required CFs cannot be excluded.
+
+Excluding a non-default or required CF produces a warning since neither has any effect.
+
+A CF cannot appear in both `select` and `exclude`. The resulting set of CFs is: required CFs, plus
+default CFs minus `exclude`, plus `select`.
 
 [cfg-guide]: ../../guide/cf-groups.mdx
 [cfgroups]: https://github.com/TRaSH-Guides/Guides/tree/master/docs/json/radarr/cf-groups

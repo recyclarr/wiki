@@ -27,7 +27,7 @@ because the TRaSH Guide marks these as defaults for the UHD Bluray + WEB profile
 Use [`custom_format_groups`][cfg-ref] only when you need to customize this behavior:
 
 - **`skip`** — Opt-out of groups you don't want
-- **`add`** — Opt-in to non-default groups, or customize which CFs sync from a group
+- **`add`** — Opt-in to non-default groups, or customize which CFs sync with `select`/`exclude`
 
 [guide-qp]: ../reference/configuration/quality-profiles.mdx#trash-id
 [cfg-ref]: ../reference/configuration/custom-formats.mdx#custom-format-groups
@@ -50,13 +50,15 @@ scores.
 
 Which custom formats sync from a group depends on flags set in the TRaSH Guide JSON:
 
-| Flag in Guide    | Behavior                                              |
-|------------------|-------------------------------------------------------|
-| `required: true` | Always synced. Cannot be deselected.                  |
-| `default: true`  | Synced automatically. Can be overridden via `select`. |
-| No flag          | NOT synced unless explicitly listed in `select`.      |
+| Flag in Guide    | Behavior                                             |
+|------------------|------------------------------------------------------|
+| `required: true` | Always synced. Cannot be excluded or deselected.     |
+| `default: true`  | Synced automatically. Can be removed with `exclude`. |
+| No flag          | Not synced unless explicitly listed in `select`.     |
 
-Most groups work without any `select` property—you get all required and default CFs automatically.
+The formula for which CFs are included is: required CFs, plus default CFs minus `exclude`, plus
+`select`. Most groups work without either property; you get all required and default CFs
+automatically.
 
 ## Usage Patterns {#patterns}
 
@@ -84,28 +86,23 @@ custom_format_groups:
 
 All required and default CFs from that group sync automatically.
 
-### Customizing Which CFs Sync {#pattern-select}
+### Excluding Default CFs {#pattern-exclude}
 
-By default, groups sync all CFs marked `required` or `default` in the guide. Use `select` to
-override this—only the CFs you list (plus any `required` CFs) will sync:
+Use `exclude` to remove specific default CFs from a group:
 
 ```yml
 custom_format_groups:
   add:
     - trash_id: ff204bbcecdd487d1cefcefdbf0c278d # Golden Rule UHD
-      select:
+      exclude:
         - dc98083864ea246d05a42df0d05f81cc # x265 (HD)
 ```
 
-Some groups contain CFs that aren't meant to be used together—you choose one or the other. The guide
-picks one as the default, but you can override that choice. When you `select` a different CF from
-these alternatives, it replaces the default that would otherwise sync. You don't need to exclude the
-default manually.
+All other defaults (and required CFs) still sync. Required CFs cannot be excluded.
 
-### Selecting Optional CFs {#pattern-optional}
+### Adding Non-Default CFs {#pattern-select}
 
-Some groups have no defaults—every CF is optional. Use `add` with `select` to pick the ones you
-want:
+Use `select` to include CFs that aren't part of the group's defaults:
 
 ```yml
 custom_format_groups:
@@ -116,7 +113,24 @@ custom_format_groups:
         - f537cf427b64c38c8e36298f657e4828 # Scene
 ```
 
-Only the selected CFs sync. Required CFs (if any) still sync regardless of your selections.
+The selected CFs are added alongside required and default CFs.
+
+### Combining Select and Exclude {#pattern-combine}
+
+`select` and `exclude` compose together. For groups with mutually exclusive alternatives where the
+guide picks one as the default, use both to swap them:
+
+```yml
+custom_format_groups:
+  add:
+    - trash_id: ff204bbcecdd487d1cefcefdbf0c278d # Golden Rule UHD
+      exclude:
+        - dc98083864ea246d05a42df0d05f81cc # x265 (HD)
+      select:
+        - 839bea857ed2c0a8e084f3cbdbd65ecb # x265 (no HDR/DV)
+```
+
+A CF cannot appear in both `select` and `exclude`.
 
 ### Assigning Scores to Custom Profiles {#pattern-custom-profile}
 
