@@ -37,6 +37,9 @@ service_type:
         - 9d5acd8f1da78dfbae788182f7605200 # Opt-out of Audio Formats
       add:
         - trash_id: f737e18b5824d6ebb2d57b957ae2fd6c # Streaming Services (UK)
+          assign_scores_to:
+            - trash_id: 64fb5f9858489bdac2af690e27c8f42f # UHD Bluray + WEB
+            - name: HD-1080p
         - trash_id: 9d5acd8f1da78dfbae788182f7605200 # Customize Audio Formats
           select:
             - 7357cf5161efbf8c4d5d0c30b4815ee2 # Select specific CFs
@@ -194,35 +197,44 @@ If the same group appears in both `skip` and `add`, the explicit `add` entry tak
 
 **Optional.** *Default: No additional groups*
 
-A list of groups to explicitly sync. Use this to opt-in to non-default groups or customize a
-default group's behavior (e.g., specify `select` to change which CFs sync).
+A list of groups to explicitly sync. Use this to opt-in to non-default groups or customize a default
+group's behavior (e.g., specify `select` to change which CFs sync).
 
 #### `trash_id` {#cfg-trash-id}
 
 **Required.**
 
-The trash ID of a custom format group from the TRaSH Guides. Group trash IDs can be discovered
-using the [`list custom-format-groups` command][listcfgroups] or found in the [TRaSH Guide CF group
-JSON files][cfgroups].
+The trash ID of a custom format group from the TRaSH Guides. Group trash IDs can be discovered using
+the [`list custom-format-groups` command][listcfgroups] or found in the [TRaSH Guide CF group JSON
+files][cfgroups].
 
 #### `assign_scores_to` {#cfg-assign-scores-to}
 
 **Optional.** *Default: All applicable guide-backed quality profiles*
 
-One or more quality profiles to assign the group's CF scores to. Only accepts `trash_id` references
-to [guide-backed quality profiles][guide-qp], not profile names.
+One or more quality profiles to assign the group's CF scores to. Profiles can be referenced by
+`trash_id` (for guide-backed profiles) or `name` (for custom profiles). Each entry must use one of
+these properties, not both.
 
 When omitted, scores are assigned to guide-backed profiles in your configuration that the group
-includes. Each group specifies compatible profiles—for example, HDR groups include only UHD
-profiles. User-defined profiles (those with only a `name`) do not receive scores from groups.
-
-Referencing a profile not in the group's include list results in a validation error.
+includes. Each group specifies compatible profiles; for example, HDR groups include only UHD
+profiles. Auto-sync only targets guide-backed profiles; to assign group scores to user-defined
+profiles, specify them explicitly with `name`.
 
 ##### `trash_id` {#cfg-ast-trash-id}
 
-**Required.**
+**Conditionally Required.** Required if `name` is not specified.
 
-The trash ID of a [guide-backed quality profile][guide-qp].
+The trash ID of a [guide-backed quality profile][guide-qp]. The profile must be in the group's
+include list, otherwise a validation error is reported.
+
+##### `name` {#cfg-ast-name}
+
+**Conditionally Required.** Required if `trash_id` is not specified.
+
+The name of a quality profile defined in your [`quality_profiles`][qps] configuration. Use this to
+assign group scores to custom (non-guide-backed) profiles. The profile must exist in your
+configuration's `quality_profiles` list.
 
 #### `select` {#cfg-select}
 

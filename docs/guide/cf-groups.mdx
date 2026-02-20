@@ -41,8 +41,8 @@ Groups handle curated sets of related custom formats:
 - Streaming service identification
 - Unwanted release types (LQ, scene, etc.)
 
-Use [`custom_formats`][cf] instead when you need fine-grained control, want to override scores, or
-need to assign CFs to user-defined profiles (those with only a `name`, not a `trash_id`).
+Use [`custom_formats`][cf] instead when you need fine-grained control or want to override individual
+scores.
 
 [cf]: ../reference/configuration/custom-formats.mdx#custom-formats
 
@@ -97,10 +97,10 @@ custom_format_groups:
         - dc98083864ea246d05a42df0d05f81cc # x265 (HD)
 ```
 
-Some groups contain CFs that aren't meant to be used together—you choose one or the other. The
-guide picks one as the default, but you can override that choice. When you `select` a different CF
-from these alternatives, it replaces the default that would otherwise sync. You don't need to
-exclude the default manually.
+Some groups contain CFs that aren't meant to be used together—you choose one or the other. The guide
+picks one as the default, but you can override that choice. When you `select` a different CF from
+these alternatives, it replaces the default that would otherwise sync. You don't need to exclude the
+default manually.
 
 ### Selecting Optional CFs {#pattern-optional}
 
@@ -118,10 +118,38 @@ custom_format_groups:
 
 Only the selected CFs sync. Required CFs (if any) still sync regardless of your selections.
 
+### Assigning Scores to Custom Profiles {#pattern-custom-profile}
+
+Auto-sync only targets guide-backed profiles. To assign group scores to a user-defined profile (one
+with only a `name`), use `assign_scores_to` with the profile name:
+
+```yml
+custom_format_groups:
+  add:
+    - trash_id: f737e18b5824d6ebb2d57b957ae2fd6c # Streaming Services (UK)
+      assign_scores_to:
+        - name: HD-1080p
+```
+
+You can mix guide-backed and custom profiles in the same list:
+
+```yml
+custom_format_groups:
+  add:
+    - trash_id: f737e18b5824d6ebb2d57b957ae2fd6c # Streaming Services (UK)
+      assign_scores_to:
+        - trash_id: 64fb5f9858489bdac2af690e27c8f42f # UHD Bluray + WEB
+        - name: HD-1080p
+```
+
+The custom profile must exist in your [`quality_profiles`][qps] configuration.
+
+[qps]: ../reference/configuration/quality-profiles.mdx
+
 ## Finding Group IDs {#finding-ids}
 
-Use the [`list custom-format-groups`][list-cfg] command to discover available groups and their
-trash IDs:
+Use the [`list custom-format-groups`][list-cfg] command to discover available groups and their trash
+IDs:
 
 ```bash
 recyclarr list custom-format-groups radarr
