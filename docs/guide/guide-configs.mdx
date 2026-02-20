@@ -14,44 +14,52 @@ See the [Tutorial](./tutorial.mdx) for a guided walkthrough of using these templ
 :::
 
 Recyclarr offers pre-built configuration files that can be used as a straightforward method of
-deploying one of more of the TRaSH Guides profiles:
+deploying one or more of the TRaSH Guides profiles:
 
 - [Radarr][radarr-profiles-trash]
 - [Radarr (Anime)][radarr-anime-profiles-trash]
 - [Radarr (French)][radarr-french-profiles-trash]
 - [Radarr (German)][radarr-german-profiles-trash]
-- [Sonarr v4][sonarr-v4-profiles-trash]
-- [Sonarr v4 (Anime)][sonarr-v4-anime-profiles-trash]
-- [Sonarr v4 (French)][sonarr-v4-french-profiles-trash]
-- [Sonarr v4 (German)][sonarr-v4-german-profiles-trash]
+- [Sonarr][sonarr-profiles-trash]
+- [Sonarr (Anime)][sonarr-anime-profiles-trash]
+- [Sonarr (French)][sonarr-french-profiles-trash]
+- [Sonarr (German)][sonarr-german-profiles-trash]
 
 [radarr-profiles-trash]: https://trash-guides.info/Radarr/radarr-setup-quality-profiles/
 [radarr-anime-profiles-trash]: https://trash-guides.info/Radarr/radarr-setup-quality-profiles-anime/
-[radarr-french-profiles-trash]: https://trash-guides.info/Radarr/radarr-setup-quality-profiles-french-en/
-[radarr-german-profiles-trash]: https://trash-guides.info/Radarr/radarr-setup-quality-profiles-german-en/
-[sonarr-v4-profiles-trash]: https://trash-guides.info/Sonarr/sonarr-setup-quality-profiles/
-[sonarr-v4-anime-profiles-trash]: https://trash-guides.info/Sonarr/sonarr-setup-quality-profiles-anime/
-[sonarr-v4-french-profiles-trash]: https://trash-guides.info/Sonarr/sonarr-setup-quality-profiles-french-en/
-[sonarr-v4-german-profiles-trash]: https://trash-guides.info/Sonarr/sonarr-setup-quality-profiles-german-en/
+[radarr-french-profiles-trash]:
+    https://trash-guides.info/Radarr/radarr-setup-quality-profiles-french-en/
+[radarr-german-profiles-trash]:
+    https://trash-guides.info/Radarr/radarr-setup-quality-profiles-german-en/
+[sonarr-profiles-trash]: https://trash-guides.info/Sonarr/sonarr-setup-quality-profiles/
+[sonarr-anime-profiles-trash]: https://trash-guides.info/Sonarr/sonarr-setup-quality-profiles-anime/
+[sonarr-french-profiles-trash]:
+    https://trash-guides.info/Sonarr/sonarr-setup-quality-profiles-french-en/
+[sonarr-german-profiles-trash]:
+    https://trash-guides.info/Sonarr/sonarr-setup-quality-profiles-german-en/
 
 <Session />
 
 ## Index
 
-| Radarr                                            | Sonarr v4                                            |
-|---------------------------------------------------|------------------------------------------------------|
-| [HD Bluray + WEB](#hd-bluray-web)                 | [WEB-1080p](#web-1080p-v4)                           |
-| [UHD Bluray + WEB](#uhd-bluray-web)               | [WEB-2160p](#web-2160p-v4)                           |
-| [Remux + WEB 1080p](#remux-web-1080p)             | [Anime (Sonarr)](#anime-sonarr-v4)                   |
-| [Remux + WEB 2160p](#remux-web-2160p)             | [French HD Bluray + WEB](#french-bluray-web-1080p)   |
-| [Anime (Radarr)](#anime-radarr)                   | [French UHD Bluray + WEB](#french-bluray-web-2060p)  |
-| [French HD Bluray + WEB](#french-hd-bluray-web)   | [French HD Anime](#french-anime-1080p)               |
-| [French HD Remux + WEB](#french-hd-remux-web)     | [German HD Bluray + WEB](#german-hd-bluray-web-v4)   |
-| [French UHD Bluray + WEB](#french-uhd-bluray-web) | [German HD Remux + WEB](#german-hd-remux-web-v4)     |
-| [French UHD Remux + WEB](#french-uhd-bluray-web)  | [German UHD Bluray + WEB](#german-uhd-bluray-web-v4) |
-| [German HD Bluray + WEB](#german-hd-bluray-web)   | [German UHD Remux + WEB](#german-uhd-remux-web-v4)   |
-| [German UHD Bluray + WEB](#german-uhd-bluray-web) |                                                      |
-| [German UHD Remux + WEB](#german-uhd-remux-web)   |                                                      |
+| Radarr                                                   | Sonarr                                                         |
+|----------------------------------------------------------|----------------------------------------------------------------|
+| [HD Bluray + WEB](#hd-bluray-web)                        | [WEB-1080p](#web-1080p)                                        |
+| [UHD Bluray + WEB](#uhd-bluray-web)                      | [WEB-1080p (Alternative)](#web-1080p-alternative)              |
+| [Remux + WEB 1080p](#remux-web-1080p)                    | [WEB-2160p](#web-2160p)                                        |
+| [Remux + WEB 2160p](#remux-web-2160p)                    | [WEB-2160p (Alternative)](#web-2160p-alternative)              |
+| [Remux 2160p (Alternative)](#remux-2160p-alternative)    | [WEB-2160p (Combined)](#web-2160p-combined)                    |
+| [Remux 2160p (Combined)](#remux-2160p-combined)          | [Anime Remux 1080p](#anime-remux-1080p-sonarr)                 |
+| [Anime Remux 1080p](#anime-remux-1080p-radarr)           | [French HD Bluray + WEB](#french-hd-bluray-web-1080p)          |
+| [French HD Bluray + WEB](#french-hd-bluray-web)          | [French UHD Bluray + WEB](#french-uhd-bluray-web-2160p)        |
+| [French HD Remux 1080p](#french-hd-remux-1080p)          | [German HD Bluray + WEB](#german-hd-bluray-web-sonarr)         |
+| [French UHD Bluray + WEB](#french-uhd-bluray-web)        | [German HD Remux + WEB](#german-hd-remux-web-sonarr)           |
+| [French UHD Remux 2160p](#french-uhd-remux-2160p)        | [German UHD Bluray + WEB](#german-uhd-bluray-web-sonarr)       |
+| [German HD Bluray + WEB](#german-hd-bluray-web)          | [German UHD Bluray + WEB (Alt.)](#german-uhd-bluray-web-alt-s) |
+| [German HD Remux + WEB](#german-hd-remux-web)            | [German UHD Remux + WEB](#german-uhd-remux-web-sonarr)         |
+| [German UHD Bluray + WEB](#german-uhd-bluray-web)        |                                                                |
+| [German UHD Bluray + WEB (Alt.)](#german-uhd-bluray-alt) |                                                                |
+| [German Remux + WEB 2160p](#german-remux-web-2160p)      |                                                                |
 
 ---
 
@@ -63,7 +71,7 @@ deploying one of more of the TRaSH Guides profiles:
 <summary>Click to show/hide</summary>
 
 ```yml reference title="Copy this configuration into your own configuration file:"
-https://github.com/recyclarr/config-templates/blob/master/radarr/templates/hd-bluray-web.yml
+https://github.com/recyclarr/config-templates/blob/v8/radarr/templates/hd-bluray-web.yml
 ```
 
 </details>
@@ -74,7 +82,7 @@ https://github.com/recyclarr/config-templates/blob/master/radarr/templates/hd-bl
 <summary>Click to show/hide</summary>
 
 ```yml reference title="Copy this configuration into your own configuration file:"
-https://github.com/recyclarr/config-templates/blob/master/radarr/templates/uhd-bluray-web.yml
+https://github.com/recyclarr/config-templates/blob/v8/radarr/templates/uhd-bluray-web.yml
 ```
 
 </details>
@@ -85,7 +93,7 @@ https://github.com/recyclarr/config-templates/blob/master/radarr/templates/uhd-b
 <summary>Click to show/hide</summary>
 
 ```yml reference title="Copy this configuration into your own configuration file:"
-https://github.com/recyclarr/config-templates/blob/master/radarr/templates/remux-web-1080p.yml
+https://github.com/recyclarr/config-templates/blob/v8/radarr/templates/remux-web-1080p.yml
 ```
 
 </details>
@@ -96,18 +104,40 @@ https://github.com/recyclarr/config-templates/blob/master/radarr/templates/remux
 <summary>Click to show/hide</summary>
 
 ```yml reference title="Copy this configuration into your own configuration file:"
-https://github.com/recyclarr/config-templates/blob/master/radarr/templates/remux-web-2160p.yml
+https://github.com/recyclarr/config-templates/blob/v8/radarr/templates/remux-web-2160p.yml
 ```
 
 </details>
 
-### Anime (Radarr) {#anime-radarr}
+### Remux 2160p (Alternative) {#remux-2160p-alternative}
 
 <details>
 <summary>Click to show/hide</summary>
 
 ```yml reference title="Copy this configuration into your own configuration file:"
-https://github.com/recyclarr/config-templates/blob/master/radarr/templates/anime-radarr.yml
+https://github.com/recyclarr/config-templates/blob/v8/radarr/templates/remux-2160p-alternative.yml
+```
+
+</details>
+
+### Remux 2160p (Combined) {#remux-2160p-combined}
+
+<details>
+<summary>Click to show/hide</summary>
+
+```yml reference title="Copy this configuration into your own configuration file:"
+https://github.com/recyclarr/config-templates/blob/v8/radarr/templates/remux-2160p-combined.yml
+```
+
+</details>
+
+### Anime Remux 1080p (Radarr) {#anime-remux-1080p-radarr}
+
+<details>
+<summary>Click to show/hide</summary>
+
+```yml reference title="Copy this configuration into your own configuration file:"
+https://github.com/recyclarr/config-templates/blob/v8/radarr/templates/anime-remux-1080p.yml
 ```
 
 </details>
@@ -118,18 +148,18 @@ https://github.com/recyclarr/config-templates/blob/master/radarr/templates/anime
 <summary>Click to show/hide</summary>
 
 ```yml reference title="Copy this configuration into your own configuration file:"
-https://github.com/recyclarr/config-templates/blob/master/radarr/templates/french-hd-bluray-web.yml
+https://github.com/recyclarr/config-templates/blob/v8/radarr/templates/french-hd-bluray-web.yml
 ```
 
 </details>
 
-### French HD Remux + WEB {#french-hd-remux-web}
+### French HD Remux 1080p {#french-hd-remux-1080p}
 
 <details>
 <summary>Click to show/hide</summary>
 
 ```yml reference title="Copy this configuration into your own configuration file:"
-https://github.com/recyclarr/config-templates/blob/master/radarr/templates/french-hd-remux-web.yml
+https://github.com/recyclarr/config-templates/blob/v8/radarr/templates/french-hd-remux-1080p.yml
 ```
 
 </details>
@@ -140,18 +170,18 @@ https://github.com/recyclarr/config-templates/blob/master/radarr/templates/frenc
 <summary>Click to show/hide</summary>
 
 ```yml reference title="Copy this configuration into your own configuration file:"
-https://github.com/recyclarr/config-templates/blob/master/radarr/templates/french-uhd-bluray-web.yml
+https://github.com/recyclarr/config-templates/blob/v8/radarr/templates/french-uhd-bluray-web.yml
 ```
 
 </details>
 
-### French UHD Remux + WEB {#french-uhd-remux-web}
+### French UHD Remux 2160p {#french-uhd-remux-2160p}
 
 <details>
 <summary>Click to show/hide</summary>
 
 ```yml reference title="Copy this configuration into your own configuration file:"
-https://github.com/recyclarr/config-templates/blob/master/radarr/templates/french-uhd-remux-web.yml
+https://github.com/recyclarr/config-templates/blob/v8/radarr/templates/french-uhd-remux-2160p.yml
 ```
 
 </details>
@@ -162,7 +192,18 @@ https://github.com/recyclarr/config-templates/blob/master/radarr/templates/frenc
 <summary>Click to show/hide</summary>
 
 ```yml reference title="Copy this configuration into your own configuration file:"
-https://github.com/recyclarr/config-templates/blob/master/radarr/templates/german-hd-bluray-web.yml
+https://github.com/recyclarr/config-templates/blob/v8/radarr/templates/german-hd-bluray-web.yml
+```
+
+</details>
+
+### German HD Remux + WEB {#german-hd-remux-web}
+
+<details>
+<summary>Click to show/hide</summary>
+
+```yml reference title="Copy this configuration into your own configuration file:"
+https://github.com/recyclarr/config-templates/blob/v8/radarr/templates/german-hd-remux-web.yml
 ```
 
 </details>
@@ -173,132 +214,176 @@ https://github.com/recyclarr/config-templates/blob/master/radarr/templates/germa
 <summary>Click to show/hide</summary>
 
 ```yml reference title="Copy this configuration into your own configuration file:"
-https://github.com/recyclarr/config-templates/blob/master/radarr/templates/german-uhd-bluray-web.yml
+https://github.com/recyclarr/config-templates/blob/v8/radarr/templates/german-uhd-bluray-web.yml
 ```
 
 </details>
 
-### German UHD Remux + WEB {#german-uhd-remux-web}
+### German UHD Bluray + WEB (Alternative) {#german-uhd-bluray-alt}
 
 <details>
 <summary>Click to show/hide</summary>
 
 ```yml reference title="Copy this configuration into your own configuration file:"
-https://github.com/recyclarr/config-templates/blob/master/radarr/templates/german-uhd-remux-web.yml
+https://github.com/recyclarr/config-templates/blob/v8/radarr/templates/german-uhd-bluray-web-alternative.yml
+```
+
+</details>
+
+### German Remux + WEB 2160p {#german-remux-web-2160p}
+
+<details>
+<summary>Click to show/hide</summary>
+
+```yml reference title="Copy this configuration into your own configuration file:"
+https://github.com/recyclarr/config-templates/blob/v8/radarr/templates/german-remux-web-2160p.yml
 ```
 
 </details>
 
 ---
 
-## Sonarr v4
+## Sonarr
 
-### WEB-1080p {#web-1080p-v4}
+### WEB-1080p {#web-1080p}
 
 <details>
 <summary>Click to show/hide</summary>
 
 ```yml reference title="Copy this configuration into your own configuration file:"
-https://github.com/recyclarr/config-templates/blob/master/sonarr/templates/web-1080p-v4.yml
+https://github.com/recyclarr/config-templates/blob/v8/sonarr/templates/web-1080p.yml
 ```
 
 </details>
 
-### WEB-2160p {#web-2160p-v4}
+### WEB-1080p (Alternative) {#web-1080p-alternative}
 
 <details>
 <summary>Click to show/hide</summary>
 
 ```yml reference title="Copy this configuration into your own configuration file:"
-https://github.com/recyclarr/config-templates/blob/master/sonarr/templates/web-2160p-v4.yml
+https://github.com/recyclarr/config-templates/blob/v8/sonarr/templates/web-1080p-alternative.yml
 ```
 
 </details>
 
-### Anime (Sonarr) {#anime-sonarr-v4}
+### WEB-2160p {#web-2160p}
 
 <details>
 <summary>Click to show/hide</summary>
 
 ```yml reference title="Copy this configuration into your own configuration file:"
-https://github.com/recyclarr/config-templates/blob/master/sonarr/templates/anime-sonarr-v4.yml
+https://github.com/recyclarr/config-templates/blob/v8/sonarr/templates/web-2160p.yml
 ```
 
 </details>
 
-### French HD Bluray + WEB {#french-bluray-web-1080p}
+### WEB-2160p (Alternative) {#web-2160p-alternative}
 
 <details>
 <summary>Click to show/hide</summary>
 
 ```yml reference title="Copy this configuration into your own configuration file:"
-https://github.com/recyclarr/config-templates/blob/master/sonarr/templates/french-bluray-web-1080p-v4.yml
+https://github.com/recyclarr/config-templates/blob/v8/sonarr/templates/web-2160p-alternative.yml
 ```
 
 </details>
 
-### French UHD Bluray + WEB {#french-bluray-web-2060p}
+### WEB-2160p (Combined) {#web-2160p-combined}
 
 <details>
 <summary>Click to show/hide</summary>
 
 ```yml reference title="Copy this configuration into your own configuration file:"
-https://github.com/recyclarr/config-templates/blob/master/sonarr/templates/french-bluray-web-2160p-v4.yml
+https://github.com/recyclarr/config-templates/blob/v8/sonarr/templates/web-2160p-combined.yml
 ```
 
 </details>
 
-### French HD Anime {#french-anime-1080p}
+### Anime Remux 1080p (Sonarr) {#anime-remux-1080p-sonarr}
 
 <details>
 <summary>Click to show/hide</summary>
 
 ```yml reference title="Copy this configuration into your own configuration file:"
-https://github.com/recyclarr/config-templates/blob/master/sonarr/templates/french-anime-1080p-v4.yml
+https://github.com/recyclarr/config-templates/blob/v8/sonarr/templates/anime-remux-1080p.yml
 ```
 
 </details>
 
-### German HD Bluray + WEB {#german-hd-bluray-web-v4}
+### French HD Bluray + WEB {#french-hd-bluray-web-1080p}
 
 <details>
 <summary>Click to show/hide</summary>
 
 ```yml reference title="Copy this configuration into your own configuration file:"
-https://github.com/recyclarr/config-templates/blob/master/sonarr/templates/german-hd-bluray-web-v4.yml
+https://github.com/recyclarr/config-templates/blob/v8/sonarr/templates/french-hd-bluray-web-1080p.yml
 ```
 
 </details>
 
-### German HD Remux + WEB {#german-hd-remux-web-v4}
+### French UHD Bluray + WEB {#french-uhd-bluray-web-2160p}
 
 <details>
 <summary>Click to show/hide</summary>
 
 ```yml reference title="Copy this configuration into your own configuration file:"
-https://github.com/recyclarr/config-templates/blob/master/sonarr/templates/german-hd-remux-web-v4.yml
+https://github.com/recyclarr/config-templates/blob/v8/sonarr/templates/french-uhd-bluray-web-2160p.yml
 ```
 
 </details>
 
-### German UHD Bluray + WEB {#german-uhd-bluray-web-v4}
+### German HD Bluray + WEB {#german-hd-bluray-web-sonarr}
 
 <details>
 <summary>Click to show/hide</summary>
 
 ```yml reference title="Copy this configuration into your own configuration file:"
-https://github.com/recyclarr/config-templates/blob/master/sonarr/templates/german-uhd-bluray-web-v4.yml
+https://github.com/recyclarr/config-templates/blob/v8/sonarr/templates/german-hd-bluray-web.yml
 ```
 
 </details>
 
-### German UHD Remux + WEB {#german-uhd-remux-web-v4}
+### German HD Remux + WEB {#german-hd-remux-web-sonarr}
 
 <details>
 <summary>Click to show/hide</summary>
 
 ```yml reference title="Copy this configuration into your own configuration file:"
-https://github.com/recyclarr/config-templates/blob/master/sonarr/templates/german-uhd-remux-web-v4.yml
+https://github.com/recyclarr/config-templates/blob/v8/sonarr/templates/german-hd-remux-web.yml
+```
+
+</details>
+
+### German UHD Bluray + WEB {#german-uhd-bluray-web-sonarr}
+
+<details>
+<summary>Click to show/hide</summary>
+
+```yml reference title="Copy this configuration into your own configuration file:"
+https://github.com/recyclarr/config-templates/blob/v8/sonarr/templates/german-uhd-bluray-web.yml
+```
+
+</details>
+
+### German UHD Bluray + WEB (Alternative) {#german-uhd-bluray-web-alt-s}
+
+<details>
+<summary>Click to show/hide</summary>
+
+```yml reference title="Copy this configuration into your own configuration file:"
+https://github.com/recyclarr/config-templates/blob/v8/sonarr/templates/german-uhd-bluray-web-alternative.yml
+```
+
+</details>
+
+### German UHD Remux + WEB {#german-uhd-remux-web-sonarr}
+
+<details>
+<summary>Click to show/hide</summary>
+
+```yml reference title="Copy this configuration into your own configuration file:"
+https://github.com/recyclarr/config-templates/blob/v8/sonarr/templates/german-uhd-remux-web.yml
 ```
 
 </details>

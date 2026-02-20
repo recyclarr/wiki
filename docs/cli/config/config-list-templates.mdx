@@ -26,12 +26,22 @@ included with the [`include` property][include].
 
 [include]: ../../reference/configuration/include.mdx
 
+:::info
+
+The official config-templates repository no longer provides include templates as of v8. This flag
+will produce no results unless you have configured a [custom resource provider][providers] that
+supplies include templates.
+
+[providers]: ../../reference/settings/resource-providers/index.mdx
+
+:::
+
 ## Command Line Examples
 
 ```bash
 # List available configuration templates
 recyclarr config list templates
 
-# List available include templates
+# List available include templates (only useful with custom resource providers)
 recyclarr config list templates --includes
 ```

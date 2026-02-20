@@ -12,8 +12,8 @@ import TOCInline from '@theme/TOCInline';
 
 ## Add multiple quality profiles to one instance {#multiple-profiles}
 
-Use template includes to configure multiple TRaSH Guide profiles on a single Radarr or Sonarr
-instance. This is the recommended approach for most users.
+Configure multiple TRaSH Guide profiles on a single Radarr or Sonarr instance using guide-backed
+quality profiles. This is the recommended approach for most users.
 
 ```yml
 radarr:
@@ -22,52 +22,54 @@ radarr:
     api_key: !secret radarr_apikey
     delete_old_custom_formats: true
 
-    include:
-      # Quality sizes (only needed once)
-      - template: radarr-quality-definition-movie
+    quality_definition:
+      type: movie
 
+    quality_profiles:
       # HD Bluray + WEB (1080p)
-      - template: radarr-quality-profile-hd-bluray-web
-      - template: radarr-custom-formats-hd-bluray-web
+      - trash_id: d1d67249d3890e49bc12e275d989a7e9  # HD Bluray + WEB
+        reset_unmatched_scores:
+          enabled: true
 
       # UHD Bluray + WEB (4K)
-      - template: radarr-quality-profile-uhd-bluray-web
-      - template: radarr-custom-formats-uhd-bluray-web
+      - trash_id: 64fb5f9858489bdac2af690e27c8f42f  # UHD Bluray + WEB
+        reset_unmatched_scores:
+          enabled: true
 
       # Remux + WEB 1080p
-      - template: radarr-quality-profile-remux-web-1080p
-      - template: radarr-custom-formats-remux-web-1080p
+      - trash_id: 9ca12ea80aa55ef916e3751f4b874151  # Remux + WEB 1080p
+        reset_unmatched_scores:
+          enabled: true
 
       # Remux + WEB 2160p
-      - template: radarr-quality-profile-remux-web-2160p
-      - template: radarr-custom-formats-remux-web-2160p
+      - trash_id: fd161a61e3ab826d3a22d53f935696dd  # Remux + WEB 2160p
+        reset_unmatched_scores:
+          enabled: true
+
 ```
 
-Each quality profile requires two includes:
-
-- `quality-profile` template creates the profile with its quality settings
-- `custom-formats` template assigns CF scores to that profile
-
-The `quality-definition` template only needs to be included once per instance.
+Each guide-backed profile pulls its quality profile settings, custom format scores, and quality
+definitions directly from the TRaSH Guides. A single `trash_id` reference replaces what previously
+required multiple include templates.
 
 :::tip
 
-List available include templates with:
+Each template also includes commented-out `custom_format_groups` for optional CF groups (streaming
+services, movie versions, HDR options, etc.). The available groups differ per profile. See the
+[Quick Setup Templates][templates] page for the full template contents.
 
-```bash
-recyclarr config list templates --includes
-```
+[templates]: ../guide/guide-configs.mdx
 
 :::
 
-## Customize template behavior {#customization}
+## Customize profile behavior {#customization}
 
-Templates provide the full TRaSH Guide recommendation. Add a `custom_formats` section only when you
-need to modify the default behavior.
+Guide-backed profiles provide the full TRaSH Guide recommendation. Add `custom_formats` or
+`custom_format_groups` sections only when you need to modify the default behavior.
 
 ### Override a custom format score {#override-score}
 
-Change the score for specific custom formats while keeping the rest of the template defaults:
+Change the score for specific custom formats while keeping the rest of the guide defaults:
 
 ```yml
 radarr:
@@ -75,27 +77,27 @@ radarr:
     base_url: !secret radarr_url
     api_key: !secret radarr_apikey
 
-    include:
-      - template: radarr-quality-definition-movie
-      - template: radarr-quality-profile-hd-bluray-web
-      - template: radarr-custom-formats-hd-bluray-web
+    quality_definition:
+      type: movie
+
+    quality_profiles:
+      - trash_id: d1d67249d3890e49bc12e275d989a7e9  # HD Bluray + WEB
+        reset_unmatched_scores:
+          enabled: true
 
     custom_formats:
       - trash_ids:
           - b6832f586342ef70d9c128d40c07b872 # Bad Dual Groups
         assign_scores_to:
           - name: HD Bluray + WEB
-            score: -10000  # More aggressive than template default
+            score: -10000  # More aggressive than guide default
 ```
 
-Your score takes precedence over the template. See the [Include documentation][include-cfs] for
-details on how scores merge.
+Your score takes precedence over the guide-backed profile.
 
-[include-cfs]: ./configuration/include.mdx#detail-cfs
+### Add optional custom format groups {#add-optional}
 
-### Add optional custom formats {#add-optional}
-
-Templates include commented-out optional CFs. You can enable them by adding them to your config:
+Templates include commented-out optional CF groups. Uncomment them to enable:
 
 ```yml
 radarr:
@@ -103,26 +105,23 @@ radarr:
     base_url: !secret radarr_url
     api_key: !secret radarr_apikey
 
-    include:
-      - template: radarr-quality-definition-movie
-      - template: radarr-quality-profile-hd-bluray-web
-      - template: radarr-custom-formats-hd-bluray-web
+    quality_definition:
+      type: movie
 
-    custom_formats:
-      # Movie Versions - prefer these releases
-      - trash_ids:
-          - 570bc9ebecd92723d2d21500f4be314c # Remaster
-          - eca37840c13c6ef2dd0262b141a5482f # 4K Remaster
-          - e0c07d59beb37348e975a930d5e50319 # Criterion Collection
-          - eecf3a857724171f968a66cb5719e152 # IMAX
-        assign_scores_to:
-          - name: HD Bluray + WEB
+    quality_profiles:
+      - trash_id: d1d67249d3890e49bc12e275d989a7e9  # HD Bluray + WEB
+        reset_unmatched_scores:
+          enabled: true
+
+    custom_format_groups:
+      add:
+        - trash_id: f4f1474b963b24cf983455743aa9906c  # [Optional] Movie Versions
 ```
 
 ### Modify quality profile qualities {#modify-qualities}
 
 To add or change qualities in a profile, provide a complete `qualities` list. The list you provide
-replaces the template's qualities entirely:
+replaces the guide's qualities entirely:
 
 ```yml
 sonarr:
@@ -130,13 +129,13 @@ sonarr:
     base_url: !secret sonarr_url
     api_key: !secret sonarr_apikey
 
-    include:
-      - template: sonarr-quality-definition-series
-      - template: sonarr-v4-quality-profile-web-1080p
-      - template: sonarr-v4-custom-formats-web-1080p
+    quality_definition:
+      type: series
 
     quality_profiles:
-      - name: WEB-1080p
+      - trash_id: 72dae194fc92bf828f32cde7744e51a1  # WEB-1080p
+        reset_unmatched_scores:
+          enabled: true
         qualities:
           - name: WEB 1080p
             qualities:
@@ -151,27 +150,10 @@ for why this uses replace behavior.
 
 [qp-replace]: ./configuration/include.mdx#detail-qualities
 
-### Disable quality profile syncing {#disable-profile-sync}
-
-To manage a quality profile manually in Sonarr/Radarr while still syncing custom formats:
-
-```yml
-radarr:
-  movies:
-    base_url: !secret radarr_url
-    api_key: !secret radarr_apikey
-
-    include:
-      - template: radarr-quality-definition-movie
-      # Quality profile template commented out - manage in Radarr UI
-      # - template: radarr-quality-profile-hd-bluray-web
-      - template: radarr-custom-formats-hd-bluray-web
-```
-
 ### Reset scores not in config {#reset-scores}
 
 Use `reset_unmatched_scores` when you want Recyclarr to have exclusive control over CF scores in a
-profile:
+profile. This is enabled by default in all official templates:
 
 ```yml
 radarr:
@@ -179,19 +161,17 @@ radarr:
     base_url: !secret radarr_url
     api_key: !secret radarr_apikey
 
-    include:
-      - template: radarr-quality-definition-movie
-      - template: radarr-quality-profile-hd-bluray-web
-      - template: radarr-custom-formats-hd-bluray-web
+    quality_definition:
+      type: movie
 
     quality_profiles:
-      - name: HD Bluray + WEB
+      - trash_id: d1d67249d3890e49bc12e275d989a7e9  # HD Bluray + WEB
         reset_unmatched_scores:
           enabled: true
 ```
 
-With this enabled, any CF scores not set by your config or templates are reset to zero. This
-prevents stale scores from accumulating when you remove CFs from your config.
+With this enabled, any CF scores not set by your config are reset to zero. This prevents stale
+scores from accumulating when you remove CFs from your config.
 
 ## Rename a guide-backed quality profile {#rename-guide-profile}
 
@@ -225,29 +205,38 @@ sonarr:
     base_url: !secret sonarr_url
     api_key: !secret sonarr_apikey
 
-    include:
-      - template: sonarr-quality-definition-series
-      - template: sonarr-v4-quality-profile-web-1080p
-      - template: sonarr-v4-custom-formats-web-1080p
+    quality_definition:
+      type: series
+
+    quality_profiles:
+      - trash_id: 72dae194fc92bf828f32cde7744e51a1  # WEB-1080p
+        reset_unmatched_scores:
+          enabled: true
 
 radarr:
   movies-hd:
     base_url: !secret radarr_url
     api_key: !secret radarr_apikey
 
-    include:
-      - template: radarr-quality-definition-movie
-      - template: radarr-quality-profile-hd-bluray-web
-      - template: radarr-custom-formats-hd-bluray-web
+    quality_definition:
+      type: movie
+
+    quality_profiles:
+      - trash_id: d1d67249d3890e49bc12e275d989a7e9  # HD Bluray + WEB
+        reset_unmatched_scores:
+          enabled: true
 
   movies-4k:
     base_url: !secret radarr_4k_url
     api_key: !secret radarr_4k_apikey
 
-    include:
-      - template: radarr-quality-definition-movie
-      - template: radarr-quality-profile-uhd-bluray-web
-      - template: radarr-custom-formats-uhd-bluray-web
+    quality_definition:
+      type: movie
+
+    quality_profiles:
+      - trash_id: 64fb5f9858489bdac2af690e27c8f42f  # UHD Bluray + WEB
+        reset_unmatched_scores:
+          enabled: true
 ```
 
 Run `recyclarr sync` to update all instances, or target specific services with `recyclarr sync
@@ -292,7 +281,10 @@ config/
 Key points:
 
 - `recyclarr.yml` and all files in `configs/` are loaded automatically
-- Files in `includes/` are only loaded when referenced via `include: - config:`
+- Files in `includes/` are only loaded when referenced via [config includes][config-include]
+
+[config-include]: ./configuration/include.mdx#config
+
 - Each config file can contain any combination of Sonarr and Radarr instances
 
 ### Use secrets for sensitive values {#secrets}
@@ -326,13 +318,6 @@ See [Value Substitution][secrets] for details.
 If you previously created multiple config files using `recyclarr config create --template` and want
 to combine them into a single file, follow this process.
 
-:::info
-
-For new setups, use [template includes][mp] instead. This section is for cleaning up existing
-configurations.
-
-:::
-
 ### Before consolidation {#before}
 
 Two separate files created from templates:
@@ -345,10 +330,13 @@ radarr:
     base_url: !secret radarr_hd_url
     api_key: !secret radarr_hd_apikey
 
-    include:
-      - template: radarr-quality-definition-movie
-      - template: radarr-quality-profile-hd-bluray-web
-      - template: radarr-custom-formats-hd-bluray-web
+    quality_definition:
+      type: movie
+
+    quality_profiles:
+      - trash_id: d1d67249d3890e49bc12e275d989a7e9  # HD Bluray + WEB
+        reset_unmatched_scores:
+          enabled: true
 ```
 
 `uhd-bluray-web.yml`:
@@ -359,10 +347,13 @@ radarr:
     base_url: !secret radarr_uhd_url
     api_key: !secret radarr_uhd_apikey
 
-    include:
-      - template: radarr-quality-definition-movie
-      - template: radarr-quality-profile-uhd-bluray-web
-      - template: radarr-custom-formats-uhd-bluray-web
+    quality_definition:
+      type: movie
+
+    quality_profiles:
+      - trash_id: 64fb5f9858489bdac2af690e27c8f42f  # UHD Bluray + WEB
+        reset_unmatched_scores:
+          enabled: true
 ```
 
 ### After consolidation {#after}
@@ -375,22 +366,21 @@ radarr:
     base_url: !secret radarr_url
     api_key: !secret radarr_apikey
 
-    include:
-      - template: radarr-quality-definition-movie
+    quality_definition:
+      type: movie
 
-      # HD Bluray + WEB
-      - template: radarr-quality-profile-hd-bluray-web
-      - template: radarr-custom-formats-hd-bluray-web
+    quality_profiles:
+      - trash_id: d1d67249d3890e49bc12e275d989a7e9  # HD Bluray + WEB
+        reset_unmatched_scores:
+          enabled: true
 
-      # UHD Bluray + WEB
-      - template: radarr-quality-profile-uhd-bluray-web
-      - template: radarr-custom-formats-uhd-bluray-web
+      - trash_id: 64fb5f9858489bdac2af690e27c8f42f  # UHD Bluray + WEB
+        reset_unmatched_scores:
+          enabled: true
 ```
 
 The key insight: if both configs point to the same `base_url`, they should be one instance with
-multiple template includes, not two separate instance definitions.
+multiple quality profiles, not two separate instance definitions.
 
 If the files target different Radarr instances (different URLs), keep them as separate instance
 definitions in the same file or in separate files.
-
-[mp]: #multiple-profiles

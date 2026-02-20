@@ -13,7 +13,6 @@ service_type:
   instance_name:
     # Include Configuration
     include:
-      - template: uhd-bluray-web
       - config: my-config.yml
 ```
 
@@ -65,9 +64,20 @@ include:
 
 ## Template Includes {#template}
 
-Utilize the [Configuration Templates][templates] repository to include YAML files.
+Utilize a [Configuration Templates][templates] repository to include YAML files. Template includes
+reference entries in a repository's `includes.json`.
 
 [templates]: https://github.com/recyclarr/config-templates
+
+:::warning
+
+The official config-templates repository no longer provides include templates as of v8. This
+directive is only useful with [custom resource providers][providers] that supply their own
+`includes.json`.
+
+[providers]: ../../reference/settings/resource-providers/index.mdx
+
+:::
 
 ### `template`
 
@@ -77,22 +87,13 @@ The ID of an **include template**. The corresponding YAML in the configuration t
 will be included. IDs matching include templates from a non-matching service type are not allowed
 (e.g. trying to include a Sonarr template inside a Radarr config).
 
-:::tip
-
-To get a list of eligible **include templates**, see the [`config list templates` command][list].
-
-[list]: ../../cli/config/config-list-templates.mdx#include
-
-:::
-
 ### Examples
 
 ```yml
 include:
-  # Includes YAML templates with these IDs
-  - template: radarr-quality-definition-movie
-  - template: radarr-quality-profile-anime
-  - template: radarr-custom-formats-anime
+  # Includes YAML templates by ID from a resource provider's includes.json
+  - template: my-custom-quality-profile
+  - template: my-custom-formats
 ```
 
 ## Terminology {#terms}
@@ -100,7 +101,8 @@ include:
 ### Recyclarr-Specific Terms {#recyclarr-terms}
 
 - **Include Template**<br/>
-  A type of template that may *only* be included.
+  A type of template that may *only* be included. The official config-templates repository no
+  longer provides include templates; this concept applies only to custom resource providers.
 
 - **Config Template**<br/>
   A type of template that may *only* be used as a configuration file. It *cannot* be included. May

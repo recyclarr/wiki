@@ -73,26 +73,16 @@ In this example:
 
 Config includes use the **`id` field** in `includes.json` for identification.
 
-### Overriding an Official Include
+:::info
 
-To replace the official `radarr-custom-formats-hd-bluray-web` include with your own version:
+The official config-templates repository no longer provides include templates as of v8. The examples
+below apply only to custom resource providers that supply their own `includes.json`.
 
-**includes.json:**
+:::
 
-```json
-[
-  {
-    "id": "radarr-custom-formats-hd-bluray-web",
-    "template": "radarr/includes/custom-formats/hd-bluray-web.yml"
-  }
-]
-```
+### Adding Custom Includes
 
-Your include with the same ID completely replaces the official version.
-
-### Adding New Includes
-
-Use unique IDs to add alongside official includes:
+Use unique IDs to define include templates in your custom resource provider:
 
 ```json
 [

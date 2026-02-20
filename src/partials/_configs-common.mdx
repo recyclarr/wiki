@@ -1,21 +1,12 @@
-These pre-built configuration files are composed of two primary elements:
+These pre-built configuration files use [guide-backed quality profiles][qp] and [custom format
+groups][cfg] to synchronize all mandatory elements of any given guide profile. A single `trash_id`
+reference per quality profile replaces what previously required multiple include templates. The
+content of these templates can be found in the [Recyclarr config-templates GitHub
+repository][config-templates-repo].
 
-- **Includes**<br/>
-  [Include templates][include-templates] are utilized to synchronize all mandatory elements of any
-  given guide profile. These are split into `quality_definition`, `quality_profile` and
-  `custom_formats` elements. If any of these are not desired, they can be commented out. The content
-  of these include templates can be found in the [Recyclarr config-templates GitHub
-  repository][config-templates-repo].
-
-  [include-templates]: /reference/configuration/include#template
-  [config-templates-repo]: https://github.com/recyclarr/config-templates
-
-- **Custom Formats**<br/>
-  Custom formats that are added to the pre-built configuration file directly - i.e., not by way of
-  an include - allow the user to choose from one or more profile variations. These choices mirror
-  those described on the TRaSH Guides profile pages. Comments are provided in the pre-built
-  configuration files, although these are supplementary in nature and the relevant guide profile
-  page should be consulted for full information.
+[qp]: /reference/configuration/quality-profiles
+[cfg]: /guide/cf-groups
+[config-templates-repo]: https://github.com/recyclarr/config-templates/tree/v8
 
 ## Deployment
 
@@ -36,23 +27,14 @@ own custom configuration file.
 
 :::
 
-:::warning
-
-At this time, include templates can only be used with quality profiles that have the **same name**
-as shown in the equivalent guide profile page. The profile name is hard-coded into the include
-template.
-
-:::
-
-As the pre-built configuration files feature include templates, these will need to be overridden by
-custom configuration added to the configuration file. [Guidance is available on this
+Guide-backed quality profiles pull their settings directly from the TRaSH Guides. To customize a
+profile, add overrides in your configuration file. [Guidance is available on this
 behavior][behavior].
 
 A common request is to add additional qualities to a [quality profile][config-qp]. This is as simple
 as writing your own complete quality profile configuration and adding it to your configuration file.
-From there, the quality profile include template can either be commented out, or if left enabled
-then Recyclarr will process the customized configuration as described in the [include behavior
-section][include-qp].
+The guide-backed profile's qualities will be replaced by your custom list as described in the
+[include behavior section][include-qp].
 
 Additional custom formats can be added to the configuration file in the same way as normal.
 
