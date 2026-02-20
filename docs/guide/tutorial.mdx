@@ -88,11 +88,11 @@ radarr:
     api_key: your_api_key_here    # Radarr → Settings → General → API Key
 ```
 
-Optionally, add these lines if you want Recyclarr to manage custom formats exclusively:
+Optionally, add this line if you want Recyclarr to delete custom formats it previously synced but
+are no longer in your configuration:
 
 ```yml
     delete_old_custom_formats: true
-    replace_existing_custom_formats: true
 ```
 
 That's it. The template already includes the quality definition, quality profile, and custom formats
