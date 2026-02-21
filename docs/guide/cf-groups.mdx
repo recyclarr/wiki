@@ -169,6 +169,11 @@ IDs:
 recyclarr list custom-format-groups radarr
 ```
 
-The output shows each group's name, trash ID, and the CFs it contains.
+Each group is displayed as a panel showing its custom formats (with required/default flags) and
+associated quality profiles. Use `--filter` to narrow results by group name:
+
+```bash
+recyclarr list custom-format-groups radarr --filter audio
+```
 
 [list-cfg]: ../cli/list/list-custom-format-groups.mdx

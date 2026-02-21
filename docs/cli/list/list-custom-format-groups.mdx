@@ -7,14 +7,15 @@ sidebar_label: custom-format-groups
 ## Usage
 
 ```txt
-recyclarr list custom-format-groups <service>
+recyclarr list custom-format-groups <service> [OPTIONS]
 ```
 
 ## Description
 
-For a specific service, this command prints a list of all available custom format groups from the
-TRaSH Guides in a formatted table. Use the Trash ID values with the `custom_format_groups` property
-in your configuration YAML file.
+For a specific service, this command prints detailed information about each custom format group from
+the TRaSH Guides. Each group is displayed as a panel containing a table of its custom formats (with
+name, trash ID, required/default flags) and associated quality profiles. Use the Trash ID values
+with the `custom_format_groups` property in your configuration YAML file.
 
 Example usage in your config:
 
@@ -46,6 +47,12 @@ recyclarr list custom-format-groups radarr
 
 # List all custom format groups in the guide for Sonarr
 recyclarr list custom-format-groups sonarr
+
+# Filter groups by name (case-insensitive)
+recyclarr list custom-format-groups radarr --filter audio
+
+# Output in TSV format for scripting
+recyclarr list custom-format-groups radarr --raw
 ```
 
 ## Arguments
@@ -62,15 +69,24 @@ for. Valid values for this argument are:
 
 Visit [Common Options](../common.mdx) to read about options usable by all commands.
 
+### `--filter` {#filter}
+
+Filter groups by name using a case-insensitive substring match. Only groups whose name contains the
+filter string are shown.
+
 ### `--raw` {#raw}
 
 Output in TSV format for scripting. Suppresses table formatting, colors, and instructional text.
+Outputs one line per custom format (not per group).
 
 Columns (tab-separated):
 
-1. **Trash ID** - The unique identifier to use in `custom_format_groups`
-2. **Name** - The group name
-3. **CF Count** - Number of custom formats in the group
+1. **Group Trash ID** - The group identifier to use in `custom_format_groups`
+2. **Group Name** - The group name
+3. **CF Trash ID** - The custom format's trash ID
+4. **CF Name** - The custom format name
+5. **Required** - Whether the CF is required (`true`/`false`)
+6. **Default** - Whether the CF is a default (`true`/`false`)
 
 :::info
 
