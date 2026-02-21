@@ -3,6 +3,10 @@
 # Format: [old-path] [new-path] [status-code]
 # Redirects are grouped by date (newest first). Add new redirects at the top with a date comment.
 
+# 2026-02-20: migrate command removed (migrations are automatic)
+/cli/migrate /guide/troubleshooting/migrations 301
+/cli/migrate/ /guide/troubleshooting/migrations 301
+
 # 2026-02-04: cache→state rename
 /cli/cache /cli/state 301
 /cli/cache/ /cli/state 301
@@ -76,8 +80,8 @@
 /wiki/behavior/include/ /reference/configuration/include 301
 /wiki/behavior/cache /guide/troubleshooting/state 301
 /wiki/behavior/cache/ /guide/troubleshooting/state 301
-/wiki/behavior/migration /cli/migrate 301
-/wiki/behavior/migration/ /cli/migrate 301
+/wiki/behavior/migration /guide/troubleshooting/migrations 301
+/wiki/behavior/migration/ /guide/troubleshooting/migrations 301
 /wiki/behavior/notifications /reference/settings/notifications 301
 /wiki/behavior/notifications/ /reference/settings/notifications 301
 /wiki/cli /cli 301

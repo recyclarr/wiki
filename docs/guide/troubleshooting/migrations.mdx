@@ -1,0 +1,32 @@
+---
+title: Migration System
+---
+
+## Summary {#summary}
+
+The Migration System allows Recyclarr to perform automatic upgrade steps between releases. These
+steps, referred to as Migration Steps, handle breaking changes so you don't have to act manually.
+Most migration steps correspond to major releases.
+
+## When Migrations Run {#when-migrations-run}
+
+Migrations run automatically at application startup, before any command is processed. This applies
+to all commands including `sync`, `list`, `config`, `delete`, and `state`.
+
+When a migration step executes, a message is printed to the console:
+
+```txt
+Migrate: <step description>
+```
+
+If no migrations are needed, nothing is printed.
+
+## Failure & Recovery {#failure-recovery}
+
+When a Migration Step fails, processing of further steps is halted and Recyclarr exits with a
+non-zero exit code. The failure results in diagnostic information being printed to the console:
+
+- **Step description.** What the migration was trying to do.
+- **Failure reason.** Why the step could not be completed.
+- **Remediation steps.** One or more ways to resolve the problem, typically either performing the
+  steps by hand or taking action to allow the migration to succeed the next time Recyclarr starts.
