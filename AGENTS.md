@@ -47,6 +47,8 @@ Available components in MDX files:
 
 - `<ServiceSupport>` - Sonarr/Radarr compatibility tables
 - `<SupportLegend>` - Legend for support icons
+- `<ReleaseDate date="YYYY-MM-DD" />` - Release date badge for upgrade guides (omit `date` for
+  unreleased)
 - `<Icon icon="mdi:icon-name" />` - Material Design Icons via Iconify
 
 Import paths:
@@ -136,7 +138,8 @@ Use admonitions sparingly - only when behavior is non-obvious or has important i
 
 Each fact should have one canonical page. Other pages may reference it with a brief characterization
 and a link, but should not re-enumerate details (lists, trees, tables) that the canonical page
-already covers. Removed or deprecated features belong only in upgrade guides, not in reference pages.
+already covers. Removed or deprecated features belong only in upgrade guides, not in reference
+pages.
 
 ### Platform Differences (Sonarr/Radarr)
 
@@ -161,10 +164,22 @@ examples against schema, cross-reference CLI help output.
 
 ### Upgrade Guides
 
-`docs/guide/upgrade-guide/` pages are historical snapshots - never retroactively update. Use anchor
+`docs/guide/upgrade-guide/` pages are historical snapshots; never retroactively update. Use anchor
 IDs for breaking changes, `# <<< RENAMED` comments in before/after YAML examples. Avoid statements
-about future releases (e.g., "will be removed in a future version") - document current behavior
-only.
+about future releases (e.g., "will be removed in a future version"); document current behavior only.
+
+Published upgrade guides MUST include a `<ReleaseDate date="YYYY-MM-DD" />` component immediately
+after the frontmatter import block showing the release date of that major version. Use the date from
+the GitHub release tag. The unreleased guide uses `<ReleaseDate />` without a date prop.
+
+**Retention policy:** MUST keep only the four latest major versions. The latest major version is
+typically unreleased and tracks deprecations during development. This means three published release
+guides plus one unreleased guide. When a new major version begins development:
+
+1. Create a new `vN.0.mdx` with `(Unreleased)` in the title and an admonition stating it tracks
+   deprecations for the current development cycle
+2. Delete the oldest upgrade guide to maintain four total
+3. Add a redirect for the deleted page to `/guide/upgrade-guide`
 
 ## Styling
 

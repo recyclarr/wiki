@@ -3,6 +3,16 @@
 # Format: [old-path] [new-path] [status-code]
 # Redirects are grouped by date (newest first). Add new redirects at the top with a date comment.
 
+# 2026-02-22: pruned upgrade guides per retention policy (keep latest 4 major versions)
+/guide/upgrade-guide/v2.0 /guide/upgrade-guide 301
+/guide/upgrade-guide/v2.0/ /guide/upgrade-guide 301
+/guide/upgrade-guide/v3.0 /guide/upgrade-guide 301
+/guide/upgrade-guide/v3.0/ /guide/upgrade-guide 301
+/guide/upgrade-guide/v4.0 /guide/upgrade-guide 301
+/guide/upgrade-guide/v4.0/ /guide/upgrade-guide 301
+/guide/upgrade-guide/v5.0 /guide/upgrade-guide 301
+/guide/upgrade-guide/v5.0/ /guide/upgrade-guide 301
+
 # 2026-02-20: migrate command removed (migrations are automatic)
 /cli/migrate /guide/troubleshooting/migrations 301
 /cli/migrate/ /guide/troubleshooting/migrations 301
