@@ -386,6 +386,131 @@ official include templates from the config-templates repository have been remove
 
 :::
 
+## Adopting Guide-Backed Quality Profiles {#adopt-guide-profiles}
+
+If you have existing quality profiles in Sonarr or Radarr that were created by Recyclarr v7 (or
+manually), you cannot simply add a `trash_id` to your config and expect Recyclarr to update the
+existing profile. Without the adoption step below, Recyclarr treats the `trash_id` as a new profile
+and creates a duplicate.
+
+:::warning
+
+Skipping these steps will result in duplicate profiles in your service. Follow them in order for
+each profile you want to convert to guide-backed.
+
+:::
+
+### Adoption Steps {#qp-adoption-steps}
+
+1. Strip your quality profile config down to just `name` (and `reset_unmatched_scores`, if you use
+   it). The `name` must match what the profile is currently called in Sonarr/Radarr. Remove all
+   other properties temporarily.
+
+2. Add the `trash_id` for the corresponding guide profile. See the [name reference
+   table](#qp-name-changes) below to find the correct `trash_id`.
+
+3. Run [`recyclarr state repair --adopt`][state-repair]. This tells Recyclarr to recognize the
+   existing profile as the guide-backed profile going forward.
+
+4. You can now remove `name` to let the guide name take effect (which renames the profile on the
+   next sync), or set `name` to any custom value you prefer. You can also restore other properties
+   if you want to override the guide-provided values.
+
+**Before (v7):**
+
+```yml
+radarr:
+  movies:
+    base_url: http://localhost:7878
+    api_key: your_api_key
+
+    quality_profiles:
+      - name: HD Bluray + WEB (GER)
+        score_set: german
+        reset_unmatched_scores:
+          enabled: true
+        upgrade:
+          allowed: true
+          until_quality: Merged QPs
+          until_score: 35000
+        min_format_score: 0
+        quality_sort: top
+        qualities:
+          - name: Merged QPs
+            qualities:
+              - Bluray-1080p
+              - WEBRip-1080p
+              - WEBDL-1080p
+              - Bluray-720p
+              - WEBDL-720p
+              - WEBRip-720p
+```
+
+**After step 2 (ready for adoption):**
+
+```yml
+radarr:
+  movies:
+    base_url: http://localhost:7878
+    api_key: your_api_key
+
+    quality_profiles:
+      - trash_id: 2b90e905c99490edc7c7a5787443748b  # [German] HD Bluray + WEB  # <<< NEW
+        name: HD Bluray + WEB (GER)
+        reset_unmatched_scores:
+          enabled: true
+```
+
+After running `recyclarr state repair --adopt` (step 3), the profile is adopted. You can then remove
+`name` to let the guide name take over, or keep it to preserve your current name.
+
+:::tip
+
+If you want to keep your current profile name as-is, leave the `name` property set to your existing
+name after step 3. Recyclarr will continue using that name instead of the guide default.
+
+:::
+
+### Guide Profile Name Reference {#qp-name-changes}
+
+TRaSH Guides standardized quality profile names to use a `[Prefix]` convention. The tables below
+show the old names from v7 config templates alongside the new guide names and their `trash_id`
+values. Use this to find the correct `trash_id` for your existing profile and to know what the
+profile will be renamed to if you remove the `name` override.
+
+#### Anime {#qp-anime}
+
+| Old Name            | Guide Name          | Service | `trash_id`                         |
+|---------------------|---------------------|---------|------------------------------------|
+| Remux-1080p - Anime | [Anime] Remux-1080p | Sonarr  | `20e0fc959f1f1704bed501f23bdae76f` |
+| Remux-1080p - Anime | [Anime] Remux-1080p | Radarr  | `722b624f9af1e492284c4bc842153a38` |
+
+#### German {#qp-german}
+
+| Old Name                      | Guide Name                              | Service | `trash_id`                         |
+|-------------------------------|-----------------------------------------|---------|------------------------------------|
+| HD Bluray + WEB (GER)         | [German] HD Bluray + WEB                | Sonarr  | `dca7e5e9e99c703bcbdaaa471dd40e98` |
+| HD Bluray + WEB (GER)         | [German] HD Bluray + WEB                | Radarr  | `2b90e905c99490edc7c7a5787443748b` |
+| HD Remux + WEB (GER)          | [German] HD Remux + WEB                 | Sonarr  | `0dd5f085ed61a1e01f6d347779dfa1bc` |
+| HD Remux + WEB (GER)          | [German] HD Remux + WEB                 | Radarr  | `c13c33fdd2c306266b34cb9946de5919` |
+| UHD Bluray + WEB (GER)        | [German] UHD Bluray + WEB               | Sonarr  | `3b0fa37fddaaefc931b75f2889d4b4f5` |
+| UHD Bluray + WEB (GER)        | [German] UHD Bluray + WEB               | Radarr  | `27cc3d153c0a799fd139ef1ff4c4cc42` |
+| UHD Bluray + WEB (GER) (Alt.) | [German] UHD Bluray + WEB (Alternative) | Sonarr  | `7324309a7d1e10dc0dc2cea6c70ed852` |
+| UHD Bluray + WEB (GER) (Alt.) | [German] UHD Bluray + WEB (Alternative) | Radarr  | `425da1ba30711b55d2eb371437ec98d7` |
+| UHD Remux + WEB (GER)         | [German] UHD Remux + WEB                | Sonarr  | `08cececf1840290f6fd490b7d79e8642` |
+| Remux + WEB 2160p (GER)       | [German] Remux + WEB 2160p              | Radarr  | `79faa9943cef2f510b997b1f2a9f3ea6` |
+
+#### French MULTi.VO {#qp-french}
+
+| Old Name              | Guide Name                                 | Service | `trash_id`                         |
+|-----------------------|--------------------------------------------|---------|------------------------------------|
+| FR-MULTi-VO-WEB-1080p | [French MULTi.VO] HD Bluray + WEB (1080p)  | Sonarr  | `4c48f506c1116a3a57ae33f12346bd15` |
+| FR-MULTi-VO-WEB-2160p | [French MULTi.VO] UHD Bluray + WEB (2160p) | Sonarr  | `6fa7364373e8f06206871d9c20a4fb3e` |
+| FR-MULTi-VO-HD        | [French MULTi.VO] HD Bluray + WEB          | Radarr  | `2572ce3ea4eef1c19d59e0e20ed1cea7` |
+| FR-REMUX-MULTi-VO-HD  | [French MULTi.VO] HD Remux (1080p)         | Radarr  | `c6460a102b312200c095a2d0982e0461` |
+| FR-MULTi-VO-UHD       | [French MULTi.VO] UHD Bluray + WEB         | Radarr  | `92ead7022d13a7858d54e328e6a2f8f9` |
+| FR-REMUX-MULTi-VO-UHD | [French MULTi.VO] UHD Remux (2160p)        | Radarr  | `1fef28c8c919f31cd86283b1baf527d4` |
+
 ## Environment: `RECYCLARR_APP_DATA` Removed {#app-data-removed}
 
 The `RECYCLARR_APP_DATA` environment variable has been removed. If it is set, Recyclarr exits with
@@ -435,3 +560,4 @@ environment variable instead.
 [env-config]: ../../reference/env-vars.mdx#config-dir
 [qp-trash-id]: ../../reference/configuration/quality-profiles.mdx#trash-id
 [cf-groups]: ../../reference/configuration/custom-formats.mdx#custom-format-groups
+[state-repair]: ../../cli/state/repair.mdx
