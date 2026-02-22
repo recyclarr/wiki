@@ -227,15 +227,16 @@ profiles, specify them explicitly with `name`.
 
 **Conditionally Required.** Required if `name` is not specified.
 
-The trash ID of a [guide-backed quality profile][guide-qp]. The profile must be in the group's
-include list, otherwise a validation error is reported.
+The trash ID of a [guide-backed quality profile][guide-qp]. The profile must exist in the guide's
+quality profile resources, otherwise a validation error is reported.
 
 ##### `name` {#cfg-ast-name}
 
 **Conditionally Required.** Required if `trash_id` is not specified.
 
 The name of a quality profile defined in your [`quality_profiles`][qps] configuration. Use this to
-assign group scores to custom (non-guide-backed) profiles. The profile must exist in your
+assign group scores to custom (non-guide-backed) profiles. Referencing a guide-backed profile by
+name produces a validation error; use `trash_id` instead. The profile must exist in your
 configuration's `quality_profiles` list.
 
 #### `select` {#cfg-select}
