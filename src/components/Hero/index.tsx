@@ -1,7 +1,7 @@
-import React from 'react';
-import Link from '@docusaurus/Link';
-import { Icon } from '@iconify/react';
-import styles from './styles.module.css';
+import React from "react";
+import Link from "@docusaurus/Link";
+import { Icon } from "@iconify/react";
+import styles from "./styles.module.css";
 
 export default function Hero() {
   return (
@@ -15,15 +15,11 @@ export default function Hero() {
           Automatically synchronize TRaSH Guides to Sonarr and Radarr
         </p>
         <div className={styles.heroButtons}>
-          <Link
-            className={styles.buttonPrimary}
-            to="/guide/getting-started">
+          <Link className={styles.buttonPrimary} to="/guide/getting-started">
             <Icon icon="mdi:book-open-page-variant" />
             Get Started
           </Link>
-          <Link
-            className={styles.buttonSecondary}
-            to="https://github.com/recyclarr/recyclarr">
+          <Link className={styles.buttonSecondary} to="https://github.com/recyclarr/recyclarr">
             <Icon icon="mdi:github" />
             View on GitHub
           </Link>

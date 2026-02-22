@@ -17,32 +17,33 @@
     "write-heading-ids": "docusaurus write-heading-ids"
   },
   "dependencies": {
-    "@algolia/client-search": "^5.2.1",
-    "@docsearch/core": "^4.5.0",
+    "@algolia/client-search": "^5.49.0",
+    "@docsearch/core": "^4.6.0",
     "@docusaurus/core": "^3.9.2",
     "@docusaurus/preset-classic": "^3.9.2",
     "@iconify/react": "^6.0.2",
-    "@mdx-js/react": "^3",
-    "@types/react": "^19.0.0",
-    "clsx": "^2.0.0",
+    "@mdx-js/react": "^3.1.1",
+    "@types/react": "^19.2.14",
+    "clsx": "^2.1.1",
     "docusaurus-mdx-checker": "^3.0.0",
     "docusaurus-plugin-sass": "^0.2.6",
     "docusaurus-theme-github-codeblock": "^2.0.2",
-    "prism-react-renderer": "^2.0.0",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
+    "prism-react-renderer": "^2.4.1",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
     "react-loadable": "^5.5.0",
-    "sass": "^1.93.2",
-    "search-insights": "^2",
-    "typescript": "5.9.3"
+    "sass": "^1.97.3",
+    "search-insights": "^2.17.3",
+    "typescript": "^5.9.3"
   },
   "devDependencies": {
     "@docusaurus/module-type-aliases": "^3.9.2",
-    "@playwright/test": "^1.57.0",
-    "baseline-browser-mapping": "^2.9.16",
+    "@playwright/test": "^1.58.2",
+    "baseline-browser-mapping": "^2.10.0",
     "concurrently": "^9.2.1",
     "cross-env": "^10.1.0",
-    "markdown-table-formatter": "^1.7.0"
+    "markdown-table-formatter": "^1.7.0",
+    "prettier": "^3.8.1"
   },
   "browserslist": {
     "production": [

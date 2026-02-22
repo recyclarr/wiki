@@ -8,8 +8,8 @@
  */
 
 @font-face {
-  font-family: 'JetBrains Mono';
-  src: url('/fonts/JetBrainsMono-Regular.woff2') format('woff2');
+  font-family: "JetBrains Mono";
+  src: url("/fonts/JetBrainsMono-Regular.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -32,8 +32,9 @@
   /* Typography - Base font sizing and code styling */
   --ifm-font-size-base: 17px;
   --ifm-code-font-size: 90%;
-  --ifm-font-family-monospace: 'JetBrains Mono', SFMono-Regular, Menlo, Monaco, Consolas,
-    'Liberation Mono', 'Courier New', monospace;
+  --ifm-font-family-monospace:
+    "JetBrains Mono", SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New",
+    monospace;
   --ifm-global-radius: 9px;
 
   /* Layout - Sidebar width and code highlighting */
@@ -53,7 +54,7 @@
 }
 
 /* Dark mode theme overrides */
-[data-theme='dark'] {
+[data-theme="dark"] {
   --sidebar-active-item-background: rgba(37, 194, 160, 0.15);
 
   --ifm-color-primary: #25c2a0;

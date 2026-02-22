@@ -1,9 +1,9 @@
-import React from 'react';
-import Link from '@docusaurus/Link';
-import { Icon } from '@iconify/react';
-import { Highlight, themes } from 'prism-react-renderer';
-import { useColorMode } from '@docusaurus/theme-common';
-import styles from './styles.module.css';
+import React from "react";
+import Link from "@docusaurus/Link";
+import { Icon } from "@iconify/react";
+import { Highlight, themes } from "prism-react-renderer";
+import { useColorMode } from "@docusaurus/theme-common";
+import styles from "./styles.module.css";
 
 const codeExample = `sonarr:
   web-1080p-v4:
@@ -18,7 +18,7 @@ const codeExample = `sonarr:
 
 export default function QuickStart() {
   const { colorMode } = useColorMode();
-  const theme = colorMode === 'dark' ? themes.vsDark : themes.github;
+  const theme = colorMode === "dark" ? themes.vsDark : themes.github;
 
   return (
     <section className={styles.quickStart}>

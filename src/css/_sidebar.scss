@@ -40,13 +40,13 @@ aside[class^="theme-doc-sidebar-container"] a[class*="menu__link--sublist-caret"
 }
 
 aside[class^="theme-doc-sidebar-container"] .menu__list .menu__link--sublist[aria-expanded]:after,
-aside[class^="theme-doc-sidebar-container"] a[class*="menu__link--sublist-caret"][aria-expanded]:after {
+aside[class^="theme-doc-sidebar-container"]
+  a[class*="menu__link--sublist-caret"][aria-expanded]:after {
   display: block;
   background-size: 1.66rem 1.66rem;
   margin-right: -6px;
   margin-top: -1px;
 }
-
 
 aside[class^="theme-doc-sidebar-container"] .menu__list-item .menu__list-item .menu__list-item {
   padding-left: 8px !important;
@@ -60,7 +60,10 @@ aside[class^="theme-doc-sidebar-container"] .theme-doc-sidebar-item-category {
   margin-bottom: 0;
 }
 
-aside[class^="theme-doc-sidebar-container"] .theme-doc-sidebar-item-category .menu__list .menu__list-item-collapsible {
+aside[class^="theme-doc-sidebar-container"]
+  .theme-doc-sidebar-item-category
+  .menu__list
+  .menu__list-item-collapsible {
   margin-top: 0;
 }
 
@@ -73,7 +76,6 @@ aside[class^="theme-doc-sidebar-container"] .menu__list-item-collapsible .menu__
   background-size: 1.66rem 1.66rem;
   margin-top: -1px;
 }
-
 
 /* Responsive sidebar - hide on mobile */
 @media only screen and (min-width: 997px) {

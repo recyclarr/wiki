@@ -1,11 +1,11 @@
-import React from 'react';
-import { Icon } from '@iconify/react';
-import styles from './styles.module.css';
+import React from "react";
+import { Icon } from "@iconify/react";
+import styles from "./styles.module.css";
 
 const legendItems = [
-  { icon: 'mdi:check-bold', color: '#22c55e', label: 'Full Compatibility' },
-  { icon: 'mdi:tilde', color: '#eab308', label: 'Partial Compatibility' },
-  { icon: 'mdi:close-thick', color: '#ef4444', label: 'No Compatibility' },
+  { icon: "mdi:check-bold", color: "#22c55e", label: "Full Compatibility" },
+  { icon: "mdi:tilde", color: "#eab308", label: "Partial Compatibility" },
+  { icon: "mdi:close-thick", color: "#ef4444", label: "No Compatibility" },
 ];
 
 export default function SupportLegend() {

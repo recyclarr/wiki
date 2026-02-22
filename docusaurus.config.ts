@@ -6,11 +6,9 @@ const isNext = process.env.GITHUB_REF === "refs/heads/next";
 
 // URLs can be overridden via environment variables for local development
 const currentUrl =
-  process.env.CURRENT_URL ||
-  (isNext ? "https://next.recyclarr.dev" : "https://recyclarr.dev");
+  process.env.CURRENT_URL || (isNext ? "https://next.recyclarr.dev" : "https://recyclarr.dev");
 const otherUrl =
-  process.env.OTHER_URL ||
-  (isNext ? "https://recyclarr.dev" : "https://next.recyclarr.dev");
+  process.env.OTHER_URL || (isNext ? "https://recyclarr.dev" : "https://next.recyclarr.dev");
 const otherVersionTitle = isNext ? "Current" : "Next";
 
 const config: Config = {

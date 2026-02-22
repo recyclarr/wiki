@@ -1,25 +1,23 @@
-import React, {type ReactNode} from 'react';
-import clsx from 'clsx';
-import Link from '@docusaurus/Link';
-import {useThemeConfig} from '@docusaurus/theme-common';
-import type {Props} from '@theme/MDXComponents/A';
-import styles from './styles.module.css';
+import React, { type ReactNode } from "react";
+import clsx from "clsx";
+import Link from "@docusaurus/Link";
+import { useThemeConfig } from "@docusaurus/theme-common";
+import type { Props } from "@theme/MDXComponents/A";
+import styles from "./styles.module.css";
 
 function isFootnoteRef(props: Props) {
-  return props['data-footnote-ref'] === true;
+  return props["data-footnote-ref"] === true;
 }
 
 function FootnoteRefLink(props: Props) {
   const {
-    navbar: {hideOnScroll},
+    navbar: { hideOnScroll },
   } = useThemeConfig();
   return (
     <Link
       {...props}
       className={clsx(
-        hideOnScroll
-          ? styles.footnoteRefHideOnScrollNavbar
-          : styles.footnoteRefStickyNavbar,
+        hideOnScroll ? styles.footnoteRefHideOnScrollNavbar : styles.footnoteRefStickyNavbar,
 
         props.className,
       )}

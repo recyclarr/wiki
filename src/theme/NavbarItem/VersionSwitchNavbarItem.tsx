@@ -1,6 +1,6 @@
-import React from 'react';
-import { useLocation } from '@docusaurus/router';
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import React from "react";
+import { useLocation } from "@docusaurus/router";
+import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 
 interface VersionSwitchNavbarItemProps {
   readonly mobile?: boolean;
@@ -19,16 +19,10 @@ export default function VersionSwitchNavbarItem({
   const href = `${otherUrl}${location.pathname}`;
 
   // Use appropriate class names for desktop vs mobile navbar
-  const className = mobile
-    ? 'menu__link'
-    : 'navbar__item navbar__link';
+  const className = mobile ? "menu__link" : "navbar__item navbar__link";
 
   return (
-    <a
-      href={href}
-      className={className}
-      rel="noopener noreferrer"
-    >
+    <a href={href} className={className} rel="noopener noreferrer">
       {otherVersionTitle} Version
     </a>
   );

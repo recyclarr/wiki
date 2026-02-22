@@ -24,7 +24,11 @@
 }
 
 .featureCard {
-  background: linear-gradient(135deg, var(--homepage-card-gradient-start) 0%, var(--homepage-card-gradient-end) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--homepage-card-gradient-start) 0%,
+    var(--homepage-card-gradient-end) 100%
+  );
   border: 1px solid var(--homepage-border);
   border-radius: 12px;
   padding: 2rem;
