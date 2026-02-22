@@ -64,7 +64,9 @@ Static assets: `/img/` (logos), `/doc-img/` (screenshots)
 - Omit `id` in frontmatter when filename matches desired id; keep `id` when filename differs (e.g.,
   `cache-rebuild.mdx` with `id: rebuild` for URL `/cli/cache/rebuild`)
 - Headings MUST use explicit anchors: `## Heading {#anchor-id}` - concise, rely on page context
-- Max line length: 100 chars (markdownlint enforced)
+- Line length MUST be hard wrapped at exactly 100 columns (Prettier `printWidth: 100`). Fill lines
+  to the full 100 columns before wrapping. Wrapping early (at 80, 90, or any width below 100) is
+  wrong. When in doubt, count characters.
 - Code blocks require language: `bash`, `yml`, `txt`
 - Links: use relative file paths with `.mdx` extension (`./page.mdx`, `../folder/page.mdx`,
   `../../reference/page.mdx`). Use reference-style links to simplify line wrapping: `[text][id]`
