@@ -433,9 +433,7 @@ In each case, perform the first change, sync, then perform the second change and
 
 ### Validation {#validation}
 
-Two validation checks run before syncing:
-
-- Two entries with the same `trash_id` must have distinct `name` values. If duplicates are found,
-  both entries are skipped with an error.
-- Two profiles cannot resolve to the same name regardless of `trash_id`. If a name collision is
-  detected, both entries are skipped with an error.
+Two profiles cannot resolve to the same name regardless of `trash_id`. If a name collision is
+detected, all entries with that name are skipped with an error. This applies after name resolution
+(guide name inheritance), so two entries sharing a `trash_id` must have distinct `name` values to
+avoid colliding.
