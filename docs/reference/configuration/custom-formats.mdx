@@ -234,10 +234,10 @@ quality profile resources, otherwise a validation error is reported.
 
 **Conditionally Required.** Required if `trash_id` is not specified.
 
-The name of a quality profile defined in your [`quality_profiles`][qps] configuration. Use this to
-assign group scores to custom (non-guide-backed) profiles. Referencing a guide-backed profile by
-name produces a validation error; use `trash_id` instead. The profile must exist in your
-configuration's `quality_profiles` list.
+The name of a quality profile to assign group scores to. Use this for custom (non-guide-backed)
+profiles. Referencing a guide-backed profile by name produces a validation error; use `trash_id`
+instead. If the named profile does not exist in your configuration or in the remote service, a
+warning is produced during sync.
 
 #### `select` {#cfg-select}
 
