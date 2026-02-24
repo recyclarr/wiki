@@ -357,8 +357,9 @@ Replace.
 
 ### Quality Profiles {#merge-quality-profiles}
 
-Items in `quality_profiles` are joined by `trash_id` if present, otherwise by `name`. This allows
-guide-backed profiles to merge correctly even if the guide renames a profile.
+Items in `quality_profiles` are joined by both `trash_id` and `name` when `trash_id` is present,
+otherwise by `name` alone. Profiles sharing a `trash_id` but with different names are kept as
+separate entries, not merged.
 
 | Property Name            | Node Type | Merge Operation              |
 |--------------------------|-----------|------------------------------|

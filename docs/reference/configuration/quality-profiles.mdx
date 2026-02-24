@@ -71,6 +71,13 @@ The name becomes optional and defaults to the guide's recommended name. You can 
 name to override the guide's default, and you can change this name freely without losing the
 connection to your existing profile.
 
+The same `trash_id` can appear multiple times to create [profile variants][variants]. When it does,
+each entry sharing a `trash_id` must have a distinct `name`. At most one entry per `trash_id` may
+omit `name` (inheriting it from the guide); all others must specify explicit names. Name resolution
+(guide name inheritance) happens before duplicate detection.
+
+[variants]: ../config-examples.mdx#profile-variants
+
 ## `trash_id` {#trash-id}
 
 **Optional.**
@@ -102,14 +109,35 @@ quality_profiles:
     min_format_score: 100          # Override guide's value
 ```
 
+The same `trash_id` can appear multiple times to create variants of a guide profile. Each variant
+independently inherits the guide's quality ordering and CF scores, with overrides applied
+per-instance:
+
+```yml
+quality_profiles:
+  - name: Any
+    trash_id: ca39fe2fec28ae7a6e8779404b614f80
+    upgrade:
+      allowed: true
+
+  - name: Arabic
+    trash_id: ca39fe2fec28ae7a6e8779404b614f80
+    upgrade:
+      allowed: false
+    min_format_score: 100
+```
+
+Both profiles get the same qualities and custom format scores from the guide, but with different
+upgrade and score settings. See [Create profile variants][variants] for more examples.
+
 See [Renaming a guide-backed quality profile][config-rename] for a complete example.
 
 [config-rename]: ../config-examples.mdx#rename-guide-profile
 
 :::tip
 
-Use `recyclarr list quality-profiles` to see all available quality profiles and their trash IDs.
-See the [CLI reference][cliqp] for details.
+Use `recyclarr list quality-profiles` to see all available quality profiles and their trash IDs. See
+the [CLI reference][cliqp] for details.
 
 [cliqp]: ../../cli/list/list-quality-profiles.mdx
 
@@ -390,3 +418,24 @@ quality profiles do not have a language field; use custom formats for language f
 
 Manual configuration of language via YAML is not yet supported. The language value from the guide
 passes through automatically and cannot be overridden.
+
+### Renaming Profile Variants {#renaming-variants}
+
+When multiple profiles share a `trash_id`, at most one may be renamed per sync. Recyclarr uses a
+two-pass algorithm to match profiles to their existing state, and multiple simultaneous changes
+create ambiguity it cannot resolve. Operations that require multiple syncs:
+
+- Rename 2+ profiles sharing a `trash_id` simultaneously
+- Rename one profile and add a new profile with the same `trash_id` simultaneously
+- Remove one profile and rename another with the same `trash_id` simultaneously
+
+In each case, perform the first change, sync, then perform the second change and sync again.
+
+### Validation {#validation}
+
+Two validation checks run before syncing:
+
+- Two entries with the same `trash_id` must have distinct `name` values. If duplicates are found,
+  both entries are skipped with an error.
+- Two profiles cannot resolve to the same name regardless of `trash_id`. If a name collision is
+  detected, both entries are skipped with an error.

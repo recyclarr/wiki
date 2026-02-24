@@ -251,6 +251,47 @@ Use `recyclarr list custom-formats radarr` to find trash IDs for all available c
 
 :::
 
+## Create profile variants from one guide-backed definition {#profile-variants}
+
+Use the same `trash_id` multiple times to create variants of a guide-backed profile with different
+settings. Each variant inherits the guide's quality ordering and CF scores independently, and
+overrides apply per-instance.
+
+This is useful when you want the same quality structure but with different behavior for different
+content types, such as different upgrade limits, score thresholds, or language-specific libraries.
+
+```yml
+radarr:
+  movies:
+    base_url: !secret radarr_url
+    api_key: !secret radarr_apikey
+
+    quality_definition:
+      type: movie
+
+    quality_profiles:
+      - name: Any
+        trash_id: ca39fe2fec28ae7a6e8779404b614f80
+        reset_unmatched_scores:
+          enabled: true
+        upgrade:
+          allowed: true
+
+      - name: Arabic
+        trash_id: ca39fe2fec28ae7a6e8779404b614f80
+        reset_unmatched_scores:
+          enabled: true
+        upgrade:
+          allowed: false
+        min_format_score: 100
+```
+
+Each entry must have a distinct `name`. At most one entry per `trash_id` may omit `name` to inherit
+the guide's default; all others must specify explicit names. See [Limitations][qp-limits] for rename
+constraints when modifying profile variants.
+
+[qp-limits]: ./configuration/quality-profiles.mdx#renaming-variants
+
 ## Rename a guide-backed quality profile {#rename-guide-profile}
 
 When syncing a guide-backed profile using `trash_id`, add `name` to use a custom name instead of the
