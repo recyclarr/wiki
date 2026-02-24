@@ -1,11 +1,16 @@
 {
   "$schema": "https://opencode.ai/config.json",
   "instructions": ["../AGENTS.md"],
+  "formatter": {
+    "prettier": {
+      "extensions": [".js", ".jsx", ".ts", ".tsx", ".css", ".scss", ".json", ".yaml", ".yml"],
+    },
+  },
   "mcp": {
     "linear": {
       "type": "remote",
-      "url": "https://mcp.linear.app/mcp"
-    }
+      "url": "https://mcp.linear.app/mcp",
+    },
   },
   "permission": {
     // Fine tune linear tools in context
