@@ -136,17 +136,20 @@ trash_ids:
 
 One or more quality profiles to update with the scores from the custom formats listed above. Scores
 are taken from the guide by default, with an option to override the score for all of them. Profiles
-can be referenced by `name` or `trash_id`. Each object in the list must use one of these properties
-(but not both).
+can be referenced by `name` or `trash_id`. Each entry must use exactly one of these properties.
+Specifying both produces a validation error.
 
 #### `name` {#qp-name}
 
 **Conditionally Required.** Required if `trash_id` is not specified.
 
-The name of *an existing* quality profile. This name is **not required** to appear in the top-level
-[`quality_profiles` list][qps]. If the profile name specified here does not exist, an error will be
-shown. If you want this profile to be created by Recyclarr, you must also add an entry for it in the
-previously mentioned `quality_profiles` list.
+The name of a quality profile. Works for both guide-backed and user-defined profiles. This is the
+only way to target a specific [profile variant][variants] when multiple profiles share the same
+`trash_id`. If the profile name does not exist, an error is shown. The profile is **not required** to
+appear in the top-level [`quality_profiles` list][qps]; however, if you want Recyclarr to create it,
+you must also add an entry there.
+
+[variants]: ./quality-profiles.mdx#trash-id
 
 [qps]: ./quality-profiles.mdx
 
@@ -156,7 +159,9 @@ previously mentioned `quality_profiles` list.
 
 The trash ID of a [guide-backed quality profile][guide-qp]. Use this instead of `name` when
 referencing profiles managed by Recyclarr through guide synchronization. This is useful because
-guide-backed profile names may change with guide updates, while the trash ID remains stable.
+guide-backed profile names may change with guide updates, while the trash ID remains stable. Only
+works when exactly one profile in the configuration has this `trash_id`. If multiple profiles share
+it (profile variants), Recyclarr reports an error and instructs you to use `name` instead.
 
 [guide-qp]: ./quality-profiles.mdx#trash-id
 
@@ -215,29 +220,31 @@ files][cfgroups].
 **Optional.** *Default: All applicable guide-backed quality profiles*
 
 One or more quality profiles to assign the group's CF scores to. Profiles can be referenced by
-`trash_id` (for guide-backed profiles) or `name` (for custom profiles). Each entry must use one of
-these properties, not both.
+`trash_id` or `name`. Each entry must use exactly one of these properties. Specifying both produces
+a validation error.
 
-When omitted, scores are assigned to guide-backed profiles in your configuration that the group
-includes. Each group specifies compatible profiles; for example, HDR groups include only UHD
-profiles. Auto-sync only targets guide-backed profiles; to assign group scores to user-defined
-profiles, specify them explicitly with `name`.
+When omitted, scores are assigned to all guide-backed profiles in your configuration that the group
+includes, including all [profile variants][variants] sharing the same `trash_id`. Each group
+specifies compatible profiles; for example, HDR groups include only UHD profiles. To assign group
+scores to user-defined profiles, specify them explicitly with `name`.
 
 ##### `trash_id` {#cfg-ast-trash-id}
 
 **Conditionally Required.** Required if `name` is not specified.
 
 The trash ID of a [guide-backed quality profile][guide-qp]. The profile must exist in the guide's
-quality profile resources, otherwise a validation error is reported.
+quality profile resources, otherwise a validation error is reported. Only works when exactly one
+profile in the configuration has this `trash_id`. If multiple profiles share it (profile variants),
+Recyclarr reports an error and instructs you to use `name` instead.
 
 ##### `name` {#cfg-ast-name}
 
 **Conditionally Required.** Required if `trash_id` is not specified.
 
-The name of a quality profile to assign group scores to. Use this for custom (non-guide-backed)
-profiles. Referencing a guide-backed profile by name produces a validation error; use `trash_id`
-instead. If the named profile does not exist in your configuration or in the remote service, a
-warning is produced during sync.
+The name of a quality profile to assign group scores to. Works for both guide-backed and user-defined
+profiles. This is the only way to target a specific [profile variant][variants] when multiple
+profiles share the same `trash_id`. If the named profile does not exist in your configuration or in
+the remote service, a warning is produced during sync.
 
 #### `select` {#cfg-select}
 

@@ -286,9 +286,8 @@ radarr:
         min_format_score: 100
 ```
 
-Each entry must have a distinct `name`. At most one entry per `trash_id` may omit `name` to inherit
-the guide's default; all others must specify explicit names. See [Limitations][qp-limits] for rename
-constraints when modifying profile variants.
+When a `trash_id` appears more than once, every entry sharing it must have an explicit `name`. See
+[Limitations][qp-limits] for rename constraints when modifying profile variants.
 
 [qp-limits]: ./configuration/quality-profiles.mdx#renaming-variants
 

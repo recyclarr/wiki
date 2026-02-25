@@ -72,9 +72,9 @@ name to override the guide's default, and you can change this name freely withou
 connection to your existing profile.
 
 The same `trash_id` can appear multiple times to create [profile variants][variants]. When it does,
-each entry sharing a `trash_id` must have a distinct `name`. At most one entry per `trash_id` may
-omit `name` (inheriting it from the guide); all others must specify explicit names. Name resolution
-(guide name inheritance) happens before duplicate detection.
+every entry sharing that `trash_id` must have an explicit `name`; none may rely on guide name
+inheritance. Each name must be distinct. If any entry omits `name`, Recyclarr reports a validation
+error: *"Multiple profiles use trash_id 'X'; each must have an explicit 'name' to disambiguate."*
 
 [variants]: ../config-examples.mdx#profile-variants
 
@@ -434,6 +434,10 @@ In each case, perform the first change, sync, then perform the second change and
 ### Validation {#validation}
 
 Two profiles cannot resolve to the same name regardless of `trash_id`. If a name collision is
-detected, all entries with that name are skipped with an error. This applies after name resolution
-(guide name inheritance), so two entries sharing a `trash_id` must have distinct `name` values to
-avoid colliding.
+detected, all entries with that name are skipped with an error.
+
+When a `trash_id` appears two or more times (creating [profile variants][variants]), every entry
+sharing that `trash_id` must specify an explicit [`name`][name]. Omitting `name` on any variant
+produces a validation error. Each variant name must also be distinct.
+
+[name]: #name
