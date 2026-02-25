@@ -136,12 +136,44 @@ Use admonitions sparingly - only when behavior is non-obvious or has important i
 - Provide complete, runnable YAML examples - not fragments requiring assembly
 - State expected outcomes after significant steps
 
-### Avoiding Content Duplication
+### Single Source of Truth
 
-Each fact should have one canonical page. Other pages may reference it with a brief characterization
-and a link, but should not re-enumerate details (lists, trees, tables) that the canonical page
-already covers. Removed or deprecated features belong only in upgrade guides, not in reference
-pages.
+Every configuration property, behavioral concept, and factual claim MUST have exactly one
+**canonical page** where it is fully documented. The canonical location is determined by document
+type:
+
+- Configuration properties: their reference page in `docs/reference/configuration/`
+- Settings properties: their reference page in `docs/reference/settings/`
+- CLI flags/options: their CLI page in `docs/cli/`
+- Concepts (e.g., profile variants, guide-backed profiles): a dedicated reference page
+
+Removed or deprecated features belong only in upgrade guides, not in reference pages.
+
+**Referencing canonical content from other pages:**
+
+Other pages SHOULD characterize the concept in 1-2 sentences and link to the canonical page. The
+characterization describes *what it does* and *why a user would care*, not *how it works in detail*.
+This gives tutorials enough context to teach without re-documenting behavior.
+
+Acceptable in non-canonical pages:
+
+- Brief characterization (1-2 sentences) with a link to canonical page
+- Complete YAML examples that include the property (examples MUST be runnable)
+- Inline comments in YAML showing simple values (e.g., `# Settings > General > API Key`)
+
+Prohibited in non-canonical pages:
+
+- Re-explaining valid values, edge cases, or behavioral details
+- Reproducing lists, tables, or enumerations from the canonical page
+- Documenting limitations or constraints (these belong on the canonical page only)
+
+**Decision test:** If the behavior of a feature changed, would you need to update this page? If yes,
+and it is not the canonical page, the content is too detailed. Reduce to a characterization and
+link.
+
+**When to create a dedicated page:** If a concept is referenced from 3+ pages and requires more than
+a 2-sentence characterization to explain, it needs its own canonical page rather than being embedded
+in a parent page's property documentation.
 
 ### Platform Differences (Sonarr/Radarr)
 
