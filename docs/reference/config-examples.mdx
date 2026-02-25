@@ -152,8 +152,10 @@ for why this uses replace behavior.
 
 ### Reset scores not in config {#reset-scores}
 
-Use `reset_unmatched_scores` when you want Recyclarr to have exclusive control over CF scores in a
-profile. This is enabled by default in all official templates:
+Use [`reset_unmatched_scores`][rus] when you want Recyclarr to have exclusive control over CF scores
+in a profile. This is enabled by default in all official templates:
+
+[rus]: ./configuration/quality-profiles.mdx#reset-unmatched-scores
 
 ```yml
 radarr:
@@ -253,12 +255,9 @@ Use `recyclarr list custom-formats radarr` to find trash IDs for all available c
 
 ## Create profile variants from one guide-backed definition {#profile-variants}
 
-Use the same `trash_id` multiple times to create variants of a guide-backed profile with different
-settings. Each variant inherits the guide's quality ordering and CF scores independently, and
-overrides apply per-instance.
-
-This is useful when you want the same quality structure but with different behavior for different
-content types, such as different upgrade limits, score thresholds, or language-specific libraries.
+Use the same `trash_id` multiple times to create [profile variants][variants] with different
+settings. This is useful when you want the same quality structure but with different behavior, such
+as different upgrade limits or language-specific libraries.
 
 ```yml
 radarr:
@@ -286,9 +285,11 @@ radarr:
         min_format_score: 100
 ```
 
-When a `trash_id` appears more than once, every entry sharing it must have an explicit `name`. See
-[Limitations][qp-limits] for rename constraints when modifying profile variants.
+Each variant must have a distinct [`name`][qp-name]. See [Renaming Profile Variants][qp-limits] for
+constraints when modifying variants.
 
+[variants]: ./configuration/quality-profiles.mdx#trash-id
+[qp-name]: ./configuration/quality-profiles.mdx#name
 [qp-limits]: ./configuration/quality-profiles.mdx#renaming-variants
 
 ## Rename a guide-backed quality profile {#rename-guide-profile}

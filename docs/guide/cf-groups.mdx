@@ -183,8 +183,8 @@ custom_format_groups:
 Here, the Audio Formats group syncs only to the AMZN DV variant. Meanwhile, default groups that
 include WEB-2160p in their compatibility list still apply to both variants automatically.
 
-You cannot use `trash_id` in `assign_scores_to` when multiple profiles share it; Recyclarr requires
-`name` to disambiguate.
+With profile variants, you must use `name` in `assign_scores_to` to target a specific variant. See
+[`trash_id`][variants] for variant naming rules.
 
 [variants]: ../reference/configuration/quality-profiles.mdx#trash-id
 
