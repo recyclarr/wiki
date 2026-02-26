@@ -1,9 +1,18 @@
 ## Project Overview
 
-Recyclarr documentation site built with Docusaurus. Dual deployment:
+Recyclarr documentation site built with Docusaurus.
 
-- Production: `recyclarr.dev` (master branch)
-- Preview: `next.recyclarr.dev` (next branch)
+### Branches
+
+- `master` -- Production (`recyclarr.dev`). Documentation for the current stable release.
+- `next` -- Preview (`next.recyclarr.dev`). New feature docs and breaking changes only.
+
+Use `master` for retroactive documentation updates: clarifying existing features, adding missing
+docs, rewording, configuration changes, and non-docs changes. Use `next` for documentation that
+describes unreleased features or breaking changes.
+
+On each Recyclarr minor or major release, `next` is fast-forward merged into `master` so that new
+feature docs publish alongside the release.
 
 ## Authoritative Reference
 
