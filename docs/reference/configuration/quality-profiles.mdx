@@ -99,6 +99,14 @@ quality_profiles:
   - trash_id: 9a0e43cb7a892e3e9c4f2f5c5e0dcf8e
 ```
 
+:::info
+
+The order of properties within a YAML mapping (such as `trash_id`, `name`, `upgrade`, etc.) does not
+matter. YAML treats `trash_id` first and `name` first identically. Only the indentation and nesting
+affect meaning.
+
+:::
+
 You can override specific properties, including the name. Any property you explicitly specify takes
 precedence over the guide values:
 
@@ -115,13 +123,13 @@ per-instance:
 
 ```yml
 quality_profiles:
-  - name: Any
-    trash_id: ca39fe2fec28ae7a6e8779404b614f80
+  - trash_id: ca39fe2fec28ae7a6e8779404b614f80
+    name: Any
     upgrade:
       allowed: true
 
-  - name: Arabic
-    trash_id: ca39fe2fec28ae7a6e8779404b614f80
+  - trash_id: ca39fe2fec28ae7a6e8779404b614f80
+    name: Arabic
     upgrade:
       allowed: false
     min_format_score: 100
