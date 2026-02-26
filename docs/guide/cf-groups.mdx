@@ -27,7 +27,8 @@ because the TRaSH Guide marks these as defaults for the UHD Bluray + WEB profile
 Use [`custom_format_groups`][cfg-ref] only when you need to customize this behavior:
 
 - **`skip`** — Opt-out of groups you don't want
-- **`add`** — Opt-in to non-default groups, or customize which CFs sync with `select`/`exclude`
+- **`add`** — Opt-in to non-default groups, or customize which CFs sync with `select`,
+  `select_all`, and `exclude`
 
 [guide-qp]: ../reference/configuration/quality-profiles.mdx#trash-id
 [cfg-ref]: ../reference/configuration/custom-formats.mdx#custom-format-groups
@@ -50,15 +51,15 @@ scores.
 
 Which custom formats sync from a group depends on flags set in the TRaSH Guide JSON:
 
-| Flag in Guide    | Behavior                                             |
-|------------------|------------------------------------------------------|
-| `required: true` | Always synced. Cannot be excluded or deselected.     |
-| `default: true`  | Synced automatically. Can be removed with `exclude`. |
-| No flag          | Not synced unless explicitly listed in `select`.     |
+| Flag in Guide    | Behavior                                                           |
+|------------------|--------------------------------------------------------------------|
+| `required: true` | Always synced. Cannot be excluded or deselected.                   |
+| `default: true`  | Synced automatically. Can be removed with `exclude`.               |
+| No flag          | Not synced unless listed in `select` or included via `select_all`. |
 
 The formula for which CFs are included is: required CFs, plus default CFs minus `exclude`, plus
-`select`. Most groups work without either property; you get all required and default CFs
-automatically.
+`select` (or all non-required CFs when `select_all` is `true`). Most groups work without any of
+these properties; you get all required and default CFs automatically.
 
 ## Usage Patterns {#patterns}
 
@@ -131,6 +132,29 @@ custom_format_groups:
 ```
 
 A CF cannot appear in both `select` and `exclude`.
+
+### Selecting All CFs in a Group {#pattern-select-all}
+
+Some groups contain only optional CFs with no defaults (like "[Optional] Miscellaneous" or
+"[Optional] Movie Versions"). Adding these groups without any configuration syncs nothing because
+there are no defaults to include. Rather than listing every CF individually in `select`, use
+[`select_all`][cfg-select-all] to include all non-required CFs at once:
+
+```yml
+custom_format_groups:
+  add:
+    - trash_id: f4a0410a1df109a66d6e47dcadcce014 # [Optional] Miscellaneous
+      select_all: true
+      exclude:
+        - c9eafd50846d299b862ca9bb6ea91950 # x265
+        - cddfb4e32db826151d97352b8e37c648 # x264
+```
+
+When the guide adds new CFs to this group, they are automatically included without config changes.
+Use `exclude` to subtract any you do not want. `select_all` is mutually exclusive with `select`;
+specifying both produces a validation error.
+
+[cfg-select-all]: ../reference/configuration/custom-formats.mdx#cfg-select-all
 
 ### Assigning Scores to Custom Profiles {#pattern-custom-profile}
 

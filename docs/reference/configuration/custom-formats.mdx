@@ -45,6 +45,10 @@ service_type:
             - 7357cf5161efbf8c4d5d0c30b4815ee2 # Add non-default CFs
           exclude:
             - dc98083864ea246d05a42df0d05f81cc # Remove unwanted defaults
+        - trash_id: f4a0410a1df109a66d6e47dcadcce014 # [Optional] Miscellaneous
+          select_all: true
+          exclude:
+            - c9eafd50846d299b862ca9bb6ea91950 # x265
 ```
 
 ## Synchronization Behavior {#synchronization}
@@ -253,19 +257,35 @@ the remote service, a warning is produced during sync.
 A list of CF trash IDs to include alongside the defaults. Use this to opt-in to non-default CFs from
 the group. Required and default CFs are always included regardless of this list.
 
-Selecting a CF that is already a default produces a warning since it has no effect.
+Selecting a CF that is already a default produces a warning since it has no effect. Mutually
+exclusive with `select_all`; specifying both produces a validation error.
+
+#### `select_all` {#cfg-select-all}
+
+**Optional.** *Default: `false`*
+
+When `true`, all non-required CFs in the group are included as if they were individually listed in
+`select`. This is especially useful for groups that contain only optional CFs (no defaults), where
+nothing would sync without explicitly selecting each CF.
+
+When the guide adds new CFs to a group, configurations with `select_all: true` automatically include
+them without changes. Use `exclude` to subtract specific CFs you do not want.
+
+Mutually exclusive with `select`; specifying both produces a validation error.
 
 #### `exclude` {#cfg-exclude}
 
-**Optional.** *Default: No default CFs are excluded*
+**Optional.** *Default: No CFs are excluded*
 
-A list of CF trash IDs to remove from the group's defaults. Use this to opt-out of specific default
-CFs you don't want synced. Required CFs cannot be excluded.
+A list of CF trash IDs to remove from the synced set. Use this to opt-out of specific CFs you don't
+want synced. Required CFs cannot be excluded.
 
-Excluding a non-default or required CF produces a warning since neither has any effect.
+Without `select_all`, only default CFs can be meaningfully excluded. Excluding a non-default or
+required CF produces a warning since neither has any effect. With `select_all: true`, any
+non-required CF (both defaults and optionals) can be excluded.
 
 A CF cannot appear in both `select` and `exclude`. The resulting set of CFs is: required CFs, plus
-default CFs minus `exclude`, plus `select`.
+default CFs minus `exclude`, plus `select` (or all non-required CFs when `select_all` is `true`).
 
 [cfg-guide]: ../../guide/cf-groups.mdx
 [cfgroups]: https://github.com/TRaSH-Guides/Guides/tree/master/docs/json/radarr/cf-groups
