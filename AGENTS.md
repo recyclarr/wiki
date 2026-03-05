@@ -34,7 +34,13 @@ Run `pre-commit run --files <files>` on modified files after making changes.
 
 ## Deployment
 
-Hosted on Cloudflare Pages. Redirects are configured in `static/_redirects`.
+Hosted on Cloudflare Pages. Docusaurus is configured with `trailingSlash: true` (in
+`docusaurus.config.ts`), so all generated URLs end with `/`.
+
+Redirects are configured in `static/_redirects`. Cloudflare Pages evaluates `_redirects` before its
+own static asset routing (including its built-in trailing-slash 308 normalization). Paths are
+matched exactly, so `/guide/foo` and `/guide/foo/` are distinct sources. Always include both
+variants for each redirect to avoid missed redirects or double hops.
 
 Redirect capabilities:
 
