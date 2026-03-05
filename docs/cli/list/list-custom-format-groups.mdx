@@ -12,10 +12,9 @@ recyclarr list custom-format-groups <service> [OPTIONS]
 
 ## Description
 
-For a specific service, this command prints detailed information about each custom format group from
-the TRaSH Guides. Each group is displayed as a panel containing a table of its custom formats (with
-name, trash ID, required/default flags) and associated quality profiles. Use the Trash ID values
-with the `custom_format_groups` property in your configuration YAML file.
+For a specific service, this command prints a list of all available custom format groups from the
+TRaSH Guides in a compact table. Each group shows its name and trash ID. Use the trash ID with the
+`custom_format_groups` property in your configuration YAML file.
 
 Example usage in your config:
 
@@ -48,6 +47,9 @@ recyclarr list custom-format-groups radarr
 # List all custom format groups in the guide for Sonarr
 recyclarr list custom-format-groups sonarr
 
+# Show member custom formats and associated quality profiles for each group
+recyclarr list custom-format-groups radarr --details
+
 # Filter groups by name (case-insensitive)
 recyclarr list custom-format-groups radarr --filter audio
 
@@ -68,6 +70,13 @@ for. Valid values for this argument are:
 ## Options
 
 Visit [Common Options](../common.mdx) to read about options usable by all commands.
+
+### `--details` {#details}
+
+Show additional information for each custom format group. Adds a "Custom Formats" section listing
+member custom formats with their inclusion semantics (`required`, `default`, or `optional`) and a
+"Quality Profiles" section listing associated quality profiles. This option only affects table
+output and is ignored when `--raw` is used.
 
 ### `--filter` {#filter}
 
