@@ -41,7 +41,7 @@ networks:
 
 services:
   recyclarr:
-    image: ghcr.io/recyclarr/recyclarr
+    image: ghcr.io/recyclarr/recyclarr:8
     container_name: recyclarr
     user: 1000:1000
     networks: [recyclarr]
@@ -59,7 +59,8 @@ Here is a breakdown of the above YAML:
   `recyclarr`) shared with those services, allowing Recyclarr to reach them directly without going
   through a reverse proxy.
 - `image`<br/>
-  The official Recyclarr image, hosted on Github.
+  The official Recyclarr image, hosted on Github. The `:8` tag receives all feature and bugfix
+  updates within major version 8. See [Tags](#tags) for other options.
 - `container_name`<br/>
   Optional. Prevents Docker Compose from generating a prefixed name like `prefix_recyclarr`.
 - `user`<br/>
@@ -76,15 +77,17 @@ Docker tags represent components of the semantic version number following the fo
 - `Z`: Represents a *bugfix* release.
 
 The following table describes the available tags. Using `v2.1.2` as an example, the table is sorted
-by *risk* in descending order. For maximum *stability*, use the bottom row. For the latest version
-(highest risk), use the top row.
+by *risk* in descending order. For maximum *stability*, use the bottom row. For the most automatic
+updates (highest risk), use the top row.
 
-| Tag      | Description                                                             |
-|----------|-------------------------------------------------------------------------|
-| `latest` | Latest stable release, no matter what, including breaking changes       |
-| `2`      | Latest *feature* and *bugfix* release; manual update for major releases |
-| `2.1`    | Latest *bugfix* release; manual update if you want new features         |
-| `2.1.2`  | Exact release; no automatic updates                                     |
+| Tag     | Description                                                             |
+|---------|-------------------------------------------------------------------------|
+| `2`     | Latest *feature* and *bugfix* release; manual update for major releases |
+| `2.1`   | Latest *bugfix* release; manual update if you want new features         |
+| `2.1.2` | Exact release; no automatic updates                                     |
+
+The **recommended tag** is the major version number (e.g. `8`), which gives you all feature and
+bugfix releases automatically while requiring a manual update only for breaking changes.
 
 :::info
 
@@ -109,9 +112,9 @@ Sonarr.
 
 :::
 
-A *mutable* docker tag named `edge` is available and semantically similar to `latest`, except it
-contains the absolute latest code changes on the `master` branch. This is the most volatile and
-risky tag. Only use it with full understanding of the consequences.
+A *mutable* docker tag named `edge` is also available. It contains the absolute latest code changes
+on the `master` branch. This is the most volatile and risky tag. Only use it with full understanding
+of the consequences.
 
 ## Configuration
 
@@ -131,7 +134,7 @@ while treating data as disposable.
 ```yml
 services:
   recyclarr:
-    image: ghcr.io/recyclarr/recyclarr
+    image: ghcr.io/recyclarr/recyclarr:8
     container_name: recyclarr
     user: 1000:1000
     environment:
@@ -314,7 +317,7 @@ Using the example `docker-compose.yml` from the top of this page, add the follow
 ```yml
 services:
   recyclarr:
-    image: ghcr.io/recyclarr/recyclarr
+    image: ghcr.io/recyclarr/recyclarr:8
     read_only: true # <-- Add this to enable read-only mode
     tmpfs: /tmp # <-- Mount /tmp to a volume
     # ...
@@ -331,7 +334,7 @@ Add `security_opt: ['no-new-privileges:true']` to the service configuration:
 ```yml
 services:
   recyclarr:
-    image: ghcr.io/recyclarr/recyclarr
+    image: ghcr.io/recyclarr/recyclarr:8
     security_opt: ['no-new-privileges:true'] # Add this line
     # ...
 ```
