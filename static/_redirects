@@ -27,11 +27,11 @@
 /cli/migrate /guide/troubleshooting/migrations/ 301
 /cli/migrate/ /guide/troubleshooting/migrations/ 301
 
-# 2026-02-04: cache→state rename
-/cli/cache /cli/state/ 301
-/cli/cache/ /cli/state/ 301
-/cli/cache/rebuild /cli/state/repair/ 301
-/cli/cache/rebuild/ /cli/state/repair/ 301
+# 2026-02-04: cache→state rename (all point directly to v9.0 to avoid chain)
+/cli/cache /guide/upgrade-guide/v9.0#state-repair-removed 301
+/cli/cache/ /guide/upgrade-guide/v9.0#state-repair-removed 301
+/cli/cache/rebuild /guide/upgrade-guide/v9.0#state-repair-removed 301
+/cli/cache/rebuild/ /guide/upgrade-guide/v9.0#state-repair-removed 301
 /guide/troubleshooting/cache /guide/troubleshooting/state/ 301
 /guide/troubleshooting/cache/ /guide/troubleshooting/state/ 301
 
