@@ -3,6 +3,12 @@
 # Format: [old-path] [new-path] [status-code]
 # Redirects are grouped by date (newest first). Add new redirects at the top with a date comment.
 
+# 2026-03-05: state repair command removed (sync is self-healing)
+/cli/state /guide/upgrade-guide/v9.0#state-repair-removed 301
+/cli/state/ /guide/upgrade-guide/v9.0#state-repair-removed 301
+/cli/state/repair /guide/upgrade-guide/v9.0#state-repair-removed 301
+/cli/state/repair/ /guide/upgrade-guide/v9.0#state-repair-removed 301
+
 # 2026-03-05: merged tutorial into getting-started
 /guide/tutorial /guide/getting-started/ 301
 /guide/tutorial/ /guide/getting-started/ 301

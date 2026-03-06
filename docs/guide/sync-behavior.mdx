@@ -65,9 +65,9 @@ failures. Check Sync Diagnostics for details:
 ╭─Sync Diagnostics─────────────────────────────────────────────────────────────╮
 │ Errors                                                                       │
 │ ──────                                                                       │
-│   • [radarr] — 70 Custom Formats cannot be synced because CFs with matching  │
-│     names already exist (e.g., '1080p', '10bit', '3D', and 67 more). To      │
-│     adopt existing CFs, run: `recyclarr state repair --adopt`                │
+│   • [radarr] — Custom Format 'HDR10+' could not be synced because 2 CFs      │
+│     with that name exist in the service. Delete or rename the duplicates in  │
+│     Radarr so each name is unique.                                           │
 ╰──────────────────────────────────────────────────────────────────────────────╯
 ```
 

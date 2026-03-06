@@ -64,9 +64,9 @@ Custom format synchronization is broken up into three categories:
 
 :::info
 
-Recyclarr will *never* touch custom formats that you create by hand, unless they share a name with a
-custom format in the guide. In general, Recyclarr must have been the one to create a custom format
-in order to do anything to it (update or delete).
+Recyclarr only manages custom formats that are in your configuration. If a configured custom format
+matches an existing one in the service by name, Recyclarr automatically adopts and updates it. To
+keep a custom format under manual control, do not include its trash ID in your configuration.
 
 :::
 

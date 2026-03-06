@@ -228,16 +228,16 @@ The `replace_existing_custom_formats` option has been removed. Custom format syn
 matching: if a custom format is in the state, Recyclarr trusts that tracked ID regardless of name
 changes in the service.
 
-To adopt manually-created custom formats into Recyclarr management, use the state repair command:
+Remove `replace_existing_custom_formats` from your configuration; it is no longer recognized.
+Recyclarr now automatically adopts existing custom formats that match by name during sync. No
+manual command is needed.
 
-```bash
-recyclarr state repair --adopt
-```
+:::info
 
-This adds existing custom formats (matched by name) to the state. After adoption, Recyclarr will
-update them on subsequent syncs.
+The `state repair --adopt` command previously recommended here was [removed in
+v9.0][v9-state-repair]. Sync handles adoption automatically.
 
-Remove `replace_existing_custom_formats` from your configuration - it is no longer recognized.
+:::
 
 ## CLI: `--debug` Option Removed {#debug-removed}
 
@@ -409,8 +409,8 @@ each profile you want to convert to guide-backed.
 2. Add the `trash_id` for the corresponding guide profile. See the [name reference
    table](#qp-name-changes) below to find the correct `trash_id`.
 
-3. Run [`recyclarr state repair --adopt`][state-repair]. This tells Recyclarr to recognize the
-   existing profile as the guide-backed profile going forward.
+3. Run `recyclarr sync`. Recyclarr automatically adopts the existing profile and recognizes it as
+   the guide-backed profile going forward.
 
 4. You can now remove `name` to let the guide name take effect (which renames the profile on the
    next sync), or set `name` to any custom value you prefer. You can also restore other properties
@@ -461,8 +461,8 @@ radarr:
           enabled: true
 ```
 
-After running `recyclarr state repair --adopt` (step 3), the profile is adopted. You can then remove
-`name` to let the guide name take over, or keep it to preserve your current name.
+After running `recyclarr sync` (step 3), the profile is adopted. You can then remove `name` to let
+the guide name take over, or keep it to preserve your current name.
 
 :::tip
 
@@ -560,4 +560,4 @@ environment variable instead.
 [env-config]: ../../reference/env-vars.mdx#config-dir
 [qp-trash-id]: ../../reference/configuration/quality-profiles.mdx#trash-id
 [cf-groups]: ../../reference/configuration/custom-formats.mdx#custom-format-groups
-[state-repair]: ../../cli/state/repair.mdx
+[v9-state-repair]: ./v9.0.mdx#state-repair-removed

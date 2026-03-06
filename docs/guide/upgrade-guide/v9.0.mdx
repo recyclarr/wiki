@@ -14,3 +14,32 @@ development. The content here may change as features are added, modified, or rem
 development cycle.
 
 :::
+
+## CLI: `state repair` Removed {#state-repair-removed}
+
+The `recyclarr state repair` command and its `--adopt` flag have been removed. Sync is now
+self-healing: when a configured resource matches an existing resource in the service by name but has
+no state mapping, Recyclarr automatically adopts it and emits a warning:
+
+```txt
+CF 'CRiT' already existed in the service and was replaced by Recyclarr
+```
+
+Previously, this scenario required running `recyclarr state repair --adopt` to resolve the conflict.
+Common situations where this occurred:
+
+- Pointing Recyclarr at an existing Sonarr/Radarr instance with matching resources
+- Relocating a service to a new URL (changing `base_url`)
+- Database rebuilds or instance migrations
+
+All of these are now handled automatically during sync.
+
+The only scenario that still requires manual intervention is **ambiguous matches**: when 2+ service
+resources share the same name (case-insensitive), Recyclarr cannot determine which one to adopt. The
+error message instructs you to resolve the duplicates in the service directly.
+
+### New Mental Model {#authoritative-sync}
+
+If it's in your config, Recyclarr owns it. If you want to manually manage a resource, remove it from
+your config. Recyclarr warns you when it adopts something that already existed, giving you a chance
+to notice and adjust your config if needed.

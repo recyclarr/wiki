@@ -26,24 +26,21 @@ configuration property to have Recyclarr communicate with that service at its ne
 
 Recyclarr uniquely identifies an instance by its `base_url` value. If the hostname, port, path,
 scheme, or any other part of the URL changes (including adding or removing a trailing slash!),
-Recyclarr will no longer use the previous state data and instead will create a new one. This often
-results in confusion because users start to see this error:
+Recyclarr will no longer use the previous state data and instead will create a new one.
 
-> [ERR] Custom Format 'CRiT' (Trash ID: 16622a6911d1ab5d5b8b713d5b0036d4) cannot be synced because
-> another CF already exists with that name (ID: 246). To adopt the existing CF, run: recyclarr state
-> repair --adopt
+Recyclarr handles this automatically. On the next sync, it detects that configured resources already
+exist in the service by name and adopts them, emitting a warning for each one:
 
-This happens because Recyclarr no longer believes it owns that CF, even though it created it before
-the `base_url` changed. To recover, run the [state repair][state-repair] command with the `--adopt`
-flag:
-
-```bash
-recyclarr state repair --adopt
+```txt
+CF 'CRiT' already existed in the service and was replaced by Recyclarr
 ```
 
-This repairs the state by matching your configured custom formats to existing ones in the service by
-name. The `--adopt` flag tells Recyclarr to take ownership of matching CFs. After repairing,
-Recyclarr will recognize the CFs it previously created and resume managing them normally.
+No manual intervention is required. Recyclarr resumes managing the resources it previously created.
+
+## Ambiguous Matches {#ambiguous-matches}
+
+If the service contains multiple resources with the same name (differing only in case, such as
+"HULU" and "hulu"), Recyclarr cannot determine which one to adopt. The sync error instructs you to
+delete or rename the duplicates in Sonarr/Radarr so each name is unique.
 
 [app-data]: ../file-structure.mdx#config-directory
-[state-repair]: ../../cli/state/repair.mdx
