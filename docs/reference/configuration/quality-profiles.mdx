@@ -23,6 +23,8 @@ service_type:
           except:
             - My First CF
             - My Second CF
+          except_patterns:
+            - "^\\[My\\]"
         upgrade:
           allowed: true
           until_quality: Remux-1080p
@@ -174,10 +176,45 @@ score to assign (either from the guide or via an explicit `score`).
 
 **Optional.** *Default: empty; no CFs excluded from reset*
 
-A list of one or more custom format names to exclude from score resets. The typical use case for
-this is to explicitly exclude custom formats scores you manage manually (i.e. that are not synced by
-Recyclarr). If this property is omitted, then all CFs are unconditionally reset to `0` as described
-by the `enabled` property documentation.
+A list of one or more custom format names to exclude from score resets. Names must match exactly
+(case-sensitive). The typical use case is to exclude custom format scores you manage manually (i.e.
+that are not synced by Recyclarr). For pattern-based matching, see
+[`except_patterns`](#rus-except-patterns).
+
+If neither `except` nor `except_patterns` is specified, all CFs are unconditionally reset to `0` as
+described by the `enabled` property documentation.
+
+### `except_patterns` {#rus-except-patterns}
+
+**Optional.** *Default: empty; no CFs excluded from reset*
+
+A list of one or more regular expression patterns used to exclude custom formats from score resets.
+Matching is case-insensitive. A custom format is excluded if its name matches any pattern in this
+list or any name in [`except`](#rus-except).
+
+This is useful when you manage your own custom formats with a common naming convention. Instead of
+adding each CF name individually to `except`, a single pattern can match all of them.
+
+```yml
+reset_unmatched_scores:
+  enabled: true
+  except_patterns:
+    - "^\\[My\\]"
+```
+
+The example above excludes any custom format whose name starts with `[My]` (e.g. `[My] Audio
+Surround`, `[My] Resolution`).
+
+:::info
+
+Backslashes require double escaping in quoted YAML strings. YAML interprets `\\` as a literal `\`,
+which is then passed to the regex engine. For example, `"^\\[My\\]"` becomes the regex `^\[My\]`. If
+you prefer, unquoted strings avoid this: `- ^\[My\]`.
+
+:::
+
+Invalid regex patterns are rejected during configuration validation. Patterns that match zero custom
+formats in a profile produce a warning.
 
 ## `score_set` {#score-set}
 
