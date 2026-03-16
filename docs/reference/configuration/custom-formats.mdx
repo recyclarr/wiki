@@ -79,12 +79,12 @@ For details on how Recyclarr tracks custom formats it creates, see the [Sync Sta
 **Optional.** *Default: `false`*
 
 If enabled, custom formats that you remove from your YAML configuration OR that are removed from the
-guide will be deleted from your Radarr instance.
+guide will be deleted from the service.
 
 :::info
 
-This *only* applies to custom formats that Recyclarr has synchronized to Radarr. Custom formats that
-you have added manually in Radarr **will not be deleted** if you enable this setting.
+This *only* applies to custom formats that Recyclarr has synchronized to the service. Custom formats
+that you have added manually in the service **will not be deleted** if you enable this setting.
 
 :::
 
@@ -126,8 +126,8 @@ trash_ids:
 
 :::info A Few Things to Remember
 
-- If `delete_old_custom_formats` is set to true, custom formats are **deleted** in Radarr if you
-  remove them from this list.
+- If `delete_old_custom_formats` is set to true, custom formats are **deleted** in the service if
+  you remove them from this list.
 - It's OK for the same custom format to exist in multiple lists of `trash_ids`. Recyclarr will only
   ever synchronize it once. Allowing it to be specified multiple times allows you to assign it to
   different profiles with different scores.
@@ -149,9 +149,9 @@ Specifying both produces a validation error.
 
 The name of a quality profile. Works for both guide-backed and user-defined profiles. This is the
 only way to target a specific [profile variant][variants] when multiple profiles share the same
-`trash_id`. If the profile name does not exist, an error is shown. The profile is **not required** to
-appear in the top-level [`quality_profiles` list][qps]; however, if you want Recyclarr to create it,
-you must also add an entry there.
+`trash_id`. If the profile name does not exist, an error is shown. The profile is **not required**
+to appear in the top-level [`quality_profiles` list][qps]; however, if you want Recyclarr to create
+it, you must also add an entry there.
 
 [variants]: ./quality-profiles.mdx#trash-id
 
@@ -245,10 +245,10 @@ Recyclarr reports an error and instructs you to use `name` instead.
 
 **Conditionally Required.** Required if `trash_id` is not specified.
 
-The name of a quality profile to assign group scores to. Works for both guide-backed and user-defined
-profiles. This is the only way to target a specific [profile variant][variants] when multiple
-profiles share the same `trash_id`. If the named profile does not exist in your configuration or in
-the remote service, a warning is produced during sync.
+The name of a quality profile to assign group scores to. Works for both guide-backed and
+user-defined profiles. This is the only way to target a specific [profile variant][variants] when
+multiple profiles share the same `trash_id`. If the named profile does not exist in your
+configuration or in the remote service, a warning is produced during sync.
 
 #### `select` {#cfg-select}
 
