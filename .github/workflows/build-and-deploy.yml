@@ -30,7 +30,7 @@ permissions:
 
 jobs:
   pre-check:
-    uses: recyclarr/recyclarr/.github/workflows/reusable-precheck.yml@master
+    uses: recyclarr/recyclarr/.github/workflows/reusable-precheck.yml@978b472272e80d35c0bb3511dbe9cce8de61f8a1 # master
 
   build:
     name: Deploy Site
@@ -66,7 +66,7 @@ jobs:
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Cleanup old deployments
-        uses: Th3S4mur41/cleanup-cloudflare-deployments@main
+        uses: Th3S4mur41/cleanup-cloudflare-deployments@e9c36ea7871b876ca397237d64b18899c6fbe6ec # main
         if: github.event_name != 'pull_request' && !startsWith(github.ref_name, 'renovate/')
         with:
           cloudflare-api-token: ${{ secrets.CLOUDFLARE_API_TOKEN }}
