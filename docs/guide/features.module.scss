@@ -1,0 +1,29 @@
+.featureTable {
+  width: 100%;
+
+  th {
+    display: none;
+  }
+
+  td:first-child {
+    white-space: nowrap;
+    font-weight: 600;
+    width: 1%;
+    padding-right: 1.5em;
+  }
+
+  td {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+
+  td:last-child {
+    line-height: 1.6;
+  }
+
+  td:first-child svg {
+    vertical-align: -0.15em;
+    margin-right: 0.4em;
+    color: var(--ifm-color-emphasis-500);
+  }
+}

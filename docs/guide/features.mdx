@@ -2,67 +2,78 @@
 id: features
 title: Features
 sidebar_position: 3
+hide_table_of_contents: true
 ---
 
-## Compatibility
+<!-- markdownlint-disable line-length -->
 
-Recyclarr is compatible with the following services and versions.
+import { Icon } from "@iconify/react";
+import styles from "./features.module.scss";
 
-| Service | Minimum Version |
-|---------|-----------------|
-| Sonarr  | `v4.0.0`        |
-| Radarr  | `v3.0.0`        |
+## What It Syncs {#sync}
 
-:::info
+<table className={styles.featureTable}>
+<thead><tr><th>Feature</th><th>Description</th></tr></thead>
+<tbody>
+<tr>
+  <td><Icon icon="mdi:palette-swatch" /><a href="/reference/configuration/custom-formats/">Custom Formats</a></td>
+  <td>Sync individual formats or curated groups from TRaSH Guides, with score assignment and overrides.</td>
+</tr>
+<tr>
+  <td><Icon icon="mdi:tune-vertical" /><a href="/reference/configuration/quality-profiles/">Quality Profiles</a></td>
+  <td>Create profiles from scratch or sync guide-backed definitions with upgrade settings, qualities, and score sets.</td>
+</tr>
+<tr>
+  <td><Icon icon="mdi:quality-high" /><a href="/reference/configuration/quality-definition/">Quality Definitions</a></td>
+  <td>Apply guide-recommended quality sizes with optional per-quality overrides.</td>
+</tr>
+<tr>
+  <td><Icon icon="mdi:form-textbox" /><a href="/reference/configuration/media-naming/">Media Naming</a></td>
+  <td>Sync file and folder naming formats from the guides, with the option to exclude specific formats.</td>
+</tr>
+<tr>
+  <td><Icon icon="mdi:cog" /><a href="/reference/configuration/media-management/">Media Management</a></td>
+  <td>Control how Sonarr and Radarr handle Propers and Repacks.</td>
+</tr>
+<tr>
+  <td><Icon icon="mdi:account-edit" /><a href="/reference/settings/resource-providers/">Custom Content</a></td>
+  <td>Define your own custom formats and quality profiles beyond what the guides provide.</td>
+</tr>
+</tbody>
+</table>
 
-Sonarr v3 is no longer supported by Recyclarr starting with version v7.0!
+## How It Works {#how-it-works}
 
-:::
-
-## Supported Features
-
-A comprehensive list of features in Recyclarr.
-
-### Custom Formats
-
-- Sync individual custom formats by trash ID from the TRaSH Guides.
-- Sync custom format groups to adopt curated bundles of related custom formats.
-- Assign scores from the guides to quality profiles of your choosing.
-- Override guide scores with user-specified values.
-- Option to enable automatic deletion of custom formats when removed from config or the guide.
-
-### Quality Profiles
-
-- Create and modify quality profiles.
-- Sync guide-backed quality profiles by trash ID for simplified configuration.
-- Create multiple quality profiles from a single guide-backed definition with independent overrides.
-- Sync upgrade settings, qualities, and quality groups.
-- Option to choose multiple sort algorithms for qualities.
-
-### Quality Definitions
-
-- Guide-provided quality definitions, such as Anime, Series (Non-Anime), and Movies.
-
-### Media Naming
-
-- Sync media naming formats from the guides, such as file and folder naming.
-- Ability to exclude sync for specific naming formats to manage them manually.
-- Preview functionality to show what will be synced before doing it.
-
-### Media Management
-
-- Control how Sonarr/Radarr handles Propers and Repacks.
-
-### Command Line Operations
-
-- A `list` command for showing available custom formats, media naming formats, and quality
-  definitions available in the TRaSH Guides.
-- A `delete` command providing ways to delete stuff from Radarr & Sonarr, such as custom formats.
-- A `config` command for managing configuration YAML files, including creating new configuration
-  files from pre-made templates.
-
-### YAML Features
-
-- Use environment variables in your configuration via `!env_var`.
-- Specify and store secret values (such as API keys) using `!secret`.
-- Decompose YAML into multiple, reusable files via a YAML include feature.
+<table className={styles.featureTable}>
+<thead><tr><th>Feature</th><th>Description</th></tr></thead>
+<tbody>
+<tr>
+  <td><Icon icon="mdi:server-network" /><a href="/reference/configuration/basic/">Multiple Instances</a></td>
+  <td>Sync any number of Sonarr and Radarr instances, filtered by name or service type.</td>
+</tr>
+<tr>
+  <td><Icon icon="mdi:docker" /><a href="/guide/installation/docker/">Docker</a></td>
+  <td>Official image with built-in cron scheduling for unattended operation.</td>
+</tr>
+<tr>
+  <td><Icon icon="mdi:file-code-outline" /><a href="/reference/configuration/include/">Templates</a></td>
+  <td>Create configs from pre-built templates or compose them with reusable YAML includes.</td>
+</tr>
+<tr>
+  <td><Icon icon="mdi:key-variant" /><a href="/reference/configuration/value-substitution/">Secrets &amp; Variables</a></td>
+  <td>{"Store API keys with "}<code>!secret</code>{" and inject environment variables with "}<code>!env_var</code>.</td>
+</tr>
+<tr>
+  <td><Icon icon="mdi:eye-outline" /><a href="/cli/sync/">Preview Mode</a></td>
+  <td>Dry-run sync and delete operations to see what would change before applying.</td>
+</tr>
+<tr>
+  <td><Icon icon="mdi:bell-outline" /><a href="/reference/settings/notifications/">Notifications</a></td>
+  <td>Get sync results via Apprise (Discord, Slack, email, and many more) with configurable verbosity.</td>
+</tr>
+<tr>
+  <td><Icon icon="mdi:wrench-outline" /><a href="/reference/settings/">Settings</a></td>
+  <td>Global settings for SSL validation, log retention, and notifications.</td>
+</tr>
+</tbody>
+</table>
