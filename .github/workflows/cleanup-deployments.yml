@@ -1,0 +1,26 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+name: Cleanup Deployments
+
+on:
+  schedule:
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+
+permissions:
+  deployments: write
+
+jobs:
+  cleanup:
+    name: Cleanup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cleanup old deployments
+        uses: Th3S4mur41/cleanup-cloudflare-deployments@e9c36ea7871b876ca397237d64b18899c6fbe6ec # main
+        with:
+          cloudflare-api-token: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          cloudflare-account-id: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          cloudflare-project-name: recyclarr-wiki
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          cleanup-types: all
+          preview-keep: 2
+          production-keep: 5

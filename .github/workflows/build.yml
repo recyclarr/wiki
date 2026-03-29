@@ -1,0 +1,60 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+name: Build Site
+
+on:
+  push:
+    paths:
+      - .github/workflows/build.yml
+      - docs/**
+      - src/**
+      - static/**
+      - "*.js"
+      - "*.ts"
+      - "*.json"
+      - "*.lock"
+  pull_request:
+    paths:
+      - .github/workflows/build.yml
+      - docs/**
+      - src/**
+      - static/**
+      - "*.js"
+      - "*.ts"
+      - "*.json"
+      - "*.lock"
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  pre-check:
+    uses: recyclarr/recyclarr/.github/workflows/reusable-precheck.yml@978b472272e80d35c0bb3511dbe9cce8de61f8a1 # master
+
+  build:
+    name: Build
+    needs: pre-check
+    if: needs.pre-check.outputs.should_run == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Setup Node
+        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
+        with:
+          node-version: 24
+          cache: yarn
+
+      - name: Install Dependencies
+        run: yarn install
+
+      - name: Build
+        run: yarn build
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        with:
+          name: site-build
+          path: build
+          retention-days: 1
