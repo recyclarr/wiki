@@ -1,6 +1,8 @@
 # yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
 name: Deploy Site
 
+run-name: "Deploy Site (${{ github.event.workflow_run.head_branch }})"
+
 on:
   workflow_run:
     workflows: [Build Site]
