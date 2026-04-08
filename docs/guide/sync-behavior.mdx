@@ -6,7 +6,7 @@ When you run `recyclarr sync`, Recyclarr processes your configuration through fo
 independent stages that each handle a specific type of data. Understanding how these pipelines work
 helps you interpret sync output and diagnose issues.
 
-## Pipelines {#pipelines}
+## Pipelines {/*#pipelines*/}
 
 - **Custom Formats** - Syncs custom format definitions from the TRaSH Guides
 - **Quality Profiles** - Syncs quality profile settings and assigns custom format scores
@@ -14,7 +14,7 @@ helps you interpret sync output and diagnose issues.
 - **Media Naming** - Syncs file and folder naming formats
 - **Media Management** - Syncs media management settings like Propers and Repacks handling
 
-## Dependencies and Failure Handling {#dependencies}
+## Dependencies and Failure Handling {/*#dependencies*/}
 
 Quality Profiles depends on Custom Formats - scores can only be assigned to custom formats that
 exist. The other pipelines are independent.
@@ -23,7 +23,7 @@ When a pipeline fails, Recyclarr skips any pipelines that depend on it but conti
 independent ones. For example, if Custom Formats fails, Quality Profiles is skipped, but Quality
 Sizes and Media Naming continue normally.
 
-## Progress Table {#progress-table}
+## Progress Table {/*#progress-table*/}
 
 During sync, the progress table shows status for each instance and pipeline:
 
@@ -37,7 +37,7 @@ During sync, the progress table shows status for each instance and pipeline:
 The row prefix indicates overall instance status. If it shows `✗`, check **Sync Diagnostics** after
 the progress table for error details.
 
-## Example {#example}
+## Example {/*#example*/}
 
 Here's output from a sync where Custom Formats failed for one instance:
 

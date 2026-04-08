@@ -7,7 +7,7 @@ This page demonstrates how to extend or override official resources using custom
 resource type uses a different identification key for merging - see [Resource Identification
 Keys](./index.mdx#resource-identification-keys) for the complete reference.
 
-## Key Concepts
+## Key Concepts {/*#key-concepts*/}
 
 When working with resource providers:
 
@@ -16,11 +16,11 @@ When working with resource providers:
 
 All key comparisons are case-insensitive.
 
-## Media Naming
+## Media Naming {/*#media-naming*/}
 
 Media naming uses **dictionary keys** (like `default`, `plex-imdb`) for identification.
 
-### Sonarr Naming Example
+### Sonarr Naming Example {/*#sonarr-naming-example*/}
 
 Official TRaSH Guides provides naming schemes with keys like `default`. To add your own schemes or
 override existing ones:
@@ -54,7 +54,7 @@ In this example:
 - `default` keys override the official TRaSH naming schemes
 - `plex-tvdb` overrides the official key; `my-compact` extends with a new option
 
-### Radarr Naming Example
+### Radarr Naming Example {/*#radarr-naming-example*/}
 
 ```json
 {
@@ -69,7 +69,7 @@ In this example:
 }
 ```
 
-## Config Includes
+## Config Includes {/*#config-includes*/}
 
 Config includes use the **`id` field** in `includes.json` for identification.
 
@@ -80,7 +80,7 @@ below apply only to custom resource providers that supply their own `includes.js
 
 :::
 
-### Adding Custom Includes
+### Adding Custom Includes {/*#adding-custom-includes*/}
 
 Use unique IDs to define include templates in your custom resource provider:
 
@@ -97,11 +97,11 @@ Use unique IDs to define include templates in your custom resource provider:
 ]
 ```
 
-## Config Templates
+## Config Templates {/*#config-templates*/}
 
 Config templates use the **`id` field** in `templates.json` for identification.
 
-### Overriding an Official Template
+### Overriding an Official Template {/*#overriding-an-official-template*/}
 
 To replace the official `hd-bluray-web` template:
 
@@ -116,7 +116,7 @@ To replace the official `hd-bluray-web` template:
 ]
 ```
 
-### Adding New Templates
+### Adding New Templates {/*#adding-new-templates*/}
 
 ```json
 [
@@ -127,11 +127,11 @@ To replace the official `hd-bluray-web` template:
 ]
 ```
 
-## Custom Formats
+## Custom Formats {/*#custom-formats*/}
 
 Custom formats use the **`trash_id` field** in each JSON file for identification.
 
-### Overriding an Official Custom Format
+### Overriding an Official Custom Format {/*#overriding-an-official-custom-format*/}
 
 Copy the official custom format JSON, modify it as needed, and keep the same `trash_id`:
 
@@ -153,7 +153,7 @@ Copy the official custom format JSON, modify it as needed, and keep the same `tr
 
 Since your provider is listed after the implicit official provider, your version takes precedence.
 
-### Adding New Custom Formats
+### Adding New Custom Formats {/*#adding-new-custom-formats*/}
 
 Use a unique `trash_id` (UUID or descriptive slug):
 
@@ -173,7 +173,7 @@ Use a unique `trash_id` (UUID or descriptive slug):
 }
 ```
 
-## Provider Configuration
+## Provider Configuration {/*#provider-configuration*/}
 
 For all override scenarios, add your provider to `settings.yml`:
 

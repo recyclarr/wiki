@@ -3,7 +3,7 @@ id: state
 title: Sync State
 ---
 
-## Summary {#summary}
+## Summary {/*#summary*/}
 
 The sync state in Recyclarr allows it to more accurately detect changes to custom formats in the
 TRaSH guides. This mainly helps cover changes done on the \*arr side, like renames.
@@ -19,7 +19,7 @@ Recyclarr will manage it for you.
 
 :::
 
-## Relocating Server Instances {#relocating}
+## Relocating Server Instances {/*#relocating*/}
 
 Sometimes users relocate an instance of Radarr or Sonarr. They then update the `base_url`
 configuration property to have Recyclarr communicate with that service at its new location.
@@ -37,7 +37,7 @@ CF 'CRiT' already existed in the service and was replaced by Recyclarr
 
 No manual intervention is required. Recyclarr resumes managing the resources it previously created.
 
-## Ambiguous Matches {#ambiguous-matches}
+## Ambiguous Matches {/*#ambiguous-matches*/}
 
 If the service contains multiple resources with the same name (differing only in case, such as
 "HULU" and "hulu"), Recyclarr cannot determine which one to adopt. The sync error instructs you to

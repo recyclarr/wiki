@@ -26,7 +26,7 @@ below.
 
 :::
 
-## `include` {#include}
+## `include` {/*#include*/}
 
 **Optional.** *Default: Nothing is included.*
 
@@ -36,11 +36,11 @@ wish to perform. The sequence may contain a mixture of different include directi
 
 The sections that follow correlate to types of include directives.
 
-## Config Includes {#config}
+## Config Includes {/*#config*/}
 
 Use this directive to include YAML files on your local filesystem.
 
-### `config`
+### `config` {/*#config-1*/}
 
 **Required.**
 
@@ -49,7 +49,7 @@ the [app data directory][appdata] page for where those files should be located.
 
 [appdata]: ../../guide/file-structure.mdx#include-directory
 
-### Examples
+### Examples {/*#examples*/}
 
 ```yml
 include:
@@ -62,7 +62,7 @@ include:
   - config: my-include.yml
 ```
 
-## Template Includes {#template}
+## Template Includes {/*#template*/}
 
 Utilize a [Configuration Templates][templates] repository to include YAML files. Template includes
 reference entries in a repository's `includes.json`.
@@ -79,7 +79,7 @@ directive is only useful with [custom resource providers][providers] that supply
 
 :::
 
-### `template`
+### `template` {/*#template-1*/}
 
 **Required.**
 
@@ -87,7 +87,7 @@ The ID of an **include template**. The corresponding YAML in the configuration t
 will be included. IDs matching include templates from a non-matching service type are not allowed
 (e.g. trying to include a Sonarr template inside a Radarr config).
 
-### Examples
+### Examples {/*#examples-1*/}
 
 ```yml
 include:
@@ -96,9 +96,9 @@ include:
   - template: my-custom-formats
 ```
 
-## Terminology {#terms}
+## Terminology {/*#terms*/}
 
-### Recyclarr-Specific Terms {#recyclarr-terms}
+### Recyclarr-Specific Terms {/*#recyclarr-terms*/}
 
 - **Include Template**<br/>
   A type of template that may *only* be included. The official config-templates repository no longer
@@ -112,7 +112,7 @@ include:
   A specific method of including a YAML file (e.g. `config: myfile.yml`). See the [include
   directives](#include) section above for all available types.
 
-### YAML-Specific Terms {#yaml-terms}
+### YAML-Specific Terms {/*#yaml-terms*/}
 
 Most of these definitions were taken verbatim from the [official YAML glossary][yamlglossary]. This
 list of terms is not comprehensive. It only touches on terms that are relevant to understanding
@@ -147,7 +147,7 @@ Recyclarr's include YAML merge behavior.
 
 [yamlglossary]: https://yaml.com/doc/glossary/
 
-## Include YAML Schema {#schema}
+## Include YAML Schema {/*#schema*/}
 
 Unlike configuration files, YAML that is included uses a simplified schema (structure). Normally, in
 a typical configuration file, you have a structure like this:
@@ -178,7 +178,7 @@ custom_formats:
 You essentially start an include file as if it's everything under `instance_name`. The properties
 `base_url` and `api_key` have been omitted for reasons described later.
 
-## Include Precedence {#precedence}
+## Include Precedence {/*#precedence*/}
 
 Recyclarr handles includes using the following rules:
 
@@ -188,7 +188,7 @@ Recyclarr handles includes using the following rules:
 1. The root configuration is merged into the final, aggregated include configuration data. Root
    configuration YAML always takes precedence over included YAML.
 
-## Merge Behavior {#behavior}
+## Merge Behavior {/*#behavior*/}
 
 Merge behavior is described in terms of two sides: `A` and `B`. Side `A` typically represents the
 *current merged state* of the included YAML at any point. Side `B` is the YAML data to include next.
@@ -207,7 +207,7 @@ Reference](#reference) section that follows.
 Before getting into the specifics of each operation, it's important to understand some YAML-specific
 terminology. See the [Terminology](#yaml-terms) section to learn more.
 
-### Add {#add}
+### Add {/*#add*/}
 
 This merge operation involves concatenating two *sequences* together. As such, it only applies to
 sequences. The end result is `B` is simply appended to `A`. The example below demonstrates the
@@ -238,7 +238,7 @@ custom_formats:
       - e0c07d59beb37348e975a930d5e50319  # Criterion Collection
 ```
 
-### Join {#join}
+### Join {/*#join*/}
 
 A join involves two *sequences* of *mappings*. Based on some key, such as a `trash_id` or `name`
 property, two sequences are joined together. If sequence `B` has a key that matches any key in
@@ -289,7 +289,7 @@ quality_profiles:
       until_score: 10000
 ```
 
-### Union {#union}
+### Union {/*#union*/}
 
 A *union* involves combining two *mappings* together. Matching properties (keys) in the mapping have
 their own merge operations that might be a [replace](#replace), [add](#add), [join](#join), or
@@ -311,7 +311,7 @@ quality_definition:
   preferred_ratio: 0.5
 ```
 
-### Replace {#replace}
+### Replace {/*#replace*/}
 
 A *replace* operation results in `B` completely overwriting (replacing) `A`. This can happen to any
 YAML node type, but typically applies to *scalars*.
@@ -327,7 +327,7 @@ delete_old_custom_formats: false
 delete_old_custom_formats: false
 ```
 
-## Merge Reference {#reference}
+## Merge Reference {/*#reference*/}
 
 This section documents the *merge operation* used for all configuration values. Note that this first
 table just covers top-level properties for instance configuration. If nested properties have merge
@@ -344,7 +344,7 @@ semantics, those will be documented in later sections. This will especially be t
 | `media_naming`              | Mapping   | Union               |
 | `media_management`          | Mapping   | Union               |
 
-### Quality Definition {#merge-quality-definition}
+### Quality Definition {/*#merge-quality-definition*/}
 
 | Property Name     | Node Type | Merge Operation |
 |-------------------|-----------|-----------------|
@@ -355,7 +355,7 @@ semantics, those will be documented in later sections. This will especially be t
 Items in `qualities` are joined by `name`. Individual properties (`min`, `max`, `preferred`) use
 Replace.
 
-### Quality Profiles {#merge-quality-profiles}
+### Quality Profiles {/*#merge-quality-profiles*/}
 
 Items in `quality_profiles` are joined by both `trash_id` and `name` when `trash_id` is present,
 otherwise by `name` alone. Profiles sharing a `trash_id` but with different names are kept as
@@ -386,7 +386,7 @@ Merge operations for properties of `reset_unmatched_scores`:
 | `except`          | Sequence  | Add             |
 | `except_patterns` | Sequence  | Add             |
 
-### Custom Format Groups {#merge-custom-format-groups}
+### Custom Format Groups {/*#merge-custom-format-groups*/}
 
 Items in `custom_format_groups` are joined by `trash_id`.
 
@@ -397,9 +397,9 @@ Items in `custom_format_groups` are joined by `trash_id`.
 | `select_all`       | Scalar    | Replace         |
 | `exclude`          | Sequence  | Replace         |
 
-### Media Naming {#merge-media-naming}
+### Media Naming {/*#merge-media-naming*/}
 
-#### Sonarr
+#### Sonarr {/*#sonarr*/}
 
 Under `media_naming`:
 
@@ -418,7 +418,7 @@ Under `episodes`:
 | `daily`       | Scalar    | Replace         |
 | `anime`       | Scalar    | Replace         |
 
-#### Radarr
+#### Radarr {/*#radarr*/}
 
 Under `media_naming`:
 
@@ -434,13 +434,13 @@ Under `movie`:
 | `rename`      | Scalar    | Replace         |
 | `standard`    | Scalar    | Replace         |
 
-### Media Management {#merge-media-management}
+### Media Management {/*#merge-media-management*/}
 
 | Property Name         | Node Type | Merge Operation |
 |-----------------------|-----------|-----------------|
 | `propers_and_repacks` | Scalar    | Replace         |
 
-### Unsupported Properties {#merge-unsupported}
+### Unsupported Properties {/*#merge-unsupported*/}
 
 The following properties are **not supported** for inclusion. If these properties are present in
 included YAML data, you will usually see a warning message printed to the console.
@@ -449,13 +449,13 @@ included YAML data, you will usually see a warning message printed to the consol
 - `api_key`
 - `include`
 
-## Merge Details {#details}
+## Merge Details {/*#details*/}
 
 Some properties (nodes) require further explanation to understand the reason why they use a
 particular merge operation. Each of the sub-sections here provide those explanations. There are
 links from the Merge Reference tables to these sections as well.
 
-### Quality Profile Qualities {#detail-qualities}
+### Quality Profile Qualities {/*#detail-qualities*/}
 
 Even though `qualities` is a YAML Sequence, it uses a Replace merge operation. The reason for that
 has to do with the fact that qualities are very "high-stakes". This means that changes to your
@@ -473,7 +473,7 @@ So, even though a "Replace" operation may yield more redundancy (you have to spe
 an included YAML that you otherwise don't care about), it's *safer* because you can see the entire
 list of qualities in one place *and* can ensure the ordering is exactly as you expect.
 
-### Custom Formats {#detail-cfs}
+### Custom Formats {/*#detail-cfs*/}
 
 The primary purpose of using a *Join* merge operation for `custom_formats` is to facilitate user
 overrides of custom format scores that come from included YAML files. The join operates on quality
@@ -530,7 +530,7 @@ custom_formats:
         score: 50
 ```
 
-### Custom Format Groups {#detail-cfg}
+### Custom Format Groups {/*#detail-cfg*/}
 
 The `assign_scores_to`, `select`, and `exclude` properties use Replace rather than Add or Join. This
 provides simpler override semantics: when you specify these properties in your root config, they
@@ -538,9 +538,9 @@ completely replace any values from included YAML for that group. This makes it c
 receive scores and which CFs are included or excluded without needing to mentally combine multiple
 lists.
 
-## Tips & Information {#tips}
+## Tips & Information {/*#tips*/}
 
-### Include File Structure {#include-file-structure}
+### Include File Structure {/*#include-file-structure*/}
 
 import IncludeDirectory from '@site/src/partials/_include-templates-dir.mdx'
 

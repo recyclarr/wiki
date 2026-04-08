@@ -15,7 +15,7 @@ requires no special structure - just a folder of JSON files. See the
 
 :::
 
-## When You Need This
+## When You Need This {/*#when-you-need-this*/}
 
 Use the `trash-guides` type when you need:
 
@@ -24,12 +24,12 @@ Use the `trash-guides` type when you need:
 - Media naming schemes
 - A complete alternative to or supplement for the official TRaSH Guides
 
-## Required Structure
+## Required Structure {/*#required-structure*/}
 
 A `trash-guides` compatible repository must have a `metadata.json` file at the root that defines
 where resources are located within the repository.
 
-### Directory Layout Example
+### Directory Layout Example {/*#directory-layout-example*/}
 
 ```txt
 my-guides-repo/
@@ -49,7 +49,7 @@ my-guides-repo/
         └── cf-categories.json
 ```
 
-### The metadata.json File
+### The metadata.json File {/*#the-metadatajson-file*/}
 
 The `metadata.json` file tells Recyclarr where to find each type of resource. Here's a minimal
 example:
@@ -74,7 +74,7 @@ example:
 Each path is relative to the repository root. You can specify multiple paths per resource type if
 your files are organized across different directories.
 
-## Custom Format JSON Structure
+## Custom Format JSON Structure {/*#custom-format-json-structure*/}
 
 Each custom format JSON file must include a `trash_id` field that uniquely identifies it:
 
@@ -101,7 +101,7 @@ Each custom format JSON file must include a `trash_id` field that uniquely ident
 }
 ```
 
-### Key Fields
+### Key Fields {/*#key-fields*/}
 
 | Field               | Required | Description                                        |
 |---------------------|----------|----------------------------------------------------|
@@ -111,7 +111,7 @@ Each custom format JSON file must include a `trash_id` field that uniquely ident
 | `trash_scores`      | No       | Default scores for quality profiles                |
 | `trash_description` | No       | Description for documentation purposes             |
 
-### Generating Trash IDs
+### Generating Trash IDs {/*#generating-trash-ids*/}
 
 Trash IDs should be unique. You can generate UUIDs using:
 
@@ -124,7 +124,7 @@ uuidgen | tr '[:upper:]' '[:lower:]'
 
 Alternatively, use descriptive slugs like `my-language-german` if you prefer readable IDs.
 
-## Quality Size JSON Structure
+## Quality Size JSON Structure {/*#quality-size-json-structure*/}
 
 Quality size files define file size ranges for different quality levels:
 
@@ -149,7 +149,7 @@ Quality size files define file size ranges for different quality levels:
 }
 ```
 
-## Media Naming JSON Structure
+## Media Naming JSON Structure {/*#media-naming-json-structure*/}
 
 Media naming files define file and folder naming patterns. Each pattern type (`folder` and `file`)
 contains named variants for different media servers and use cases:
@@ -173,7 +173,7 @@ The variant names (like `default`, `standard`, `plex-imdb`) are what you referen
 configuration. The exact naming tokens depend on whether it's for Radarr or Sonarr, as they have
 different token systems.
 
-## Category Organization (Optional)
+## Category Organization (Optional) {/*#category-organization-optional*/}
 
 Categories help organize custom formats in the Recyclarr documentation and `list` commands. Create a
 categories JSON file:
@@ -213,7 +213,7 @@ Reference the categories file in `metadata.json`:
 }
 ```
 
-## Using Your Repository
+## Using Your Repository {/*#using-your-repository*/}
 
 Once your repository is set up, add it to your `settings.yml`:
 
@@ -242,7 +242,7 @@ resource_providers:
     path: /home/user/my-guides
 ```
 
-## Reference Implementation
+## Reference Implementation {/*#reference-implementation*/}
 
 The official TRaSH Guides repository serves as the reference implementation:
 

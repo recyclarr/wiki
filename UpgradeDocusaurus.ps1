@@ -3,6 +3,11 @@ yarn up `
     "@docusaurus/core" `
     "@docusaurus/preset-classic" `
     "@docusaurus/module-type-aliases" `
+    "@docusaurus/faster" `
     "docusaurus-mdx-checker" `
-    "@iconify/react" `
-    "docusaurus-theme-github-codeblock"
+    "docusaurus-plugin-sass" `
+    "docusaurus-theme-github-codeblock" `
+    "@mdx-js/react" `
+    "@docsearch/core" `
+    "@algolia/client-search" `
+    "@iconify/react"

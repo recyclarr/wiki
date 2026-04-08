@@ -6,7 +6,7 @@ description: Using CF groups to sync curated bundles of custom formats
 Custom format groups bundle related custom formats with guide-recommended scores. Instead of listing
 dozens of individual custom formats, groups give you curated sets that work together.
 
-## Auto-Sync with Guide-Backed Profiles {#auto-sync}
+## Auto-Sync with Guide-Backed Profiles {/*#auto-sync*/}
 
 When you use a [guide-backed quality profile][guide-qp] (one with a `trash_id`), Recyclarr
 automatically syncs CF groups that are marked as defaults for that profile. This means most users
@@ -33,7 +33,7 @@ Use [`custom_format_groups`][cfg-ref] only when you need to customize this behav
 [guide-qp]: ../reference/configuration/quality-profiles.mdx#trash-id
 [cfg-ref]: ../reference/configuration/custom-formats.mdx#custom-format-groups
 
-## When to Use Groups vs Individual CFs {#when-to-use}
+## When to Use Groups vs Individual CFs {/*#when-to-use*/}
 
 Groups handle curated sets of related custom formats:
 
@@ -47,7 +47,7 @@ scores.
 
 [cf]: ../reference/configuration/custom-formats.mdx#custom-formats
 
-## How CF Selection Works {#selection}
+## How CF Selection Works {/*#selection*/}
 
 Which custom formats sync from a group depends on flags set in the TRaSH Guide JSON:
 
@@ -61,9 +61,9 @@ The formula for which CFs are included is: required CFs, plus default CFs minus 
 `select` (or all non-required CFs when `select_all` is `true`). Most groups work without any of
 these properties; you get all required and default CFs automatically.
 
-## Usage Patterns {#patterns}
+## Usage Patterns {/*#patterns*/}
 
-### Opting Out of a Default Group {#pattern-skip}
+### Opting Out of a Default Group {/*#pattern-skip*/}
 
 If an auto-synced group doesn't fit your needs, use `skip` to exclude it:
 
@@ -75,7 +75,7 @@ custom_format_groups:
 
 The group won't sync even though your quality profile would normally include it.
 
-### Adding a Non-Default Group {#pattern-add}
+### Adding a Non-Default Group {/*#pattern-add*/}
 
 Some groups aren't marked as defaults but you may want them. Use `add` to opt-in:
 
@@ -87,7 +87,7 @@ custom_format_groups:
 
 All required and default CFs from that group sync automatically.
 
-### Excluding Default CFs {#pattern-exclude}
+### Excluding Default CFs {/*#pattern-exclude*/}
 
 Use `exclude` to remove specific default CFs from a group:
 
@@ -101,7 +101,7 @@ custom_format_groups:
 
 All other defaults (and required CFs) still sync. Required CFs cannot be excluded.
 
-### Adding Non-Default CFs {#pattern-select}
+### Adding Non-Default CFs {/*#pattern-select*/}
 
 Use `select` to include CFs that aren't part of the group's defaults:
 
@@ -116,7 +116,7 @@ custom_format_groups:
 
 The selected CFs are added alongside required and default CFs.
 
-### Combining Select and Exclude {#pattern-combine}
+### Combining Select and Exclude {/*#pattern-combine*/}
 
 `select` and `exclude` compose together. For groups with mutually exclusive alternatives where the
 guide picks one as the default, use both to swap them:
@@ -133,7 +133,7 @@ custom_format_groups:
 
 A CF cannot appear in both `select` and `exclude`.
 
-### Selecting All CFs in a Group {#pattern-select-all}
+### Selecting All CFs in a Group {/*#pattern-select-all*/}
 
 Some groups contain only optional CFs with no defaults (like "[Optional] Miscellaneous" or
 "[Optional] Movie Versions"). Adding these groups without any configuration syncs nothing because
@@ -156,7 +156,7 @@ specifying both produces a validation error.
 
 [cfg-select-all]: ../reference/configuration/custom-formats.mdx#cfg-select-all
 
-### Assigning Scores to Custom Profiles {#pattern-custom-profile}
+### Assigning Scores to Custom Profiles {/*#pattern-custom-profile*/}
 
 Auto-sync only targets guide-backed profiles. To assign group scores to a user-defined profile (one
 with only a `name`), use `assign_scores_to` with the profile name:
@@ -184,7 +184,7 @@ The custom profile must exist in your [`quality_profiles`][qps] configuration.
 
 [qps]: ../reference/configuration/quality-profiles.mdx
 
-### Targeting a Specific Variant {#pattern-variant}
+### Targeting a Specific Variant {/*#pattern-variant*/}
 
 When multiple profiles share the same `trash_id` ([profile variants][variants]), default CF groups
 automatically apply to all of them. To assign a group to only one variant, use `assign_scores_to`
@@ -212,7 +212,7 @@ With profile variants, you must use `name` in `assign_scores_to` to target a spe
 
 [variants]: ../reference/configuration/quality-profiles.mdx#trash-id
 
-## Finding Group IDs {#finding-ids}
+## Finding Group IDs {/*#finding-ids*/}
 
 Use the [`list custom-format-groups`][list-cfg] command to discover available groups and their trash
 IDs:

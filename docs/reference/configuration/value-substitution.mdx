@@ -14,14 +14,14 @@ Two substitution methods are available:
 
 Both use YAML tags to substitute values at runtime.
 
-## Secrets {#secrets}
+## Secrets {/*#secrets*/}
 
 Secrets are defined in a `secrets.yml` file located in your [application data directory][appdata].
 This file is optional.
 
 [appdata]: ../../guide/file-structure.mdx#config-directory
 
-### Defining Secrets {#secrets-definition}
+### Defining Secrets {/*#secrets-definition*/}
 
 Define secrets as key/value pairs:
 
@@ -35,7 +35,7 @@ radarr_apikey: bf99da49d0b0488ea34e4464aa63a0e5
 
 Key names can be anything you want, but must be unique within the file.
 
-### Using Secrets {#secrets-usage}
+### Using Secrets {/*#secrets-usage*/}
 
 Reference secrets in your configuration using `!secret <key_name>`:
 
@@ -52,7 +52,7 @@ Recyclarr fails to load configuration if a referenced secret key doesn't exist i
 
 :::
 
-### Implicit Base URL and API Key {#implicit-url-key}
+### Implicit Base URL and API Key {/*#implicit-url-key*/}
 
 The [`base_url`][base_url] and [`api_key`][api_key] properties can be set implicitly using a naming
 convention:
@@ -65,12 +65,12 @@ Where `<instance_name>` matches your instance name in the config file.
 [base_url]: ./basic.mdx#base-url
 [api_key]: ./basic.mdx#api-key
 
-#### Precedence {#implicit-precedence}
+#### Precedence {/*#implicit-precedence*/}
 
 Explicit values in your configuration always take precedence over implicit secrets. Implicit values
 are only used when the properties are omitted from your config.
 
-#### Example {#implicit-example}
+#### Example {/*#implicit-example*/}
 
 With this `secrets.yml`:
 
@@ -89,15 +89,15 @@ radarr:
       type: movie
 ```
 
-## Environment Variables {#env-vars}
+## Environment Variables {/*#env-vars*/}
 
-:::note Version Requirement
+:::note[Version Requirement]
 
 Environment variable substitution was introduced in `v4.3.0`.
 
 :::
 
-### Syntax {#env-vars-syntax}
+### Syntax {/*#env-vars-syntax*/}
 
 ```yml
 !env_var VARIABLE_NAME optional_default
@@ -108,7 +108,7 @@ Where:
 - `VARIABLE_NAME` is the environment variable name (case-sensitive)
 - `optional_default` is used when the variable is undefined, empty, or whitespace-only
 
-### Usage {#env-vars-usage}
+### Usage {/*#env-vars-usage*/}
 
 ```yml
 radarr:
@@ -124,7 +124,7 @@ missing or empty.
 
 :::
 
-### Default Values {#env-vars-defaults}
+### Default Values {/*#env-vars-defaults*/}
 
 Defaults can include spaces:
 
@@ -139,7 +139,7 @@ Quotes around defaults are stripped (but not required for spaces):
 # Results in: my default value
 ```
 
-## Choosing a Method {#comparison}
+## Choosing a Method {/*#comparison*/}
 
 Use **secrets** when:
 

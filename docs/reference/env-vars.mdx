@@ -5,14 +5,14 @@ sidebar_position: 3
 
 These environment variables control Recyclarr's behavior across all commands.
 
-:::tip Looking for config substitution?
+:::tip[Looking for config substitution?]
 
 To substitute environment variable values into your YAML configuration files, see [Value
 Substitution][value-sub].
 
 :::
 
-## `RECYCLARR_CONFIG_DIR` {#config-dir}
+## `RECYCLARR_CONFIG_DIR` {/*#config-dir*/}
 
 Overrides the default [configuration directory][configdir] location. This directory holds user
 configuration and state that should be backed up. See [File Structure][configdir] for platform
@@ -22,7 +22,7 @@ defaults and directory contents.
 export RECYCLARR_CONFIG_DIR="/custom/path/to/config"
 ```
 
-## `RECYCLARR_DATA_DIR` {#data-dir}
+## `RECYCLARR_DATA_DIR` {/*#data-dir*/}
 
 Overrides the location for ephemeral [data directory][datadir] used for regenerable files like
 downloaded resources and logs.
@@ -36,7 +36,7 @@ config directory needs to be backed up.
 
 Relative paths are resolved from the config directory.
 
-## `NO_COLOR` {#no-color}
+## `NO_COLOR` {/*#no-color*/}
 
 Disables ANSI color output when set to any non-empty value.
 

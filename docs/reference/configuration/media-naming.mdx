@@ -7,7 +7,7 @@ description: Configure media file and folder naming formats
 
 <ServiceSupport sonarr="full" radarr="full" />
 
-## Radarr
+## Radarr {/*#radarr*/}
 
 ```yml
 # See "Basic Setup" for `service_type` and `instance_name`
@@ -25,20 +25,20 @@ All configuration here directly affects the "Movie Naming" settings under the **
 Management** page in the Radarr UI. If a configuration property is *not specified*, Recyclarr will
 not sync that setting. This is useful if you prefer to manually edit an option or naming format.
 
-### `folder` {#radarr-folder}
+### `folder` {/*#radarr-folder*/}
 
 **Optional.** *Default: not synced*
 
 A naming format taken from the "Key" column of the "Movie Folder Format" table shown in the output
 of the [`list naming radarr` command][list-radarr].
 
-### `rename` {#radarr-rename}
+### `rename` {/*#radarr-rename*/}
 
 **Optional.** *Default: not synced*
 
 If set to `true`, this results in the "Rename Movies" checkbox in the Radarr UI being enabled.
 
-### `standard` {#radarr-standard}
+### `standard` {/*#radarr-standard*/}
 
 **Optional.** *Default: not synced*
 
@@ -47,7 +47,7 @@ of the [`list naming radarr` command][list-radarr].
 
 [list-radarr]: ../../cli/list/list-naming.mdx
 
-## Sonarr
+## Sonarr {/*#sonarr*/}
 
 ```yml
 # See "Basic Setup" for `service_type` and `instance_name`
@@ -68,41 +68,41 @@ All configuration here directly affects the "Episode Naming" settings under the 
 Management** page in the Sonarr UI. If a configuration property is *not specified*, Recyclarr will
 not sync that setting. This is useful if you prefer to manually edit an option or naming format.
 
-### `series` {#sonarr-series}
+### `series` {/*#sonarr-series*/}
 
 **Optional.** *Default: not synced*
 
 A naming format taken from the "Key" column of the "Series Folder Format" table shown in the output
 of the [`list naming sonarr` command][list-sonarr].
 
-### `season` {#sonarr-season}
+### `season` {/*#sonarr-season*/}
 
 **Optional.** *Default: not synced*
 
 A naming format taken from the "Key" column of the "Season Folder Format" table shown in the output
 of the [`list naming sonarr` command][list-sonarr].
 
-### `rename` {#radarr-rename}
+### `rename` {/*#radarr-rename*/}
 
 **Optional.** *Default: not synced*
 
 If set to `true`, this results in the "Rename Episodes" checkbox in the Sonarr UI being enabled.
 
-### `standard` {#sonarr-standard}
+### `standard` {/*#sonarr-standard*/}
 
 **Optional.** *Default: not synced*
 
 A naming format taken from the "Key" column of the "Standard Episode Format" table shown in the
 output of the [`list naming sonarr` command][list-sonarr].
 
-### `daily` {#sonarr-daily}
+### `daily` {/*#sonarr-daily*/}
 
 **Optional.** *Default: not synced*
 
 A naming format taken from the "Key" column of the "Daily Episode Format" table shown in the output
 of the [`list naming sonarr` command][list-sonarr].
 
-### `anime` {#sonarr-anime}
+### `anime` {/*#sonarr-anime*/}
 
 **Optional.** *Default: not synced*
 

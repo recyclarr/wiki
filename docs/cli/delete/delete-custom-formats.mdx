@@ -4,13 +4,13 @@ title: recyclarr delete custom-formats
 sidebar_label: custom-formats
 ---
 
-## Usage
+## Usage {/*#usage*/}
 
 ```js
 recyclarr delete custom-formats <instance_name> [cf_names] [OPTIONS]
 ```
 
-## Description
+## Description {/*#description*/}
 
 For a specific service, this command offers various ways to delete custom formats of your choosing.
 
@@ -21,7 +21,7 @@ extremely destructive. **Any deletions you perform are permanent!**
 
 :::
 
-## Examples
+## Examples {/*#examples*/}
 
 ```bash
 # Delete all custom formats from an instance named "my-radarr" with a confirmation prompt
@@ -37,9 +37,9 @@ recyclarr delete custom-formats my-radarr --all --force
 recyclarr delete custom-formats my-sonarr-v4 --all --preview
 ```
 
-## Arguments
+## Arguments {/*#arguments*/}
 
-### `<instance_name>` {#instance-name}
+### `<instance_name>` {/*#instance-name*/}
 
 **Required.** The instance name in one of your configuration files representing the service to which
 custom formats will be deleted. The instance name is covered in detail on the [configuration
@@ -54,7 +54,7 @@ radarr:
 
 [configref]: ../../reference/configuration/basic.mdx
 
-### `[cf_names]` {#cf-names}
+### `[cf_names]` {/*#cf-names*/}
 
 A space-separated list of zero or more custom formats names to delete. This argument is **required**
 if you do not specify the `--all` option.
@@ -65,11 +65,11 @@ Any custom formats provided here are ignored if the `--all` option is used.
 
 :::
 
-## Options
+## Options {/*#options*/}
 
 Visit [Common Options](../common.mdx) to read about options usable by all commands.
 
-### `-a|--all` {#all}
+### `-a|--all` {/*#all*/}
 
 Indicates that you want **ALL** custom formats in the remote service to be deleted.
 
@@ -79,7 +79,7 @@ If this option is used, any explicit CFs provided to the `[cf_names]` argument a
 
 :::
 
-### `-f|--force`
+### `-f|--force` {/*#-f--force*/}
 
 If specified, performs the delete operation without a confirmation prompt.
 
@@ -89,6 +89,6 @@ Know what you are doing before you use this option!
 
 :::
 
-### `-p|--preview`
+### `-p|--preview` {/*#-p--preview*/}
 
 Preview the custom formats that will be deleted without performing any deletion operations.

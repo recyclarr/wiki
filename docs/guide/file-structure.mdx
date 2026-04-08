@@ -10,7 +10,7 @@ two root directories: a **configuration directory** for user data that should be
 By default, both directories point to the same location. You can separate them using [environment
 variables][env-vars] for cleaner backup workflows.
 
-## Configuration Directory {#config-directory}
+## Configuration Directory {/*#config-directory*/}
 
 The configuration directory holds user configuration and state. Everything here should be included
 in [backups][backups].
@@ -24,7 +24,7 @@ in [backups][backups].
 
 Override with the [`RECYCLARR_CONFIG_DIR`][env-config] environment variable.
 
-### Contents {#config-contents}
+### Contents {/*#config-contents*/}
 
 ```txt
 <config directory>/
@@ -35,7 +35,7 @@ Override with the [`RECYCLARR_CONFIG_DIR`][env-config] environment variable.
 └── state/
 ```
 
-## Data Directory {#data-directory}
+## Data Directory {/*#data-directory*/}
 
 The data directory holds ephemeral files that Recyclarr can regenerate on its own. These do not need
 to be backed up.
@@ -43,7 +43,7 @@ to be backed up.
 If [`RECYCLARR_DATA_DIR`][env-data] is not set, data files are stored in the configuration directory
 (the default behavior from prior versions).
 
-### Contents {#data-contents}
+### Contents {/*#data-contents*/}
 
 ```txt
 <data directory>/
@@ -52,7 +52,7 @@ If [`RECYCLARR_DATA_DIR`][env-data] is not set, data files are stored in the con
     └── cli/
 ```
 
-## Default YAML Configuration Files {#default-yaml}
+## Default YAML Configuration Files {/*#default-yaml*/}
 
 Configuration files may be located in multiple places, each documented in the sections that follow.
 For all supported locations, the following behavior applies:
@@ -62,7 +62,7 @@ For all supported locations, the following behavior applies:
 - If at least one configuration file is not found, it will result in an error.
 - All YAML files must have the `yml` or `yaml` extension.
 
-### File: `recyclarr.yml` {#recyclarr-yaml}
+### File: `recyclarr.yml` {/*#recyclarr-yaml*/}
 
 The default YAML configuration file is named `recyclarr.yml` and it is always located in the
 configuration directory (listed above based on platform). Example (using docker path):
@@ -71,7 +71,7 @@ configuration directory (listed above based on platform). Example (using docker 
 /config/recyclarr.yml
 ```
 
-### Directory: `configs` {#config-directory-yaml}
+### Directory: `configs` {/*#config-directory-yaml*/}
 
 Under the configuration directory, there is a subdirectory named `configs` in which you can place
 any number of configuration YAML files. This system works especially well in Docker, where you don't
@@ -90,7 +90,7 @@ instead.
 
 :::
 
-## Include Templates Directory {#include-directory}
+## Include Templates Directory {/*#include-directory*/}
 
 import IncludeDirectory from '@site/src/partials/_include-templates-dir.mdx'
 

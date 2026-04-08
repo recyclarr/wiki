@@ -51,7 +51,7 @@ service_type:
             - c9eafd50846d299b862ca9bb6ea91950 # x265
 ```
 
-## Synchronization Behavior {#synchronization}
+## Synchronization Behavior {/*#synchronization*/}
 
 Custom format synchronization is broken up into three categories:
 
@@ -74,7 +74,7 @@ For details on how Recyclarr tracks custom formats it creates, see the [Sync Sta
 
 [state]: ../../guide/troubleshooting/state.mdx
 
-## `delete_old_custom_formats` {#delete-old-custom-formats}
+## `delete_old_custom_formats` {/*#delete-old-custom-formats*/}
 
 **Optional.** *Default: `false`*
 
@@ -88,7 +88,7 @@ that you have added manually in the service **will not be deleted** if you enabl
 
 :::
 
-## `custom_formats` {#custom-formats}
+## `custom_formats` {/*#custom-formats*/}
 
 **Optional.** *Default: No custom formats are synced*
 
@@ -96,7 +96,7 @@ A list of one or more sets of custom formats each with an optional set of qualit
 that identify which quality profiles to assign the scores for those custom formats to. The child
 properties documented below apply to each element of this list.
 
-### `trash_ids` {#trash-ids}
+### `trash_ids` {/*#trash-ids*/}
 
 **Required.**
 
@@ -124,7 +124,7 @@ trash_ids:
 
 :::
 
-:::info A Few Things to Remember
+:::info[A Few Things to Remember]
 
 - If `delete_old_custom_formats` is set to true, custom formats are **deleted** in the service if
   you remove them from this list.
@@ -134,7 +134,7 @@ trash_ids:
 
 :::
 
-### `assign_scores_to` {#assign-scores-to}
+### `assign_scores_to` {/*#assign-scores-to*/}
 
 **Optional.** *Default: No quality profiles are changed*
 
@@ -143,7 +143,7 @@ are taken from the guide by default, with an option to override the score for al
 can be referenced by `name` or `trash_id`. Each entry must use exactly one of these properties.
 Specifying both produces a validation error.
 
-#### `name` {#qp-name}
+#### `name` {/*#qp-name*/}
 
 **Conditionally Required.** Required if `trash_id` is not specified.
 
@@ -157,7 +157,7 @@ it, you must also add an entry there.
 
 [qps]: ./quality-profiles.mdx
 
-#### `trash_id` {#qp-trash-id}
+#### `trash_id` {/*#qp-trash-id*/}
 
 **Conditionally Required.** Required if `name` is not specified.
 
@@ -169,7 +169,7 @@ it (profile variants), Recyclarr reports an error and instructs you to use `name
 
 [guide-qp]: ./quality-profiles.mdx#trash-id
 
-#### `score` {#qp-score}
+#### `score` {/*#qp-score*/}
 
 **Optional.** *Default: Use scores from the guide*
 
@@ -181,7 +181,7 @@ without having to delete them.
 [listcfs]: ../../cli/list/list-custom-formats.mdx
 [radarrjson]: https://github.com/TRaSH-/Guides/tree/master/docs/json/radarr/cf
 
-## `custom_format_groups` {#custom-format-groups}
+## `custom_format_groups` {/*#custom-format-groups*/}
 
 **Optional.** *Default: Auto-sync default groups for guide-backed quality profiles*
 
@@ -195,7 +195,7 @@ customize which CFs sync.
 
 See the [CF Groups guide][cfg-guide] for usage patterns and examples.
 
-### `skip` {#cfg-skip}
+### `skip` {/*#cfg-skip*/}
 
 **Optional.** *Default: No groups are skipped*
 
@@ -204,14 +204,14 @@ match your quality profiles.
 
 If the same group appears in both `skip` and `add`, the explicit `add` entry takes precedence.
 
-### `add` {#cfg-add}
+### `add` {/*#cfg-add*/}
 
 **Optional.** *Default: No additional groups*
 
 A list of groups to explicitly sync. Use this to opt-in to non-default groups or customize a default
 group's behavior (e.g., use `select` and `exclude` to control which CFs sync).
 
-#### `trash_id` {#cfg-trash-id}
+#### `trash_id` {/*#cfg-trash-id*/}
 
 **Required.**
 
@@ -219,7 +219,7 @@ The trash ID of a custom format group from the TRaSH Guides. Group trash IDs can
 the [`list custom-format-groups` command][listcfgroups] or found in the [TRaSH Guide CF group JSON
 files][cfgroups].
 
-#### `assign_scores_to` {#cfg-assign-scores-to}
+#### `assign_scores_to` {/*#cfg-assign-scores-to*/}
 
 **Optional.** *Default: All applicable guide-backed quality profiles*
 
@@ -232,7 +232,7 @@ includes, including all [profile variants][variants] sharing the same `trash_id`
 specifies compatible profiles; for example, HDR groups include only UHD profiles. To assign group
 scores to user-defined profiles, specify them explicitly with `name`.
 
-##### `trash_id` {#cfg-ast-trash-id}
+##### `trash_id` {/*#cfg-ast-trash-id*/}
 
 **Conditionally Required.** Required if `name` is not specified.
 
@@ -241,7 +241,7 @@ quality profile resources, otherwise a validation error is reported. Only works 
 profile in the configuration has this `trash_id`. If multiple profiles share it (profile variants),
 Recyclarr reports an error and instructs you to use `name` instead.
 
-##### `name` {#cfg-ast-name}
+##### `name` {/*#cfg-ast-name*/}
 
 **Conditionally Required.** Required if `trash_id` is not specified.
 
@@ -250,7 +250,7 @@ user-defined profiles. This is the only way to target a specific [profile varian
 multiple profiles share the same `trash_id`. If the named profile does not exist in your
 configuration or in the remote service, a warning is produced during sync.
 
-#### `select` {#cfg-select}
+#### `select` {/*#cfg-select*/}
 
 **Optional.** *Default: No additional CFs are selected*
 
@@ -260,7 +260,7 @@ the group. Required and default CFs are always included regardless of this list.
 Selecting a CF that is already a default produces a warning since it has no effect. Mutually
 exclusive with `select_all`; specifying both produces a validation error.
 
-#### `select_all` {#cfg-select-all}
+#### `select_all` {/*#cfg-select-all*/}
 
 **Optional.** *Default: `false`*
 
@@ -273,7 +273,7 @@ them without changes. Use `exclude` to subtract specific CFs you do not want.
 
 Mutually exclusive with `select`; specifying both produces a validation error.
 
-#### `exclude` {#cfg-exclude}
+#### `exclude` {/*#cfg-exclude*/}
 
 **Optional.** *Default: No CFs are excluded*
 

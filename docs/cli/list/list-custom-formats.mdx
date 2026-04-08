@@ -4,13 +4,13 @@ title: recyclarr list custom-formats
 sidebar_label: custom-formats
 ---
 
-## Usage
+## Usage {/*#usage*/}
 
 ```js
 recyclarr list custom-formats <service> [OPTIONS]
 ```
 
-## Description
+## Description {/*#description*/}
 
 For a specific service, this command prints a list of all available Custom Formats from the TRaSH
 Guides in a formatted table grouped by category. Use the Trash ID values with the `trash_ids`
@@ -29,7 +29,7 @@ radarr:
           - 820b09bb9acbfde9c35c71e0e565dad8 # 1080p
 ```
 
-## Examples
+## Examples {/*#examples*/}
 
 ```bash
 # List all custom formats in the guide for Radarr
@@ -42,9 +42,9 @@ recyclarr list custom-formats sonarr
 recyclarr list custom-formats radarr --raw
 ```
 
-## Arguments
+## Arguments {/*#arguments*/}
 
-### `<service>` {#service}
+### `<service>` {/*#service*/}
 
 A required positional argument that indicates the specific service type to list custom formats for.
 Valid values for this argument are:
@@ -55,11 +55,11 @@ Valid values for this argument are:
 [radarrcfs]: https://trash-guides.info/Radarr/Radarr-collection-of-custom-formats/
 [sonarrcfs]: https://trash-guides.info/Sonarr/sonarr-collection-of-custom-formats/
 
-## Options
+## Options {/*#options*/}
 
 Visit [Common Options](../common.mdx) to read about options usable by all commands.
 
-### `--raw` {#raw}
+### `--raw` {/*#raw*/}
 
 Output in TSV format for scripting. Suppresses table formatting, colors, and instructional text.
 
