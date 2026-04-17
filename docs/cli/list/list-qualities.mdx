@@ -4,13 +4,13 @@ title: recyclarr list qualities
 sidebar_label: qualities
 ---
 
-## Usage
+## Usage {/*#usage*/}
 
 ```js
 recyclarr list qualities <service> [OPTIONS]
 ```
 
-## Description
+## Description {/*#description*/}
 
 For a specific service type, print a list of all available types of quality definitions. The "type"
 of a quality definition comes from JSON files in the guide and this type is used in the
@@ -24,9 +24,9 @@ quality_definition:
 Above, `series` would only be valid if that type appeared in the list output by `recyclarr list
 qualities sonarr`.
 
-## Arguments
+## Arguments {/*#arguments*/}
 
-### `<service>` {#service}
+### `<service>` {/*#service*/}
 
 A required positional argument that indicates the specific service type to list qualities for. Valid
 values for this argument are:
@@ -37,11 +37,11 @@ values for this argument are:
 [radarr]: https://github.com/TRaSH-/Guides/tree/master/docs/json/radarr/quality-size
 [sonarr]: https://github.com/TRaSH-/Guides/tree/master/docs/json/sonarr/quality-size
 
-## Options
+## Options {/*#options*/}
 
 Visit [Common Options](../common.mdx) to read about options usable by all commands.
 
-### `--raw` {#raw}
+### `--raw` {/*#raw*/}
 
 Output quality types one per line for scripting. Suppresses table formatting.
 

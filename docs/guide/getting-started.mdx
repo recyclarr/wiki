@@ -9,12 +9,12 @@ media naming. No YAML expertise required.
 
 [trash-guides]: https://trash-guides.info/Radarr/
 
-## Prerequisites {#prerequisites}
+## Prerequisites {/*#prerequisites*/}
 
 - Radarr is running and accessible (Sonarr setup is similar — just use `sonarr` templates)
 - You know where to find your API key (Settings → General → Security)
 
-## Step 1: Install Recyclarr {#install}
+## Step 1: Install Recyclarr {/*#install*/}
 
 Add the Recyclarr service to your existing `docker-compose.yml` file, or create a new one:
 
@@ -34,7 +34,7 @@ services:
 For detailed installation options (networking, tags, native install), see the [Installation
 Guide](./installation/index.mdx).
 
-## Step 2: Choose a Quality Profile {#choose-profile}
+## Step 2: Choose a Quality Profile {/*#choose-profile*/}
 
 Recyclarr provides ready-to-use templates that match TRaSH Guide quality profiles. List them with:
 
@@ -62,7 +62,7 @@ These correspond to profiles on the [TRaSH Guides Radarr Quality Profiles][trash
 [trash-radarr]: https://trash-guides.info/Radarr/radarr-setup-quality-profiles/
 [hd-bluray-web]: https://trash-guides.info/Radarr/radarr-setup-quality-profiles/#hd-bluray-web
 
-## Step 3: Create Your Configuration {#create-config}
+## Step 3: Create Your Configuration {/*#create-config*/}
 
 Generate a config file from your chosen template. For example, to use the [`HD Bluray +
 WEB`][hd-bluray-web] profile:
@@ -91,7 +91,7 @@ are no longer in your configuration:
 That's it. The template already includes the quality definition, quality profile, and custom formats
 from the TRaSH Guide.
 
-## Step 4: Run Your First Sync {#first-sync}
+## Step 4: Run Your First Sync {/*#first-sync*/}
 
 ```bash
 docker compose run --rm recyclarr sync
@@ -112,7 +112,7 @@ Processing Radarr Server: [hd-bluray-web]
 [INF] Completed at 12/16/2025 10:55:42
 ```
 
-## Step 5: Verify the Sync {#verify}
+## Step 5: Verify the Sync {/*#verify*/}
 
 Check these locations in the service to confirm the sync worked:
 
@@ -120,7 +120,7 @@ Check these locations in the service to confirm the sync worked:
 - **Settings → Custom Formats** — New custom formats with scores assigned
 - **Settings → Quality** — Size ranges updated for each quality level
 
-## Adding More Profiles {#more-profiles}
+## Adding More Profiles {/*#more-profiles*/}
 
 Want multiple quality profiles (e.g., both 1080p and 4K)? Add more guide-backed profiles to your
 existing config file.
@@ -177,7 +177,7 @@ groups.
 
 Run `docker compose run --rm recyclarr sync` again, and all profiles will be created.
 
-## Adding Media Naming {#media-naming}
+## Adding Media Naming {/*#media-naming*/}
 
 To sync TRaSH Guide naming formats, first see what's available:
 
@@ -209,7 +209,7 @@ radarr:
         standard: plex-tmdb
 ```
 
-## When to Customize {#customize}
+## When to Customize {/*#customize*/}
 
 The templates provide the full TRaSH Guide recommendation. For most users, that's everything you
 need.
@@ -221,7 +221,7 @@ You only need a `custom_formats:` section if you want to:
 
 For customization examples, see the [Configuration Examples](../reference/config-examples.mdx) page.
 
-## Next Steps {#next-steps}
+## Next Steps {/*#next-steps*/}
 
 - [Configuration Reference](../reference/configuration/index.mdx) — All available settings
 - [Configuration Examples](../reference/config-examples.mdx) — Real-world configuration patterns

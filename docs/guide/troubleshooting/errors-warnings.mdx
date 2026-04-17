@@ -6,7 +6,7 @@ title: Errors & Warnings
 This page documents warnings and errors you might see in your console output or logs. These are
 usually caused by configuration issues or something else within the user's control to fix.
 
-## Configuration
+## Configuration {/*#configuration*/}
 
 <details>
 <summary>
@@ -72,7 +72,7 @@ for more details.
 
 </details>
 
-## Custom Formats
+## Custom Formats {/*#custom-formats*/}
 
 <details>
 <summary>
@@ -136,7 +136,7 @@ custom_formats:
 
 </details>
 
-## API & Connection
+## API & Connection {/*#api--connection*/}
 
 <details>
 <summary>
@@ -164,11 +164,11 @@ See [issue #42](https://github.com/recyclarr/recyclarr/issues/42) for more detai
 
 </details>
 
-## Docker {#docker}
+## Docker {/*#docker*/}
 
 A series of troubleshooting steps for docker-specific issues.
 
-### Permission Issues
+### Permission Issues {/*#permission-issues*/}
 
 The `/config` volume is very sensitive to user changes in the container. For example, if you first
 run the container using `user: 1000:1000` and then run a second time using `user: 1500:1500`, you
@@ -179,7 +179,7 @@ If you change your user and/or group IDs, it is your responsibility to update th
 in the `/config` volume so that they match the UID and GID you are specifying. This can be done
 through the `chown` command and may require root permissions on your host system.
 
-## Non-Docker {#non-docker-errors}
+## Non-Docker {/*#non-docker-errors*/}
 
 The troubleshooting steps documented here are for the non-docker version of Recyclarr (running it
 directly on a host machine). The [Docker](../installation/docker.mdx) page has troubleshooting steps

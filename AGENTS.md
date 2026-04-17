@@ -78,7 +78,8 @@ Static assets: `/img/` (logos), `/doc-img/` (screenshots)
 
 - Omit `id` in frontmatter when filename matches desired id; keep `id` when filename differs (e.g.,
   `cache-rebuild.mdx` with `id: rebuild` for URL `/cli/cache/rebuild`)
-- Headings MUST use explicit anchors: `## Heading {#anchor-id}` - concise, rely on page context
+- Headings MUST use explicit anchors with MDX comment syntax: `## Heading {/* #anchor-id */}` -
+  concise, rely on page context
 - Line length MUST be hard wrapped at exactly 100 columns (Prettier `printWidth: 100`). Fill lines
   to the full 100 columns before wrapping. Wrapping early (at 80, 90, or any width below 100) is
   wrong. When in doubt, count characters.
@@ -88,7 +89,8 @@ Static assets: `/img/` (logos), `/doc-img/` (screenshots)
   with `[id]: path.mdx` at page end. When editing existing docs, convert inline links to
   reference-style opportunistically
 - Admonitions: `:::info` (optional/context), `:::tip` (best practices), `:::warning` (pitfalls),
-  `:::danger` (data loss risks). MUST have blank line after opening `:::type` and before `:::`
+  `:::danger` (data loss risks). MUST have blank line after opening `:::type` and before `:::`.
+  Titles use bracket syntax: `:::tip[My Title]`
 - Emdashes (—) are acceptable in documentation for parenthetical phrases and emphasis
 
 Target audience: Beginners to Recyclarr. Lead with outcomes, simple examples first. Never use "SQP"
@@ -117,7 +119,7 @@ structure:
 2. `<ServiceSupport>` component showing Sonarr/Radarr compatibility
 3. Complete YAML example showing all properties in context
 4. Brief intro paragraph explaining the parent node
-5. Each property as a heading: `## \`property_name\` {#anchor}`
+5. Each property as a heading: `## \`property_name\` {/*#anchor*/}`
 
 Settings reference pages (`docs/reference/settings/`) omit `<ServiceSupport>` because settings are
 configuration-agnostic (they apply regardless of Sonarr/Radarr). Otherwise they follow the same
@@ -137,8 +139,8 @@ structure.
 - Valid values or constraints (if applicable)
 - Relationship to Sonarr/Radarr UI fields when relevant
 
-**Nested property anchors** use prefixes to avoid conflicts: `{#rus-enabled}` for
-`reset_unmatched_scores.enabled`, `{#qualities-name}` for `qualities[].name`.
+**Nested property anchors** use prefixes to avoid conflicts: `{/* #rus-enabled */}` for
+`reset_unmatched_scores.enabled`, `{/* #qualities-name */}` for `qualities[].name`.
 
 Use admonitions sparingly - only when behavior is non-obvious or has important interactions.
 
@@ -196,8 +198,8 @@ Default to unified documentation with inline callouts (e.g., `> **Radarr only**:
 differences. Use Docusaurus tabs when steps differ per platform. Split into separate pages only when
 workflows are fundamentally different (>30% divergent content).
 
-Document limitations in a dedicated `### Limitations {#limitations}` heading. Use `<ServiceSupport>`
-for feature compatibility matrices.
+Document limitations in a dedicated `### Limitations {/* #limitations */}` heading. Use
+`<ServiceSupport>` for feature compatibility matrices.
 
 ## Documentation Accuracy
 

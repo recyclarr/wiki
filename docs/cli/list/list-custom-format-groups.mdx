@@ -4,13 +4,13 @@ title: recyclarr list custom-format-groups
 sidebar_label: custom-format-groups
 ---
 
-## Usage
+## Usage {/*#usage*/}
 
 ```txt
 recyclarr list custom-format-groups <service> [OPTIONS]
 ```
 
-## Description
+## Description {/*#description*/}
 
 For a specific service, this command prints a list of all available custom format groups from the
 TRaSH Guides in a compact table. Each group shows its name and trash ID. Use the trash ID with the
@@ -38,7 +38,7 @@ need `custom_format_groups` to opt-out of defaults (`skip`) or add non-default g
 
 [guide-qp]: ../../reference/configuration/quality-profiles.mdx#trash-id
 
-## Examples
+## Examples {/*#examples*/}
 
 ```bash
 # List all custom format groups in the guide for Radarr
@@ -57,9 +57,9 @@ recyclarr list custom-format-groups radarr --filter audio
 recyclarr list custom-format-groups radarr --raw
 ```
 
-## Arguments
+## Arguments {/*#arguments*/}
 
-### `<service>` {#service}
+### `<service>` {/*#service*/}
 
 A required positional argument that indicates the specific service type to list custom format groups
 for. Valid values for this argument are:
@@ -67,23 +67,23 @@ for. Valid values for this argument are:
 - `radarr`: List Radarr custom format groups
 - `sonarr`: List Sonarr custom format groups
 
-## Options
+## Options {/*#options*/}
 
 Visit [Common Options](../common.mdx) to read about options usable by all commands.
 
-### `--details` {#details}
+### `--details` {/*#details*/}
 
 Show additional information for each custom format group. Adds a "Custom Formats" section listing
 member custom formats with their inclusion semantics (`required`, `default`, or `optional`) and a
 "Quality Profiles" section listing associated quality profiles with their status (`default` or
 `optional`). This option only affects table output and is ignored when `--raw` is used.
 
-### `--filter` {#filter}
+### `--filter` {/*#filter*/}
 
 Filter groups by name using a case-insensitive substring match. Only groups whose name contains the
 filter string are shown.
 
-### `--raw` {#raw}
+### `--raw` {/*#raw*/}
 
 Output in TSV format for scripting. Suppresses table formatting, colors, and instructional text.
 Outputs one line per custom format (not per group).

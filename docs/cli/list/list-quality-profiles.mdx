@@ -4,13 +4,13 @@ title: recyclarr list quality-profiles
 sidebar_label: quality-profiles
 ---
 
-## Usage
+## Usage {/*#usage*/}
 
 ```txt
 recyclarr list quality-profiles <service> [OPTIONS]
 ```
 
-## Description
+## Description {/*#description*/}
 
 For a specific service, this command prints a list of all available quality profiles from the
 TRaSH Guides in a formatted table. Each profile shows its name, trash ID, and the qualities
@@ -30,7 +30,7 @@ radarr:
       - trash_id: d1d67249d3890e49bc12e275d989a7e9 # HD Bluray + WEB
 ```
 
-## Examples
+## Examples {/*#examples*/}
 
 ```bash
 # List all quality profiles in the guide for Radarr
@@ -49,9 +49,9 @@ recyclarr list quality-profiles sonarr --filter bluray
 recyclarr list quality-profiles radarr --raw
 ```
 
-## Arguments
+## Arguments {/*#arguments*/}
 
-### `<service>` {#service}
+### `<service>` {/*#service*/}
 
 A required positional argument that indicates the specific service type to list quality profiles
 for. Valid values:
@@ -62,22 +62,22 @@ for. Valid values:
 [radarrqp]: https://trash-guides.info/Radarr/radarr-setup-quality-profiles/
 [sonarrqp]: https://trash-guides.info/Sonarr/sonarr-setup-quality-profiles/
 
-## Options
+## Options {/*#options*/}
 
 Visit [Common Options](../common.mdx) to read about options usable by all commands.
 
-### `--details` {#details}
+### `--details` {/*#details*/}
 
 Show additional information for each quality profile. Adds a "Qualities" section listing allowed
 qualities and a "Custom Formats" section listing the custom formats included in the profile along
 with the score set name. This option only affects table output and is ignored when `--raw` is used.
 
-### `--filter` {#filter}
+### `--filter` {/*#filter*/}
 
 Filter profiles by name using a case-insensitive substring match. Only profiles whose name contains
 the filter string are shown.
 
-### `--raw` {#raw}
+### `--raw` {/*#raw*/}
 
 Output in TSV format for scripting. Suppresses table formatting, colors, and instructional text.
 

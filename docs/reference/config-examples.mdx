@@ -10,7 +10,7 @@ import TOCInline from '@theme/TOCInline';
 
 <TOCInline toc={toc} />
 
-## Add multiple quality profiles to one instance {#multiple-profiles}
+## Add multiple quality profiles to one instance {/*#multiple-profiles*/}
 
 Configure multiple TRaSH Guide profiles on a single Radarr or Sonarr instance using guide-backed
 quality profiles. This is the recommended approach for most users.
@@ -62,12 +62,12 @@ services, movie versions, HDR options, etc.). The available groups differ per pr
 
 :::
 
-## Customize profile behavior {#customization}
+## Customize profile behavior {/*#customization*/}
 
 Guide-backed profiles provide the full TRaSH Guide recommendation. Add `custom_formats` or
 `custom_format_groups` sections only when you need to modify the default behavior.
 
-### Override a custom format score {#override-score}
+### Override a custom format score {/*#override-score*/}
 
 Change the score for specific custom formats while keeping the rest of the guide defaults:
 
@@ -95,7 +95,7 @@ radarr:
 
 Your score takes precedence over the guide-backed profile.
 
-### Add optional custom format groups {#add-optional}
+### Add optional custom format groups {/*#add-optional*/}
 
 Templates include commented-out optional CF groups. Uncomment them to enable:
 
@@ -118,7 +118,7 @@ radarr:
         - trash_id: f4f1474b963b24cf983455743aa9906c  # [Optional] Movie Versions
 ```
 
-### Modify quality profile qualities {#modify-qualities}
+### Modify quality profile qualities {/*#modify-qualities*/}
 
 To add or change qualities in a profile, provide a complete `qualities` list. The list you provide
 replaces the guide's qualities entirely:
@@ -150,7 +150,7 @@ for why this uses replace behavior.
 
 [qp-replace]: ./configuration/include.mdx#detail-qualities
 
-### Reset scores not in config {#reset-scores}
+### Reset scores not in config {/*#reset-scores*/}
 
 Use [`reset_unmatched_scores`][rus] when you want Recyclarr to have exclusive control over CF scores
 in a profile. This is enabled by default in all official templates:
@@ -175,7 +175,7 @@ radarr:
 With this enabled, any CF scores not set by your config are reset to zero. This prevents stale
 scores from accumulating when you remove CFs from your config.
 
-## Build a custom quality profile {#custom-profile}
+## Build a custom quality profile {/*#custom-profile*/}
 
 If you need a profile that doesn't match any TRaSH Guide recommendation, you can build one from
 scratch. Instead of `trash_id`, use `name` to define the profile and manually select your custom
@@ -253,7 +253,7 @@ Use `recyclarr list custom-formats radarr` to find trash IDs for all available c
 
 :::
 
-## Create profile variants from one guide-backed definition {#profile-variants}
+## Create profile variants from one guide-backed definition {/*#profile-variants*/}
 
 Use the same `trash_id` multiple times to create [profile variants][variants] with different
 settings. This is useful when you want the same quality structure but with different behavior, such
@@ -292,7 +292,7 @@ constraints when modifying variants.
 [qp-name]: ./configuration/quality-profiles.mdx#name
 [qp-limits]: ./configuration/quality-profiles.mdx#renaming-variants
 
-## Rename a guide-backed quality profile {#rename-guide-profile}
+## Rename a guide-backed quality profile {/*#rename-guide-profile*/}
 
 When syncing a guide-backed profile using `trash_id`, add `name` to use a custom name instead of the
 guide's default:
@@ -312,9 +312,9 @@ Recyclarr tracks the profile by `trash_id`, not by name. This means you can rena
 any time - update `name` in your config and Recyclarr renames the existing profile rather than
 creating a new one.
 
-## Configure multiple arr instances {#multiple-instances}
+## Configure multiple arr instances {/*#multiple-instances*/}
 
-### Single file with multiple instances {#single-file-multi-instance}
+### Single file with multiple instances {/*#single-file-multi-instance*/}
 
 Configure both Sonarr and Radarr (or multiple instances of either) in one file:
 
@@ -361,7 +361,7 @@ radarr:
 Run `recyclarr sync` to update all instances, or target specific services with `recyclarr sync
 sonarr` or `recyclarr sync radarr`.
 
-### Separate files per instance {#separate-files}
+### Separate files per instance {/*#separate-files*/}
 
 For complex setups, use separate files in the `configs/` directory:
 
@@ -377,9 +377,9 @@ config/
 Recyclarr automatically loads all YAML files in `configs/`. Each file uses the same structure as a
 single-file config. File names can be whatever you prefer.
 
-## File organization {#file-organization}
+## File organization {/*#file-organization*/}
 
-### Directory structure {#directory-structure}
+### Directory structure {/*#directory-structure*/}
 
 A typical Recyclarr setup using Docker:
 
@@ -406,7 +406,7 @@ Key points:
 
 - Each config file can contain any combination of Sonarr and Radarr instances
 
-### Use secrets for sensitive values {#secrets}
+### Use secrets for sensitive values {/*#secrets*/}
 
 Store API keys and URLs in `secrets.yml`:
 
@@ -432,12 +432,12 @@ See [Value Substitution][secrets] for details.
 
 [secrets]: ./configuration/value-substitution.mdx#secrets
 
-## Consolidate existing config files {#consolidate}
+## Consolidate existing config files {/*#consolidate*/}
 
 If you previously created multiple config files using `recyclarr config create --template` and want
 to combine them into a single file, follow this process.
 
-### Before consolidation {#before}
+### Before consolidation {/*#before*/}
 
 Two separate files created from templates:
 
@@ -475,7 +475,7 @@ radarr:
           enabled: true
 ```
 
-### After consolidation {#after}
+### After consolidation {/*#after*/}
 
 If both files target the same Radarr instance, combine them:
 

@@ -15,7 +15,7 @@ development cycle.
 
 :::
 
-## CLI: `state repair` Removed {#state-repair-removed}
+## CLI: `state repair` Removed {/*#state-repair-removed*/}
 
 The `recyclarr state repair` command and its `--adopt` flag have been removed. Sync is now
 self-healing: when a configured resource matches an existing resource in the service by name but has
@@ -38,7 +38,7 @@ The only scenario that still requires manual intervention is **ambiguous matches
 resources share the same name (case-insensitive), Recyclarr cannot determine which one to adopt. The
 error message instructs you to resolve the duplicates in the service directly.
 
-### New Mental Model {#authoritative-sync}
+### New Mental Model {/*#authoritative-sync*/}
 
 If it's in your config, Recyclarr owns it. If you want to manually manage a resource, remove it from
 your config. Recyclarr warns you when it adopts something that already existed, giving you a chance

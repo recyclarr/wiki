@@ -57,7 +57,7 @@ for example), simply omit those properties from your YAML. In general, propertie
 indicates that you do not want Recyclarr to modify those values. Exceptions to this rule will be
 mentioned in the relevant sections below as needed.
 
-## `name` {#name}
+## `name` {/*#name*/}
 
 **Conditionally Required.** Required if `trash_id` is not specified.
 
@@ -80,7 +80,7 @@ error: *"Multiple profiles use trash_id 'X'; each must have an explicit 'name' t
 
 [variants]: ../config-examples.mdx#profile-variants
 
-## `trash_id` {#trash-id}
+## `trash_id` {/*#trash-id*/}
 
 **Optional.**
 
@@ -153,11 +153,11 @@ the [CLI reference][cliqp] for details.
 
 :::
 
-## `reset_unmatched_scores` {#reset-unmatched-scores}
+## `reset_unmatched_scores` {/*#reset-unmatched-scores*/}
 
 **Optional.** *Default: do not reset any scores*
 
-### `enabled` {#rus-enabled}
+### `enabled` {/*#rus-enabled*/}
 
 **Required.**
 
@@ -172,7 +172,7 @@ Custom formats may be excluded from resets with the `except` property.
 If `false`, scores are never altered unless it is listed in the `trash_ids` array *and* has a valid
 score to assign (either from the guide or via an explicit `score`).
 
-### `except` {#rus-except}
+### `except` {/*#rus-except*/}
 
 **Optional.** *Default: empty; no CFs excluded from reset*
 
@@ -184,7 +184,7 @@ that are not synced by Recyclarr). For pattern-based matching, see
 If neither `except` nor `except_patterns` is specified, all CFs are unconditionally reset to `0` as
 described by the `enabled` property documentation.
 
-### `except_patterns` {#rus-except-patterns}
+### `except_patterns` {/*#rus-except-patterns*/}
 
 **Optional.** *Default: empty; no CFs excluded from reset*
 
@@ -216,7 +216,7 @@ you prefer, unquoted strings avoid this: `- ^\[My\]`.
 Invalid regex patterns are rejected during configuration validation. Patterns that match zero custom
 formats in a profile produce a warning.
 
-## `score_set` {#score-set}
+## `score_set` {/*#score-set*/}
 
 **Optional.** *Default: `default`*
 
@@ -239,14 +239,14 @@ property. Visit the [CLI reference page][cliscoresets] for more information.
 
 :::
 
-## `min_format_score` {#min-format-score}
+## `min_format_score` {/*#min-format-score*/}
 
 **Optional.** *Default: leave existing value untouched*
 
 Correlates directly to the "Minimum Custom Format Score" field in the Quality Profile edit dialog in
 Radarr/Sonarr.
 
-## `min_upgrade_format_score` {#min-upgrade-format-score}
+## `min_upgrade_format_score` {/*#min-upgrade-format-score*/}
 
 **Optional.** *Default: leave existing value untouched*
 
@@ -254,13 +254,13 @@ Correlates directly to the "Minimum Custom Format Score For Upgrades" field in t
 edit dialog in Radarr/Sonarr. This controls the minimum custom format score required to upgrade an
 already-downloaded release, separate from `min_format_score` which controls initial downloads.
 
-## `upgrade` {#upgrade}
+## `upgrade` {/*#upgrade*/}
 
 **Optional.**
 
 Does nothing by itself. A container for the `allowed`, `until_quality` and `until_score` properties.
 
-### `allowed` {#until-quality}
+### `allowed` {/*#until-quality*/}
 
 **Required.**
 
@@ -269,7 +269,7 @@ Radarr/Sonarr. If `true` is provided, the box is checked and `false` unchecks th
 want Recyclarr to manage this checkbox, you need to delete the entire `upgrade` block (including its
 contents).
 
-### `until_quality` {#until-quality}
+### `until_quality` {/*#until-quality*/}
 
 **Conditionally Required.** *Default: leave existing value untouched*
 
@@ -281,14 +281,14 @@ manually editing the profile through the Radarr/Sonarr UI.
 This property is *required* if you also specify a `qualities` list. If you do not have a `qualities`
 list, this property is optional and will leave your manually set cutoff alone.
 
-### `until_score` {#until-score}
+### `until_score` {/*#until-score*/}
 
 **Optional.** *Default: leave existing value untouched*
 
 Correlates directly to the "Upgrade Until Custom Format Score" field in the Quality Profile edit
 dialog in Radarr/Sonarr.
 
-## `qualities` {#qualities}
+## `qualities` {/*#qualities*/}
 
 **Conditionally Required.** *Default: leave existing qualities untouched*
 
@@ -316,14 +316,14 @@ There are several important things to know about defining qualities:
 The `qualities` section is a list. Each list item is allowed to have the properties documented in
 the following sub-sections.
 
-### `name` {#qualities-name}
+### `name` {/*#qualities-name*/}
 
 **Required.**
 
 The name of *an existing* quality. If this is a quality group, this name identifies either an
 existing quality group *or* will be used as the name for a newly created group.
 
-### `enabled` {#qualities-enabled}
+### `enabled` {/*#qualities-enabled*/}
 
 **Optional.** *Default: `true`*
 
@@ -341,7 +341,7 @@ you understand [the consequences](#order-matters).
 
 :::
 
-### `qualities` {#qualities-qualities}
+### `qualities` {/*#qualities-qualities*/}
 
 **Optional.** *Default: Treat this as a quality*
 
@@ -350,7 +350,7 @@ specifying this list, you are implicitly enabling this quality item to be a *gro
 quality by itself. The `name` property becomes the name of this group. If the group does not exist,
 it will be created.
 
-## `quality_sort` {#quality-sort}
+## `quality_sort` {/*#quality-sort*/}
 
 **Optional.** *Default: `top`*
 
@@ -364,7 +364,7 @@ in the order in which they appear in the `qualities` section.
 
 :::
 
-### Why Order Matters {#order-matters}
+### Why Order Matters {/*#order-matters*/}
 
 It's important to know that even when a quality is disabled in your quality profile, *its order
 still matters* for the following reasons:
@@ -377,19 +377,19 @@ Because disabled (disallowed) qualities are not technically non-functional, the 
 give you some flexibility in how those disabled qualities impact you when they're missing from the
 [`qualities` list](#qualities) in your configuration YAML.
 
-### Top Sort {#top-sort}
+### Top Sort {/*#top-sort*/}
 
 When `quality_sort` is set to `top` (which is also the *default* if you do not specify this
 property), qualities and groups you *explicitly specify* in your YAML are sorted to the top of the
 list. *Unspecified* qualities appear at the bottom.
 
-:::warning Impact on Cutoff
+:::warning[Impact on Cutoff]
 
 If qualities are removed instead of disabled, this can cause unwanted downgrades of movie files.
 
 :::
 
-#### Example
+#### Example {/*#example*/}
 
 <details>
 <summary>Click to Expand Example</summary>
@@ -414,18 +414,18 @@ When you sync this quality profile, it will look like this when you view it in t
 
 </details>
 
-### Bottom Sort {#bottom-sort}
+### Bottom Sort {/*#bottom-sort*/}
 
 When `quality_sort` is set to `bottom`, qualities and groups you *explicitly specify* in your YAML
 are sorted to the bottom of the list. *Unspecified* qualities appear at the top.
 
-:::warning Impact on Cutoff
+:::warning[Impact on Cutoff]
 
 If qualities are removed instead of disabled, this can result in upgrades never happening.
 
 :::
 
-#### Example
+#### Example {/*#example-1*/}
 
 <details>
 <summary>Click to Expand Example</summary>
@@ -452,11 +452,11 @@ Syncing this will yield the following qualities list when you view them from the
 
 </details>
 
-## Limitations {#limitations}
+## Limitations {/*#limitations*/}
 
 This section covers features with partial support or known constraints.
 
-### Language {#language}
+### Language {/*#language*/}
 
 For guide-backed Radarr profiles, language settings from guide resources sync automatically. Sonarr
 quality profiles do not have a language field; use custom formats for language filtering instead.
@@ -464,7 +464,7 @@ quality profiles do not have a language field; use custom formats for language f
 Manual configuration of language via YAML is not yet supported. The language value from the guide
 passes through automatically and cannot be overridden.
 
-### Renaming Profile Variants {#renaming-variants}
+### Renaming Profile Variants {/*#renaming-variants*/}
 
 When multiple profiles share a `trash_id`, at most one may be renamed per sync. Recyclarr uses a
 two-pass algorithm to match profiles to their existing state, and multiple simultaneous changes
@@ -476,7 +476,7 @@ create ambiguity it cannot resolve. Operations that require multiple syncs:
 
 In each case, perform the first change, sync, then perform the second change and sync again.
 
-### Validation {#validation}
+### Validation {/*#validation*/}
 
 Two profiles cannot resolve to the same name regardless of `trash_id`. If a name collision is
 detected, all entries with that name are skipped with an error.

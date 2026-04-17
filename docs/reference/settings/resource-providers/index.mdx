@@ -11,7 +11,7 @@ For property details, see the [configuration reference][config-ref].
 
 [config-ref]: ./configuration.mdx
 
-## Default Behavior
+## Default Behavior {/*#default-behavior*/}
 
 Recyclarr automatically includes official sources with zero configuration:
 
@@ -22,7 +22,7 @@ Recyclarr automatically includes official sources with zero configuration:
 
 For most users, no `resource_providers` configuration is needed.
 
-## When You'd Use This
+## When You'd Use This {/*#when-youd-use-this*/}
 
 Common reasons to configure resource providers:
 
@@ -31,9 +31,9 @@ Common reasons to configure resource providers:
 - **Use Modified Guides**: Fork the official guides and customize them for your needs
 - **Add Supplemental Content**: Use your own repository alongside official sources
 
-## Understanding How It Works
+## Understanding How It Works {/*#understanding-how-it-works*/}
 
-### Settings vs Configuration
+### Settings vs Configuration {/*#settings-vs-configuration*/}
 
 Resource providers work in two phases:
 
@@ -47,7 +47,7 @@ For example, you could add 20 custom formats to your resource providers, then in
 10 to Sonarr Anime and the other 10 to Sonarr TV. Each instance only uses what you explicitly
 configure.
 
-### Provider Types
+### Provider Types {/*#provider-types*/}
 
 Each provider has a `type` that determines what kind of content it provides:
 
@@ -62,14 +62,14 @@ For details on creating your own repositories with proper structure, see:
 - [Creating a Trash Guides Repository](./trash-guides-structure.mdx)
 - [Creating a Config Templates Repository](./config-templates-structure.mdx)
 
-### Provider Locations
+### Provider Locations {/*#provider-locations*/}
 
 Resources can come from two locations:
 
 - **Git repositories** (`clone_url`): Cloned and cached automatically
 - **Local directories** (`path`): Used directly from your filesystem
 
-### How Precedence Works
+### How Precedence Works {/*#how-precedence-works*/}
 
 When multiple providers have resources with the same identification key:
 
@@ -79,7 +79,7 @@ When multiple providers have resources with the same identification key:
 
 This means your custom resources can override official ones by using the same identification key.
 
-### Resource Identification Keys
+### Resource Identification Keys {/*#resource-identification-keys*/}
 
 Different resource types use different fields to determine uniqueness when merging across providers.
 All comparisons are case-insensitive.
@@ -96,7 +96,7 @@ All comparisons are case-insensitive.
 See [Override Examples](./override-examples.mdx) for practical examples of extending and replacing
 resources.
 
-## Quick Start: Adding Local Custom Formats
+## Quick Start: Adding Local Custom Formats {/*#quick-start-adding-local-custom-formats*/}
 
 The most common use case is adding your own custom formats (like language detection) without
 managing a git repository.
@@ -153,9 +153,9 @@ special folder structure or metadata files are required - just drop your JSON fi
 
 :::
 
-## Common Use Cases
+## Common Use Cases {/*#common-use-cases*/}
 
-### Adding Supplemental Custom Formats
+### Adding Supplemental Custom Formats {/*#adding-supplemental-custom-formats*/}
 
 Add your own custom formats alongside the official Trash Guides:
 
@@ -175,7 +175,7 @@ resource_providers:
 Your custom formats are combined with the official ones. If any share the same Trash ID, your
 version takes precedence.
 
-### Adding Supplemental Git Repositories
+### Adding Supplemental Git Repositories {/*#adding-supplemental-git-repositories*/}
 
 Add your own TRaSH-style repository alongside official sources:
 
@@ -190,7 +190,7 @@ resource_providers:
 This adds your repository's content to the official Trash Guides. Both sources are available for use
 in your configurations.
 
-### Replacing Official Sources
+### Replacing Official Sources {/*#replacing-official-sources*/}
 
 Completely replace the official Trash Guides with your own fork:
 
@@ -210,7 +210,7 @@ if your repository contains all the content you need.
 
 :::
 
-### Using a Specific Version
+### Using a Specific Version {/*#using-a-specific-version*/}
 
 Pin to a specific commit or tag for stability:
 
@@ -223,7 +223,7 @@ resource_providers:
     replace_default: true
 ```
 
-### Multiple Sources Combined
+### Multiple Sources Combined {/*#multiple-sources-combined*/}
 
 A realistic setup with official sources (implicit), supplemental git repository, and local custom
 formats:
@@ -261,11 +261,11 @@ With this configuration:
 - Community extras are added next
 - Local custom formats have highest precedence (listed last)
 
-## Overriding Official Content
+## Overriding Official Content {/*#overriding-official-content*/}
 
 You can override specific official content by providing your own version with the same ID.
 
-### Overriding a Custom Format
+### Overriding a Custom Format {/*#overriding-a-custom-format*/}
 
 1. Copy the official custom format JSON file you want to modify
 2. Place it in your local custom formats folder
@@ -274,7 +274,7 @@ You can override specific official content by providing your own version with th
 
 Since your provider is listed after the implicit official provider, your version takes precedence.
 
-### Overriding a Config Template
+### Overriding a Config Template {/*#overriding-a-config-template*/}
 
 1. Create a repository following the config-templates structure
 2. Include an `includes.json` or `templates.json` with the same ID as the official template
@@ -290,28 +290,28 @@ resource_providers:
 
 Your template with the matching ID will override the official version.
 
-## Best Practices
+## Best Practices {/*#best-practices*/}
 
-### Naming Conventions
+### Naming Conventions {/*#naming-conventions*/}
 
 - Use descriptive names that indicate the provider's purpose
 - Use consistent naming patterns across your providers
 - Avoid generic names like `custom` if you have multiple providers
 
-### Reference Management
+### Reference Management {/*#reference-management*/}
 
 - Use specific commits or tags for production stability
 - Use branch names for testing new changes
 - Auto-detection handles `master` and `main` automatically; specify `reference` only for pinning or
   non-standard branch names
 
-### Security Considerations
+### Security Considerations {/*#security-considerations*/}
 
 - Only use repositories you trust
 - Verify repository URLs carefully
 - Consider using specific commits for maximum security and reproducibility
 
-### Testing Changes
+### Testing Changes {/*#testing-changes*/}
 
 - Test custom providers on a non-production setup first
 - Verify that custom content follows the expected structure for its type

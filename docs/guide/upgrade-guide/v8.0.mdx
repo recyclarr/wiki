@@ -10,7 +10,7 @@ import ReleaseDate from '@site/src/components/ReleaseDate';
 Features have been removed *or* behavior changed. Most of the items here would have been deprecated
 in the past. Deprecations are always mentioned in release notes for feature releases.
 
-## Dedicated Includes Directory {#include-dir}
+## Dedicated Includes Directory {/*#include-dir*/}
 
 The root directory for relative local include paths has changed. Previously, relative paths provided
 to the [`config` include directive][include-config] were rooted in `${appdatadir}/configs`. Putting
@@ -54,7 +54,7 @@ include:
   - config: local/my-include2.yml
 ```
 
-### Recommended File Structure Changes (Optional) {#rec-structure-change}
+### Recommended File Structure Changes (Optional) {/*#rec-structure-change*/}
 
 If you followed the recommended file structure for your includes, then chances are you already have
 a `configs/include` directory. To avoid having the path look weird, such as
@@ -100,7 +100,7 @@ To this:
     └── my-include2.yml
 ```
 
-## YAML: Custom Formats `quality_profiles` Renamed {#assign-scores-to}
+## YAML: Custom Formats `quality_profiles` Renamed {/*#assign-scores-to*/}
 
 Prior to this major release, two `quality_profiles` nodes existed in YAML:
 
@@ -166,13 +166,13 @@ radarr:
 
 Refer to the `RENAMED` comments in the above example for exact lines that changed.
 
-## Settings: Repository Configuration Replaced {#resource-providers}
+## Settings: Repository Configuration Replaced {/*#resource-providers*/}
 
 The legacy `repositories` configuration format has been completely removed and replaced with the new
 `resource_providers` system. This change provides support for multiple repositories per content
 type, local directory support, and enables future extensibility.
 
-### Old Format (Removed)
+### Old Format (Removed) {/*#old-format-removed*/}
 
 ```yml
 repositories:
@@ -185,7 +185,7 @@ repositories:
     branch: master
 ```
 
-### New Format
+### New Format {/*#new-format*/}
 
 ```yml
 resource_providers:
@@ -202,7 +202,7 @@ resource_providers:
     replace_default: true
 ```
 
-### Key Changes
+### Key Changes {/*#key-changes*/}
 
 | Old                                                     | New                                         |
 |---------------------------------------------------------|---------------------------------------------|
@@ -212,7 +212,7 @@ resource_providers:
 | Single repository per type                              | Multiple repositories per type supported    |
 | Git repositories only                                   | Local directories also supported via `path` |
 
-### Migration Notes
+### Migration Notes {/*#migration-notes*/}
 
 - **No `repositories` config?** No changes needed - official sources are included automatically
 - **Had custom repositories?** Add `type` property and use `replace_default: true` if you want to
@@ -222,7 +222,7 @@ resource_providers:
 
 See the [Resource Providers][resource-providers] documentation for complete configuration details.
 
-## YAML: `replace_existing_custom_formats` Removed {#replace-existing-removed}
+## YAML: `replace_existing_custom_formats` Removed {/*#replace-existing-removed*/}
 
 The `replace_existing_custom_formats` option has been removed. Custom format sync now uses ID-first
 matching: if a custom format is in the state, Recyclarr trusts that tracked ID regardless of name
@@ -239,7 +239,7 @@ v9.0][v9-state-repair]. Sync handles adoption automatically.
 
 :::
 
-## CLI: `--debug` Option Removed {#debug-removed}
+## CLI: `--debug` Option Removed {/*#debug-removed*/}
 
 The `-d|--debug` option has been removed. Use `--log debug` instead.
 
@@ -258,7 +258,7 @@ recyclarr sync --log debug
 The `--log` option enables log output mode and accepts three levels: `debug`, `info` (default), and
 `warn`. See the [CLI Common Options][common-log] documentation for details.
 
-## CLI: `list score-sets` Command {#score-sets-command}
+## CLI: `list score-sets` Command {/*#score-sets-command*/}
 
 The `--score-sets` flag on `list custom-formats` has been replaced with a dedicated subcommand.
 
@@ -274,7 +274,7 @@ recyclarr list custom-formats radarr --score-sets
 recyclarr list score-sets radarr
 ```
 
-## CLI: List Command Output Format {#list-output-format}
+## CLI: List Command Output Format {/*#list-output-format*/}
 
 List commands now display formatted tables instead of plain text. The global `--raw` option has been
 removed and is now specific to list commands, outputting TSV (tab-separated values) format for
@@ -294,7 +294,7 @@ List of Custom Formats in the TRaSH Guides:
 List commands display formatted tables with category groupings and helpful instructions. Use `--raw`
 for machine-readable TSV output suitable for scripting.
 
-### Migration for Scripts {#list-scripts}
+### Migration for Scripts {/*#list-scripts*/}
 
 If you have scripts that parse list command output, update them to use `--raw`:
 
@@ -305,9 +305,9 @@ recyclarr list custom-formats radarr --raw
 The `--raw` option outputs TSV format. Each list command documents its specific column format in the
 [CLI reference][list-commands].
 
-## Config Templates Changes {#config-templates}
+## Config Templates Changes {/*#config-templates*/}
 
-### Version-Aware Branch Selection {#version-aware-templates}
+### Version-Aware Branch Selection {/*#version-aware-templates*/}
 
 Config-templates providers now use version-aware branch selection. Recyclarr automatically selects
 the `v{major}` branch matching your version (e.g., `v8` for Recyclarr 8.x), falling back to
@@ -316,7 +316,7 @@ the `v{major}` branch matching your version (e.g., `v8` for Recyclarr 8.x), fall
 No user action is required. If you have an explicit `reference` in your settings, it continues to
 override auto-detection.
 
-### v7 Templates Maintenance Policy {#v7-maintenance}
+### v7 Templates Maintenance Policy {/*#v7-maintenance*/}
 
 With the introduction of version-aware branches, v7 templates (the `master` branch) are now in
 maintenance mode:
@@ -331,7 +331,7 @@ Recyclarr v8, which uses the `v8` branch with actively maintained templates.
 v8 templates are being simplified to leverage guide-backed quality profiles and custom format
 groups, providing better alignment with the TRaSH Guides while reducing configuration complexity.
 
-### Official Include Templates Removed {#include-templates-removed}
+### Official Include Templates Removed {/*#include-templates-removed*/}
 
 All official include templates have been removed from the v8 config-templates branch. If your
 configuration uses `include: - template:` directives referencing official include templates (such as
@@ -386,7 +386,7 @@ official include templates from the config-templates repository have been remove
 
 :::
 
-## Adopting Guide-Backed Quality Profiles {#adopt-guide-profiles}
+## Adopting Guide-Backed Quality Profiles {/*#adopt-guide-profiles*/}
 
 If you have existing quality profiles in Sonarr or Radarr that were created by Recyclarr v7 (or
 manually), you cannot simply add a `trash_id` to your config and expect Recyclarr to update the
@@ -400,7 +400,7 @@ each profile you want to convert to guide-backed.
 
 :::
 
-### Adoption Steps {#qp-adoption-steps}
+### Adoption Steps {/*#qp-adoption-steps*/}
 
 1. Strip your quality profile config down to just `name` (and `reset_unmatched_scores`, if you use
    it). The `name` must match what the profile is currently called in Sonarr/Radarr. Remove all
@@ -471,21 +471,21 @@ name after step 3. Recyclarr will continue using that name instead of the guide 
 
 :::
 
-### Guide Profile Name Reference {#qp-name-changes}
+### Guide Profile Name Reference {/*#qp-name-changes*/}
 
 TRaSH Guides standardized quality profile names to use a `[Prefix]` convention. The tables below
 show the old names from v7 config templates alongside the new guide names and their `trash_id`
 values. Use this to find the correct `trash_id` for your existing profile and to know what the
 profile will be renamed to if you remove the `name` override.
 
-#### Anime {#qp-anime}
+#### Anime {/*#qp-anime*/}
 
 | Old Name            | Guide Name          | Service | `trash_id`                         |
 |---------------------|---------------------|---------|------------------------------------|
 | Remux-1080p - Anime | [Anime] Remux-1080p | Sonarr  | `20e0fc959f1f1704bed501f23bdae76f` |
 | Remux-1080p - Anime | [Anime] Remux-1080p | Radarr  | `722b624f9af1e492284c4bc842153a38` |
 
-#### German {#qp-german}
+#### German {/*#qp-german*/}
 
 | Old Name                      | Guide Name                              | Service | `trash_id`                         |
 |-------------------------------|-----------------------------------------|---------|------------------------------------|
@@ -500,7 +500,7 @@ profile will be renamed to if you remove the `name` override.
 | UHD Remux + WEB (GER)         | [German] UHD Remux + WEB                | Sonarr  | `08cececf1840290f6fd490b7d79e8642` |
 | Remux + WEB 2160p (GER)       | [German] Remux + WEB 2160p              | Radarr  | `79faa9943cef2f510b997b1f2a9f3ea6` |
 
-#### French MULTi.VO {#qp-french}
+#### French MULTi.VO {/*#qp-french*/}
 
 | Old Name              | Guide Name                                 | Service | `trash_id`                         |
 |-----------------------|--------------------------------------------|---------|------------------------------------|
@@ -511,7 +511,7 @@ profile will be renamed to if you remove the `name` override.
 | FR-MULTi-VO-UHD       | [French MULTi.VO] UHD Bluray + WEB         | Radarr  | `92ead7022d13a7858d54e328e6a2f8f9` |
 | FR-REMUX-MULTi-VO-UHD | [French MULTi.VO] UHD Remux (2160p)        | Radarr  | `1fef28c8c919f31cd86283b1baf527d4` |
 
-## Environment: `RECYCLARR_APP_DATA` Removed {#app-data-removed}
+## Environment: `RECYCLARR_APP_DATA` Removed {/*#app-data-removed*/}
 
 The `RECYCLARR_APP_DATA` environment variable has been removed. If it is set, Recyclarr exits with
 the following error:
@@ -525,7 +525,7 @@ To migrate, rename RECYCLARR_APP_DATA to RECYCLARR_CONFIG_DIR in your
 environment.
 ```
 
-### Migration {#app-data-migration}
+### Migration {/*#app-data-migration*/}
 
 Rename `RECYCLARR_APP_DATA` to `RECYCLARR_CONFIG_DIR` in your environment, shell profile, Docker
 Compose file, or systemd unit.
@@ -547,7 +547,7 @@ Optionally, set `RECYCLARR_DATA_DIR` to a separate path if you want to keep ephe
 
 See the [Environment Variables][env-vars] reference for full details.
 
-## CLI: `--app-data` Option Removed {#app-data-cli-removed}
+## CLI: `--app-data` Option Removed {/*#app-data-cli-removed*/}
 
 The `--app-data` CLI option has been removed. Use the [`RECYCLARR_CONFIG_DIR`][env-config]
 environment variable instead.

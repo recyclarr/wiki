@@ -7,12 +7,12 @@ import ReleaseDate from '@site/src/components/ReleaseDate';
 
 <ReleaseDate date="2023-09-29" />
 
-## Breaking Changes {#breaking-changes}
+## Breaking Changes {/*#breaking-changes*/}
 
 Features have been removed *or* behavior changed. Most of the items here would have been deprecated
 in the past. Deprecations are always mentioned in release notes for minor version bumps.
 
-### Reset Unmatched Scores {#reset-scores}
+### Reset Unmatched Scores {/*#reset-scores*/}
 
 `reset_unmatched_scores` previously was a simple on/off toggle with `true`/`false`, respectively.
 For example, to enable it, you'd use this YAML:
@@ -33,7 +33,7 @@ For more details on the *current syntax*, see the [relevant YAML reference secti
 
 [resetref]: ../../reference/configuration/quality-profiles.mdx#reset-unmatched-scores
 
-### Sonarr Minimum Version
+### Sonarr Minimum Version {/*#sonarr-minimum-version*/}
 
 The minimum required version of Sonarr is now `3.0.9.1549` (increased from the previous minimum
 version of `3.0.4.1098`). Users running older versions of Sonarr will be required to upgrade their

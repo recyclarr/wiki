@@ -25,16 +25,16 @@ resource_providers:
 Each resource provider entry configures a source for configuration data. Properties are divided into
 common properties (all providers) and location-specific properties (git or local).
 
-## All Providers {#all-providers}
+## All Providers {/*#all-providers*/}
 
-### `name` {#name}
+### `name` {/*#name*/}
 
 **Required.**
 
 Unique identifier for the provider. May only contain letters, numbers, hyphens, and underscores.
 Referenced in logs and error messages.
 
-### `type` {#type}
+### `type` {/*#type*/}
 
 **Required.**
 
@@ -46,7 +46,7 @@ Content type that determines what kind of data the provider supplies:
   `templates.json` at root.
 - `custom-formats`: Simple flat folder of custom format JSON files. No structure required.
 
-### `replace_default` {#replace-default}
+### `replace_default` {/*#replace-default*/}
 
 **Optional.** *Default: `false`*
 
@@ -60,16 +60,16 @@ if your repository contains all the content you need.
 
 :::
 
-## Git Repositories {#git-repositories}
+## Git Repositories {/*#git-repositories*/}
 
-### `clone_url` {#clone-url}
+### `clone_url` {/*#clone-url*/}
 
 **Conditionally Required.**
 
 URL compatible with `git clone`. Required when using a git repository as the provider source.
 Mutually exclusive with [`path`](#path).
 
-### `reference` {#reference}
+### `reference` {/*#reference*/}
 
 **Optional.** *Default: auto-detected*
 
@@ -84,9 +84,9 @@ Specify `reference` explicitly when:
 - Pinning to a specific commit or tag for stability
 - Your repository uses a non-standard branch name (not `master` or `main`)
 
-## Local Directories {#local-directories}
+## Local Directories {/*#local-directories*/}
 
-### `path` {#path}
+### `path` {/*#path*/}
 
 **Conditionally Required.**
 
@@ -103,9 +103,9 @@ resources alongside Recyclarr's other data.
 
 [appdata]: ../../../guide/file-structure.mdx#config-directory
 
-## custom-formats Type {#custom-formats-type}
+## custom-formats Type {/*#custom-formats-type*/}
 
-### `service` {#service}
+### `service` {/*#service*/}
 
 **Conditionally Required.**
 

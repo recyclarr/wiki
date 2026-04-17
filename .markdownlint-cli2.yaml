@@ -12,3 +12,9 @@ config:
   single-h1: false
   link-fragments: false
   no-bare-urls: false
+
+ignores:
+  # Entirely JSX table markup; markdownlint's line-length rule cannot
+  # meaningfully lint it and inline disable directives require HTML comments
+  # which are no longer permitted by MDX v3.
+  - docs/guide/features.mdx

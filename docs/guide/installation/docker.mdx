@@ -21,7 +21,7 @@ image. Adjust the image name as needed.
 [ghcr]: https://github.com/recyclarr/recyclarr/pkgs/container/recyclarr
 [dockerhub]: https://hub.docker.com/r/recyclarr/recyclarr
 
-## Docker Compose Example
+## Docker Compose Example {/*#docker-compose-example*/}
 
 The examples on this page use `docker compose` with a `docker-compose.yml` file, which is the
 recommended approach for managing container configuration in one place.
@@ -68,7 +68,7 @@ Here is a breakdown of the above YAML:
   files it creates in the `/config` volume are owned by this user and group. Defaults to `1000:1000`
   if not specified.
 
-## Tags
+## Tags {/*#tags*/}
 
 Docker tags represent components of the semantic version number following the format `X.Y.Z`, where:
 
@@ -97,7 +97,7 @@ of Recyclarr.
 
 :::
 
-### Edge (Dev) Builds {#edge-warning}
+### Edge (Dev) Builds {/*#edge-warning*/}
 
 :::danger
 
@@ -116,9 +116,9 @@ A *mutable* docker tag named `edge` is also available. It contains the absolute 
 on the `master` branch. This is the most volatile and risky tag. Only use it with full understanding
 of the consequences.
 
-## Configuration
+## Configuration {/*#configuration*/}
 
-### Volumes {#volumes}
+### Volumes {/*#volumes*/}
 
 - `/config`<br/>
   The default directory for all Recyclarr files: configuration, state, logs, and downloaded
@@ -154,7 +154,7 @@ directory.
 
 </details>
 
-### Environment {#docker-env}
+### Environment {/*#docker-env*/}
 
 :::info
 
@@ -184,7 +184,7 @@ Recyclarr's Docker container is **rootless**. Use the `user` property (in Docker
   Override the data directory path inside the container for ephemeral files (resources, logs). See
   [Environment Variables][env-data].
 
-## Modes
+## Modes {/*#modes*/}
 
 The Docker container can operate in one of two modes, documented below.
 
@@ -195,7 +195,7 @@ is either copied manually into the volume or created via `recyclarr config creat
 
 :::
 
-### Manual Mode {#manual-mode}
+### Manual Mode {/*#manual-mode*/}
 
 There are two ways to invoke Recyclarr in manual mode:
 
@@ -283,7 +283,7 @@ docker exec recyclarr recyclarr sync radarr --preview --log debug
 
 </details>
 
-### Cron Mode {#cron-mode}
+### Cron Mode {/*#cron-mode*/}
 
 In this mode, no immediate action is performed. The container remains alive and continuously runs
 sync at whatever `CRON_SCHEDULE` is set (default is daily).
@@ -296,13 +296,13 @@ docker compose up -d
 
 Running without any command or options causes the container to use this mode.
 
-## Troubleshooting
+## Troubleshooting {/*#troubleshooting*/}
 
 See the [Troubleshooting](../troubleshooting/errors-warnings.mdx#docker) page.
 
-## Advanced Configuration
+## Advanced Configuration {/*#advanced-configuration*/}
 
-### Read-Only Container
+### Read-Only Container {/*#read-only-container*/}
 
 For additional security, the [container filesystem can be made read-only][read_only]. This requires
 two changes in Docker Compose:
@@ -323,7 +323,7 @@ services:
     # ...
 ```
 
-### Prevent in-container privilege escalation
+### Prevent in-container privilege escalation {/*#prevent-in-container-privilege-escalation*/}
 
 For additional security, [run Recyclarr with `--security-opt=no-new-privileges`][security_opt] to
 prevent privilege escalation. This prevents the container from gaining new privileges via `setuid`

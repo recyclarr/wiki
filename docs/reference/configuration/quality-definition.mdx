@@ -28,7 +28,7 @@ Quality definitions control the minimum, maximum, and preferred file sizes for e
 (e.g., Bluray-1080p, WEBDL-720p). These size limits apply to the entire instance, shared by all
 quality profiles. If not specified, quality definitions are not modified in the service.
 
-## `type` {#qd-type}
+## `type` {/*#qd-type*/}
 
 **Required.**
 
@@ -36,7 +36,7 @@ A quality definition type found by using the [`list qualities` command][listqual
 specified here identifies the quality size settings that should be parsed and uploaded to your
 Sonarr or Radarr instance.
 
-## `preferred_ratio` {#qd-preferred-ratio}
+## `preferred_ratio` {/*#qd-preferred-ratio*/}
 
 **Optional.** *Default: use guide values*
 
@@ -45,7 +45,7 @@ you see when you enable advanced settings on the Quality Definitions page in Rad
 value of `0.0` means the preferred quality will match the minimum quality. Likewise, `1.0` will
 match the maximum quality. A value such as `0.5` will keep it halfway between the two.
 
-:::info Behavioral Notes
+:::info[Behavioral Notes]
 
 - Any value less than `0` or greater than `1` will result in a warning log printed and the value
   will be clamped.
@@ -54,7 +54,7 @@ match the maximum quality. A value such as `0.5` will keep it halfway between th
 
 :::
 
-## `qualities` {#qd-qualities}
+## `qualities` {/*#qd-qualities*/}
 
 **Optional.** *Default: use guide values for all qualities*
 
@@ -77,7 +77,7 @@ quality_definition:
       preferred: unlimited
 ```
 
-### `name` {#qd-qualities-name}
+### `name` {/*#qd-qualities-name*/}
 
 **Required.**
 
@@ -85,27 +85,27 @@ The quality name to override. Must match a quality that exists in the guide for 
 Names are case-insensitive. Use the [`list qualities` command][listqualities] to see available
 quality names.
 
-### `min` {#qd-qualities-min}
+### `min` {/*#qd-qualities-min*/}
 
 **Optional.** *Default: guide value*
 
 Minimum size in MB per minute of runtime. Must be a number `0` or greater.
 
-### `max` {#qd-qualities-max}
+### `max` {/*#qd-qualities-max*/}
 
 **Optional.** *Default: guide value*
 
 Maximum size in MB per minute of runtime. Accepts a number `0` or greater, or the keyword
 `unlimited` to allow any file size.
 
-### `preferred` {#qd-qualities-preferred}
+### `preferred` {/*#qd-qualities-preferred*/}
 
 **Optional.** *Default: guide value*
 
 Preferred size in MB per minute of runtime. Accepts a number `0` or greater, or the keyword
 `unlimited` to prefer the largest available file.
 
-:::warning Validation Rules
+:::warning[Validation Rules]
 
 - Size values must satisfy: `min` ≤ `preferred` ≤ `max`
 - If a quality name doesn't exist in the guide, Recyclarr terminates with an error

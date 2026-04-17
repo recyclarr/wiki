@@ -7,7 +7,7 @@ This page explains how to create a repository compatible with the `config-templa
 This allows you to create reusable configuration templates and include files that can be shared
 across multiple Recyclarr configurations.
 
-## When You Need This
+## When You Need This {/*#when-you-need-this*/}
 
 Use the `config-templates` type when you want to:
 
@@ -16,12 +16,12 @@ Use the `config-templates` type when you want to:
 - Build complete configuration templates for the `recyclarr config create` command
 - Share standardized configurations across teams or the community
 
-## Required Structure
+## Required Structure {/*#required-structure*/}
 
 A `config-templates` compatible repository needs either `includes.json`, `templates.json`, or both
 at the repository root.
 
-### Directory Layout Example
+### Directory Layout Example {/*#directory-layout-example*/}
 
 ```txt
 my-templates-repo/
@@ -42,12 +42,12 @@ my-templates-repo/
         └── tv-shows.yml
 ```
 
-## Include Files
+## Include Files {/*#include-files*/}
 
 Includes are partial YAML configurations that can be referenced from your main config using the
 `include` directive.
 
-### The includes.json File
+### The includes.json File {/*#the-includesjson-file*/}
 
 Maps include IDs to their YAML file paths:
 
@@ -71,7 +71,7 @@ Maps include IDs to their YAML file paths:
 ]
 ```
 
-### Include JSON Fields
+### Include JSON Fields {/*#include-json-fields*/}
 
 | Field      | Required | Description                                                       |
 |------------|----------|-------------------------------------------------------------------|
@@ -79,7 +79,7 @@ Maps include IDs to their YAML file paths:
 | `template` | Yes      | Path to the YAML file relative to repository root                 |
 | `hidden`   | No       | When `true`, hides from `recyclarr list` output. Default: `false` |
 
-### Example Include YAML
+### Example Include YAML {/*#example-include-yaml*/}
 
 An include file contains partial configuration that gets merged into the main config:
 
@@ -100,7 +100,7 @@ quality_profiles:
       - name: Bluray-720p
 ```
 
-### Using Includes in Config
+### Using Includes in Config {/*#using-includes-in-config*/}
 
 Reference includes by their ID:
 
@@ -114,12 +114,12 @@ radarr:
       - template: radarr-quality-hd
 ```
 
-## Template Files
+## Template Files {/*#template-files*/}
 
 Templates are complete configuration files used with the `recyclarr config create` command to
 scaffold new configurations.
 
-### The templates.json File
+### The templates.json File {/*#the-templatesjson-file*/}
 
 Maps template IDs to their YAML file paths:
 
@@ -138,7 +138,7 @@ Maps template IDs to their YAML file paths:
 ]
 ```
 
-### Template JSON Fields
+### Template JSON Fields {/*#template-json-fields*/}
 
 | Field      | Required | Description                                                       |
 |------------|----------|-------------------------------------------------------------------|
@@ -146,7 +146,7 @@ Maps template IDs to their YAML file paths:
 | `template` | Yes      | Path to the YAML file relative to repository root                 |
 | `hidden`   | No       | When `true`, hides from `recyclarr list` output. Default: `false` |
 
-### Example Template YAML
+### Example Template YAML {/*#example-template-yaml*/}
 
 A template file is a complete, working configuration:
 
@@ -185,7 +185,7 @@ radarr:
           - name: HD Movies
 ```
 
-### Using Templates
+### Using Templates {/*#using-templates*/}
 
 Create a new config from a template:
 
@@ -193,7 +193,7 @@ Create a new config from a template:
 recyclarr config create -t radarr-movies-hd
 ```
 
-## ID Naming Best Practices
+## ID Naming Best Practices {/*#id-naming-best-practices*/}
 
 Since IDs must be globally unique across all providers, use descriptive prefixes:
 
@@ -202,7 +202,7 @@ Since IDs must be globally unique across all providers, use descriptive prefixes
 
 If you're overriding official templates, use the exact same ID to replace them.
 
-## Using Your Repository
+## Using Your Repository {/*#using-your-repository*/}
 
 Add your config-templates repository to `settings.yml`:
 
@@ -231,7 +231,7 @@ resource_providers:
     path: /home/user/my-templates
 ```
 
-## Reference Implementation
+## Reference Implementation {/*#reference-implementation*/}
 
 The official Recyclarr config-templates repository serves as the reference implementation:
 
@@ -244,7 +244,7 @@ The official Recyclarr config-templates repository serves as the reference imple
 The official repository no longer provides include templates as of v8 (its `includes.json` is
 empty). The include examples on this page apply only to custom resource providers.
 
-## Overriding Official Templates
+## Overriding Official Templates {/*#overriding-official-templates*/}
 
 To override an official include or template:
 

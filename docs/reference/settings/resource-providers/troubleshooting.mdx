@@ -5,9 +5,9 @@ sidebar_label: Troubleshooting
 
 Common issues and solutions when working with resource providers.
 
-## Configuration Errors
+## Configuration Errors {/*#configuration-errors*/}
 
-### Repository names must be unique
+### Repository names must be unique {/*#repository-names-must-be-unique*/}
 
 Each provider needs a unique `name` across all your resource providers:
 
@@ -31,7 +31,7 @@ resource_providers:
     clone_url: https://github.com/user1/templates.git
 ```
 
-### Invalid characters in names
+### Invalid characters in names {/*#invalid-characters-in-names*/}
 
 Names may only contain letters, numbers, hyphens, and underscores:
 
@@ -45,7 +45,7 @@ Names may only contain letters, numbers, hyphens, and underscores:
 - name: my_custom_repo
 ```
 
-### Service required for custom-formats
+### Service required for custom-formats {/*#service-required-for-custom-formats*/}
 
 The `service` property is required when using `type: custom-formats` with a local path:
 
@@ -62,7 +62,7 @@ The `service` property is required when using `type: custom-formats` with a loca
   service: radarr
 ```
 
-### Only one replace_default per type
+### Only one replace_default per type {/*#only-one-replace_default-per-type*/}
 
 Only one provider per type can have `replace_default: true`:
 
@@ -79,9 +79,9 @@ resource_providers:
     replace_default: true  # Error: only one allowed
 ```
 
-## Git Repository Issues
+## Git Repository Issues {/*#git-repository-issues*/}
 
-### Branch not found
+### Branch not found {/*#branch-not-found*/}
 
 Recyclarr auto-detects the default branch by trying `master` then `main`. If your repository uses a
 different branch name (e.g., `develop`, `stable`), you must specify it explicitly:
@@ -99,7 +99,7 @@ different branch name (e.g., `develop`, `stable`), you must specify it explicitl
   reference: develop
 ```
 
-### Git repository access issues
+### Git repository access issues {/*#git-repository-access-issues*/}
 
 If you get clone or authentication errors:
 
@@ -114,7 +114,7 @@ If you get clone or authentication errors:
    git clone https://github.com/yourname/guides.git
    ```
 
-### Repository structure not recognized
+### Repository structure not recognized {/*#repository-structure-not-recognized*/}
 
 If Recyclarr doesn't find your resources:
 
@@ -125,9 +125,9 @@ If Recyclarr doesn't find your resources:
 3. **Verify file extensions**: Custom format files must be `.json`, include/template files must be
    `.yml` or `.yaml`
 
-## Precedence Issues
+## Precedence Issues {/*#precedence-issues*/}
 
-### Which resource gets used when IDs collide?
+### Which resource gets used when IDs collide? {/*#which-resource-gets-used-when-ids-collide*/}
 
 When multiple providers have the same ID, the **last provider in the list wins**. Official providers
 are implicitly added first, so your providers always have higher precedence.
@@ -143,7 +143,7 @@ provider.
 3. Your second listed provider
 4. ... and so on (last listed = highest precedence)
 
-### Custom format not overriding official
+### Custom format not overriding official {/*#custom-format-not-overriding-official*/}
 
 If your custom format isn't overriding the official one:
 
@@ -153,7 +153,7 @@ If your custom format isn't overriding the official one:
 3. **Verify provider type**: Make sure you're using `type: custom-formats` or `type: trash-guides`
    appropriately
 
-### Template not overriding official
+### Template not overriding official {/*#template-not-overriding-official*/}
 
 If your template isn't overriding the official one:
 
@@ -161,9 +161,9 @@ If your template isn't overriding the official one:
    match the official ID exactly
 2. **Check the JSON structure**: Ensure your JSON files are valid and properly formatted
 
-## Local Directory Issues
+## Local Directory Issues {/*#local-directory-issues*/}
 
-### Path not found
+### Path not found {/*#path-not-found*/}
 
 If Recyclarr can't find your local directory:
 
@@ -185,7 +185,7 @@ If Recyclarr can't find your local directory:
   service: radarr
 ```
 
-### Custom formats not loading from local directory
+### Custom formats not loading from local directory {/*#custom-formats-not-loading-from-local-directory*/}
 
 If custom formats in your local directory aren't being recognized:
 
@@ -195,9 +195,9 @@ If custom formats in your local directory aren't being recognized:
 4. **Verify service property**: The `service` property must match the custom formats (use `radarr`
    for Radarr custom formats, `sonarr` for Sonarr)
 
-## Debugging Tips
+## Debugging Tips {/*#debugging-tips*/}
 
-### Check Recyclarr logs
+### Check Recyclarr logs {/*#check-recyclarr-logs*/}
 
 Run Recyclarr with debug logging to see detailed information about resource provider processing:
 
@@ -211,7 +211,7 @@ Look for messages about:
 - Resource file discovery
 - ID collisions and precedence resolution
 
-### List available resources
+### List available resources {/*#list-available-resources*/}
 
 Use the list command to see what resources Recyclarr has loaded:
 
@@ -222,7 +222,7 @@ recyclarr list templates
 
 If your custom resources don't appear, there's likely a configuration or structure issue.
 
-### Verify JSON files manually
+### Verify JSON files manually {/*#verify-json-files-manually*/}
 
 For custom formats, validate your JSON files:
 
