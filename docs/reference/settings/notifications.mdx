@@ -79,7 +79,7 @@ You can control the frequency and content of notifications by adjusting the verb
 
 ```yml
 notifications:
-  verbosity: normal # Options: normal, detailed, minimal
+  verbosity: normal # Options: minimal, normal, detailed, verbose
 ```
 
 To help you choose the appropriate verbosity level, it's important to understand the types of
@@ -90,6 +90,8 @@ content that can be included in Recyclarr notifications:
   configurations.
 - **Information**: Statistics and details about sync actions, like the number of Custom Formats
   synced.
+- **Per-Item Details**: Names of the items (e.g. Custom Formats) that were created, updated, or
+  deleted during the sync, listed under the statistics line.
 - **Sync Status**: Overall success or failure of the sync operation, usually shown in the
   notification title.
 
@@ -104,6 +106,36 @@ Verbosity levels:
   messages (e.g., when nothing was synced) are not sent.
 - `detailed`: Includes everything from the `normal` level, plus notifications for empty messages
   (e.g., when no changes were synced).
+- `verbose`: Includes everything from the `detailed` level, plus per-item change details. Only the
+  Custom Formats pipeline populates these details today; Quality Profiles, Quality Sizes, and Media
+  Naming still show the statistics line only.
+
+### Per-Item Change Details {/*#verbose-details*/}
+
+Under `verbose`, the Custom Formats statistics line is followed by indented sub-bullets grouped by
+action. Empty action groups are omitted, and item names are sorted alphabetically so the output
+stays stable across runs.
+
+```txt
+### Instance: `radarr`
+
+Information:
+
+- Custom Formats Synced: 3
+  - Created: Obfuscated
+  - Updated: Bad Dual Groups
+  - Deleted: HDR10Plus Boost
+```
+
+Each action group is capped at 20 items. Past that, the list is truncated to the first 20 names and
+suffixed with `(and N more)`:
+
+```txt
+- Custom Formats Synced: 25
+  - Updated: CF01, CF02, CF03, CF04, CF05, CF06, CF07, CF08, CF09, CF10, CF11, CF12, CF13, CF14, CF15, CF16, CF17, CF18, CF19, CF20 (and 5 more)
+```
+
+The cap is not user-configurable.
 
 ## Notification Behavior {/*#notification-behavior*/}
 
@@ -120,9 +152,9 @@ real-time updates on the process and detailed information about the results.
 
 ### Key Points {/*#key-points*/}
 
-Currently, Recyclarr's notification system is focused on [sync operations](../../cli/sync.mdx). Notifications
-are designed to be comprehensive, providing a complete overview of the operation without
-overwhelming you with too many messages:
+Currently, Recyclarr's notification system is focused on [sync operations](../../cli/sync.mdx).
+Notifications are designed to be comprehensive, providing a complete overview of the operation
+without overwhelming you with too many messages:
 
 - **Single Notification per Sync**: Recyclarr sends one consolidated notification for each `sync`
   command execution, regardless of the number of service instances configured in your YAML file.
