@@ -32,6 +32,12 @@ YAML examples must use real trash_ids - never placeholders.
 
 Run `pre-commit run --files <files>` on modified files after making changes.
 
+## Prose Edits
+
+MUST load the `humanizer` skill before writing or editing prose in any `docs/**` file (guide,
+reference, or CLI). This applies to new pages and revisions alike, including single-paragraph edits.
+Skipping it produces AI-voiced docs that get reverted.
+
 ## Deployment
 
 Hosted on Cloudflare Pages. Docusaurus is configured with `trailingSlash: true` (in
