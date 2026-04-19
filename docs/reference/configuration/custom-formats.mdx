@@ -134,14 +134,45 @@ trash_ids:
 
 :::
 
+### `score` {/*#cf-score*/}
+
+**Optional.** *Default: No entry-level default is applied*
+
+A default score used by every profile under [`assign_scores_to`](#assign-scores-to) that does not
+define its own `score`. Useful when you want to apply the same score across many profiles without
+repeating it on each one.
+
+Score resolution for a profile proceeds in this order, stopping at the first match:
+
+1. The per-profile [`score`](#qp-score) under `assign_scores_to`
+2. This entry-level `score`
+3. The score from the profile's [`score_set`][score-set], if configured
+4. The score from the guide
+
+[score-set]: ./quality-profiles.mdx#score-set
+
+Example using an entry-level default with a single override:
+
+```yml
+custom_formats:
+  - trash_ids:
+      - dc98083864ea246d05a42df0d05f81cc # x265 (HD)
+    score: 0
+    assign_scores_to:
+      - name: MULTi-VF-HD
+      - name: MULTi-VO-HD
+      - name: REMUX-MULTi-VF-HD
+        score: 100 # overrides the entry-level 0
+```
+
 ### `assign_scores_to` {/*#assign-scores-to*/}
 
 **Optional.** *Default: No quality profiles are changed*
 
 One or more quality profiles to update with the scores from the custom formats listed above. Scores
-are taken from the guide by default, with an option to override the score for all of them. Profiles
-can be referenced by `name` or `trash_id`. Each entry must use exactly one of these properties.
-Specifying both produces a validation error.
+are taken from the guide by default, with options to override at the entry or per-profile level.
+Profiles can be referenced by `name` or `trash_id`. Each entry must use exactly one of these
+properties. Specifying both produces a validation error.
 
 #### `name` {/*#qp-name*/}
 
@@ -171,11 +202,13 @@ it (profile variants), Recyclarr reports an error and instructs you to use `name
 
 #### `score` {/*#qp-score*/}
 
-**Optional.** *Default: Use scores from the guide*
+**Optional.** *Default: Use the entry-level [`score`](#cf-score), or scores from the guide*
 
 A positive or negative number representing the score to apply to *all* custom formats listed in the
 `trash_ids` list. A score of `0` is also acceptable, which effectively disables the custom formats
 without having to delete them.
+
+When set, this value overrides the entry-level [`score`](#cf-score) for this profile.
 
 [guidecfs]: https://trash-guides.info/Radarr/Radarr-collection-of-custom-formats/
 [listcfs]: ../../cli/list/list-custom-formats.mdx
