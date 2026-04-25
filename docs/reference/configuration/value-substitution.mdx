@@ -7,12 +7,13 @@ Recyclarr supports substituting dynamic values into your configuration YAML file
 sensitive data like API keys out of your config files and enables configuration sharing without
 manual redaction.
 
-Two substitution methods are available:
+Three substitution methods are available:
 
 - **Secrets**: Values stored in a `secrets.yml` file
 - **Environment Variables**: Values from your shell environment
+- **Files**: Values read directly from an external file
 
-Both use YAML tags to substitute values at runtime.
+All use YAML tags to substitute values at runtime.
 
 ## Secrets {/*#secrets*/}
 
@@ -139,6 +140,33 @@ Quotes around defaults are stripped (but not required for spaces):
 # Results in: my default value
 ```
 
+## Files {/*#files*/}
+
+Files allows you to substitute the text contents of an external file.
+
+:::note[Version Requirement]
+
+File substitution was introduced in `v7.5.0`.
+
+:::
+
+### Usage {/*#files-usage*/}
+Reference files in your configuration using `!file /path/to/filename`:
+
+```yml
+radarr:
+  movies:
+    base_url: !file /run/secrets/radarr_url
+    api_key: !file /run/secrets/radarr_api_key
+```
+
+:::warning
+
+Recyclarr fails to load configuration if the specified file does not exist,
+or if Recyclarr lacks the permissions to read the file
+
+:::
+
 ## Choosing a Method {/*#comparison*/}
 
 Use **secrets** when:
@@ -152,3 +180,9 @@ Use **environment variables** when:
 - Running in containers or Kubernetes where env vars are standard
 - You need default fallback values
 - You want to avoid managing an extra file
+
+Use **files** when:
+
+- You are utilizing Docker or Kubernetes Secrets mounted as files
+- You want to centralize and share values across multiple different applications
+from a single source file
