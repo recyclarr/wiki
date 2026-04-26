@@ -142,7 +142,11 @@ Quotes around defaults are stripped (but not required for spaces):
 
 ## Files {/*#files*/}
 
-Files allows you to substitute the text contents of an external file.
+Read the entire contents of a file and use it as a YAML value. This is useful when secrets are
+managed as individual files, such as [Docker secrets][docker-secrets] or Kubernetes secrets mounted
+at `/run/secrets/`.
+
+[docker-secrets]: https://docs.docker.com/compose/how-tos/use-secrets/
 
 :::note[Version Requirement]
 
@@ -150,8 +154,16 @@ File substitution was introduced in `v7.5.0`.
 
 :::
 
+### Syntax {/*#files-syntax*/}
+
+```yml
+!file /path/to/file
+```
+
+The path can be absolute or relative. Relative paths resolve from the [application data
+directory][appdata].
+
 ### Usage {/*#files-usage*/}
-Reference files in your configuration using `!file /path/to/filename`:
 
 ```yml
 radarr:
@@ -162,8 +174,7 @@ radarr:
 
 :::warning
 
-Recyclarr fails to load configuration if the specified file does not exist,
-or if Recyclarr lacks the permissions to read the file.
+Recyclarr fails to load configuration if the file does not exist or cannot be read.
 
 :::
 
@@ -183,6 +194,5 @@ Use **environment variables** when:
 
 Use **files** when:
 
-- You are utilizing Docker or Kubernetes Secrets mounted as files
-- You want to centralize and share values across multiple different applications
-from a single source file
+- Secrets are mounted as individual files (Docker secrets, Kubernetes secrets)
+- You want to share a single secret file across multiple applications
