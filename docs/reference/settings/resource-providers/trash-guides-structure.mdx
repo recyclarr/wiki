@@ -5,13 +5,13 @@ sidebar_label: Trash Guides Structure
 
 This page explains how to create a repository compatible with the `trash-guides` provider type. This
 is an advanced topic for users who want to create their own complete guide structure with custom
-formats, quality sizes, and media naming schemes.
+formats, quality sizes, quality profiles, and media naming schemes.
 
 :::tip
 
 If you just want to add a few custom formats, use the simpler `custom-formats` type instead. It
-requires no special structure - just a folder of JSON files. See the
-[main resource providers page](./index.mdx#quick-start-adding-local-custom-formats) for details.
+requires no special structure, just a folder of JSON files. See the [main resource providers
+page][rp-quick-start] for details.
 
 :::
 
@@ -19,40 +19,48 @@ requires no special structure - just a folder of JSON files. See the
 
 Use the `trash-guides` type when you need:
 
-- Custom formats with category organization
+- Custom formats organized into groups
 - Quality size definitions
+- Quality profiles with pre-configured format scores
 - Media naming schemes
 - A complete alternative to or supplement for the official TRaSH Guides
 
 ## Required Structure {/*#required-structure*/}
 
-A `trash-guides` compatible repository must have a `metadata.json` file at the root that defines
-where resources are located within the repository.
+A `trash-guides` compatible repository must have a `metadata.json` file at the root that tells
+Recyclarr where to find each type of resource.
 
 ### Directory Layout Example {/*#directory-layout-example*/}
 
 ```txt
 my-guides-repo/
-├── metadata.json              # Required: defines resource locations
+├── metadata.json                    # Required: defines resource locations
 ├── docs/
-│   └── json/
-│       └── radarr/
-│           ├── cf/            # Custom formats
-│           │   ├── my-format-1.json
-│           │   └── my-format-2.json
-│           ├── quality-size/  # Quality sizes
-│           │   └── my-quality.json
-│           └── naming/        # Media naming
-│               └── my-naming.json
-└── categories/                # Optional: category definitions
-    └── radarr/
-        └── cf-categories.json
+│   ├── json/
+│   │   └── radarr/
+│   │       ├── cf/                  # Custom formats
+│   │       │   ├── my-format-1.json
+│   │       │   └── my-format-2.json
+│   │       ├── cf-groups/           # Custom format groups
+│   │       │   └── my-group.json
+│   │       ├── quality-size/        # Quality sizes
+│   │       │   └── movie.json
+│   │       ├── quality-profiles/    # Quality profiles
+│   │       │   └── my-profile.json
+│   │       ├── quality-profile-groups/
+│   │       │   └── my-qp-group.json
+│   │       └── naming/              # Media naming
+│   │           └── radarr-naming.json
+│   └── Radarr/
+│       └── Radarr-collection-of-custom-formats.md  # Optional: categories
+└── ...
 ```
 
-### The metadata.json File {/*#the-metadatajson-file*/}
+### The metadata.json File {/*#metadata-json*/}
 
-The `metadata.json` file tells Recyclarr where to find each type of resource. Here's a minimal
-example:
+The `metadata.json` file tells Recyclarr where to find each type of resource. All paths are relative
+to the repository root. You can specify multiple paths per resource type if your files are organized
+across different directories.
 
 ```json
 {
@@ -60,31 +68,39 @@ example:
     "radarr": {
       "custom_formats": ["docs/json/radarr/cf"],
       "qualities": ["docs/json/radarr/quality-size"],
-      "naming": ["docs/json/radarr/naming"]
+      "naming": ["docs/json/radarr/naming"],
+      "quality_profiles": ["docs/json/radarr/quality-profiles"],
+      "custom_format_groups": ["docs/json/radarr/cf-groups"],
+      "quality_profile_groups": ["docs/json/radarr/quality-profile-groups"]
     },
     "sonarr": {
       "custom_formats": ["docs/json/sonarr/cf"],
       "qualities": ["docs/json/sonarr/quality-size"],
-      "naming": ["docs/json/sonarr/naming"]
+      "naming": ["docs/json/sonarr/naming"],
+      "quality_profiles": ["docs/json/sonarr/quality-profiles"],
+      "custom_format_groups": ["docs/json/sonarr/cf-groups"],
+      "quality_profile_groups": ["docs/json/sonarr/quality-profile-groups"]
     }
   }
 }
 ```
 
-Each path is relative to the repository root. You can specify multiple paths per resource type if
-your files are organized across different directories.
+You only need to include the resource types you actually provide. If your repo only has custom
+formats and quality sizes, omit the other keys.
 
-## Custom Format JSON Structure {/*#custom-format-json-structure*/}
+## JSON File Structures {/*#json-file-structures*/}
 
-Each custom format JSON file must include a `trash_id` field that uniquely identifies it:
+### Custom Formats {/*#custom-formats*/}
+
+Each custom format JSON file follows the Sonarr/Radarr custom format API structure with additional
+`trash_` fields that Recyclarr uses:
 
 ```json
 {
-  "trash_id": "your-unique-id-here",
+  "trash_id": "b3b3a6ac74ecbd56bcdbefa4799fb9df",
   "trash_scores": {
     "default": 100
   },
-  "trash_description": "Description of what this custom format detects",
   "name": "My Custom Format",
   "includeCustomFormatWhenRenaming": false,
   "specifications": [
@@ -101,58 +117,143 @@ Each custom format JSON file must include a `trash_id` field that uniquely ident
 }
 ```
 
-### Key Fields {/*#key-fields*/}
+| Field            | Required | Description                                        |
+|------------------|----------|----------------------------------------------------|
+| `trash_id`       | Yes      | Unique identifier. Use a UUID or descriptive slug. |
+| `name`           | Yes      | Display name shown in Radarr/Sonarr.               |
+| `specifications` | Yes      | Array of conditions that define the format.        |
+| `trash_scores`   | No       | Default scores keyed by profile name.              |
 
-| Field               | Required | Description                                        |
-|---------------------|----------|----------------------------------------------------|
-| `trash_id`          | Yes      | Unique identifier. Use a UUID or descriptive slug. |
-| `name`              | Yes      | Display name shown in Radarr/Sonarr                |
-| `specifications`    | Yes      | Array of conditions that define the format         |
-| `trash_scores`      | No       | Default scores for quality profiles                |
-| `trash_description` | No       | Description for documentation purposes             |
+#### Generating Trash IDs {/*#generating-trash-ids*/}
 
-### Generating Trash IDs {/*#generating-trash-ids*/}
-
-Trash IDs should be unique. You can generate UUIDs using:
+Trash IDs must be unique across all your custom formats. You can generate UUIDs:
 
 ```bash
-# Linux/macOS
 uuidgen | tr '[:upper:]' '[:lower:]'
-
-# Or use an online UUID generator
 ```
 
-Alternatively, use descriptive slugs like `my-language-german` if you prefer readable IDs.
+### Custom Format Groups {/*#custom-format-groups*/}
 
-## Quality Size JSON Structure {/*#quality-size-json-structure*/}
+CF groups bundle related custom formats together so users can reference them as a single unit. Each
+group file lists the custom formats it contains by `trash_id`:
+
+```json
+{
+  "trash_id": "d9cc9a504e5ede6294c8b973aad4f028",
+  "name": "[Streaming Services] General",
+  "default": "true",
+  "custom_formats": [
+    {
+      "trash_id": "b3b3a6ac74ecbd56bcdbefa4799fb9df",
+      "name": "AMZN",
+      "required": true
+    },
+    {
+      "trash_id": "170b1d363bd8516fbf3a3eb05d4faff6",
+      "name": "NF",
+      "required": true
+    }
+  ],
+  "quality_profiles": {
+    "include": {
+      "HD Bluray + WEB": "d1d67249d3890e49bc12e275d989a7e9",
+      "Remux + WEB 1080p": "9ca12ea80aa55ef916e3751f4b874151"
+    }
+  }
+}
+```
+
+| Field              | Required | Description                                            |
+|--------------------|----------|--------------------------------------------------------|
+| `trash_id`         | Yes      | Unique identifier for the group.                       |
+| `name`             | Yes      | Display name for the group.                            |
+| `custom_formats`   | Yes      | Array of CFs in the group, each with a `trash_id`.     |
+| `default`          | No       | Whether the group is included by default.              |
+| `quality_profiles` | No       | Maps quality profile names to their `trash_id` values. |
+
+### Quality Sizes {/*#quality-sizes*/}
 
 Quality size files define file size ranges for different quality levels:
 
 ```json
 {
-  "trash_id": "your-quality-size-id",
+  "trash_id": "aed34b9f60ee115dfa7918b742336277",
   "type": "movie",
   "qualities": [
     {
       "quality": "Bluray-1080p",
-      "min": 3.0,
-      "preferred": 12.0,
-      "max": 25.0
+      "min": 50.8,
+      "preferred": 1999,
+      "max": 2000
     },
     {
       "quality": "WEBDL-1080p",
-      "min": 2.0,
-      "preferred": 10.0,
-      "max": 20.0
+      "min": 12.5,
+      "preferred": 1999,
+      "max": 2000
     }
   ]
 }
 ```
 
-## Media Naming JSON Structure {/*#media-naming-json-structure*/}
+### Quality Profiles {/*#quality-profiles*/}
+
+Quality profile files define complete quality profile configurations including quality ordering,
+cutoff, and format scores:
+
+```json
+{
+  "trash_id": "d1d67249d3890e49bc12e275d989a7e9",
+  "name": "HD Bluray + WEB",
+  "upgradeAllowed": true,
+  "cutoff": "Bluray-1080p",
+  "minFormatScore": 0,
+  "cutoffFormatScore": 10000,
+  "minUpgradeFormatScore": 1,
+  "language": "Original",
+  "items": [
+    { "name": "Bluray-1080p", "allowed": true },
+    {
+      "name": "WEB 1080p",
+      "allowed": true,
+      "items": ["WEBRip-1080p", "WEBDL-1080p"]
+    },
+    { "name": "Bluray-720p", "allowed": true }
+  ],
+  "formatItems": {
+    "HD Bluray Tier 01": "ed27ebfef2f323e964fb1f61391bcb35",
+    "WEB Tier 01": "c20f169ef63c5f40c2def54abaf4438e"
+  }
+}
+```
+
+The `formatItems` map references custom format names to their `trash_id` values. The `items` array
+defines the quality ordering, where nested `items` represent quality groups.
+
+### Quality Profile Groups {/*#quality-profile-groups*/}
+
+Quality profile groups organize related quality profiles together. The file contains a JSON array
+of group objects:
+
+```json
+[
+  {
+    "name": "Standard",
+    "profiles": {
+      "hd-bluray-web": "d1d67249d3890e49bc12e275d989a7e9",
+      "remux-web-1080p": "9ca12ea80aa55ef916e3751f4b874151"
+    }
+  }
+]
+```
+
+The keys in `profiles` are slugs that identify each quality profile, and the values are the
+corresponding `trash_id` values.
+
+### Media Naming {/*#media-naming*/}
 
 Media naming files define file and folder naming patterns. Each pattern type (`folder` and `file`)
-contains named variants for different media servers and use cases:
+contains named variants for different media servers:
 
 ```json
 {
@@ -163,55 +264,36 @@ contains named variants for different media servers and use cases:
   },
   "file": {
     "standard": "{Movie CleanTitle} {(Release Year)} - {{Edition Tags}} {[Custom Formats]}{[Quality Full]}{-Release Group}",
-    "plex-imdb": "{Movie CleanTitle} {(Release Year)} {imdb-{ImdbId}} - {edition-{Edition Tags}} {[Custom Formats]}{[Quality Full]}{-Release Group}",
-    "jellyfin-tmdb": "{Movie CleanTitle} {(Release Year)} [tmdbid-{TmdbId}] - {{Edition Tags}} {[Custom Formats]}{[Quality Full]}{-Release Group}"
+    "plex-imdb": "{Movie CleanTitle} {(Release Year)} {imdb-{ImdbId}} - {edition-{Edition Tags}} {[Custom Formats]}{[Quality Full]}{-Release Group}"
   }
 }
 ```
 
 The variant names (like `default`, `standard`, `plex-imdb`) are what you reference in your Recyclarr
-configuration. The exact naming tokens depend on whether it's for Radarr or Sonarr, as they have
-different token systems.
+configuration. The naming tokens differ between Radarr and Sonarr.
 
-## Category Organization (Optional) {/*#category-organization-optional*/}
+## Category Organization {/*#categories*/}
 
-Categories help organize custom formats in the Recyclarr documentation and `list` commands. Create a
-categories JSON file:
+Categories organize custom formats for the `recyclarr list` command output. Unlike other resource
+types, categories are not configured through `metadata.json`. Recyclarr looks for markdown files at
+hardcoded paths:
 
-```json
-[
-  {
-    "name": "Language",
-    "trash_ids": [
-      "your-german-cf-id",
-      "your-french-cf-id"
-    ]
-  },
-  {
-    "name": "Release Groups",
-    "trash_ids": [
-      "your-release-group-cf-id"
-    ]
-  }
-]
+- `docs/Radarr/Radarr-collection-of-custom-formats.md`
+- `docs/Sonarr/sonarr-collection-of-custom-formats.md`
+
+These files must contain markdown tables where each column header is a category name and each cell
+is a markdown link in the format `[CF Name](#anchor)`. The anchor must match the JSON filename
+(without the `.json` extension). For example:
+
+```txt
+| Streaming Services | Audio                         |
+|--------------------|-------------------------------|
+| [AMZN](#amzn)      | [TrueHD ATMOS](#truehd-atmos) |
+| [NF](#nf)          | [DTS-HD MA](#dts-hd-ma)       |
 ```
 
-Reference the categories file in `metadata.json`:
-
-```json
-{
-  "json_paths": {
-    "radarr": {
-      "custom_formats": ["docs/json/radarr/cf"]
-    }
-  },
-  "category_paths": {
-    "radarr": {
-      "custom_formats": "categories/radarr/cf-categories.json"
-    }
-  }
-}
-```
+Categories are optional. If these files don't exist, `recyclarr list` still works but won't group
+custom formats into categories.
 
 ## Using Your Repository {/*#using-your-repository*/}
 
@@ -244,11 +326,8 @@ resource_providers:
 
 ## Reference Implementation {/*#reference-implementation*/}
 
-The official TRaSH Guides repository serves as the reference implementation:
-
-- Repository: https://github.com/TRaSH-Guides/Guides
-- View the `metadata.json` structure and directory organization
-- Examine existing custom format JSON files for formatting examples
+The [official TRaSH Guides repository][trash-repo] is the reference implementation. Examine its
+`metadata.json` and directory organization for a working example.
 
 :::warning
 
@@ -257,3 +336,6 @@ simple use cases, the `custom-formats` type with a flat folder of JSON files is 
 maintain.
 
 :::
+
+[rp-quick-start]: ./index.mdx#quick-start-adding-local-custom-formats
+[trash-repo]: https://github.com/TRaSH-Guides/Guides
