@@ -13,6 +13,7 @@ resource_providers:
     clone_url: https://github.com/yourname/custom-guides.git
     reference: main
     replace_default: false
+    cache_limit: 100MB
 
   # Local directory provider (custom-formats)
   - name: my-language-cfs
@@ -68,6 +69,18 @@ if your repository contains all the content you need.
 
 URL compatible with `git clone`. Required when using a git repository as the provider source.
 Mutually exclusive with [`path`](#path).
+
+### `cache_limit` {/*#cache-limit*/}
+
+**Optional.** *Default: `100MB`*
+
+Maximum size of the `.git` directory before Recyclarr runs automatic maintenance after a fetch. When
+the directory exceeds this limit, Recyclarr trims shallow history, expires reflogs, and runs garbage
+collection to reclaim space. Accepts a number followed by a unit: `KB`, `MB`, or `GB`.
+
+Set to `0MB` to disable automatic cleanup entirely.
+
+This is best-effort: if maintenance fails, the sync continues normally and a warning is logged.
 
 ### `reference` {/*#reference*/}
 
