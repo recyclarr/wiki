@@ -265,6 +265,18 @@ includes, including all [profile variants][variants] sharing the same `trash_id`
 specifies compatible profiles; for example, HDR groups include only UHD profiles. To assign group
 scores to user-defined profiles, specify them explicitly with `name`.
 
+:::warning
+
+Without `assign_scores_to`, a group only assigns scores to profiles in its `include` list — not
+every profile in your configuration. If your profile isn't included by the group, it is silently
+skipped.
+
+If CFs from a group aren't appearing in your profile, check which profiles the group includes (use
+[`list custom-format-groups`][listcfgroups] to inspect this). When your profile isn't included, add
+an explicit `assign_scores_to` entry to target it.
+
+:::
+
 ##### `trash_id` {/*#cfg-ast-trash-id*/}
 
 **Conditionally Required.** Required if `name` is not specified.
