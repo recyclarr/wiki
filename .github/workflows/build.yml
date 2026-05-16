@@ -31,7 +31,7 @@ permissions:
 
 jobs:
   pre-check:
-    uses: recyclarr/recyclarr/.github/workflows/reusable-precheck.yml@bd0c02dfead69a86fc2d9224daf4d5c04f361f9d # master
+    uses: recyclarr/recyclarr/.github/workflows/reusable-precheck.yml@afdbdb42b9843fcdd0669680f4f4e5f814ab5c8b # master
 
   build:
     name: Build
