@@ -7,6 +7,9 @@ on:
       - master
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   rebase-next:
     name: Rebase next onto master
@@ -18,8 +21,10 @@ jobs:
         with:
           app-id: ${{ secrets.RECYCLARR_APP_ID }}
           private-key: ${{ secrets.RECYCLARR_PRIVATE_KEY }}
+          permission-contents: write
 
       - name: Checkout
+        # zizmor: ignore[artipacked] — needs credentials to push
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           fetch-depth: 0

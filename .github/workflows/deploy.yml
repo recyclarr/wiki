@@ -3,7 +3,7 @@ name: Deploy Site
 
 run-name: "Deploy Site (${{ github.event.workflow_run.head_branch }})"
 
-on:
+on: # zizmor: ignore[dangerous-triggers] — only downloads artifacts, never checks out code
   workflow_run:
     workflows: [Build Site]
     types: [completed]
