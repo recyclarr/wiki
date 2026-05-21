@@ -1,6 +1,3 @@
 [tools]
 node = "24"
 yarn = "4"
-
-[env]
-OPENCODE_CONFIG_DIR = "{{config_root}}/../.opencode"
