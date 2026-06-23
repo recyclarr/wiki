@@ -41,7 +41,7 @@
     "@docusaurus/module-type-aliases": "^3.10.0",
     "@playwright/test": "^1.58.2",
     "baseline-browser-mapping": "^2.10.0",
-    "concurrently": "^9.2.1",
+    "concurrently": "^10.0.0",
     "cross-env": "^10.1.0",
     "markdown-table-formatter": "^1.7.0",
     "prettier": "^3.8.1"
