@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Cleanup old deployments
-        uses: Th3S4mur41/cleanup-cloudflare-deployments@0106ac88d85e498316a90b76632467091749c785 # main
+        uses: Th3S4mur41/cleanup-cloudflare-deployments@3beb61e303cca234eda838d897f5a650b02e8451 # main
         with:
           cloudflare-api-token: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           cloudflare-account-id: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
