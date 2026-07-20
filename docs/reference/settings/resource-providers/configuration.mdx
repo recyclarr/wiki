@@ -74,13 +74,14 @@ Mutually exclusive with [`path`](#path).
 
 **Optional.** *Default: `100MB`*
 
-Maximum size of the `.git` directory before Recyclarr runs automatic maintenance after a fetch. When
-the directory exceeds this limit, Recyclarr trims shallow history, expires reflogs, and runs garbage
-collection to reclaim space. Accepts a number followed by a unit: `KB`, `MB`, or `GB`.
+Maximum size of the `.git` directory before Recyclarr rebuilds the cache. When the directory exceeds
+this limit, Recyclarr deletes it and performs a fresh shallow clone. Accepts a number followed by a
+unit: `KB`, `MB`, or `GB`.
 
 Set to `0MB` to disable automatic cleanup entirely.
 
-This is best-effort: if maintenance fails, the sync continues normally and a warning is logged.
+If the fresh clone still exceeds the limit, Recyclarr logs a warning suggesting you raise the
+value. Rebuild failures are best-effort and don't interrupt the sync.
 
 ### `reference` {/*#reference*/}
 
