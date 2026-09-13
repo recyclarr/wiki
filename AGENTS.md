@@ -14,6 +14,18 @@ describes unreleased features or breaking changes.
 On each Recyclarr minor or major release, `next` is fast-forward merged into `master` so that new
 feature docs publish alongside the release.
 
+### Conventional Commits
+
+Classify the repository outcome, not the Recyclarr behavior being documented:
+
+- Use `docs` for content changes, including documentation for new Recyclarr features.
+- Use `feat` or `fix` for Docusaurus site behavior such as navigation, components, and redirects.
+- Use `build` for dependencies and build configuration, `ci` for workflows, and `chore` for
+  maintenance tooling.
+
+Use a subject-area scope when useful, such as `docs(settings)` or `docs(custom-formats)`. Use `deps`
+for dependency updates and omit the scope for repository-wide changes.
+
 ## Authoritative Reference
 
 Use research agents to access upstream repositories for factually correct information:
