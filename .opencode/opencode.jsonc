@@ -1,17 +1,16 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "instructions": ["../AGENTS.md"],
   "formatter": {
     "prettier": {
       "command": ["npx", "prettier", "--write", "$FILE"],
       "extensions": [".js", ".jsx", ".ts", ".tsx", ".css", ".scss", ".json", ".yaml", ".yml"],
     },
   },
-  "permission": {
+  "permissions": [
     // Fine tune linear tools in context
-    "linear_*": "deny",
-    "linear_*_comment*": "allow",
-    "linear_*_issue*": "allow",
-    "linear_*_project*": "allow",
-  },
+    { "action": "linear_*", "resource": "*", "effect": "deny" },
+    { "action": "linear_*_comment*", "resource": "*", "effect": "allow" },
+    { "action": "linear_*_issue*", "resource": "*", "effect": "allow" },
+    { "action": "linear_*_project*", "resource": "*", "effect": "allow" },
+  ],
 }
