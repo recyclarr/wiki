@@ -89,6 +89,10 @@ updates (highest risk), use the top row.
 The **recommended tag** is the major version number (e.g. `8`), which gives you all feature and
 bugfix releases automatically while requiring a manual update only for breaking changes.
 
+There is no `latest` tag. It would move to each new major release automatically and apply breaking
+changes without warning, which causes problems that reading the [upgrade guide][upgrade-guide] and
+release notes first would have prevented. A major version tag lets you decide when to upgrade.
+
 :::info
 
 All docker tags described here are *mutable* with the exception of the three-component version
@@ -342,5 +346,6 @@ services:
 [read_only]: https://docs.docker.com/reference/cli/docker/container/run/#read-only
 [security_opt]: https://docs.docker.com/reference/cli/docker/container/run/#security-opt
 [file-structure]: ../file-structure.mdx
+[upgrade-guide]: ../upgrade-guide/index.mdx
 [env-config]: ../../reference/env-vars.mdx#config-dir
 [env-data]: ../../reference/env-vars.mdx#data-dir
