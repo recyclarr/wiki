@@ -44,6 +44,13 @@ YAML examples must use real trash_ids - never placeholders.
 
 Run `pre-commit run --files <files>` on modified files after making changes.
 
+## Dependencies
+
+Declare a package in `package.json` only when repo code or config imports or runs it, or an
+installed package requires it as a peer dependency. Direct entries for transitive packages clutter
+the manifest and produce Renovate PRs that change nothing: Yarn installs a separate copy, and the
+parent package keeps the version it requires.
+
 ## Prose Edits
 
 MUST load the `humanizer` skill before writing or editing prose in any `docs/**` file (guide,
