@@ -1,0 +1,73 @@
+---
+title: Client and Server
+sidebar_position: 4
+description: How the recyclarr CLI, the Recyclarr server, and sync jobs work together
+---
+
+Recyclarr has two programs:
+
+- **The server** (`recyclarr-server`) does the work. It reads your configuration, talks to Sonarr
+  and Radarr, runs syncs, and sends [notifications][notifications].
+- **The CLI** (`recyclarr`) is a client. Each [command][cli] sends a request to a server and shows
+  the result. Other programs can send the same requests through the [HTTP API][api].
+
+The server reads your YAML configuration and `settings.yml` once, when it starts. If either is not
+valid, the server does not start. Restart the server after you change them.
+
+## Persistent Server {/*#persistent*/}
+
+A persistent server keeps running until you stop it. The [Docker image][docker] runs one, and
+[`recyclarr serve`][serve] starts one on your own machine.
+
+A persistent server:
+
+- Syncs on its [built-in schedule][schedule].
+- Listens for requests at the address in its [`server` settings][server-settings].
+- Writes log files to `logs/server/` in the [data directory][data-dir].
+- Keeps its sync jobs in `state/server.db` in the [configuration directory][config-dir].
+
+For CLI commands to use a persistent server, set [`server.base_url`][base-url] in `cli.yml` or set
+the [`RECYCLARR_SERVER_URL`][env-server-url] environment variable. The Docker image sets the
+variable for you.
+
+## Temporary Server {/*#temporary*/}
+
+If no server address is set, each CLI command starts its own temporary server. The temporary server
+listens only on the local machine, handles that one command, and stops when the command ends. It
+does not run the built-in schedule, and it does not keep its jobs after it stops. It still writes
+log files to `logs/server/` and sends notifications.
+
+This is the default when you run `recyclarr` outside Docker without any extra setup.
+
+## Sync Jobs {/*#jobs*/}
+
+Every sync runs as a job, whether the schedule, the CLI, or the API started it. The server runs one
+job at a time, oldest first. Other jobs wait in a queue.
+
+Each job has one of these statuses:
+
+| Status        | Meaning                                                                 |
+|---------------|-------------------------------------------------------------------------|
+| `pending`     | Waiting in the queue                                                    |
+| `running`     | Syncing now                                                             |
+| `succeeded`   | The sync finished without errors                                        |
+| `partial`     | The sync finished, but some changes failed                              |
+| `failed`      | The sync failed                                                         |
+| `interrupted` | The server stopped while the job was pending or running                 |
+| `skipped`     | A scheduled sync was not started because another job was already active |
+
+A persistent server keeps the 50 most recent finished jobs and their results, including across
+restarts. When the server starts, it marks jobs that were active at shutdown as `interrupted`. It
+does not run them again.
+
+[notifications]: ./settings/notifications.mdx
+[cli]: ../cli/index.mdx
+[api]: /api/recyclarr-api
+[docker]: ../guide/installation/docker.mdx
+[serve]: ../cli/serve.mdx
+[schedule]: ./settings/server.mdx#schedule
+[server-settings]: ./settings/server.mdx
+[data-dir]: ../guide/file-structure.mdx#data-directory
+[config-dir]: ../guide/file-structure.mdx#config-directory
+[base-url]: ./cli-settings.mdx#base-url
+[env-server-url]: ./env-vars.mdx#server-url

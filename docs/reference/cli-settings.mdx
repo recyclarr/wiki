@@ -1,0 +1,36 @@
+---
+title: CLI Settings
+sidebar_position: 6
+description: Configure how the recyclarr CLI reaches a Recyclarr server
+---
+
+```yml
+# yaml-language-server: $schema=https://schemas.recyclarr.dev/latest/cli-schema.json
+server:
+  base_url: http://localhost:7982
+```
+
+CLI settings are specified in an optional file named `cli.yml` in your [configuration
+directory][config-dir]. Only the `recyclarr` CLI reads this file; the server reads
+[`settings.yml`][settings] instead.
+
+Without this file, each CLI command starts a temporary server of its own. See [Client and
+Server][client-server] for how the CLI and server work together.
+
+## `server.base_url` {/*#base-url*/}
+
+**Optional.** *Default: Each command starts a temporary server*
+
+The address of a running Recyclarr server, such as one started with [`recyclarr serve`][serve]. When
+set, CLI commands send their work to this server instead of starting their own. The value must be an
+absolute URL that starts with `http://` or `https://`.
+
+The [`RECYCLARR_SERVER_URL`][env-server-url] environment variable overrides this setting when it is
+set to a non-empty value. The Docker image sets that variable, so the CLI in the container always
+uses the container's server.
+
+[config-dir]: ../guide/file-structure.mdx#config-directory
+[settings]: ./settings/index.mdx
+[client-server]: ./client-server.mdx
+[serve]: ../cli/serve.mdx
+[env-server-url]: ./env-vars.mdx#server-url

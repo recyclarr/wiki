@@ -199,11 +199,8 @@ If custom formats in your local directory aren't being recognized:
 
 ### Check Recyclarr logs {/*#check-recyclarr-logs*/}
 
-Run Recyclarr with debug logging to see detailed information about resource provider processing:
-
-```bash
-recyclarr sync --log debug
-```
+The server processes resource providers when it starts. Open the newest `debug.log` file in the
+[server log directory][logs] to see detailed information about resource provider processing.
 
 Look for messages about:
 
@@ -217,7 +214,6 @@ Use the list command to see what resources Recyclarr has loaded:
 
 ```bash
 recyclarr list custom-formats radarr
-recyclarr list templates
 ```
 
 If your custom resources don't appear, there's likely a configuration or structure issue.
@@ -232,3 +228,5 @@ python -m json.tool /path/to/your/custom-format.json
 ```
 
 Or use an online JSON validator.
+
+[logs]: ../../../guide/troubleshooting/reporting-issues.mdx#obtaining-debug-logs

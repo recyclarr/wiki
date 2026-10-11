@@ -10,11 +10,9 @@ repository][config-templates-repo].
 
 ## Deployment
 
-The pre-built configuration files can be deployed in two ways:
-
-- Via the CLI using [`recyclarr config create -t`][cli].
-- Manually, by copying the contents of the relevant pre-built configuration file into a [supported
-  file location][file-structure]. The files can be found in the index below.
+To deploy a pre-built configuration file, copy its contents into a [supported file
+location][file-structure]. The files can be found in the index below. If a Recyclarr server is
+running (for example, in Docker), restart it afterward so it loads the new file.
 
 ## Customization
 
@@ -38,7 +36,6 @@ The guide-backed profile's qualities will be replaced by your custom list as des
 
 Additional custom formats can be added to the configuration file in the same way as normal.
 
-[cli]: /cli/config/create#template
 [file-structure]: /guide/file-structure#default-yaml
 [behavior]: /reference/configuration/include
 [config-qp]: /reference/configuration/quality-profiles

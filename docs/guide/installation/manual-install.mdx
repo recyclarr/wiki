@@ -15,8 +15,9 @@ The following dependencies are required on **all** platforms.
 ## Download {/*#download*/}
 
 Simply download the latest release for your platform using the table below. The download itself is
-just an archive (ZIP on Windows and tarball on mac/linux) with a single executable in it. You may
-put this executable anywhere you want and run it.
+just an archive (ZIP on Windows and tarball on mac/linux) with two executables in it: `recyclarr`
+(the CLI) and `recyclarr-server`. You may put them anywhere you want, but keep both in the same
+directory. The CLI starts `recyclarr-server` from its own directory.
 
 <DownloadTable />
 
@@ -43,7 +44,7 @@ export RECYCLARR_URL="Paste_URL_Here"
 ```
 
 With the above variable set, run the command below to download & install/upgrade. The `--overwrite`
-option is necessary for upgrades so that the command may replace any existing `recyclarr` binary.
+option is necessary for upgrades so that the command may replace the existing binaries.
 
 ```bash
 wget "$RECYCLARR_URL" -O - | sudo tar xJ --overwrite -C /usr/local/bin

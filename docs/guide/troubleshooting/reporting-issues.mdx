@@ -56,26 +56,31 @@ issue.
 
 ### Obtaining Debug Logs {/*#obtaining-debug-logs*/}
 
-Recyclarr always outputs logs as files in a directory on your filesystem. Each execution of
-Recyclarr yields a new file and those files always contain debug logs. You should always include
-logs from the file rather than the command line output since Recyclarr will not include debug logs
-by default in the console output.
+The Recyclarr server writes log files that always contain debug logs. You should always include logs
+from these files rather than the command line output, since the CLI does not show debug logs by
+default.
 
-Below is a list of locations where you can find the log directory depending on platform.
+Below is a list of locations where you can find the server log directory depending on platform.
 
-| Platform | Location                                       |
-|----------|------------------------------------------------|
-| Windows  | `%APPDATA%\recyclarr\logs`                     |
-| Linux    | `~/.config/recyclarr/logs`                     |
-| MacOS    | `~/Library/Application Support/recyclarr/logs` |
-| Docker   | `/config/logs`                                 |
+| Platform | Location                                              |
+|----------|-------------------------------------------------------|
+| Windows  | `%APPDATA%\recyclarr\logs\server`                     |
+| Linux    | `~/.config/recyclarr/logs/server`                     |
+| MacOS    | `~/Library/Application Support/recyclarr/logs/server` |
+| Docker   | `/config/logs/server`                                 |
 
-Within the log directory is a `cli` directory which contains logs specific to the Recyclarr CLI.
-Each run of Recyclarr outputs two files:
+Each time the server starts, it creates two files whose names start with `recyclarr-server_` and the
+start time. A [persistent server][persistent] writes to the same files until it stops. A temporary
+server, started by a CLI command, creates new files for each command.
 
 - `debug.log`: This is the most important file. This should always be shared.
 - `verbose.log`: Contains very noisy information that is sometimes, but not always, useful. You
   should not provide this file unless it is explicitly requested, especially for help requests.
+
+The CLI does not write log files. If a problem happens in the CLI itself, run the command again with
+`--log verbose` and share that output.
+
+[persistent]: ../../reference/client-server.mdx#persistent
 
 :::info
 
