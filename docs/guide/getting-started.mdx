@@ -21,7 +21,7 @@ Add the Recyclarr service to your existing `docker-compose.yml` file, or create 
 ```yml
 services:
   recyclarr:
-    image: ghcr.io/recyclarr/recyclarr:8
+    image: ghcr.io/recyclarr/recyclarr:9
     container_name: recyclarr
     user: 1000:1000
     restart: unless-stopped
@@ -31,48 +31,25 @@ services:
       - ./config:/config
 ```
 
-For detailed installation options (networking, tags, native install), see the [Installation
-Guide](./installation/index.mdx).
+Don't start the container yet. Recyclarr runs as a server that stays running, and it reads your
+configuration when it starts. You'll create that configuration in the next steps.
+
+For networking, tags, and native installs, see the [Installation Guide](./installation/index.mdx).
 
 ## Step 2: Choose a Quality Profile {/*#choose-profile*/}
 
-Recyclarr provides ready-to-use templates that match TRaSH Guide quality profiles. List them with:
-
-```bash
-docker compose run --rm recyclarr config list templates
-```
-
-You'll see available templates:
-
-```txt
-┌───────────────────┬───────────────────┐
-│ Sonarr            │ Radarr            │
-├───────────────────┼───────────────────┤
-│ web-1080p         │ hd-bluray-web     │
-│ web-2160p         │ uhd-bluray-web    │
-│ anime-remux-1080p │ remux-web-1080p   │
-│ ...               │ remux-web-2160p   │
-│                   │ anime-remux-1080p │
-│                   │ ...               │
-└───────────────────┴───────────────────┘
-```
-
-These correspond to profiles on the [TRaSH Guides Radarr Quality Profiles][trash-radarr] page.
+Recyclarr provides ready-to-use templates that match TRaSH Guide quality profiles. Browse them on
+the [Quick Setup Templates][templates] page. Each matches a [TRaSH Guides profile][trash-radarr].
 
 [trash-radarr]: https://trash-guides.info/Radarr/radarr-setup-quality-profiles/
-[hd-bluray-web]: https://trash-guides.info/Radarr/radarr-setup-quality-profiles/#hd-bluray-web
+[templates]: ./guide-configs.mdx
+[hd-bluray-web]: ./guide-configs.mdx#hd-bluray-web
 
 ## Step 3: Create Your Configuration {/*#create-config*/}
 
-Generate a config file from your chosen template. For example, to use the [`HD Bluray +
-WEB`][hd-bluray-web] profile:
-
-```bash
-docker compose run --rm recyclarr config create --template hd-bluray-web
-```
-
-This creates `config/configs/hd-bluray-web.yml` with everything pre-configured. Open it and update
-`base_url` and `api_key`:
+Create a config file from your chosen template. For example, to use the `HD Bluray + WEB` profile,
+copy the contents of the [HD Bluray + WEB template][hd-bluray-web] into a new file at
+`config/configs/hd-bluray-web.yml`. Then update `base_url` and `api_key`:
 
 ```yml
 radarr:
@@ -91,25 +68,26 @@ are no longer in your configuration:
 That's it. The template already includes the quality definition, quality profile, and custom formats
 from the TRaSH Guide.
 
-## Step 4: Run Your First Sync {/*#first-sync*/}
+## Step 4: Start Recyclarr and Sync {/*#first-sync*/}
+
+Start the container in the background:
 
 ```bash
-docker compose run --rm recyclarr sync
+docker compose up -d
 ```
 
-You should see output like:
+The server takes a few seconds to start. Wait until `docker compose ps` shows the container as
+`healthy`. Recyclarr now syncs automatically once a day. To run your first sync right away:
 
-```txt
-===========================================
-Processing Radarr Server: [hd-bluray-web]
-===========================================
+```bash
+docker exec recyclarr recyclarr sync
+```
 
-[INF] Created 34 New Custom Formats
-[INF] Total of 34 custom formats were synced
-[INF] Created 1 Profiles: ["HD Bluray + WEB"]
-[INF] A total of 1 profiles were synced. 1 contain quality changes and 1 contain updated scores
-[INF] Total of 14 sizes were synced for quality definition movie
-[INF] Completed at 12/16/2025 10:55:42
+When you edit your configuration later, restart the container so Recyclarr reads the changes. Wait
+until it is `healthy` again before you run `recyclarr` commands:
+
+```bash
+docker compose restart recyclarr
 ```
 
 ## Step 5: Verify the Sync {/*#verify*/}
@@ -168,21 +146,28 @@ the TRaSH Guides, so a single `trash_id` is all you need per profile.
 
 Each template also includes commented-out `custom_format_groups` for optional CF groups like
 streaming services and movie versions. See the [Quick Setup Templates][templates] page for the full
-template contents, or run `recyclarr config create --template` to generate a file with all available
-groups.
-
-[templates]: ./guide-configs.mdx
+template contents.
 
 :::
 
-Run `docker compose run --rm recyclarr sync` again, and all profiles will be created.
+Restart the container:
+
+```bash
+docker compose restart recyclarr
+```
+
+When `docker compose ps` shows the container as `healthy`, sync again to create all profiles:
+
+```bash
+docker exec recyclarr recyclarr sync
+```
 
 ## Adding Media Naming {/*#media-naming*/}
 
 To sync TRaSH Guide naming formats, first see what's available:
 
 ```bash
-docker compose run --rm recyclarr list naming radarr
+docker exec recyclarr recyclarr list naming radarr
 ```
 
 Then add a `media_naming` section to your config:
@@ -227,6 +212,6 @@ For customization examples, see the [Configuration Examples](../reference/config
 - [Configuration Examples](../reference/config-examples.mdx) — Real-world configuration patterns
 - [Quick Setup Templates](./guide-configs.mdx) — Browse all available templates
 - [Secrets](../reference/configuration/value-substitution.mdx#secrets) — Store API keys securely
-- [Docker Guide](./installation/docker.mdx) — Cron mode for automatic daily syncs
+- [Docker Guide](./installation/docker.mdx) — Sync schedule, CLI commands, and the HTTP API
 - [CLI Reference](../cli/index.mdx) — All commands and options
 - [File Structure](./file-structure.mdx#config-directory) — Where Recyclarr stores data
