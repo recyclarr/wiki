@@ -138,7 +138,8 @@ of the consequences.
 
 - `/config`<br/>
   The default directory for all Recyclarr files: configuration, state, logs, and downloaded
-  resources. Server logs are written to `/config/logs/server/`.
+  resources. Server logs are written to `/config/logs/server/`. `docker logs recyclarr` also shows
+  the server's log output.
 
 <details>
 <summary>Separating config from data for backups</summary>
@@ -240,7 +241,8 @@ The scheduler can also start syncs through the [HTTP API](#http-api) instead.
 ## Running CLI Commands {/*#cli*/}
 
 The image includes the `recyclarr` CLI. Run it with `docker exec` while the container is running.
-The CLI sends each command to the server in the same container, so the server must be running.
+The CLI sends each command to the server in the same container, so the server must be running. See
+[Client and Server][client-server] for how the CLI and server work together.
 
 Using Docker Compose:
 
@@ -351,6 +353,7 @@ services:
 [env-config]: ../../reference/env-vars.mdx#config-dir
 [env-data]: ../../reference/env-vars.mdx#data-dir
 [schedule]: ../../reference/settings/server.mdx#schedule
+[client-server]: ../../reference/client-server.mdx
 [schedule-cron]: ../../reference/settings/server.mdx#schedule-cron
 [cli]: ../../cli/index.mdx
 [api]: /api/recyclarr-api

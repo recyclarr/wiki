@@ -32,8 +32,14 @@ Override with the [`RECYCLARR_CONFIG_DIR`][env-config] environment variable.
 ├── configs/
 ├── includes/
 ├── settings.yml
+├── cli.yml
 └── state/
+    └── server.db
 ```
+
+- `settings.yml`: [Settings][settings] for the server.
+- `cli.yml`: Optional [CLI settings][cli-settings].
+- `state/server.db`: Sync job history kept by a [persistent server][persistent].
 
 ## Data Directory {/*#data-directory*/}
 
@@ -49,7 +55,7 @@ If [`RECYCLARR_DATA_DIR`][env-data] is not set, data files are stored in the con
 <data directory>/
 ├── resources/
 └── logs/
-    └── cli/
+    └── server/
 ```
 
 ## Default YAML Configuration Files {/*#default-yaml*/}
@@ -74,13 +80,11 @@ configuration directory (listed above based on platform). Example (using docker 
 ### Directory: `configs` {/*#config-directory-yaml*/}
 
 Under the configuration directory, there is a subdirectory named `configs` in which you can place
-any number of configuration YAML files. This system works especially well in Docker, where you don't
-really have an easy way to specify custom CLI arguments. The following requirements must be met:
+any number of configuration YAML files. The following requirements must be met:
 
 - All files must have the `.yml` or `.yaml` extension in order to be recognized.
-- Every single YAML file placed here will be loaded as if every file were specified in the
-  `--config` command line argument. This behavior is non-recursive; meaning if you place YAML files
-  in subdirectories under `configs/`, they will not be loaded.
+- Every YAML file placed here is loaded. This behavior is non-recursive; meaning if you place YAML
+  files in subdirectories under `configs/`, they will not be loaded.
 - The names of the files are unimportant and can be whatever you want.
 
 :::caution
@@ -100,3 +104,6 @@ import IncludeDirectory from '@site/src/partials/_include-templates-dir.mdx'
 [env-config]: ../reference/env-vars.mdx#config-dir
 [env-data]: ../reference/env-vars.mdx#data-dir
 [backups]: ./backups.mdx
+[settings]: ../reference/settings/index.mdx
+[cli-settings]: ../reference/cli-settings.mdx
+[persistent]: ../reference/client-server.mdx#persistent

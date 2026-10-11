@@ -1,0 +1,44 @@
+---
+id: serve
+title: recyclarr serve
+---
+
+## Usage {/*#usage*/}
+
+```js
+recyclarr serve [OPTIONS]
+```
+
+## Description {/*#description*/}
+
+Runs the Recyclarr server in the foreground until you stop it with Ctrl+C. The server syncs on its
+[built-in schedule][schedule] and accepts commands from the CLI and the [HTTP API][api]. The command
+exits with the server's exit code.
+
+The server reads its address, port, and schedule from the [`server` settings][server-settings]. It
+writes log messages to the console and to log files in `logs/server/`.
+
+`serve` starts the `recyclarr-server` executable, which must be in the same directory as
+`recyclarr`. The release archives include both.
+
+To have other CLI commands use this server instead of starting their own, set
+[`server.base_url`][base-url] in `cli.yml`. See [Client and Server][client-server] for details.
+
+:::info
+
+The Docker image already runs the server. You do not need `serve` in a container.
+
+:::
+
+### Command Line Examples {/*#command-line-examples*/}
+
+```bash
+# Start the server
+recyclarr serve
+```
+
+[schedule]: ../reference/settings/server.mdx#schedule
+[api]: /api/recyclarr-api
+[server-settings]: ../reference/settings/server.mdx
+[base-url]: ../reference/cli-settings.mdx#base-url
+[client-server]: ../reference/client-server.mdx
