@@ -85,47 +85,23 @@ below apply only to custom resource providers that supply their own `includes.js
 Use unique IDs to define include templates in your custom resource provider:
 
 ```json
-[
-  {
-    "id": "my-radarr-anime-quality",
-    "template": "radarr/includes/anime-quality.yml"
-  },
-  {
-    "id": "my-sonarr-language-german",
-    "template": "sonarr/includes/language-german.yml"
-  }
-]
+{
+  "radarr": [
+    {
+      "id": "my-radarr-anime-quality",
+      "template": "radarr/includes/anime-quality.yml"
+    }
+  ],
+  "sonarr": [
+    {
+      "id": "my-sonarr-language-german",
+      "template": "sonarr/includes/language-german.yml"
+    }
+  ]
+}
 ```
 
-## Config Templates {/*#config-templates*/}
-
-Config templates use the **`id` field** in `templates.json` for identification.
-
-### Overriding an Official Template {/*#overriding-an-official-template*/}
-
-To replace the official `hd-bluray-web` template:
-
-**templates.json:**
-
-```json
-[
-  {
-    "id": "hd-bluray-web",
-    "template": "radarr/templates/hd-bluray-web.yml"
-  }
-]
-```
-
-### Adding New Templates {/*#adding-new-templates*/}
-
-```json
-[
-  {
-    "id": "my-radarr-4k-hdr",
-    "template": "radarr/templates/4k-hdr.yml"
-  }
-]
-```
+See [Creating a Config Templates Repository][config-templates-structure] for the file format.
 
 ## Custom Formats {/*#custom-formats*/}
 
@@ -185,7 +161,7 @@ resource_providers:
     clone_url: https://github.com/yourname/my-guides.git
     reference: main
 
-  # For config templates and includes
+  # For config includes
   - name: my-templates
     type: config-templates
     clone_url: https://github.com/yourname/my-templates.git
@@ -200,3 +176,5 @@ resource_providers:
 
 Resources from your providers override official ones with matching keys. Resources with unique keys
 are added alongside official content.
+
+[config-templates-structure]: ./config-templates-structure.mdx
