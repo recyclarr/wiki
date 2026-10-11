@@ -4,8 +4,8 @@ sidebar_label: Config Templates Structure
 ---
 
 This page explains how to create a repository compatible with the `config-templates` provider type.
-This allows you to create reusable configuration templates and include files that can be shared
-across multiple Recyclarr configurations.
+This lets you create reusable include files that can be shared across multiple Recyclarr
+configurations.
 
 ## When You Need This {/*#when-you-need-this*/}
 
@@ -17,28 +17,24 @@ Use the `config-templates` type when you want to:
 
 ## Required Structure {/*#required-structure*/}
 
-A `config-templates` compatible repository needs either `includes.json`, `templates.json`, or both
-at the repository root.
+A `config-templates` compatible repository needs an `includes.json` file at the repository root.
+Recyclarr reads no other file from the repository; it finds include YAML files only through the
+paths listed in `includes.json`.
 
 ### Directory Layout Example {/*#directory-layout-example*/}
 
 ```txt
 my-templates-repo/
 ├── includes.json              # Maps include IDs to YAML files
-├── templates.json             # Maps template IDs to YAML files
 ├── radarr/
-│   ├── includes/
-│   │   └── quality-profiles/
-│   │       ├── hd-bluray.yml
-│   │       └── uhd-bluray.yml
-│   └── templates/
-│       └── movies-hd.yml
+│   └── includes/
+│       └── quality-profiles/
+│           ├── hd-bluray.yml
+│           └── uhd-bluray.yml
 └── sonarr/
-    ├── includes/
-    │   └── quality-profiles/
-    │       └── tv-hd.yml
-    └── templates/
-        └── tv-shows.yml
+    └── includes/
+        └── quality-profiles/
+            └── tv-hd.yml
 ```
 
 ## Include Files {/*#include-files*/}
@@ -48,35 +44,40 @@ Includes are partial YAML configurations that can be referenced from your main c
 
 ### The includes.json File {/*#the-includesjson-file*/}
 
-Maps include IDs to their YAML file paths:
+Maps include IDs to their YAML file paths, with a separate list for each service:
 
 ```json
-[
-  {
-    "id": "radarr-quality-hd",
-    "template": "radarr/includes/quality-profiles/hd-bluray.yml",
-    "hidden": false
-  },
-  {
-    "id": "radarr-quality-uhd",
-    "template": "radarr/includes/quality-profiles/uhd-bluray.yml",
-    "hidden": false
-  },
-  {
-    "id": "sonarr-quality-hd",
-    "template": "sonarr/includes/quality-profiles/tv-hd.yml",
-    "hidden": false
-  }
-]
+{
+  "radarr": [
+    {
+      "id": "radarr-quality-hd",
+      "template": "radarr/includes/quality-profiles/hd-bluray.yml"
+    },
+    {
+      "id": "radarr-quality-uhd",
+      "template": "radarr/includes/quality-profiles/uhd-bluray.yml"
+    }
+  ],
+  "sonarr": [
+    {
+      "id": "sonarr-quality-hd",
+      "template": "sonarr/includes/quality-profiles/tv-hd.yml"
+    }
+  ]
+}
 ```
+
+An include listed under `radarr` can only be used in Radarr configurations, and likewise for
+`sonarr`. Either list may be omitted.
 
 ### Include JSON Fields {/*#include-json-fields*/}
 
-| Field      | Required | Description                                                 |
-|------------|----------|-------------------------------------------------------------|
-| `id`       | Yes      | Unique identifier used in config's `include` directive      |
-| `template` | Yes      | Path to the YAML file relative to repository root           |
-| `hidden`   | No       | Accepted for compatibility; has no effect. Default: `false` |
+| Field      | Required | Description                                                                                 |
+|------------|----------|---------------------------------------------------------------------------------------------|
+| `id`       | Yes      | Identifier used in the config's `include` directive. Letters, digits, `_`, and `-` only     |
+| `template` | Yes      | Path to the YAML file, relative to the repository root. Must not contain `..` path segments |
+
+Recyclarr ignores any other fields in an entry.
 
 ### Example Include YAML {/*#example-include-yaml*/}
 
@@ -113,91 +114,11 @@ radarr:
       - template: radarr-quality-hd
 ```
 
-## Template Files {/*#template-files*/}
-
-Templates are complete configuration files that users copy to start a new configuration.
-
-:::info
-
-Recyclarr 9 has no command that creates a configuration from a template. Recyclarr still reads
-`templates.json`, but it does not use the templates. Users copy template files by hand.
-
-:::
-
-### The templates.json File {/*#the-templatesjson-file*/}
-
-Maps template IDs to their YAML file paths:
-
-```json
-[
-  {
-    "id": "radarr-movies-hd",
-    "template": "radarr/templates/movies-hd.yml",
-    "hidden": false
-  },
-  {
-    "id": "sonarr-tv-hd",
-    "template": "sonarr/templates/tv-shows.yml",
-    "hidden": false
-  }
-]
-```
-
-### Template JSON Fields {/*#template-json-fields*/}
-
-| Field      | Required | Description                                                 |
-|------------|----------|-------------------------------------------------------------|
-| `id`       | Yes      | Unique identifier for the template                          |
-| `template` | Yes      | Path to the YAML file relative to repository root           |
-| `hidden`   | No       | Accepted for compatibility; has no effect. Default: `false` |
-
-### Example Template YAML {/*#example-template-yaml*/}
-
-A template file is a complete, working configuration:
-
-```yml
-# radarr/templates/movies-hd.yml
-radarr:
-  movies-hd:
-    base_url: http://localhost:7878
-    api_key: !secret radarr_api_key
-
-    quality_definition:
-      type: movie
-
-    quality_profiles:
-      - name: HD Movies
-        reset_unmatched_scores:
-          enabled: true
-        upgrade:
-          allowed: true
-          until_quality: Bluray-1080p
-          until_score: 10000
-        min_format_score: 0
-        quality_sort: top
-        qualities:
-          - name: Bluray-1080p
-          - name: WEB 1080p
-            qualities:
-              - WEBDL-1080p
-              - WEBRip-1080p
-
-    custom_formats:
-      - trash_ids:
-          - ed38b889b31be83fda192888e2286d83  # BR-DISK
-          - 90cedc1fea7ea5d11298bebd3d1d3223  # EVO (no WEBDL)
-        assign_scores_to:
-          - name: HD Movies
-```
-
 ## ID Naming Best Practices {/*#id-naming-best-practices*/}
 
-Since IDs must be globally unique across all providers, use descriptive prefixes:
-
-- Include IDs: `radarr-quality-hd`, `sonarr-cf-anime`
-- Template IDs: `radarr-movies-4k`, `sonarr-anime-v4`
-
-If you're overriding official templates, use the exact same ID to replace them.
+When two providers define the same include ID for a service, only one of them is used (see
+[Duplicate IDs](#duplicate-ids)). Use descriptive prefixes to keep your IDs distinct, such as
+`radarr-quality-hd` or `sonarr-cf-anime`.
 
 ## Using Your Repository {/*#using-your-repository*/}
 
@@ -228,37 +149,18 @@ resource_providers:
     path: /home/user/my-templates
 ```
 
-## Reference Implementation {/*#reference-implementation*/}
-
-The official Recyclarr config-templates repository serves as the reference implementation:
-
-- Repository: https://github.com/recyclarr/config-templates/tree/master
-- View `templates.json` for structure examples
-- Examine the directory organization and YAML file patterns
-
 :::info
 
-The official repository does not provide include templates or an `includes.json` registry. The
-include examples on this page apply only to custom resource providers.
+The official [config-templates repository][official] has no `includes.json`, so it provides no
+includes. The include examples on this page apply only to your own resource providers.
 
-## Overriding Official Templates {/*#overriding-official-templates*/}
+:::
 
-To override an official include or template:
+## Duplicate IDs {/*#duplicate-ids*/}
 
-1. Create your repository with the same structure
-2. Use the **exact same ID** as the official template you want to replace
-3. Add your repository to `resource_providers`
+If more than one provider defines the same include ID for the same service, the provider listed last
+in `resource_providers` wins. IDs are compared case-insensitively. See [How Precedence
+Works][precedence] for the full ordering rules.
 
-Since your provider is listed after the implicit official provider (bottom-up precedence), your
-version takes precedence for matching IDs.
-
-```yml
-resource_providers:
-  - name: my-overrides
-    type: config-templates
-    clone_url: https://github.com/yourname/template-overrides.git
-    reference: main
-```
-
-Any IDs in your repository that match official IDs will override them. IDs that don't match will be
-added alongside the official templates.
+[official]: https://github.com/recyclarr/config-templates
+[precedence]: ./index.mdx#how-precedence-works
