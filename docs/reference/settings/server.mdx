@@ -12,9 +12,11 @@ server:
     cron: 0 0 * * *
 ```
 
-The `server` section configures the persistent Recyclarr server, which is what runs when you start
-`recyclarr serve` or the Docker image. The server listens for HTTP requests from the CLI and other
-clients, and it runs syncs on a built-in schedule.
+The `server` section configures the [persistent Recyclarr server][persistent], which is what runs
+when you start `recyclarr serve` or the Docker image. The server listens for HTTP requests from the
+CLI and other clients, and it runs syncs on a built-in schedule.
+
+[persistent]: ../client-server.mdx#persistent
 
 The server reads `settings.yml` once at startup. Restart the server after changing these settings.
 
