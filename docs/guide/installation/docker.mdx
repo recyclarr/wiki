@@ -41,14 +41,23 @@ networks:
 
 services:
   recyclarr:
-    image: ghcr.io/recyclarr/recyclarr:8
+    image: ghcr.io/recyclarr/recyclarr:9
     container_name: recyclarr
+    restart: unless-stopped
     user: 1000:1000
     networks: [recyclarr]
     volumes:
       - ./config:/config
     environment:
       - TZ=America/Santiago
+```
+
+The container runs the Recyclarr server. The server stays running, syncs on a
+[built-in schedule](#scheduling), and accepts commands from the [CLI](#cli). Start it in the
+background:
+
+```bash
+docker compose up -d
 ```
 
 Here is a breakdown of the above YAML:
@@ -59,10 +68,13 @@ Here is a breakdown of the above YAML:
   `recyclarr`) shared with those services, allowing Recyclarr to reach them directly without going
   through a reverse proxy.
 - `image`<br/>
-  The official Recyclarr image, hosted on Github. The `:8` tag receives all feature and bugfix
-  updates within major version 8. See [Tags](#tags) for other options.
+  The official Recyclarr image, hosted on Github. The `:9` tag receives all feature and bugfix
+  updates within major version 9. See [Tags](#tags) for other options.
 - `container_name`<br/>
   Optional. Prevents Docker Compose from generating a prefixed name like `prefix_recyclarr`.
+- `restart`<br/>
+  Starts the server again after a crash or a reboot of the host. Without a restart policy, scheduled
+  syncs stop until you start the container yourself.
 - `user`<br/>
   Optional user and group ID for the container process. Recyclarr runs as this UID:GID, and any
   files it creates in the `/config` volume are owned by this user and group. Defaults to `1000:1000`
@@ -86,7 +98,7 @@ updates (highest risk), use the top row.
 | `2.1`   | Latest *bugfix* release; manual update if you want new features         |
 | `2.1.2` | Exact release; no automatic updates                                     |
 
-The **recommended tag** is the major version number (e.g. `8`), which gives you all feature and
+The **recommended tag** is the major version number (e.g. `9`), which gives you all feature and
 bugfix releases automatically while requiring a manual update only for breaking changes.
 
 There is no `latest` tag. It would move to each new major release automatically and apply breaking
@@ -126,7 +138,7 @@ of the consequences.
 
 - `/config`<br/>
   The default directory for all Recyclarr files: configuration, state, logs, and downloaded
-  resources.
+  resources. Server logs are written to `/config/logs/server/`.
 
 <details>
 <summary>Separating config from data for backups</summary>
@@ -138,8 +150,9 @@ while treating data as disposable.
 ```yml
 services:
   recyclarr:
-    image: ghcr.io/recyclarr/recyclarr:8
+    image: ghcr.io/recyclarr/recyclarr:9
     container_name: recyclarr
+    restart: unless-stopped
     user: 1000:1000
     environment:
       - TZ=America/Santiago
@@ -170,92 +183,66 @@ Recyclarr's Docker container is **rootless**. Use the `user` property (in Docker
 
 :::
 
-- `CRON_SCHEDULE` (Default: `@daily`)<br/>
-  Standard cron syntax for how often Recyclarr should run (see [Cron Mode](#cron-mode)).
-
 - `TZ` (Default: `UTC`)<br/>
-  The time zone for Recyclarr's local time in the container.
-
-- `RECYCLARR_CREATE_CONFIG` (Default: `false`)<br/>
-  Set to `true` to have `/config/recyclarr.yml` created automatically when the container starts. If
-  the file already exists, it will not be recreated.
+  The time zone for Recyclarr's local time in the container. The [sync schedule](#scheduling) uses
+  this time zone.
 
 - `RECYCLARR_CONFIG_DIR` (Default: `/config`)<br/>
-  Override the configuration directory path inside the container. See [Environment
-  Variables][env-config].
+  Override the config directory path inside the container. See [Environment Variables][env-config].
 
 - `RECYCLARR_DATA_DIR` (Default: same as `RECYCLARR_CONFIG_DIR`)<br/>
   Override the data directory path inside the container for ephemeral files (resources, logs). See
   [Environment Variables][env-data].
 
-## Modes {/*#modes*/}
+## Configuration Changes {/*#config-changes*/}
 
-The Docker container can operate in one of two modes, documented below.
-
-:::info
-
-`recyclarr.yml` does not exist the first time the container runs. An error will occur until the file
-is either copied manually into the volume or created via `recyclarr config create`.
-
-:::
-
-### Manual Mode {/*#manual-mode*/}
-
-There are two ways to invoke Recyclarr in manual mode:
-
-- Prefer `docker exec` if:
-  - The Recyclarr container is already running
-  - Using Unraid OS
-- Prefer `docker run` if:
-  - The container is *not* running
-
-<details>
-<summary>Using Docker Run</summary>
-
-When using `docker run`, the container starts, runs a specified operation, and then exits. This is
-semantically identical to running Recyclarr directly on the host machine, but without the setup
-requirements.
-
-The general syntax is:
-
-```txt
-docker compose run --rm recyclarr [command] [options]
-```
-
-Where:
-
-- `[command]` is one of the supported Recyclarr commands, such as `sync` and `list`.
-- `[options]` are any options/arguments supported by that command (e.g. `--log debug`, `--preview`).
-
-Examples:
+The server reads your YAML configuration and `settings.yml` once, when it starts. If the
+configuration is not valid, the server does not start. After you edit any of these files, restart
+the container:
 
 ```bash
-# Create a default `recyclarr.yml` in the `/config` volume
-docker compose run --rm recyclarr config create
-
-# Sync Sonarr with debug logs
-docker compose run --rm recyclarr sync sonarr --log debug
-
-# Do a preview (dry run) sync for Radarr
-docker compose run --rm recyclarr sync radarr --preview --log debug
+docker compose restart recyclarr
 ```
 
-:::tip
+## Scheduling {/*#scheduling*/}
 
-The `--rm` option ensures the container is deleted after it runs. Without it, stopped containers
-accumulate with each manual invocation.
+By default, the server syncs every configured Sonarr and Radarr instance once a day at midnight,
+using the time zone set by `TZ`. To change when syncs run, set
+[`server.schedule.cron`][schedule-cron] in `settings.yml`:
 
-:::
+```yml
+server:
+  schedule:
+    cron: 0 4 * * *  # Every day at 4:00 AM
+```
 
-</details>
+See [`server.schedule`][schedule] for how the server handles overlapping and missed syncs.
 
-<details>
-<summary>Using Docker Exec</summary>
+### Using an External Scheduler {/*#external-scheduler*/}
 
-Using `docker exec` for manual mode is similar to the previous section, except that it uses an
-already-running instance of the container to perform actions.
+To start syncs from another scheduler instead (for example, cron on the host), turn off the built-in
+schedule:
 
-Using Docker Compose, the general syntax is:
+```yml
+server:
+  schedule:
+    enabled: false
+```
+
+Then have your scheduler run the sync command through `docker exec`:
+
+```bash
+docker exec recyclarr recyclarr sync
+```
+
+The scheduler can also start syncs through the [HTTP API](#http-api) instead.
+
+## Running CLI Commands {/*#cli*/}
+
+The image includes the `recyclarr` CLI. Run it with `docker exec` while the container is running.
+The CLI sends each command to the server in the same container, so the server must be running.
+
+Using Docker Compose:
 
 ```txt
 docker compose exec recyclarr recyclarr [command] [options]
@@ -267,38 +254,52 @@ Or using Docker directly:
 docker exec recyclarr recyclarr [command] [options]
 ```
 
-Where:
-
-- `[command]` is one of the supported Recyclarr commands, such as `sync` and `list`.
-- `[options]` are any options/arguments supported by that command (e.g. `--log debug`, `--preview`).
-
 Examples:
 
 ```bash
-# Create a default `recyclarr.yml` in the `/config` volume (without compose)
-docker exec recyclarr recyclarr config create
+# Sync Sonarr and show debug logs
+docker exec recyclarr recyclarr sync sonarr --log debug
 
-# Sync Sonarr with debug logs (with compose)
-docker compose exec recyclarr recyclarr sync sonarr --log debug
-
-# Do a preview (dry run) sync for Radarr (without compose)
-docker exec recyclarr recyclarr sync radarr --preview --log debug
+# Do a preview (dry run) sync for Radarr
+docker exec recyclarr recyclarr sync radarr --preview
 ```
 
-</details>
+Syncs you start this way wait in the same queue as scheduled syncs. See the [CLI reference][cli] for
+all commands.
 
-### Cron Mode {/*#cron-mode*/}
+## HTTP API {/*#http-api*/}
 
-In this mode, no immediate action is performed. The container remains alive and continuously runs
-sync at whatever `CRON_SCHEDULE` is set (default is daily).
+The server listens on port `7982` inside the container. The CLI inside the container does not need
+this port published. To call the API from outside the container, publish the port in your compose
+file:
 
-To enter Cron Mode, start the container in background mode:
-
-```bash
-docker compose up -d
+```yml
+services:
+  recyclarr:
+    ports:
+      - 7982:7982
 ```
 
-Running without any command or options causes the container to use this mode.
+To use a different port on the host, change the first number (for example, `8000:7982`). See the
+[API reference][api] for the available endpoints.
+
+:::danger
+
+The API has no authentication. Anyone who can reach the published port can start syncs and delete
+custom formats in your Sonarr and Radarr instances. Do not publish the port to an untrusted network.
+
+:::
+
+## Health Check {/*#health-check*/}
+
+The image has a built-in Docker health check. It requests `/health` from the server every 30 seconds
+and marks the container unhealthy when the server does not respond. `docker ps` and
+`docker compose ps` show the result.
+
+## Stopping the Container {/*#stopping*/}
+
+When the container stops, the server cancels any sync that is running. Changes already applied to
+Sonarr or Radarr stay in place. Queued syncs do not run when the container starts again.
 
 ## Troubleshooting {/*#troubleshooting*/}
 
@@ -321,7 +322,7 @@ Using the example `docker-compose.yml` from the top of this page, add the follow
 ```yml
 services:
   recyclarr:
-    image: ghcr.io/recyclarr/recyclarr:8
+    image: ghcr.io/recyclarr/recyclarr:9
     read_only: true # <-- Add this to enable read-only mode
     tmpfs: /tmp # <-- Mount /tmp to a volume
     # ...
@@ -338,7 +339,7 @@ Add `security_opt: ['no-new-privileges:true']` to the service configuration:
 ```yml
 services:
   recyclarr:
-    image: ghcr.io/recyclarr/recyclarr:8
+    image: ghcr.io/recyclarr/recyclarr:9
     security_opt: ['no-new-privileges:true'] # Add this line
     # ...
 ```
@@ -349,3 +350,7 @@ services:
 [upgrade-guide]: ../upgrade-guide/index.mdx
 [env-config]: ../../reference/env-vars.mdx#config-dir
 [env-data]: ../../reference/env-vars.mdx#data-dir
+[schedule]: ../../reference/settings/server.mdx#schedule
+[schedule-cron]: ../../reference/settings/server.mdx#schedule-cron
+[cli]: ../../cli/index.mdx
+[api]: /api/recyclarr-api

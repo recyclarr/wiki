@@ -15,6 +15,67 @@ development cycle.
 
 :::
 
+## Docker: Persistent Server {/*#docker-server*/}
+
+The Docker image now runs the Recyclarr server instead of a cron job. The server stays running,
+syncs on a built-in schedule, and accepts commands from the CLI. See the [Docker guide][docker] for
+the full setup.
+
+### Schedule Moved to `settings.yml` {/*#cron-schedule*/}
+
+The `CRON_SCHEDULE` environment variable is no longer read. Remove it from your compose file and put
+the same cron expression in [`server.schedule.cron`][schedule-cron] in `settings.yml`. If you did
+not set `CRON_SCHEDULE`, you can skip this step: the new default also syncs once a day at midnight.
+
+```yml
+services:
+  recyclarr:
+    image: ghcr.io/recyclarr/recyclarr:9
+    environment:
+      - TZ=America/Santiago
+      - CRON_SCHEDULE=0 4 * * *  # <<< REMOVED
+```
+
+```yml
+# settings.yml
+server:
+  schedule:
+    cron: 0 4 * * *
+```
+
+### Container Arguments No Longer Run the CLI {/*#docker-run-args*/}
+
+Arguments after the image name no longer run Recyclarr commands. For example,
+`docker compose run --rm recyclarr sync` does not sync anymore. Run commands in the running
+container with `docker exec` instead:
+
+```bash
+docker exec recyclarr recyclarr sync
+```
+
+If an external scheduler ran Recyclarr this way, see [Using an External Scheduler][external].
+
+### Removed Environment Variables {/*#docker-env-removed*/}
+
+Remove these variables from your compose file. Recyclarr ignores them:
+
+- `RECYCLARR_CREATE_CONFIG`: Create your configuration files in `/config` yourself.
+- `RECYCLARR_LOG_LEVEL`: Use `--log` on CLI commands to show log output on the console.
+
+### Add a Restart Policy {/*#docker-restart*/}
+
+The container must keep running for scheduled syncs to happen. Add a restart policy so the server
+starts again after a crash or a reboot:
+
+```yml
+services:
+  recyclarr:
+    restart: unless-stopped
+```
+
+To call the HTTP API from outside the container, you also need to publish port `7982`. See
+[HTTP API][http-api].
+
 ## CLI: `state repair` Removed {/*#state-repair-removed*/}
 
 The `recyclarr state repair` command and its `--adopt` flag have been removed. Sync is now
@@ -43,3 +104,8 @@ error message instructs you to resolve the duplicates in the service directly.
 If it's in your config, Recyclarr owns it. If you want to manually manage a resource, remove it from
 your config. Recyclarr warns you when it adopts something that already existed, giving you a chance
 to notice and adjust your config if needed.
+
+[docker]: ../installation/docker.mdx
+[schedule-cron]: ../../reference/settings/server.mdx#schedule-cron
+[external]: ../installation/docker.mdx#external-scheduler
+[http-api]: ../installation/docker.mdx#http-api
