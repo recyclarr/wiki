@@ -1,0 +1,67 @@
+---
+title: Server
+description: Configure the Recyclarr server's network address and built-in sync schedule
+---
+
+```yml
+server:
+  port: 7982
+  bind_address: localhost
+  schedule:
+    enabled: true
+    cron: 0 0 * * *
+```
+
+The `server` section configures the persistent Recyclarr server, which is what runs when you start
+`recyclarr serve` or the Docker image. The server listens for HTTP requests from the CLI and other
+clients, and it runs syncs on a built-in schedule.
+
+The server reads `settings.yml` once at startup. Restart the server after changing these settings.
+
+## `port` {/*#port*/}
+
+**Optional.** *Default: `7982`*
+
+The TCP port the server listens on. Valid values are `1` through `65535`.
+
+The Docker image ignores this setting and always listens on port `7982` inside the container. To use
+a different port on the host, change the Docker port mapping instead (for example, `8000:7982`).
+
+## `bind_address` {/*#bind-address*/}
+
+**Optional.** *Default: `localhost`*
+
+The network address the server listens on. Use `localhost` to accept connections only from the same
+machine, or `0.0.0.0` to accept connections on all network interfaces.
+
+The Docker image ignores this setting and always listens on all interfaces inside the container.
+
+## `schedule` {/*#schedule*/}
+
+**Optional.**
+
+Controls the built-in sync schedule. Each scheduled sync covers every configured Sonarr and Radarr
+instance. The schedule does nothing when the CLI starts its own temporary server.
+
+Only one sync runs at a time. If a sync is already queued or running when a scheduled time arrives,
+the server skips that scheduled sync and records it as skipped. The server does not run syncs it
+missed while it was stopped; it waits for the next scheduled time.
+
+### `enabled` {/*#schedule-enabled*/}
+
+**Optional.** *Default: `true`*
+
+Set to `false` to turn off the built-in schedule. Use this when an external scheduler, such as a
+cron job on the host, starts syncs through the API instead.
+
+### `cron` {/*#schedule-cron*/}
+
+**Optional.** *Default: `0 0 * * *` (every day at midnight)*
+
+A standard 5-field cron expression (minute, hour, day of month, month, day of week). A seconds field
+is not supported. Macros such as `@daily`, `@hourly`, and `@weekly` are also accepted.
+
+Times use the system time zone. In a container, set the `TZ` environment variable; without it, the
+container uses UTC.
+
+If the expression is not valid and the schedule is enabled, the server does not start.
