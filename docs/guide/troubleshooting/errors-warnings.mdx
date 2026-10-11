@@ -10,18 +10,18 @@ usually caused by configuration issues or something else within the user's contr
 
 <details>
 <summary>
-Error: No configuration YAML files found
+Error: No instances are configured on the server
 </summary>
 
-Recyclarr could not find any YAML configuration files to load *or* files specified were missing.
-There are three ways to provide configuration data:
+The Recyclarr server found no Sonarr or Radarr instances in its configuration. The server still
+starts without configuration files, but it refuses every sync. There are two ways to provide
+configuration data:
 
 1. Via the `recyclarr.yml` file.
 1. One or more YAML files in the `configs` directory.
-1. Paths to YAML files provided via the `--config` command line argument.
 
-When using the CLI, the files provided *must* exist. To solve this error, use one of the above
-methods to provide your YAML configuration. See the documentation about [default YAML
+To solve this error, use one of the above methods to provide your YAML configuration, then restart
+the server if one is running (for example, in Docker). See the documentation about [default YAML
 configuration][default-yaml] for more information. There is also [an
 example](../../reference/config-examples.mdx#directory-structure) showing multiple configuration
 files and their structure.

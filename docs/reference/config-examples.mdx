@@ -392,9 +392,9 @@ config/
 │   └── radarr.yml
 ├── includes/              # Local include files (referenced, not auto-loaded)
 │   └── my-custom-cfs.yml
-├── state/                 # Sync state (managed by Recyclarr)
+├── state/                 # Sync state and job history (managed by Recyclarr)
 ├── resources/             # Git repos (managed by Recyclarr)
-└── logs/                  # Application logs
+└── logs/                  # Server logs
 ```
 
 Key points:
@@ -434,8 +434,8 @@ See [Value Substitution][secrets] for details.
 
 ## Consolidate existing config files {/*#consolidate*/}
 
-If you previously created multiple config files using `recyclarr config create --template` and want
-to combine them into a single file, follow this process.
+If you created multiple config files from templates and want to combine them into a single file,
+follow this process.
 
 ### Before consolidation {/*#before*/}
 
