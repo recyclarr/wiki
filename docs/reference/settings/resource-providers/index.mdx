@@ -51,11 +51,11 @@ configure.
 
 Each provider has a `type` that determines what kind of content it provides:
 
-| Type               | Description                                                               | Structure Required                                       |
-|--------------------|---------------------------------------------------------------------------|----------------------------------------------------------|
-| `trash-guides`     | Full TRaSH Guides structure (custom formats, quality sizes, media naming) | Requires `metadata.json` at root                         |
-| `config-templates` | Template configurations for quick setup                                   | Requires `includes.json` and/or `templates.json` at root |
-| `custom-formats`   | Simple flat folder of custom format JSON files                            | No structure required                                    |
+| Type               | Description                                                               | Structure Required               |
+|--------------------|---------------------------------------------------------------------------|----------------------------------|
+| `trash-guides`     | Full TRaSH Guides structure (custom formats, quality sizes, media naming) | Requires `metadata.json` at root |
+| `config-templates` | Reusable include files for configurations                                 | Requires `includes.json` at root |
+| `custom-formats`   | Simple flat folder of custom format JSON files                            | No structure required            |
 
 For details on creating your own repositories with proper structure, see:
 
@@ -90,7 +90,6 @@ All comparisons are case-insensitive.
 | Quality Profiles | `trash_id` field   | `d1d67249d3890e49bc12e275d989a7e9`    |
 | Quality Sizes    | `type` field       | `series`, `movie`                     |
 | Media Naming     | Dictionary key     | `default`, `plex-imdb`                |
-| Config Templates | `id` field         | `hd-bluray-web`                       |
 | Config Includes  | `id` field         | `radarr-custom-formats-hd-bluray-web` |
 
 See [Override Examples](./override-examples.mdx) for practical examples of extending and replacing
@@ -273,22 +272,6 @@ You can override specific official content by providing your own version with th
 4. Add the folder to your resource providers
 
 Since your provider is listed after the implicit official provider, your version takes precedence.
-
-### Overriding a Config Template {/*#overriding-a-config-template*/}
-
-1. Create a repository following the config-templates structure
-2. Include an `includes.json` or `templates.json` with the same ID as the official template
-3. Add your repository to resource providers
-
-```yml
-resource_providers:
-  - name: my-template-overrides
-    type: config-templates
-    clone_url: https://github.com/yourname/custom-templates.git
-    reference: main
-```
-
-Your template with the matching ID will override the official version.
 
 ## Best Practices {/*#best-practices*/}
 
