@@ -149,6 +149,7 @@ real-time updates on the process and detailed information about the results.
 
 [apprise]: https://github.com/caronc/apprise-api
 [apprise-urls]: https://github.com/caronc/apprise/wiki#notification-services
+[jobs]: ../client-server.mdx#jobs
 
 ### Key Points {/*#key-points*/}
 
@@ -156,8 +157,9 @@ Currently, Recyclarr's notification system is focused on [sync operations](../..
 Notifications are designed to be comprehensive, providing a complete overview of the operation
 without overwhelming you with too many messages:
 
-- **Single Notification per Sync**: Recyclarr sends one consolidated notification for each `sync`
-  command execution, regardless of the number of service instances configured in your YAML file.
+- **Single Notification per Sync**: The Recyclarr server sends one notification for each [sync
+  job][jobs] it runs, regardless of the number of service instances configured in your YAML file.
+  This applies to scheduled syncs and to syncs started from the CLI or the API.
 
 - **Multi-Service Support**: If you have multiple service instances configured (e.g., 2 Radarr and 1
   Sonarr), the single notification will include information about the sync operation for all

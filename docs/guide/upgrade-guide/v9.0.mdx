@@ -76,6 +76,35 @@ services:
 To call the HTTP API from outside the container, you also need to publish port `7982`. See
 [HTTP API][http-api].
 
+## CLI: Server Executable Required {/*#server-executable*/}
+
+The release archives now contain two executables: `recyclarr` and `recyclarr-server`. The CLI sends
+its work to a server and starts `recyclarr-server` from its own directory when needed. If you copy
+the `recyclarr` executable somewhere by hand, copy `recyclarr-server` to the same directory. See
+[Client and Server][client-server].
+
+## CLI: `sync --config` Removed {/*#sync-config-removed*/}
+
+The `-c|--config` option of `recyclarr sync` has been removed. The server loads configuration only
+from its [default locations][default-yaml]. Move any configuration files you passed with `--config`
+into the `configs` directory.
+
+```bash
+recyclarr sync --config ../myconfig.yml # <<< REMOVED
+```
+
+## CLI: `config` Commands Removed {/*#config-commands-removed*/}
+
+The `recyclarr config create`, `recyclarr config list local`, and `recyclarr config list templates`
+commands have been removed. To start from a template, copy it from the [Quick Setup
+Templates][templates] page into your configuration directory.
+
+## CLI: `migrate` Removed {/*#migrate-removed*/}
+
+The `recyclarr migrate` command has been removed. Migrations already ran automatically, and they now
+run each time the server starts. Remove any calls to `recyclarr migrate` from your scripts. See
+[Migration System][migrations].
+
 ## CLI: `state repair` Removed {/*#state-repair-removed*/}
 
 The `recyclarr state repair` command and its `--adopt` flag have been removed. Sync is now
@@ -109,3 +138,7 @@ to notice and adjust your config if needed.
 [schedule-cron]: ../../reference/settings/server.mdx#schedule-cron
 [external]: ../installation/docker.mdx#external-scheduler
 [http-api]: ../installation/docker.mdx#http-api
+[client-server]: ../../reference/client-server.mdx
+[default-yaml]: ../file-structure.mdx#default-yaml
+[templates]: ../guide-configs.mdx
+[migrations]: ../troubleshooting/migrations.mdx

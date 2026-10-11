@@ -3,7 +3,7 @@ title: Environment Variables
 sidebar_position: 3
 ---
 
-These environment variables control Recyclarr's behavior across all commands.
+These environment variables control the behavior of the Recyclarr CLI and server.
 
 :::tip[Looking for config substitution?]
 
@@ -36,6 +36,17 @@ config directory needs to be backed up.
 
 Relative paths are resolved from the config directory.
 
+## `RECYCLARR_SERVER_URL` {/*#server-url*/}
+
+The address of a running Recyclarr server for CLI commands to use. When set to a non-empty value, it
+overrides [`server.base_url`][base-url] in `cli.yml`.
+
+```bash
+export RECYCLARR_SERVER_URL="http://localhost:7982"
+```
+
+The Docker image sets this variable so that `docker exec` commands use the container's server.
+
 ## `NO_COLOR` {/*#no-color*/}
 
 Disables ANSI color output when set to any non-empty value.
@@ -51,3 +62,4 @@ See [no-color.org](https://no-color.org/) for more information about this standa
 [value-sub]: ./configuration/value-substitution.mdx#env-vars
 [configdir]: ../guide/file-structure.mdx#config-directory
 [datadir]: ../guide/file-structure.mdx#data-directory
+[base-url]: ./cli-settings.mdx#base-url
