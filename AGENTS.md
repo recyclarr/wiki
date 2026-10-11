@@ -51,6 +51,13 @@ installed package requires it as a peer dependency. Direct entries for transitiv
 the manifest and produce Renovate PRs that change nothing: Yarn installs a separate copy, and the
 parent package keeps the version it requires.
 
+## API Reference
+
+- `api/` is generated from `openapi/recyclarr-server.json` (`yarn gen-api-docs`); MUST NOT edit it
+  by hand. Fix reference text (operations, parameters, schemas) in the recyclarr server code.
+- Conceptual API prose (overview, job lifecycle, CLI and schedule relationship, authentication) goes
+  in hand-written wiki pages.
+
 ## Prose Edits
 
 MUST load the `humanizer` skill before writing or editing prose in any `docs/**` file (guide,
