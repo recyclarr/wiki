@@ -68,9 +68,39 @@ const config: Config = {
     ],
   ],
 
-  plugins: ["docusaurus-plugin-sass"],
+  plugins: [
+    "docusaurus-plugin-sass",
+    // The API reference uses its own docs instance so that @theme/ApiItem renders only the
+    // generated endpoint pages, leaving the hand-written docs on the default DocItem.
+    [
+      "@docusaurus/plugin-content-docs",
+      {
+        id: "api",
+        path: "api",
+        routeBasePath: "api",
+        sidebarPath: require.resolve("./sidebars-api.js"),
+        docItemComponent: "@theme/ApiItem",
+      },
+    ],
+    [
+      "docusaurus-plugin-openapi-docs",
+      {
+        id: "openapi",
+        docsPluginId: "api",
+        config: {
+          recyclarr: {
+            specPath: "openapi/recyclarr-server.json",
+            outputDir: "api",
+            sidebarOptions: {
+              groupPathsBy: "tag",
+            },
+          },
+        },
+      },
+    ],
+  ],
 
-  themes: ["docusaurus-theme-github-codeblock"],
+  themes: ["docusaurus-theme-github-codeblock", "docusaurus-theme-openapi-docs"],
 
   themeConfig: {
     navbar: {
@@ -98,6 +128,12 @@ const config: Config = {
           docId: "cli/index",
           position: "left",
           label: "CLI",
+        },
+        {
+          to: "/api/recyclarr-api",
+          position: "left",
+          label: "API",
+          activeBasePath: "api",
         },
         {
           type: "custom-versionSwitch",
