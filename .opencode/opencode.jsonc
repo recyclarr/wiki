@@ -7,6 +7,9 @@
     },
   },
   "permissions": [
+    // Sessions located here edit the wiki directly; the wiki subagent serves other directories
+    { "action": "subagent", "resource": "wiki", "effect": "deny" },
+
     // Fine tune linear tools in context
     { "action": "linear_*", "resource": "*", "effect": "deny" },
     { "action": "linear_*_comment*", "resource": "*", "effect": "allow" },

@@ -26,23 +26,22 @@ Classify the repository outcome, not the Recyclarr behavior being documented:
 Use a subject-area scope when useful, such as `docs(settings)` or `docs(custom-formats)`. Use `deps`
 for dependency updates and omit the scope for repository-wide changes.
 
-## Authoritative Reference
+## Documentation Accuracy
 
-Use research agents to access upstream repositories for factually correct information:
+Existing docs and change summaries are leads, not proof. Verify claims against upstream sources:
 
-- `recyclarr-code-researcher` - Recyclarr source code and memory bank
-- `config-templates-researcher` - Official configuration templates
-- `trash-guides-researcher` - TRaSH Guides custom formats, quality profiles, trash_ids
+- Recyclarr source code and CLI help for behavior; its JSON schemas for YAML properties, types,
+  defaults, and constraints
+- Recyclarr configuration templates for template names and contents
+- TRaSH Guides JSON data for custom formats, quality profiles, and `trash_id` values
 
-YAML examples must use real trash_ids - never placeholders.
+YAML examples MUST use real `trash_id` values and validate against the schema.
 
-## Commands
+## Verification
 
-- `yarn start` - Dev server at `localhost:3000`
-- `yarn build` - Build static site
-- `yarn clear` - Clear cache
-
-Run `pre-commit run --files <files>` on modified files after making changes.
+- Run `pre-commit run --files <files>` on modified files.
+- Run `yarn build` after changing links, anchors, frontmatter IDs, sidebars, or redirects; broken
+  links fail the build and broken anchors print warnings.
 
 ## Dependencies
 
@@ -66,13 +65,11 @@ Skipping it produces AI-voiced docs that get reverted.
 
 ## Deployment
 
-Hosted on Cloudflare Pages. Docusaurus is configured with `trailingSlash: true` (in
-`docusaurus.config.ts`), so all generated URLs end with `/`.
+Hosted on Cloudflare Pages with `trailingSlash: true`, so generated URLs end with `/`.
 
-Redirects are configured in `static/_redirects`. Cloudflare Pages evaluates `_redirects` before its
-own static asset routing (including its built-in trailing-slash 308 normalization). Paths are
-matched exactly, so `/guide/foo` and `/guide/foo/` are distinct sources. Always include both
-variants for each redirect to avoid missed redirects or double hops.
+Redirects live in `static/_redirects`. Cloudflare Pages evaluates them before its own trailing-slash
+308 normalization and matches paths exactly, so `/guide/foo` and `/guide/foo/` are distinct sources.
+Always add both variants to avoid missed redirects or double hops.
 
 Redirect capabilities:
 
@@ -81,45 +78,26 @@ Redirect capabilities:
 
 Limits: 2,000 static + 100 dynamic redirects, 1,000 chars per rule.
 
-## Architecture
+## Site Structure
 
-- Unified docs directory: `docs/guide/`, `docs/reference/`, `docs/cli/`
-- Sidebars: `sidebars-guide.js`, `sidebars-reference.js`, `sidebars-cli.js`
-- Category organization: `_category_.yml` files
-- Styling: SCSS in `src/css/` (not plain CSS)
-
-## MDX Components & Imports
-
-Available components in MDX files:
-
-- `<ServiceSupport>` - Sonarr/Radarr compatibility tables
-- `<SupportLegend>` - Legend for support icons
-- `<ReleaseDate date="YYYY-MM-DD" />` - Release date badge for upgrade guides (omit `date` for
-  unreleased)
-- `<Icon icon="mdi:icon-name" />` - Material Design Icons via Iconify
-
-Import paths:
-
-- `@site/src/...` - Project files (components, partials)
-- `@theme/...` - Docusaurus theme components
-- Partials use underscore prefix: `src/partials/_name.mdx`
-
-Static assets: `/img/` (logos), `/doc-img/` (screenshots)
+- `sidebars.js` autogenerates one sidebar per `docs/` subdirectory; order pages with
+  `sidebar_position` and directories with `_category_.yml`.
+- Components available without imports are registered in `src/theme/MDXComponents/index.tsx`;
+  import any other component explicitly.
+- Styles are SCSS in `src/css/` and target version-specific Docusaurus classes (`.navbar__*`,
+  `.menu__*`). After a Docusaurus upgrade, check navbar and sidebar styling on `/` and `/guide/` in
+  light and dark mode and at narrow widths.
 
 ## Content Conventions
 
 - Omit `id` in frontmatter when filename matches desired id; keep `id` when filename differs (e.g.,
-  `cache-rebuild.mdx` with `id: rebuild` for URL `/cli/cache/rebuild`)
-- Headings MUST use explicit anchors with MDX comment syntax: `## Heading {/* #anchor-id */}` -
-  concise, rely on page context
-- Line length MUST be hard wrapped at exactly 100 columns (Prettier `printWidth: 100`). Fill lines
-  to the full 100 columns before wrapping. Wrapping early (at 80, 90, or any width below 100) is
-  wrong. When in doubt, count characters.
-- Code blocks require language: `bash`, `yml`, `txt`
-- Links: use relative file paths with `.mdx` extension (`./page.mdx`, `../folder/page.mdx`,
-  `../../reference/page.mdx`). Use reference-style links to simplify line wrapping: `[text][id]`
-  with `[id]: path.mdx` at page end. When editing existing docs, convert inline links to
-  reference-style opportunistically
+  `list-custom-formats.mdx` with `id: custom-formats` for URL `/cli/list/custom-formats`)
+- Headings MUST use explicit, concise anchors in MDX comment syntax: `## Heading {/*#anchor-id*/}`
+- Hard wrap prose at 100 columns, filling each line before wrapping.
+- Use `yml` for YAML code blocks and `bash` for shell commands.
+- Link to docs with relative `.mdx` file paths (`../reference/settings/index.mdx`), not URLs. Use
+  reference-style links (`[text][id]`, with `[id]: path.mdx` at page end); convert inline links in
+  passages you edit.
 - Admonitions: `:::info` (optional/context), `:::tip` (best practices), `:::warning` (pitfalls),
   `:::danger` (data loss risks). MUST have blank line after opening `:::type` and before `:::`.
   Titles use bracket syntax: `:::tip[My Title]`
@@ -171,8 +149,8 @@ structure.
 - Valid values or constraints (if applicable)
 - Relationship to Sonarr/Radarr UI fields when relevant
 
-**Nested property anchors** use prefixes to avoid conflicts: `{/* #rus-enabled */}` for
-`reset_unmatched_scores.enabled`, `{/* #qualities-name */}` for `qualities[].name`.
+**Nested property anchors** use prefixes to avoid conflicts: `{/*#rus-enabled*/}` for
+`reset_unmatched_scores.enabled`, `{/*#qualities-name*/}` for `qualities[].name`.
 
 Use admonitions sparingly - only when behavior is non-obvious or has important interactions.
 
@@ -230,13 +208,8 @@ Default to unified documentation with inline callouts (e.g., `> **Radarr only**:
 differences. Use Docusaurus tabs when steps differ per platform. Split into separate pages only when
 workflows are fundamentally different (>30% divergent content).
 
-Document limitations in a dedicated `### Limitations {/* #limitations */}` heading. Use
+Document limitations in a dedicated `### Limitations {/*#limitations*/}` heading. Use
 `<ServiceSupport>` for feature compatibility matrices.
-
-## Documentation Accuracy
-
-Verify against Recyclarr source code - never assume existing docs are correct. Validate YAML
-examples against schema, cross-reference CLI help output.
 
 ## Special Pages
 
@@ -263,11 +236,3 @@ guides plus one unreleased guide. When a new major version begins development:
    deprecations for the current development cycle
 2. Delete the oldest upgrade guide to maintain four total
 3. Add a redirect for the deleted page to `/guide/upgrade-guide`
-
-## Styling
-
-SCSS modules in `src/css/`. Custom styles target Docusaurus internal classes (`.navbar__*`,
-`.menu__*`) which are version-specific.
-
-After Docusaurus upgrades: run `yarn build`, test dev server, verify navbar/sidebar styling on both
-`/` and `/guide/`, check dark mode toggle, test responsive layout.
