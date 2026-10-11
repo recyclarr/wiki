@@ -13,7 +13,6 @@ Use the `config-templates` type when you want to:
 
 - Create reusable configuration snippets (includes) for quality profiles, custom format assignments,
   etc.
-- Build complete configuration templates for the `recyclarr config create` command
 - Share standardized configurations across teams or the community
 
 ## Required Structure {/*#required-structure*/}
@@ -73,11 +72,11 @@ Maps include IDs to their YAML file paths:
 
 ### Include JSON Fields {/*#include-json-fields*/}
 
-| Field      | Required | Description                                                       |
-|------------|----------|-------------------------------------------------------------------|
-| `id`       | Yes      | Unique identifier used in config's `include` directive            |
-| `template` | Yes      | Path to the YAML file relative to repository root                 |
-| `hidden`   | No       | When `true`, hides from `recyclarr list` output. Default: `false` |
+| Field      | Required | Description                                                 |
+|------------|----------|-------------------------------------------------------------|
+| `id`       | Yes      | Unique identifier used in config's `include` directive      |
+| `template` | Yes      | Path to the YAML file relative to repository root           |
+| `hidden`   | No       | Accepted for compatibility; has no effect. Default: `false` |
 
 ### Example Include YAML {/*#example-include-yaml*/}
 
@@ -116,8 +115,14 @@ radarr:
 
 ## Template Files {/*#template-files*/}
 
-Templates are complete configuration files used with the `recyclarr config create` command to
-scaffold new configurations.
+Templates are complete configuration files that users copy to start a new configuration.
+
+:::info
+
+Recyclarr 9 has no command that creates a configuration from a template. Recyclarr still reads
+`templates.json`, but it does not use the templates. Users copy template files by hand.
+
+:::
 
 ### The templates.json File {/*#the-templatesjson-file*/}
 
@@ -140,11 +145,11 @@ Maps template IDs to their YAML file paths:
 
 ### Template JSON Fields {/*#template-json-fields*/}
 
-| Field      | Required | Description                                                       |
-|------------|----------|-------------------------------------------------------------------|
-| `id`       | Yes      | Unique identifier used with `recyclarr config create -t`          |
-| `template` | Yes      | Path to the YAML file relative to repository root                 |
-| `hidden`   | No       | When `true`, hides from `recyclarr list` output. Default: `false` |
+| Field      | Required | Description                                                 |
+|------------|----------|-------------------------------------------------------------|
+| `id`       | Yes      | Unique identifier for the template                          |
+| `template` | Yes      | Path to the YAML file relative to repository root           |
+| `hidden`   | No       | Accepted for compatibility; has no effect. Default: `false` |
 
 ### Example Template YAML {/*#example-template-yaml*/}
 
@@ -183,14 +188,6 @@ radarr:
           - 90cedc1fea7ea5d11298bebd3d1d3223  # EVO (no WEBDL)
         assign_scores_to:
           - name: HD Movies
-```
-
-### Using Templates {/*#using-templates*/}
-
-Create a new config from a template:
-
-```bash
-recyclarr config create -t radarr-movies-hd
 ```
 
 ## ID Naming Best Practices {/*#id-naming-best-practices*/}
