@@ -3,6 +3,16 @@
 # Format: [old-path] [new-path] [status-code]
 # Redirects are grouped by date (newest first). Add new redirects at the top with a date comment.
 
+# 2026-10-11: config commands removed (copy templates by hand)
+/cli/config /guide/upgrade-guide/v9.0#config-commands-removed 301
+/cli/config/ /guide/upgrade-guide/v9.0#config-commands-removed 301
+/cli/config/create /guide/upgrade-guide/v9.0#config-commands-removed 301
+/cli/config/create/ /guide/upgrade-guide/v9.0#config-commands-removed 301
+/cli/config/local /guide/upgrade-guide/v9.0#config-commands-removed 301
+/cli/config/local/ /guide/upgrade-guide/v9.0#config-commands-removed 301
+/cli/config/templates /guide/upgrade-guide/v9.0#config-commands-removed 301
+/cli/config/templates/ /guide/upgrade-guide/v9.0#config-commands-removed 301
+
 # 2026-03-05: state repair command removed (sync is self-healing)
 /cli/state /guide/upgrade-guide/v9.0#state-repair-removed 301
 /cli/state/ /guide/upgrade-guide/v9.0#state-repair-removed 301

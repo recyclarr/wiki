@@ -14,23 +14,31 @@ For example, `recyclarr sync -h` will print help specific to the `sync` command.
 
 ### `--log [LEVEL]` {/*#log-arg*/}
 
-Enable log output mode. When used, Recyclarr switches from interactive UI output to traditional log
-output (the same format written to log files). This is useful for scripts, automation, or debugging.
+Enable log output mode. When used, Recyclarr switches from interactive UI output to log output. This
+is useful for scripts, automation, or debugging.
 
 Valid levels:
 
-- `debug` - Show debug, info, warning, and error messages
+- `verbose` - Everything in `debug`, plus the body of each request to and response from the server
+- `debug` - Show debug, info, warning, and error messages, including each request to the server
 - `info` - Show info, warning, and error messages (default)
 - `warn` - Show only warning and error messages
 
 When used without a level argument (`--log`), defaults to `info`.
+
+The CLI does not write log files. To keep its log output, redirect it to a file. The server writes
+its own log files; see [Obtaining Debug Logs][logs].
 
 :::info[Output Modes]
 
 Recyclarr has two mutually exclusive output modes:
 
 - **Interactive mode** (default): Shows progress bars, tables, and formatted output. No logs are
-  printed to console (but still written to log files).
-- **Log mode** (`--log`): Shows traditional log output. Interactive UI elements are disabled.
+  printed.
+- **Log mode** (`--log`): Shows log output. Interactive UI elements are disabled. Recyclarr also
+  uses this mode, at the `info` level, when its output is redirected to a file or a pipe (except for
+  `list` commands with `--raw`).
 
 :::
+
+[logs]: ../guide/troubleshooting/reporting-issues.mdx#obtaining-debug-logs

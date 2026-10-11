@@ -6,6 +6,11 @@ displayed_sidebar: cliSidebar
 
 Command line interface (CLI) documentation for the `recyclarr` executable.
 
+The CLI does not sync on its own. It sends each command to a Recyclarr server and shows the result.
+See [Client and Server][client-server] for how the CLI finds a server.
+
+[client-server]: ../reference/client-server.mdx
+
 ## Terminology {/*#terminology*/}
 
 - **Command**: A sub-category of functionality that defines its own options and arguments, such as
@@ -16,8 +21,8 @@ sonarr`, `sonarr` is an argument of the `sync` command)
 
 :::info
 
-If you see a section title with a pipe character (`|`) in it, like `-c|--config`, that means that
-option has both a short *and* long form. So you can specify `-c` or `--config`.
+If you see a section title with a pipe character (`|`) in it, like `-p|--preview`, that means that
+option has both a short *and* long form. So you can specify `-p` or `--preview`.
 
 Headings for argument-based parameters can be enclosed in either square-brackets (e.g. `[optional]`)
 or angle-brackets (e.g. `<required>`).
@@ -30,7 +35,7 @@ Also visit the [Common Options](./common.mdx) page to learn about options and en
 usable across *all* commands.
 
 - [recyclarr](./main.mdx)
+- [recyclarr serve](./serve.mdx)
 - [recyclarr sync](./sync.mdx)
 - [recyclarr list](./list/index.mdx)
-- [recyclarr config](./config/index.mdx)
 - [recyclarr delete](./delete/index.mdx)

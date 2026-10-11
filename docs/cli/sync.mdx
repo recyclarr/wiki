@@ -14,7 +14,12 @@ recyclarr sync [service] [OPTIONS]
 Synchronizes the guide with various services. See [Sync Behavior][behavior] for details on how sync
 works and how to interpret its output.
 
+The command starts a sync job on a Recyclarr server, waits for it to finish, and shows the results.
+The server syncs the configuration files it loaded at startup. See [Client and
+Server][client-server].
+
 [behavior]: ../guide/sync-behavior.mdx
+[client-server]: ../reference/client-server.mdx
 
 ## Arguments {/*#arguments*/}
 
@@ -40,32 +45,6 @@ recyclarr sync sonarr
 ```
 
 ## Options {/*#options*/}
-
-### `-c|--config` {/*#config*/}
-
-One or more paths to YAML configuration files. If this argument is not specified, default
-configuration files will be used according to rules documented on the [File
-Structure](../guide/file-structure.mdx) page.
-
-:::tip
-
-If you specify more than one configuration file, you must repeat the `-c` option for each file. See
-the examples below.
-
-:::
-
-#### Command Line Examples {/*#command-line-examples-1*/}
-
-```bash
-# Sync using default configs (recyclarr.yml or files in the 'configs' directory)
-recyclarr sync
-
-# Use a single config
-recyclarr sync --config ../myconfig.yml
-
-# Use multiple configs
-recyclarr sync -c ../myconfig1.yml -c "files/my config 2.yml"
-```
 
 ### `-p|--preview` {/*#preview*/}
 
