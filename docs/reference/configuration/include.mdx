@@ -369,6 +369,10 @@ separate entries, not merged.
 | `score_set`              | Scalar    | Replace                      |
 | `reset_unmatched_scores` | Mapping   | Union                        |
 | `qualities`              | Sequence  | [Replace](#detail-qualities) |
+| `quality_definition`     | Mapping   | Union                        |
+
+The profile's `quality_definition` merges the same way as the instance-level
+[`quality_definition`](#merge-quality-definition).
 
 Merge operations for properties of `upgrade`:
 

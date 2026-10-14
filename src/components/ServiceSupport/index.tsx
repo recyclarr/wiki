@@ -31,7 +31,7 @@ export default function ServiceSupport({ sonarr = "none", radarr = "none" }: Ser
       </thead>
       <tbody>
         <tr>
-          <td>Sonarr (v4)</td>
+          <td>Sonarr (v4, v5)</td>
           <td className={styles.centered}>
             <SupportIcon level={sonarr} />
           </td>

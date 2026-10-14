@@ -230,6 +230,21 @@ cutoff, and format scores:
 The `formatItems` map references custom format names to their `trash_id` values. The `items` array
 defines the quality ordering, where nested `items` represent quality groups.
 
+Quality profiles can also include an optional `trash_quality_definition` object that links the
+profile to a [quality size file](#quality-sizes):
+
+```json
+"trash_quality_definition": {
+  "Anime": "387e6278d8e06083d813358762e0ac63"
+}
+```
+
+The object must have exactly one entry: a readable label mapped to the quality size file's
+`trash_id`. Recyclarr matches only the `trash_id`; the label is for people reading the JSON.
+Recyclarr uses this reference only on Sonarr v5, where quality sizes belong to each profile. If the
+`trash_id` does not exist or the object has more than one entry, Recyclarr reports an error for that
+profile.
+
 ### Quality Profile Groups {/*#quality-profile-groups*/}
 
 Quality profile groups organize related quality profiles together. The file contains a JSON array

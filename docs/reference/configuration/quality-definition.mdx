@@ -25,8 +25,19 @@ service_type:
 **Optional.** *Default: No quality definitions are modified*
 
 Quality definitions control the minimum, maximum, and preferred file sizes for each quality level
-(e.g., Bluray-1080p, WEBDL-720p). These size limits apply to the entire instance, shared by all
-quality profiles. If not specified, quality definitions are not modified in the service.
+(e.g., Bluray-1080p, WEBDL-720p). In Radarr and Sonarr v4, these size limits apply to the entire
+instance, shared by all quality profiles. If not specified, quality definitions are not modified in
+the service.
+
+:::info[Sonarr v5]
+
+Sonarr v5 stores size limits on each quality profile instead of globally. On Sonarr v5, Recyclarr
+applies the sizes from `quality_definition` only to the profiles listed under
+[`quality_profiles`][qp], and only to profiles that don't get sizes from another source. If no
+profiles are listed, no sizes are synced and Recyclarr prints a warning. See the per-profile
+[`quality_definition`][qp-qd] property for how Recyclarr picks sizes for each profile.
+
+:::
 
 ## `type` {/*#qd-type*/}
 
@@ -114,3 +125,5 @@ Preferred size in MB per minute of runtime. Accepts a number `0` or greater, or 
 :::
 
 [listqualities]: ../../cli/list/list-qualities.mdx
+[qp]: ./quality-profiles.mdx
+[qp-qd]: ./quality-profiles.mdx#quality-definition
