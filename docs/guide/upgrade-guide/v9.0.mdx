@@ -21,6 +21,23 @@ The Docker image now runs the Recyclarr server instead of a cron job. The server
 syncs on a built-in schedule, and accepts commands from the CLI. See the [Docker guide][docker] for
 the full setup.
 
+### API Key Required {/*#docker-api-key*/}
+
+The server requires an API key and does not start without one. The image has no default key. Set
+`RECYCLARR_API_KEY` on the container:
+
+```yml
+services:
+  recyclarr:
+    image: ghcr.io/recyclarr/recyclarr:9
+    environment:
+      - TZ=America/Santiago
+      - RECYCLARR_API_KEY=${RECYCLARR_API_KEY}  # <<< ADDED
+```
+
+See [API Key][docker-api-key] for how to create the key and store it in a `.env` file. CLI commands
+you run with `docker exec` use the same key automatically.
+
 ### Schedule Moved to `settings.yml` {/*#cron-schedule*/}
 
 The `CRON_SCHEDULE` environment variable is no longer read. Remove it from your compose file and put
@@ -138,6 +155,7 @@ to notice and adjust your config if needed.
 [schedule-cron]: ../../reference/settings/server.mdx#schedule-cron
 [external]: ../installation/docker.mdx#external-scheduler
 [http-api]: ../installation/docker.mdx#http-api
+[docker-api-key]: ../installation/docker.mdx#api-key
 [client-server]: ../../reference/client-server.mdx
 [default-yaml]: ../file-structure.mdx#default-yaml
 [templates]: ../guide-configs.mdx
