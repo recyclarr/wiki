@@ -50,11 +50,12 @@ services:
       - ./config:/config
     environment:
       - TZ=America/Santiago
+      - RECYCLARR_API_KEY=${RECYCLARR_API_KEY}
 ```
 
 The container runs the Recyclarr server. The server stays running, syncs on a
-[built-in schedule](#scheduling), and accepts commands from the [CLI](#cli). Start it in the
-background:
+[built-in schedule](#scheduling), and accepts commands from the [CLI](#cli). Before you start it,
+create an [API key](#api-key). Then start it in the background:
 
 ```bash
 docker compose up -d
@@ -79,6 +80,9 @@ Here is a breakdown of the above YAML:
   Optional user and group ID for the container process. Recyclarr runs as this UID:GID, and any
   files it creates in the `/config` volume are owned by this user and group. Defaults to `1000:1000`
   if not specified.
+- `environment`<br/>
+  `TZ` sets the time zone for the sync schedule. `RECYCLARR_API_KEY` sets the server's API key; see
+  [API Key](#api-key).
 
 ## Tags {/*#tags*/}
 
@@ -184,6 +188,10 @@ Recyclarr's Docker container is **rootless**. Use the `user` property (in Docker
 
 :::
 
+- `RECYCLARR_API_KEY` (Required)<br/>
+  The server's API key. The image has no default, and the server does not start without it. See
+  [API Key](#api-key).
+
 - `TZ` (Default: `UTC`)<br/>
   The time zone for Recyclarr's local time in the container. The [sync schedule](#scheduling) uses
   this time zone.
@@ -194,6 +202,32 @@ Recyclarr's Docker container is **rootless**. Use the `user` property (in Docker
 - `RECYCLARR_DATA_DIR` (Default: same as `RECYCLARR_CONFIG_DIR`)<br/>
   Override the data directory path inside the container for ephemeral files (resources, logs). See
   [Environment Variables][env-data].
+
+### API Key {/*#api-key*/}
+
+The server only accepts requests that include its [API key][api-key], and it does not start until
+you give it one. The [compose example](#docker-compose-example) reads the key from a
+`RECYCLARR_API_KEY` variable, which Docker Compose can load from a `.env` file next to
+`docker-compose.yml`.
+
+1. Create the `.env` file with a random key:
+
+   ```bash
+   echo "RECYCLARR_API_KEY=$(openssl rand -hex 32)" > .env
+   ```
+
+1. Start or recreate the container:
+
+   ```bash
+   docker compose up -d
+   ```
+
+You can also put the key directly in the compose file (`- RECYCLARR_API_KEY=your-key-here`) or load
+it with `env_file`. If the key is missing, the server stops right after it starts, and
+`docker logs recyclarr` shows an error that names `RECYCLARR_API_KEY`.
+
+The CLI inside the container reads the same variable, so [`docker exec` commands](#cli) work without
+any other setup.
 
 ## Configuration Changes {/*#config-changes*/}
 
@@ -285,18 +319,26 @@ services:
 To use a different port on the host, change the first number (for example, `8000:7982`). See the
 [API reference][api] for the available endpoints.
 
-:::danger
+Every API request must send the [API key](#api-key) as a bearer token:
 
-The API has no authentication. Anyone who can reach the published port can start syncs and delete
-custom formats in your Sonarr and Radarr instances. Do not publish the port to an untrusted network.
+```bash
+curl -H "Authorization: Bearer $RECYCLARR_API_KEY" http://localhost:7982/api/v1/sync/jobs
+```
 
-:::
+To run CLI commands on another machine against this server, set `server.base_url` and
+`server.api_key` in that machine's [`cli.yml`][cli-settings]:
+
+```yml
+server:
+  base_url: http://recyclarr:7982
+  api_key: your-key-here
+```
 
 ## Health Check {/*#health-check*/}
 
 The image has a built-in Docker health check. It requests `/health` from the server every 30 seconds
-and marks the container unhealthy when the server does not respond. `docker ps` and
-`docker compose ps` show the result.
+and marks the container unhealthy when the server does not respond. `/health` does not need the API
+key. `docker ps` and `docker compose ps` show the result.
 
 ## Stopping the Container {/*#stopping*/}
 
@@ -357,3 +399,5 @@ services:
 [schedule-cron]: ../../reference/settings/server.mdx#schedule-cron
 [cli]: ../../cli/index.mdx
 [api]: /api/recyclarr-api
+[api-key]: ../../reference/client-server.mdx#api-key
+[cli-settings]: ../../reference/cli-settings.mdx

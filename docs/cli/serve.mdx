@@ -21,8 +21,13 @@ writes log messages to the console and to log files in `logs/server/`.
 `serve` starts the `recyclarr-server` executable, which must be in the same directory as
 `recyclarr`. The release archives include both.
 
+The server runs with the environment of the shell you start `serve` from, and it does not start
+unless the [`RECYCLARR_API_KEY`][env-api-key] environment variable is set to its [API
+key][api-key].
+
 To have other CLI commands use this server instead of starting their own, set
-[`server.base_url`][base-url] in `cli.yml`. See [Client and Server][client-server] for details.
+[`server.base_url`][base-url] and [`server.api_key`][cli-api-key] in `cli.yml`. See [Client and
+Server][client-server] for details.
 
 :::info
 
@@ -33,7 +38,8 @@ The Docker image already runs the server. You do not need `serve` in a container
 ### Command Line Examples {/*#command-line-examples*/}
 
 ```bash
-# Start the server
+# Start the server with an API key
+export RECYCLARR_API_KEY="your-key-here"
 recyclarr serve
 ```
 
@@ -42,3 +48,6 @@ recyclarr serve
 [server-settings]: ../reference/settings/server.mdx
 [base-url]: ../reference/cli-settings.mdx#base-url
 [client-server]: ../reference/client-server.mdx
+[env-api-key]: ../reference/env-vars.mdx#api-key
+[api-key]: ../reference/client-server.mdx#api-key
+[cli-api-key]: ../reference/cli-settings.mdx#api-key

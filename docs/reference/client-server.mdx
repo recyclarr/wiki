@@ -26,6 +26,8 @@ A persistent server:
 - Writes log files to `logs/server/` in the [data directory][data-dir].
 - Keeps its sync jobs in `state/server.db` in the [configuration directory][config-dir].
 
+A persistent server needs an [API key](#api-key) and does not start without one.
+
 For CLI commands to use a persistent server, set [`server.base_url`][base-url] in `cli.yml` or set
 the [`RECYCLARR_SERVER_URL`][env-server-url] environment variable. The Docker image sets the
 variable for you.
@@ -37,7 +39,66 @@ listens only on the local machine, handles that one command, and stops when the 
 does not run the built-in schedule, and it does not keep its jobs after it stops. It still writes
 log files to `logs/server/` and sends notifications.
 
-This is the default when you run `recyclarr` outside Docker without any extra setup.
+This is the default when you run `recyclarr` outside Docker without any extra setup. You do not need
+to set an API key: the CLI creates a new one-time key for each command and gives it to the temporary
+server.
+
+## Server API Key {/*#api-key*/}
+
+Every request to the server's API (any path under `/api`) must include the server API key. This
+keeps other programs on your network, or other users on your machine, from starting syncs or
+deleting custom formats in your Sonarr and Radarr instances. A few paths need no key: the `/health`
+check, the OpenAPI document, and the API reference page.
+
+### Setting the Key {/*#api-key-server*/}
+
+The server reads its key only from the [`RECYCLARR_API_KEY`][env-api-key] environment variable. It
+does not read the key from `settings.yml`. If the variable is unset or empty, the server logs a
+fatal error that names `RECYCLARR_API_KEY` and exits with a non-zero exit code. This applies to
+[`recyclarr serve`][serve], the [Docker image][docker-key], and any other way you run a persistent
+server.
+
+The key can be any non-empty text. Recyclarr does not check its length or strength, so choose a long
+random value. For example:
+
+```bash
+openssl rand -hex 32
+```
+
+### Sending the Key {/*#api-key-clients*/}
+
+- **The CLI** sends the key from [`server.api_key`][cli-api-key] in `cli.yml`, or from
+  `RECYCLARR_API_KEY` when that variable is set. Inside the Docker container, the CLI reads the same
+  variable as the server, so `docker exec` commands need no extra setup.
+- **Other HTTP clients** send the key as a bearer token in the `Authorization` header:
+
+  ```bash
+  curl -H "Authorization: Bearer $RECYCLARR_API_KEY" http://localhost:7982/api/v1/sync/jobs
+  ```
+
+When the key is missing or wrong, the server responds with `401 Unauthorized`, a
+`WWW-Authenticate: Bearer` header, and a Problem Details body. The CLI shows this message:
+
+```txt
+The Recyclarr server rejected the request: missing or wrong API key. Set server.api_key in cli.yml or the RECYCLARR_API_KEY environment variable to the key the server uses.
+```
+
+### Kubernetes {/*#api-key-kubernetes*/}
+
+Store the key in a Secret, created by hand or by a tool such as External Secrets Operator, and map it
+to `RECYCLARR_API_KEY` in the container:
+
+```yml
+containers:
+  - name: recyclarr
+    image: ghcr.io/recyclarr/recyclarr:9
+    env:
+      - name: RECYCLARR_API_KEY
+        valueFrom:
+          secretKeyRef:
+            name: recyclarr
+            key: api-key
+```
 
 ## Sync Jobs {/*#jobs*/}
 
@@ -71,3 +132,6 @@ does not run them again.
 [config-dir]: ../guide/file-structure.mdx#config-directory
 [base-url]: ./cli-settings.mdx#base-url
 [env-server-url]: ./env-vars.mdx#server-url
+[env-api-key]: ./env-vars.mdx#api-key
+[docker-key]: ../guide/installation/docker.mdx#api-key
+[cli-api-key]: ./cli-settings.mdx#api-key
