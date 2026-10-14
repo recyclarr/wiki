@@ -47,6 +47,22 @@ export RECYCLARR_SERVER_URL="http://localhost:7982"
 
 The Docker image sets this variable so that `docker exec` commands use the container's server.
 
+## `RECYCLARR_API_KEY` {/*#api-key*/}
+
+The [server API key][api-key]. Both programs read it:
+
+- **The server** requires it and does not start when it is unset or empty. A temporary server gets
+  a one-time key from the CLI instead, so you only set this for a persistent server.
+- **The CLI** sends it to the server at `server.base_url`. When set to a non-empty value, it
+  overrides [`server.api_key`][cli-api-key] in `cli.yml`.
+
+```bash
+export RECYCLARR_API_KEY="$(openssl rand -hex 32)"
+```
+
+The Docker image has no default for this variable. Set it on the container; the server and
+`docker exec` commands both use it.
+
 ## `NO_COLOR` {/*#no-color*/}
 
 Disables ANSI color output when set to any non-empty value.
@@ -63,3 +79,5 @@ See [no-color.org](https://no-color.org/) for more information about this standa
 [configdir]: ../guide/file-structure.mdx#config-directory
 [datadir]: ../guide/file-structure.mdx#data-directory
 [base-url]: ./cli-settings.mdx#base-url
+[api-key]: ./client-server.mdx#api-key
+[cli-api-key]: ./cli-settings.mdx#api-key
