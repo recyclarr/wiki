@@ -31,8 +31,8 @@ effort before seeking help or reporting issues.
 Please review the checklist below and ensure you have done the following.
 
 - **Read the documentation!**
-- If you need help with an error or warning message, check the [Errors &
-  Warnings](./errors-warnings.mdx) page.
+- If you need help with an error or warning message, check the
+  [Errors & Warnings](./errors-warnings.mdx) page.
 - Search the Github [issues] and [discussion] sections for existing answers to your questions or to
   see if your issue has already been reported.
 - If you are getting errors, *read the error messages and try to understand them!* Many of
@@ -60,6 +60,9 @@ The Recyclarr server writes log files that always contain debug logs. You should
 from these files rather than the command line output, since the CLI does not show debug logs by
 default.
 
+If you set [`server.logging.files`][log-files] to `false`, the server writes no files. Remove that
+setting, restart the server, and reproduce the problem.
+
 Below is a list of locations where you can find the server log directory depending on platform.
 
 | Platform | Location                                              |
@@ -81,6 +84,7 @@ The CLI does not write log files. If a problem happens in the CLI itself, run th
 `--log verbose` and share that output.
 
 [persistent]: ../../reference/client-server.mdx#persistent
+[log-files]: ../../reference/settings/server.mdx#logging-files
 
 :::info
 

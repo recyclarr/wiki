@@ -78,8 +78,8 @@ WantedBy=multi-user.target
 - `RECYCLARR_CONFIG_DIR`<br/>
   Sets the [configuration directory][env-config]. Always use an absolute path here.
 - `ExecStart`<br/>
-  Starts `recyclarr-server` directly. Do not use `recyclarr serve` or a wrapper script; systemd
-  then cannot get the ready signal, and the start times out.
+  Starts `recyclarr-server` directly. Do not use `recyclarr serve` or a wrapper script; systemd then
+  cannot get the ready signal, and the start times out.
 - `Restart=on-failure`<br/>
   Starts the server again when it exits with an error. A normal stop does not restart it.
 
@@ -101,13 +101,15 @@ The server writes its log messages to the systemd journal:
 journalctl -u recyclarr -f
 ```
 
+Each message is a JSON line. For plain text, set [`server.logging.format`][log-format] to `text`.
+
 It also writes log files to `/var/lib/recyclarr/logs/server/`.
 
 ## Run CLI Commands {/*#cli*/}
 
 The CLI sends commands to the server over HTTP. To use the service, give the CLI the server address
-and the API key in `~/.config/recyclarr/cli.yml` (the [CLI settings][cli-settings] file for your
-own user):
+and the API key in `~/.config/recyclarr/cli.yml` (the [CLI settings][cli-settings] file for your own
+user):
 
 ```yml
 server:
@@ -156,3 +158,4 @@ sudo systemctl start recyclarr
 [cli-settings]: ../../../reference/cli-settings.mdx
 [temporary]: ../../../reference/client-server.mdx#temporary
 [server-settings]: ../../../reference/settings/server.mdx
+[log-format]: ../../../reference/settings/server.mdx#logging-format
