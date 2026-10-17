@@ -337,9 +337,20 @@ server:
 
 ## Health Check {/*#health-check*/}
 
-The image has a built-in Docker health check. It requests `/health` from the server every 30 seconds
-and marks the container unhealthy when the server does not respond. `/health` does not need the API
-key. `docker ps` and `docker compose ps` show the result.
+The image has a built-in Docker health check. Every 30 seconds it requests `/livez` on the
+[management port][monitoring] (`7983` inside the container) and marks the container unhealthy when
+the server does not respond. `docker ps` and `docker compose ps` show the result.
+
+The health check works without publishing port `7983`. Publish it only when something outside the
+container needs the health probes or Prometheus metrics, such as an uptime monitor:
+
+```yml
+services:
+  recyclarr:
+    ports:
+      - 7982:7982
+      - 7983:7983
+```
 
 ## Stopping the Container {/*#stopping*/}
 
@@ -402,3 +413,4 @@ services:
 [api]: /api/recyclarr-api
 [api-key]: ../../reference/client-server.mdx#api-key
 [cli-settings]: ../../reference/cli-settings.mdx
+[monitoring]: ../../reference/monitoring.mdx

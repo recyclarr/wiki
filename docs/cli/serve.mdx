@@ -15,19 +15,21 @@ Runs the Recyclarr server in the foreground until you stop it with Ctrl+C. The s
 [built-in schedule][schedule] and accepts commands from the CLI and the [HTTP API][api]. The command
 exits with the server's exit code.
 
-The server reads its address, port, and schedule from the [`server` settings][server-settings]. It
-writes log messages to the console and to log files in `logs/server/`.
+The server reads its address, ports, logging, and schedule from the
+[`server` settings][server-settings]. It writes log messages to the console and to log files in
+`logs/server/`. In a terminal the console shows readable text; when you redirect the output, it is
+JSON lines instead (see [`server.logging.format`][log-format]). It also opens a
+[management port][monitoring] (`7983` by default) for health probes and metrics.
 
 `serve` starts the `recyclarr-server` executable, which must be in the same directory as
 `recyclarr`. The release archives include both.
 
 The server runs with the environment of the shell you start `serve` from, and it does not start
-unless the [`RECYCLARR_API_KEY`][env-api-key] environment variable is set to its [API
-key][api-key].
+unless the [`RECYCLARR_API_KEY`][env-api-key] environment variable is set to its [API key][api-key].
 
 To have other CLI commands use this server instead of starting their own, set
-[`server.base_url`][base-url] and [`server.api_key`][cli-api-key] in `cli.yml`. See [Client and
-Server][client-server] for details.
+[`server.base_url`][base-url] and [`server.api_key`][cli-api-key] in `cli.yml`. See
+[Client and Server][client-server] for details.
 
 :::info
 
@@ -51,3 +53,5 @@ recyclarr serve
 [env-api-key]: ../reference/env-vars.mdx#api-key
 [api-key]: ../reference/client-server.mdx#api-key
 [cli-api-key]: ../reference/cli-settings.mdx#api-key
+[log-format]: ../reference/settings/server.mdx#logging-format
+[monitoring]: ../reference/monitoring.mdx
