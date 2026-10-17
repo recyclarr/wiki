@@ -7,8 +7,8 @@ These environment variables control the behavior of the Recyclarr CLI and server
 
 :::tip[Looking for config substitution?]
 
-To substitute environment variable values into your YAML configuration files, see [Value
-Substitution][value-sub].
+To substitute environment variable values into your YAML configuration files, see
+[Value Substitution][value-sub].
 
 :::
 
@@ -51,8 +51,8 @@ The Docker image sets this variable so that `docker exec` commands use the conta
 
 The [server API key][api-key]. Both programs read it:
 
-- **The server** requires it and does not start when it is unset or empty. A temporary server gets
-  a one-time key from the CLI instead, so you only set this for a persistent server.
+- **The server** requires it and does not start when it is unset or empty. A temporary server gets a
+  one-time key from the CLI instead, so you only set this for a persistent server.
 - **The CLI** sends it to the server at `server.base_url`. When set to a non-empty value, it
   overrides [`server.api_key`][cli-api-key] in `cli.yml`.
 
@@ -62,6 +62,16 @@ export RECYCLARR_API_KEY="$(openssl rand -hex 32)"
 
 The Docker image has no default for this variable. Set it on the container; the server and
 `docker exec` commands both use it.
+
+## `OTEL_*` {/*#otel*/}
+
+The standard OpenTelemetry variables. Setting `OTEL_EXPORTER_OTLP_ENDPOINT` makes the server export
+traces, metrics, and logs to an OpenTelemetry Collector or another OTLP receiver. See
+[OpenTelemetry][otel] for the variables Recyclarr uses.
+
+```bash
+export OTEL_EXPORTER_OTLP_ENDPOINT="http://localhost:4317"
+```
 
 ## `NO_COLOR` {/*#no-color*/}
 
@@ -81,3 +91,4 @@ See [no-color.org](https://no-color.org/) for more information about this standa
 [base-url]: ./cli-settings.mdx#base-url
 [api-key]: ./client-server.mdx#api-key
 [cli-api-key]: ./cli-settings.mdx#api-key
+[otel]: ./monitoring.mdx#opentelemetry
