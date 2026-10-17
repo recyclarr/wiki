@@ -23,8 +23,9 @@ image. Adjust the image name as needed.
 
 ## Docker Compose Example {/*#docker-compose-example*/}
 
-The examples on this page use `docker compose` with a `docker-compose.yml` file, which is the
-recommended approach for managing container configuration in one place.
+The examples on this page use `docker compose` with a `compose.yaml` file, which is the recommended
+approach for managing container configuration in one place. If you already have a
+`docker-compose.yml` file, keep using it; Docker Compose still reads that name.
 
 :::warning
 
@@ -208,7 +209,7 @@ Recyclarr's Docker container is **rootless**. Use the `user` property (in Docker
 The server only accepts requests that include its [API key][api-key], and it does not start until
 you give it one. The [compose example](#docker-compose-example) reads the key from a
 `RECYCLARR_API_KEY` variable, which Docker Compose can load from a `.env` file next to
-`docker-compose.yml`.
+`compose.yaml`.
 
 1. Create the `.env` file with a random key:
 
@@ -361,7 +362,7 @@ two changes in Docker Compose:
    Using `tmpfs` is recommended since these files are temporary by design, and keeping them in
    memory offers some performance benefits.
 
-Using the example `docker-compose.yml` from the top of this page, add the following:
+Using the example `compose.yaml` from the top of this page, add the following:
 
 ```yml
 services:
