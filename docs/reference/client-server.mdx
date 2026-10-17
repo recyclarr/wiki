@@ -23,7 +23,9 @@ A persistent server:
 
 - Syncs on its [built-in schedule][schedule].
 - Listens for requests at the address in its [`server` settings][server-settings].
-- Writes log files to `logs/server/` in the [data directory][data-dir].
+- Writes its log to the console and to [log files][log-files] in `logs/server/` in the
+  [data directory][data-dir].
+- Serves health probes and metrics on a separate [management port][monitoring].
 - Keeps its sync jobs in `state/server.db` in the [configuration directory][config-dir].
 
 A persistent server needs an [API key](#api-key) and does not start without one.
@@ -36,8 +38,9 @@ variable for you.
 
 If no server address is set, each CLI command starts its own temporary server. The temporary server
 listens only on the local machine, handles that one command, and stops when the command ends. It
-does not run the built-in schedule, and it does not keep its jobs after it stops. It still writes
-log files to `logs/server/` and sends notifications.
+does not run the built-in schedule, opens no management port, and does not keep its jobs after it
+stops. It writes log files to `logs/server/` in the [data directory][data-dir] and sends
+notifications.
 
 This is the default when you run `recyclarr` outside Docker without any extra setup. You do not need
 to set an API key: the CLI creates a new one-time key for each command and gives it to the temporary
@@ -47,8 +50,9 @@ server.
 
 Every request to the server's API (any path under `/api`) must include the server API key. This
 keeps other programs on your network, or other users on your machine, from starting syncs or
-deleting custom formats in your Sonarr and Radarr instances. A few paths need no key: the `/health`
-check, the OpenAPI document, and the API reference page.
+deleting custom formats in your Sonarr and Radarr instances. The [API reference](#api-reference)
+pages need no key. Health probes and metrics need no key either, but they are on the separate
+[management port][monitoring], not the API port.
 
 ### Setting the Key {/*#api-key-server*/}
 
@@ -85,8 +89,8 @@ The Recyclarr server rejected the request: missing or wrong API key. Set server.
 
 ### Kubernetes {/*#api-key-kubernetes*/}
 
-Store the key in a Secret, created by hand or by a tool such as External Secrets Operator, and map it
-to `RECYCLARR_API_KEY` in the container:
+Store the key in a Secret, created by hand or by a tool such as External Secrets Operator, and map
+it to `RECYCLARR_API_KEY` in the container:
 
 ```yml
 containers:
@@ -99,6 +103,19 @@ containers:
             name: recyclarr
             key: api-key
 ```
+
+For ports, health probes, and telemetry, see the [Kubernetes example][monitoring-k8s].
+
+## API Reference {/*#api-reference*/}
+
+Each server describes its own API on the same address and port as the API itself, so the description
+always matches the version you run:
+
+- `/scalar` is an interactive reference page where you can browse operations and try requests.
+- `/openapi/v1.json` is the OpenAPI document, for tools that generate clients or import an API.
+
+Both paths are open without the API key. Requests you send from the `/scalar` page go to `/api`, so
+enter the key there before you try them. This site also has the reference under [HTTP API][api].
 
 ## Sync Jobs {/*#jobs*/}
 
@@ -135,3 +152,6 @@ does not run them again.
 [env-api-key]: ./env-vars.mdx#api-key
 [docker-key]: ../guide/installation/docker.mdx#api-key
 [cli-api-key]: ./cli-settings.mdx#api-key
+[log-files]: ./settings/server.mdx#logging-files
+[monitoring]: ./monitoring.mdx
+[monitoring-k8s]: ./monitoring.mdx#kubernetes
