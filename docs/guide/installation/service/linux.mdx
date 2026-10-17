@@ -1,6 +1,6 @@
 ---
-title: Linux Service (systemd)
-sidebar_position: 4
+title: Linux (systemd)
+sidebar_position: 1
 description: Run the Recyclarr server as a systemd service that starts at boot
 ---
 
@@ -136,21 +136,23 @@ sudo systemctl restart recyclarr
 
 ## Upgrade {/*#upgrade*/}
 
-Download the new release with the [manual installation][manual-linux] command, then restart the
-service:
+Linux cannot replace an executable while it runs, so stop the service first. Then download the new
+release with the [manual installation][manual-linux] command and start the service again:
 
 ```bash
-sudo systemctl restart recyclarr
+sudo systemctl stop recyclarr
+wget "$RECYCLARR_URL" -O - | sudo tar xJ --overwrite -C /usr/local/bin
+sudo systemctl start recyclarr
 ```
 
-[schedule]: ../../reference/settings/server.mdx#schedule
-[manual]: ./manual-install.mdx
-[manual-linux]: ./manual-install.mdx#linux--macos-installation
-[config-dir]: ../file-structure.mdx#config-directory
-[getting-started]: ../getting-started.mdx
-[file-structure]: ../file-structure.mdx
-[api-key]: ../../reference/client-server.mdx#api-key
-[env-config]: ../../reference/env-vars.mdx#config-dir
-[cli-settings]: ../../reference/cli-settings.mdx
-[temporary]: ../../reference/client-server.mdx#temporary
-[server-settings]: ../../reference/settings/server.mdx
+[schedule]: ../../../reference/settings/server.mdx#schedule
+[manual]: ../manual-install.mdx
+[manual-linux]: ../manual-install.mdx#linux--macos-installation
+[config-dir]: ../../file-structure.mdx#config-directory
+[getting-started]: ../../getting-started.mdx
+[file-structure]: ../../file-structure.mdx
+[api-key]: ../../../reference/client-server.mdx#api-key
+[env-config]: ../../../reference/env-vars.mdx#config-dir
+[cli-settings]: ../../../reference/cli-settings.mdx
+[temporary]: ../../../reference/client-server.mdx#temporary
+[server-settings]: ../../../reference/settings/server.mdx
