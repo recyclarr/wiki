@@ -1,0 +1,156 @@
+---
+title: Linux Service (systemd)
+sidebar_position: 4
+description: Run the Recyclarr server as a systemd service that starts at boot
+---
+
+This guide sets up the Recyclarr server as a systemd service on Linux distributions such as Ubuntu,
+Debian, and Fedora. systemd starts the server at boot and starts it again if it fails. The server
+then syncs on its [built-in schedule][schedule] and accepts commands from the CLI.
+
+Before you start, install Recyclarr with the [manual installation][manual] steps. The steps on this
+page expect both executables, `recyclarr` and `recyclarr-server`, in `/usr/local/bin`.
+
+## Create a Service User {/*#user*/}
+
+Run the server as its own system user instead of your login account. This command creates a user
+named `recyclarr` with `/var/lib/recyclarr` as its home directory:
+
+```bash
+sudo useradd --system --create-home --home-dir /var/lib/recyclarr \
+  --shell /usr/sbin/nologin recyclarr
+```
+
+The service uses `/var/lib/recyclarr` as its [configuration directory][config-dir]. Your YAML
+configuration, `settings.yml`, sync state, logs, and downloaded resources all go there.
+
+## Add Your Configuration {/*#config*/}
+
+Create your YAML configuration in `/var/lib/recyclarr`. Edit files as the `recyclarr` user so that
+the server can read them:
+
+```bash
+sudoedit -u recyclarr /var/lib/recyclarr/recyclarr.yml
+```
+
+See [Getting Started][getting-started] for what to put in the file. You can also add files to the
+`configs/` and `includes/` subdirectories; see [File Structure][file-structure].
+
+## Set the API Key {/*#api-key*/}
+
+The server does not start without an [API key][api-key]. Store the key in a file that only root can
+read:
+
+```bash
+sudo mkdir -p /etc/recyclarr
+echo "RECYCLARR_API_KEY=$(openssl rand -hex 32)" | sudo tee /etc/recyclarr/server.env >/dev/null
+sudo chmod 600 /etc/recyclarr/server.env
+```
+
+systemd reads this file as root and passes the key to the server as an environment variable.
+
+## Create the Service {/*#unit*/}
+
+Create the unit file `/etc/systemd/system/recyclarr.service` with this content:
+
+```ini
+[Unit]
+Description=Recyclarr server
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=notify
+User=recyclarr
+Group=recyclarr
+Environment=RECYCLARR_CONFIG_DIR=/var/lib/recyclarr
+EnvironmentFile=/etc/recyclarr/server.env
+ExecStart=/usr/local/bin/recyclarr-server
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+```
+
+- `Type=notify`<br/>
+  The server tells systemd when it is ready to accept requests. Until then, `systemctl start` waits,
+  and if startup fails, the command reports the failure.
+- `RECYCLARR_CONFIG_DIR`<br/>
+  Sets the [configuration directory][env-config]. Always use an absolute path here.
+- `ExecStart`<br/>
+  Starts `recyclarr-server` directly. Do not use `recyclarr serve` or a wrapper script; systemd
+  then cannot get the ready signal, and the start times out.
+- `Restart=on-failure`<br/>
+  Starts the server again when it exits with an error. A normal stop does not restart it.
+
+Then enable and start the service:
+
+```bash
+sudo systemctl daemon-reload
+sudo systemctl enable --now recyclarr
+```
+
+`systemctl status recyclarr` shows `active (running)` when the server is ready. If the configuration
+or API key is not valid, the service shows `failed` instead.
+
+## Logs {/*#logs*/}
+
+The server writes its log messages to the systemd journal:
+
+```bash
+journalctl -u recyclarr -f
+```
+
+It also writes log files to `/var/lib/recyclarr/logs/server/`.
+
+## Run CLI Commands {/*#cli*/}
+
+The CLI sends commands to the server over HTTP. To use the service, give the CLI the server address
+and the API key in `~/.config/recyclarr/cli.yml` (the [CLI settings][cli-settings] file for your
+own user):
+
+```yml
+server:
+  base_url: http://localhost:7982
+  api_key: your-key-here
+```
+
+Use the key from `/etc/recyclarr/server.env`. Then run commands as usual:
+
+```bash
+recyclarr sync
+```
+
+Without `cli.yml`, each command starts its own [temporary server][temporary] and does not use the
+service. The server listens on port `7982` on the local machine only. To change this, see the
+[`server` settings][server-settings].
+
+## Configuration Changes {/*#config-changes*/}
+
+The server reads your YAML configuration and `settings.yml` once, when it starts. After you change
+them, restart the service:
+
+```bash
+sudo systemctl restart recyclarr
+```
+
+## Upgrade {/*#upgrade*/}
+
+Download the new release with the [manual installation][manual-linux] command, then restart the
+service:
+
+```bash
+sudo systemctl restart recyclarr
+```
+
+[schedule]: ../../reference/settings/server.mdx#schedule
+[manual]: ./manual-install.mdx
+[manual-linux]: ./manual-install.mdx#linux--macos-installation
+[config-dir]: ../file-structure.mdx#config-directory
+[getting-started]: ../getting-started.mdx
+[file-structure]: ../file-structure.mdx
+[api-key]: ../../reference/client-server.mdx#api-key
+[env-config]: ../../reference/env-vars.mdx#config-dir
+[cli-settings]: ../../reference/cli-settings.mdx
+[temporary]: ../../reference/client-server.mdx#temporary
+[server-settings]: ../../reference/settings/server.mdx
