@@ -1,12 +1,18 @@
 ---
 title: Server
-description: Configure the Recyclarr server's network address and built-in sync schedule
+description: Configure the Recyclarr server's network address, management port, logging, and built-in sync schedule
 ---
 
 ```yml
 server:
   port: 7982
   bind_address: localhost
+  management:
+    port: 7983
+    metrics: true
+  logging:
+    format: json # leave out to detect from the console
+    files: true
   schedule:
     enabled: true
     cron: 0 0 * * *
@@ -38,6 +44,71 @@ machine, or `0.0.0.0` to accept connections on all network interfaces.
 
 The Docker image ignores this setting and always listens on all interfaces inside the container.
 
+## `management` {/*#management*/}
+
+**Optional.**
+
+Controls the management port, a separate port that serves health probes and Prometheus metrics
+without an API key. The server never serves these endpoints on the API port. Only a persistent
+server opens a management port; the temporary server started by a CLI command does not. See
+[Monitoring][monitoring] for the endpoints and how to use them.
+
+### `port` {/*#management-port*/}
+
+**Optional.** *Default: `7983`*
+
+The TCP port for health probes and metrics. Valid values are `1` through `65535`. The management
+port listens on the same address as the API ([`bind_address`](#bind-address)).
+
+This port does not change when you change [`port`](#port). It must differ from the API port; if both
+are the same, the server does not start.
+
+The Docker image ignores this setting and always uses port `7983` inside the container. To use a
+different port on the host, change the Docker port mapping instead (for example, `8001:7983`).
+
+### `metrics` {/*#management-metrics*/}
+
+**Optional.** *Default: `true`*
+
+Serves Prometheus metrics at `/metrics` on the management port. Set to `false` to turn metrics off;
+`/metrics` then responds `404 Not Found`. Health probes keep working either way.
+
+## `logging` {/*#logging*/}
+
+**Optional.**
+
+Controls where and how the server writes its log.
+
+### `format` {/*#logging-format*/}
+
+**Optional.** *Default: Detected from the console*
+
+The format of the persistent server's console output (standard output). When you leave it out, the
+server writes text when its output goes to a terminal, and JSON when its output is redirected, as it
+is under Docker, Kubernetes, systemd, a Windows service, or a Homebrew service. Set a value to use
+that format everywhere:
+
+- `json`: one JSON object per line, for log collectors such as the container runtime or journald.
+  Each object starts with `timestamp` (UTC), `level` (`trace`, `debug`, `info`, `warn`, `error`, or
+  `fatal`), `message`, and `message_template`. Events inside a trace add `trace_id` and `span_id`,
+  and events with an error add `exception.type`, `exception.message`, and `exception.stacktrace`.
+  The event's own properties follow as more keys.
+- `text`: human-readable lines.
+
+The temporary server started by a CLI command ignores this setting. It writes only errors to its
+console and the rest to log files.
+
+### `files` {/*#logging-files*/}
+
+**Optional.** *Default: `true`*
+
+Writes log files to `logs/server/` in the [data directory][data-dir]. Every server writes them by
+default, however you run it. These files hold the debug logs you attach to a
+[bug report][debug-logs]. [Log Janitor][log-janitor] limits how many files the server keeps.
+
+Set to `false` when something else already collects the console output and you do not want the
+files, for example in Kubernetes.
+
 ## `schedule` {/*#schedule*/}
 
 **Optional.**
@@ -67,3 +138,8 @@ Times use the system time zone. In a container, set the `TZ` environment variabl
 container uses UTC.
 
 If the expression is not valid and the schedule is enabled, the server does not start.
+
+[monitoring]: ../monitoring.mdx
+[data-dir]: ../../guide/file-structure.mdx#data-directory
+[debug-logs]: ../../guide/troubleshooting/reporting-issues.mdx#obtaining-debug-logs
+[log-janitor]: ./log-janitor.mdx
