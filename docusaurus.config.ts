@@ -186,7 +186,7 @@ const config: Config = {
     prism: {
       theme: themes.github,
       darkTheme: themes.oneDark,
-      additionalLanguages: ["bash"],
+      additionalLanguages: ["bash", "ini", "powershell"],
     },
     colorMode: {
       defaultMode: "dark",
