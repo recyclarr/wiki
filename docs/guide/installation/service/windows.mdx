@@ -1,0 +1,167 @@
+---
+title: Windows
+sidebar_position: 2
+description: Run the Recyclarr server as a Windows service that starts at boot
+---
+
+This guide sets up the Recyclarr server as a Windows service. Windows starts the server at boot,
+without anyone logging in, and starts it again if it fails. The server then syncs on its [built-in
+schedule][schedule] and accepts commands from the CLI.
+
+Run every command on this page in PowerShell as Administrator.
+
+## Install {/*#install*/}
+
+Install Git as described in the [manual installation prerequisites][prereq]. The Git installer adds
+`git` to the system `PATH`, which the service needs.
+
+Download the Windows ZIP from the [manual installation][manual] page. Then extract it to
+`C:\Program Files\Recyclarr`:
+
+```powershell
+Expand-Archive "$HOME\Downloads\recyclarr-win-x64.zip" "C:\Program Files\Recyclarr" -Force
+```
+
+The folder now contains `recyclarr.exe` (the CLI) and `recyclarr-server.exe`.
+
+## Create the Configuration Directory {/*#config*/}
+
+The service runs as the built-in `LocalService` account and uses `C:\ProgramData\recyclarr` as its
+[configuration directory][config-dir]. Your YAML configuration, `settings.yml`, sync state, logs,
+and downloaded resources all go there.
+
+Create the directory and let the service account write to it:
+
+```powershell
+New-Item -ItemType Directory -Force "C:\ProgramData\recyclarr"
+icacls "C:\ProgramData\recyclarr" /grant "NT AUTHORITY\LocalService:(OI)(CI)M"
+```
+
+Put your YAML configuration in `C:\ProgramData\recyclarr\recyclarr.yml`. See [Getting
+Started][getting-started] for what to put in the file, and [File Structure][file-structure] for the
+`configs` and `includes` subdirectories.
+
+## Create the Service {/*#service*/}
+
+Register the service. In PowerShell, type `sc.exe`, not `sc`; `sc` is an alias for `Set-Content`.
+
+```powershell
+sc.exe create recyclarr DisplayName= "Recyclarr" start= auto `
+  binPath= "C:\Program Files\Recyclarr\recyclarr-server.exe" obj= "NT AUTHORITY\LocalService"
+```
+
+Tell Windows to start the server again after it fails:
+
+```powershell
+sc.exe failure recyclarr reset= 86400 actions= restart/60000/restart/60000/restart/60000
+sc.exe failureflag recyclarr 1
+```
+
+The first command restarts the server one minute after each failure. The second command makes
+Windows also restart the server when it stops because of an internal error, not only when it
+crashes.
+
+## Set the Environment {/*#environment*/}
+
+The service needs two environment variables: [`RECYCLARR_CONFIG_DIR`][env-config] for the
+configuration directory, and `RECYCLARR_API_KEY` for the [API key][api-key]. The server does not
+start without the key. Windows services read environment variables from the service's registry
+entry. This command creates a random key and stores both variables there:
+
+```powershell
+$bytes = New-Object byte[] 32
+[Security.Cryptography.RandomNumberGenerator]::Create().GetBytes($bytes)
+$key = -join ($bytes | ForEach-Object { $_.ToString("x2") })
+
+Set-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Services\recyclarr" -Name Environment `
+  -Type MultiString -Value @(
+    "RECYCLARR_CONFIG_DIR=C:\ProgramData\recyclarr",
+    "RECYCLARR_API_KEY=$key"
+  )
+
+$key
+```
+
+Keep the key that the last line shows. The CLI needs it.
+
+Always use an absolute path for `RECYCLARR_CONFIG_DIR`. A Windows service starts in
+`C:\Windows\System32`, so a relative path points there.
+
+## Start the Service {/*#start*/}
+
+```powershell
+sc.exe start recyclarr
+```
+
+`sc.exe query recyclarr` shows `RUNNING` while the server runs. You can also manage the service in
+the Services app (`services.msc`).
+
+## Logs {/*#logs*/}
+
+The server writes log files to `C:\ProgramData\recyclarr\logs\server\`. It does not write to the
+Windows Event Log. If the service stops right after it starts, look in the newest log file for the
+cause, such as a configuration that is not valid or a missing API key.
+
+## Run CLI Commands {/*#cli*/}
+
+The CLI sends commands to the server over HTTP. To use the service, give the CLI the server address
+and the API key in `%APPDATA%\recyclarr\cli.yml` (the [CLI settings][cli-settings] file for your
+own Windows user):
+
+```yml
+server:
+  base_url: http://localhost:7982
+  api_key: your-key-here
+```
+
+Then run commands from a normal PowerShell window:
+
+```powershell
+& "C:\Program Files\Recyclarr\recyclarr.exe" sync
+```
+
+Without `cli.yml`, each command starts its own [temporary server][temporary] and does not use the
+service. The server listens on port `7982` on the local machine only. To change this, see the
+[`server` settings][server-settings].
+
+## Configuration Changes {/*#config-changes*/}
+
+The server reads your YAML configuration and `settings.yml` once, when it starts. After you change
+them, restart the service:
+
+```powershell
+Restart-Service recyclarr
+```
+
+## Upgrade {/*#upgrade*/}
+
+Windows locks the executable while the service runs. Stop the service, extract the new release over
+the old files, and start the service again:
+
+```powershell
+sc.exe stop recyclarr
+Expand-Archive "$HOME\Downloads\recyclarr-win-x64.zip" "C:\Program Files\Recyclarr" -Force
+sc.exe start recyclarr
+```
+
+## Remove the Service {/*#remove*/}
+
+```powershell
+sc.exe stop recyclarr
+sc.exe delete recyclarr
+```
+
+This keeps `C:\ProgramData\recyclarr`. Delete that folder too if you no longer need your
+configuration.
+
+[schedule]: ../../../reference/settings/server.mdx#schedule
+[prereq]: ../manual-install.mdx#prerequisites
+[manual]: ../manual-install.mdx#download
+[config-dir]: ../../file-structure.mdx#config-directory
+[getting-started]: ../../getting-started.mdx
+[file-structure]: ../../file-structure.mdx
+[env-config]: ../../../reference/env-vars.mdx#config-dir
+[api-key]: ../../../reference/client-server.mdx#api-key
+[cli-settings]: ../../../reference/cli-settings.mdx
+[temporary]: ../../../reference/client-server.mdx#temporary
+[server-settings]: ../../../reference/settings/server.mdx
