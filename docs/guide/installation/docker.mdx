@@ -189,9 +189,9 @@ Recyclarr's Docker container is **rootless**. Use the `user` property (in Docker
 
 :::
 
-- `RECYCLARR_API_KEY` (Required)<br/>
-  The server's API key. The image has no default, and the server does not start without it. See
-  [API Key](#api-key).
+- `RECYCLARR_API_KEY` or `RECYCLARR_API_KEY_FILE` (Required, set only one)<br/>
+  The server's API key, or the path of a file that contains it. The image has no default, and the
+  server does not start without a key. See [API Key](#api-key).
 
 - `TZ` (Default: `UTC`)<br/>
   The time zone for Recyclarr's local time in the container. The [sync schedule](#scheduling) uses
@@ -224,17 +224,41 @@ you give it one. The [compose example](#docker-compose-example) reads the key fr
    ```
 
 You can also put the key directly in the compose file (`- RECYCLARR_API_KEY=your-key-here`) or load
-it with `env_file`. If the key is missing, the server stops right after it starts, and
-`docker logs recyclarr` shows an error that names `RECYCLARR_API_KEY`.
+it with `env_file`. The key must be at least 32 characters. If the key is missing or too short, the
+server stops right after it starts, and `docker logs recyclarr` shows an error that explains why.
 
 The CLI inside the container reads the same variable, so [`docker exec` commands](#cli) work without
 any other setup.
 
+To keep the key out of the container's environment, store it in a file and give it to the container
+as a [Compose secret][compose-secrets]. Set `RECYCLARR_API_KEY_FILE` instead of `RECYCLARR_API_KEY`:
+
+```yml
+services:
+  recyclarr:
+    # ...
+    environment:
+      - TZ=America/Santiago
+      - RECYCLARR_API_KEY_FILE=/run/secrets/recyclarr_api_key
+    secrets:
+      - recyclarr_api_key
+
+secrets:
+  recyclarr_api_key:
+    file: ./recyclarr_api_key.txt
+```
+
+Create the file with `openssl rand -hex 32 > recyclarr_api_key.txt`. The container's
+[user](#docker-compose-example) must be able to read it. The server reads the file again on each
+request, so a new key takes effect without a restart. Update `cli.yml` on any other machine that
+uses the old key.
+
 ## Configuration Changes {/*#config-changes*/}
 
-The server reads your YAML configuration and `settings.yml` once, when it starts. If the
-configuration is not valid, the server does not start. After you edit any of these files, restart
-the container:
+The server reads your YAML configuration and `settings.yml` when it starts. If the configuration is
+not valid, the server does not start. The server also reads your YAML configuration again when an
+[update][provider-updates] brings new guide data, but to apply edits right away, restart the
+container:
 
 ```bash
 docker compose restart recyclarr
@@ -319,6 +343,10 @@ services:
 
 To use a different port on the host, change the first number (for example, `8000:7982`). See the
 [API reference][api] for the available endpoints.
+
+The server serves plain HTTP, so the API key is not encrypted on the way to it. Before you publish
+the port beyond a network you trust, put TLS in front of it. See
+[Network Security][network-security].
 
 Every API request must send the [API key](#api-key) as a bearer token:
 
@@ -414,3 +442,6 @@ services:
 [api-key]: ../../reference/client-server.mdx#api-key
 [cli-settings]: ../../reference/cli-settings.mdx
 [monitoring]: ../../reference/monitoring.mdx
+[provider-updates]: ../../reference/settings/resource-providers/index.mdx#updates
+[compose-secrets]: https://docs.docker.com/compose/how-tos/use-secrets/
+[network-security]: ../../reference/client-server.mdx#network-security
