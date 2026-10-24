@@ -23,8 +23,8 @@ the full setup.
 
 ### API Key Required {/*#docker-api-key*/}
 
-The server requires an API key and does not start without one. The image has no default key. Set
-`RECYCLARR_API_KEY` on the container:
+The server requires an API key of at least 32 characters and does not start without one. The image
+has no default key. Set `RECYCLARR_API_KEY` on the container:
 
 ```yml
 services:
@@ -35,8 +35,8 @@ services:
       - RECYCLARR_API_KEY=${RECYCLARR_API_KEY}  # <<< ADDED
 ```
 
-See [API Key][docker-api-key] for how to create the key and store it in a `.env` file. CLI commands
-you run with `docker exec` use the same key automatically.
+See [API Key][docker-api-key] for how to create the key and store it in a `.env` file or a Compose
+secret. CLI commands you run with `docker exec` use the same key automatically.
 
 ### Schedule Moved to `settings.yml` {/*#cron-schedule*/}
 
@@ -113,8 +113,8 @@ recyclarr sync --config ../myconfig.yml # <<< REMOVED
 ## CLI: `config` Commands Removed {/*#config-commands-removed*/}
 
 The `recyclarr config create`, `recyclarr config list local`, and `recyclarr config list templates`
-commands have been removed. To start from a template, copy it from the [Quick Setup
-Templates][templates] page into your configuration directory.
+commands have been removed. To start from a template, copy it from the
+[Quick Setup Templates][templates] page into your configuration directory.
 
 ## CLI: `migrate` Removed {/*#migrate-removed*/}
 
