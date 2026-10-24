@@ -51,8 +51,9 @@ The Docker image sets this variable so that `docker exec` commands use the conta
 
 The [server API key][api-key]. Both programs read it:
 
-- **The server** requires it and does not start when it is unset or empty. A temporary server gets a
-  one-time key from the CLI instead, so you only set this for a persistent server.
+- **The server** requires a key of at least 32 characters from this variable or from
+  [`RECYCLARR_API_KEY_FILE`](#api-key-file), and does not start without one. A temporary server gets
+  a one-time key from the CLI instead, so you only set this for a persistent server.
 - **The CLI** sends it to the server at `server.base_url`. When set to a non-empty value, it
   overrides [`server.api_key`][cli-api-key] in `cli.yml`.
 
@@ -62,6 +63,20 @@ export RECYCLARR_API_KEY="$(openssl rand -hex 32)"
 
 The Docker image has no default for this variable. Set it on the container; the server and
 `docker exec` commands both use it.
+
+## `RECYCLARR_API_KEY_FILE` {/*#api-key-file*/}
+
+The path of a file that contains the [server API key][api-key], such as a Docker Compose secret or a
+Kubernetes Secret volume. Use it instead of `RECYCLARR_API_KEY` to keep the key out of the
+environment. Both programs read it the same way they read `RECYCLARR_API_KEY`, and trailing line
+breaks in the file are ignored.
+
+```bash
+export RECYCLARR_API_KEY_FILE="/run/secrets/recyclarr_api_key"
+```
+
+Set only one of `RECYCLARR_API_KEY` and `RECYCLARR_API_KEY_FILE`; setting both is an error. The
+server reads the file again on every request, so you can rotate the key without a restart.
 
 ## `OTEL_*` {/*#otel*/}
 
