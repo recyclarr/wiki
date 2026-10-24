@@ -7,8 +7,8 @@ This page describes the directory structure used by Recyclarr. Recyclarr separat
 two root directories: a **configuration directory** for user data that should be backed up, and a
 **data directory** for ephemeral files that can be regenerated.
 
-By default, both directories point to the same location. You can separate them using [environment
-variables][env-vars] for cleaner backup workflows.
+By default, both directories point to the same location. You can separate them using
+[environment variables][env-vars] for cleaner backup workflows.
 
 ## Configuration Directory {/*#config-directory*/}
 
@@ -76,6 +76,9 @@ configuration directory (listed above based on platform). Example (using docker 
 ```txt
 /config/recyclarr.yml
 ```
+
+You can name it `recyclarr.yaml` instead, but not both. If both files exist, Recyclarr reports a
+configuration error.
 
 ### Directory: `configs` {/*#config-directory-yaml*/}
 
