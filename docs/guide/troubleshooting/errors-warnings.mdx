@@ -90,6 +90,26 @@ will cause unpredictable behavior.
 
 <details>
 <summary>
+Error: Custom Format name 'HDR10+' is used by multiple trash IDs
+</summary>
+
+Two or more custom formats in your configuration have different trash IDs but the same name
+(ignoring case). Sonarr and Radarr require each custom format name to be unique, so Recyclarr syncs
+none of the custom formats that share the name. Quality profiles for that instance are skipped too,
+because their scores depend on the custom formats. Recyclarr also does not delete these custom
+formats from the service when [`delete_old_custom_formats`][delete-old-cfs] is enabled.
+
+This usually happens when a [local resource provider][local-providers] contains a copy of a guide
+custom format with a new trash ID. The error lists the trash IDs that share the name. To fix it,
+remove all but one of them from your configuration, or rename the custom format in your copy.
+
+[delete-old-cfs]: ../../reference/configuration/custom-formats.mdx#delete-old-custom-formats
+[local-providers]: ../../reference/settings/resource-providers/index.mdx
+
+</details>
+
+<details>
+<summary>
 Warning: Custom format with trash ID e23edd2482476e595fb990b12e7c609c is duplicated in quality
 profile SD with conflicting scores: 1000 vs 500
 </summary>

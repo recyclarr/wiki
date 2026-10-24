@@ -56,8 +56,8 @@ service_type:
 Custom format synchronization is broken up into three categories:
 
 - **Creation**: Custom formats that are in the guide but do not exist in the service are created.
-- **Updates**: Custom formats that already exist in both the guide and the service *but are
-  different* are updated.
+- **Updates**: Custom formats that already exist in both the guide and the service
+  *but are different* are updated.
 - **Deletions**: If deletions are allowed by having the `delete_old_custom_formats` configuration
   setting set to `true`, then custom formats in the service are deleted if they are removed from the
   guide **or** removed from your configuration file.
@@ -107,8 +107,8 @@ characters, like `496f355514737f7d83bf7aa4d24f8169`.
 - Most custom format pages in the TRaSH Guides (like [this one][guidecfs]) have either tables (with
   a Trash ID column) or a expandable "JSON" section. You can use these to obtain the Trash ID value.
 - From Recyclarr itself using the [`list custom-formats` command][listcfs].
-- Taken from the value of the `"trash_id"` property directly in the [TRaSH Guide JSON
-  files][radarrjson] itself.
+- Taken from the value of the `"trash_id"` property directly in the
+  [TRaSH Guide JSON files][radarrjson] itself.
 
 :::tip
 
@@ -131,8 +131,15 @@ trash_ids:
 - It's OK for the same custom format to exist in multiple lists of `trash_ids`. Recyclarr will only
   ever synchronize it once. Allowing it to be specified multiple times allows you to assign it to
   different profiles with different scores.
+- Each custom format you select must have a name that no other selected custom format uses (ignoring
+  case), because Sonarr and Radarr require unique names. When two trash IDs share a name, for
+  example a local copy of a guide custom format with a new trash ID, Recyclarr syncs neither of them
+  and skips quality profiles for that instance. See
+  [Custom format name is used by multiple trash IDs][duplicate-names].
 
 :::
+
+[duplicate-names]: ../../guide/troubleshooting/errors-warnings.mdx#custom-formats
 
 ### `score` {/*#cf-score*/}
 
@@ -249,8 +256,8 @@ group's behavior (e.g., use `select` and `exclude` to control which CFs sync).
 **Required.**
 
 The trash ID of a custom format group from the TRaSH Guides. Group trash IDs can be discovered using
-the [`list custom-format-groups` command][listcfgroups] or found in the [TRaSH Guide CF group JSON
-files][cfgroups].
+the [`list custom-format-groups` command][listcfgroups] or found in the
+[TRaSH Guide CF group JSON files][cfgroups].
 
 #### `assign_scores_to` {/*#cfg-assign-scores-to*/}
 
