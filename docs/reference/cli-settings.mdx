@@ -11,12 +11,12 @@ server:
   api_key: your-key-here
 ```
 
-CLI settings are specified in an optional file named `cli.yml` in your [configuration
-directory][config-dir]. Only the `recyclarr` CLI reads this file; the server reads
+CLI settings are specified in an optional file named `cli.yml` in your
+[configuration directory][config-dir]. Only the `recyclarr` CLI reads this file; the server reads
 [`settings.yml`][settings] instead.
 
-Without this file, each CLI command starts a temporary server of its own. See [Client and
-Server][client-server] for how the CLI and server work together.
+Without this file, each CLI command starts a temporary server of its own. See
+[Client and Server][client-server] for how the CLI and server work together.
 
 ## `server.base_url` {/*#base-url*/}
 
@@ -35,15 +35,15 @@ uses the container's server.
 **Conditionally Required.** *Default: No key is sent*
 
 The [server API key][api-key] that CLI commands send to the server at `server.base_url`. It must
-match the `RECYCLARR_API_KEY` value of that server. Required when `server.base_url` is set, unless
-the `RECYCLARR_API_KEY` environment variable provides the key.
+match the API key of that server. Required when `server.base_url` is set, unless an environment
+variable provides the key.
 
 The CLI ignores this setting when `server.base_url` is not set, because it gives each temporary
 server a one-time key of its own.
 
-The [`RECYCLARR_API_KEY`][env-api-key] environment variable overrides this setting when it is set to
-a non-empty value. The Docker image's server reads that same variable, so the CLI in the container
-uses the container's key.
+The [`RECYCLARR_API_KEY`][env-api-key] and [`RECYCLARR_API_KEY_FILE`][env-api-key-file] environment
+variables override this setting when either is set to a non-empty value. The Docker image's server
+reads those same variables, so the CLI in the container uses the container's key.
 
 [config-dir]: ../guide/file-structure.mdx#config-directory
 [settings]: ./settings/index.mdx
@@ -52,3 +52,4 @@ uses the container's key.
 [env-server-url]: ./env-vars.mdx#server-url
 [api-key]: ./client-server.mdx#api-key
 [env-api-key]: ./env-vars.mdx#api-key
+[env-api-key-file]: ./env-vars.mdx#api-key-file
