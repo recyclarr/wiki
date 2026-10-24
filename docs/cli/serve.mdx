@@ -25,7 +25,8 @@ JSON lines instead (see [`server.logging.format`][log-format]). It also opens a
 `recyclarr`. The release archives include both.
 
 The server runs with the environment of the shell you start `serve` from, and it does not start
-unless the [`RECYCLARR_API_KEY`][env-api-key] environment variable is set to its [API key][api-key].
+unless the [`RECYCLARR_API_KEY`][env-api-key] or [`RECYCLARR_API_KEY_FILE`][env-api-key-file]
+environment variable provides its [API key][api-key].
 
 To have other CLI commands use this server instead of starting their own, set
 [`server.base_url`][base-url] and [`server.api_key`][cli-api-key] in `cli.yml`. See
@@ -41,7 +42,7 @@ The Docker image already runs the server. You do not need `serve` in a container
 
 ```bash
 # Start the server with an API key
-export RECYCLARR_API_KEY="your-key-here"
+export RECYCLARR_API_KEY="$(openssl rand -hex 32)"
 recyclarr serve
 ```
 
@@ -51,6 +52,7 @@ recyclarr serve
 [base-url]: ../reference/cli-settings.mdx#base-url
 [client-server]: ../reference/client-server.mdx
 [env-api-key]: ../reference/env-vars.mdx#api-key
+[env-api-key-file]: ../reference/env-vars.mdx#api-key-file
 [api-key]: ../reference/client-server.mdx#api-key
 [cli-api-key]: ../reference/cli-settings.mdx#api-key
 [log-format]: ../reference/settings/server.mdx#logging-format
