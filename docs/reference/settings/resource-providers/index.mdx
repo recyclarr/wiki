@@ -69,6 +69,29 @@ Resources can come from two locations:
 - **Git repositories** (`clone_url`): Cloned and cached automatically
 - **Local directories** (`path`): Used directly from your filesystem
 
+### Updates {/*#updates*/}
+
+The server downloads git providers when it starts and keeps them current while it runs:
+
+- A git provider is due for an update when its last successful download is one hour old, or when you
+  change its `clone_url` or `reference`. A persistent server checks every minute for providers that
+  are due. A [temporary server][temporary] checks once, when it starts.
+- When a download fails, the server keeps using the cached copy and waits five minutes before it
+  tries that provider again. If a provider has no cached copy yet and its first download fails, the
+  server does not start.
+- When a download brings new commits, the server reads your configuration again against the new
+  data. A download that finds nothing new changes nothing. If new data makes your configuration
+  invalid, for example because an [include][include] it uses was removed, the server logs a warning,
+  goes back to the last data that worked, and keeps running.
+- Syncs and other requests always see one consistent copy of the data. An update never changes files
+  that a running sync is reading.
+
+The server records the result of each download in `<name>.state.json` next to the provider's cache
+in the `resources/` [data directory][data-dir].
+
+Local directories are read when the server starts and again whenever a git provider brings new
+commits. To see edits to a local directory right away, restart the server.
+
 ### How Precedence Works {/*#how-precedence-works*/}
 
 When multiple providers have resources with the same identification key:
@@ -129,8 +152,8 @@ Each JSON file defines a custom format. Here's a minimal example (`German-Langua
 }
 ```
 
-For more details on the JSON structure and available fields, see [Custom Format JSON
-Structure](./trash-guides-structure.mdx#custom-formats).
+For more details on the JSON structure and available fields, see
+[Custom Format JSON Structure](./trash-guides-structure.mdx#custom-formats).
 
 **Step 2**: Add the folder to your `settings.yml`:
 
@@ -307,3 +330,7 @@ will be destroyed when repositories are updated. Always maintain your customizat
 locations.
 
 :::
+
+[temporary]: ../../client-server.mdx#temporary
+[include]: ../../configuration/include.mdx
+[data-dir]: ../../../guide/file-structure.mdx#data-directory

@@ -200,8 +200,9 @@ If custom formats in your local directory aren't being recognized:
 
 ### Check Recyclarr logs {/*#check-recyclarr-logs*/}
 
-The server processes resource providers when it starts. Open the newest `debug.log` file in the
-[server log directory][logs] to see detailed information about resource provider processing.
+The server processes resource providers when it starts and after each [update][updates]. Open the
+newest `debug.log` file in the [server log directory][logs] to see detailed information about
+resource provider processing.
 
 Look for messages about:
 
@@ -231,3 +232,4 @@ python -m json.tool /path/to/your/custom-format.json
 Or use an online JSON validator.
 
 [logs]: ../../../guide/troubleshooting/reporting-issues.mdx#obtaining-debug-logs
+[updates]: ./index.mdx#updates
