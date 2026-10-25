@@ -82,8 +82,8 @@ Limits: 2,000 static + 100 dynamic redirects, 1,000 chars per rule.
 
 - `sidebars.js` autogenerates one sidebar per `docs/` subdirectory; order pages with
   `sidebar_position` and directories with `_category_.yml`.
-- Components available without imports are registered in `src/theme/MDXComponents/index.tsx`;
-  import any other component explicitly.
+- Components available without imports are registered in `src/theme/MDXComponents/index.tsx`; import
+  any other component explicitly.
 - Styles are SCSS in `src/css/` and target version-specific Docusaurus classes (`.navbar__*`,
   `.menu__*`). After a Docusaurus upgrade, check navbar and sidebar styling on `/` and `/guide/` in
   light and dark mode and at narrow widths.
@@ -223,6 +223,10 @@ Document limitations in a dedicated `### Limitations {/*#limitations*/}` heading
 `docs/guide/upgrade-guide/` pages are historical snapshots; never retroactively update. Use anchor
 IDs for breaking changes, `# <<< RENAMED` comments in before/after YAML examples. Avoid statements
 about future releases (e.g., "will be removed in a future version"); document current behavior only.
+
+A change belongs in an upgrade guide only when documented, supported behavior now requires users to
+change their YAML, CLI scripts, or workflow. Fixing undocumented behavior, tightening validation of
+invalid input, or changing implementation details is not breaking, even if someone relied on it.
 
 Published upgrade guides MUST include a `<ReleaseDate date="YYYY-MM-DD" />` component immediately
 after the frontmatter import block showing the release date of that major version. Use the date from
