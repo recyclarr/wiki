@@ -9,8 +9,7 @@ The sync state in Recyclarr allows it to more accurately detect changes to custo
 TRaSH guides. This mainly helps cover changes done on the \*arr side, like renames.
 
 Once Recyclarr creates or updates a custom format in \*arr, it records information about it in a
-state file located in the `state` subdirectory under the main app data location. The
-[location varies][app-data] depending on platform.
+state file in the [state directory][state-dir].
 
 :::info
 
@@ -49,4 +48,4 @@ Custom Format '3D' (b8cd450cbfa689c0259a01d9e29ba3d6) matches multiple service f
 
 Delete or rename the duplicates in Sonarr/Radarr so each name is unique, then sync again.
 
-[app-data]: ../file-structure.mdx#config-directory
+[state-dir]: ../file-structure.mdx#state-directory

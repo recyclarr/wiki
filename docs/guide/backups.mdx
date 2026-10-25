@@ -10,18 +10,19 @@ The following items should be preserved when backing up Recyclarr. All paths are
 - `settings.yml`
 - `configs/*.yml`
 - `includes/*.yml`
-- `state/`
+- `state/`, or the directory set by [`RECYCLARR_STATE_DIR`][env-state]
 
 :::info
 
-Be sure to include `*.yaml` in the above patterns as necessary. Both `yml` and `yaml` extensions
-are accepted by Recyclarr.
+Be sure to include `*.yaml` in the above patterns as necessary. Both `yml` and `yaml` extensions are
+accepted by Recyclarr.
 
 :::
 
 Files not listed above are regenerable and do not need to be backed up. If you use
 [`RECYCLARR_DATA_DIR`][env-data] to separate ephemeral data (logs, resources) from configuration,
-only the config directory needs backup.
+the data directory needs no backup.
 
 [config-dir]: ./file-structure.mdx#config-directory
 [env-data]: ../reference/env-vars.mdx#data-dir
+[env-state]: ../reference/env-vars.mdx#state-dir

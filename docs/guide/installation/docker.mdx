@@ -147,11 +147,11 @@ of the consequences.
   the server's log output.
 
 <details>
-<summary>Separating config from data for backups</summary>
+<summary>Separating config, state, and data</summary>
 
-Recyclarr supports splitting its files into a **config directory** (user configuration, state) and a
-**data directory** (logs, downloaded resources). This lets you back up only the config directory
-while treating data as disposable.
+Recyclarr can split its files into a **config directory** (your configuration), a **state
+directory** (sync state and job history), and a **data directory** (logs, downloaded resources).
+This lets you treat data as disposable and mount the config directory read-only.
 
 ```yml
 services:
@@ -162,17 +162,20 @@ services:
     user: 1000:1000
     environment:
       - TZ=America/Santiago
+      - RECYCLARR_API_KEY=${RECYCLARR_API_KEY}
       - RECYCLARR_CONFIG_DIR=/config
       - RECYCLARR_DATA_DIR=/data
+      - RECYCLARR_STATE_DIR=/state
     volumes:
-      - ./recyclarr:/config      # back this up
+      - ./recyclarr:/config:ro   # back this up
+      - ./state:/state           # back this up
       - recyclarr_data:/data     # ephemeral, no backup needed
 volumes:
   recyclarr_data:
 ```
 
-With this setup, `/config` holds user configuration and state (back this up), while `/data` holds
-only regenerable files. See [File Structure][file-structure] for details on what lives in each
+With this setup, `/config` and `/state` hold the files to back up, while `/data` holds only
+regenerable files. See [File Structure][file-structure] for details on what lives in each
 directory.
 
 </details>
@@ -203,6 +206,10 @@ Recyclarr's Docker container is **rootless**. Use the `user` property (in Docker
 - `RECYCLARR_DATA_DIR` (Default: same as `RECYCLARR_CONFIG_DIR`)<br/>
   Override the data directory path inside the container for ephemeral files (resources, logs). See
   [Environment Variables][env-data].
+
+- `RECYCLARR_STATE_DIR` (Default: `state` inside `RECYCLARR_CONFIG_DIR`)<br/>
+  Override the state directory path inside the container for sync state and job history. See
+  [Environment Variables][env-state].
 
 ### API Key {/*#api-key*/}
 
@@ -434,6 +441,7 @@ services:
 [upgrade-guide]: ../upgrade-guide/index.mdx
 [env-config]: ../../reference/env-vars.mdx#config-dir
 [env-data]: ../../reference/env-vars.mdx#data-dir
+[env-state]: ../../reference/env-vars.mdx#state-dir
 [schedule]: ../../reference/settings/server.mdx#schedule
 [client-server]: ../../reference/client-server.mdx
 [schedule-cron]: ../../reference/settings/server.mdx#schedule-cron

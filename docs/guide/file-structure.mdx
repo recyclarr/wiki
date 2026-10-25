@@ -4,16 +4,20 @@ title: File Structure
 ---
 
 This page describes the directory structure used by Recyclarr. Recyclarr separates its files into
-two root directories: a **configuration directory** for user data that should be backed up, and a
-**data directory** for ephemeral files that can be regenerated.
+three root directories:
 
-By default, both directories point to the same location. You can separate them using
-[environment variables][env-vars] for cleaner backup workflows.
+- A **configuration directory** for the files you write.
+- A **state directory** for files Recyclarr writes that must persist.
+- A **data directory** for ephemeral files that can be regenerated.
+
+By default, the data directory is the configuration directory itself, and the state directory is its
+`state` subdirectory. You can separate them using [environment variables][env-vars] for cleaner
+backup workflows or a read-only configuration directory.
 
 ## Configuration Directory {/*#config-directory*/}
 
-The configuration directory holds user configuration and state. Everything here should be included
-in [backups][backups].
+The configuration directory holds your YAML configuration and settings. Everything here should be
+included in [backups][backups].
 
 | Platform | Default Location                          |
 |----------|-------------------------------------------|
@@ -34,12 +38,36 @@ Override with the [`RECYCLARR_CONFIG_DIR`][env-config] environment variable.
 ├── settings.yml
 ├── cli.yml
 └── state/
-    └── server.db
 ```
 
-- `settings.yml`: [Settings][settings] for the server.
+- `settings.yml`: Optional [settings][settings] for the server. Without it, Recyclarr uses default
+  settings.
 - `cli.yml`: Optional [CLI settings][cli-settings].
-- `state/server.db`: Sync job history kept by a [persistent server][persistent].
+- `state/`: The default [state directory](#state-directory).
+
+Recyclarr does not create `settings.yml`, `configs/`, or `includes/`. Create them when you need
+them; none of them has to exist.
+
+## State Directory {/*#state-directory*/}
+
+The state directory holds files that Recyclarr writes and needs to keep. Include it in
+[backups][backups]. If you lose it, Recyclarr no longer knows which Sonarr and Radarr resources it
+created and has to [adopt them again by name][state].
+
+By default, this is the `state` directory inside the configuration directory. Override it with the
+[`RECYCLARR_STATE_DIR`][env-state] environment variable.
+
+### Contents {/*#state-contents*/}
+
+```txt
+<state directory>/
+├── radarr/
+├── sonarr/
+└── server.db
+```
+
+- `radarr/`, `sonarr/`: [Sync state][state] for each instance.
+- `server.db`: Sync job history kept by a [persistent server][persistent].
 
 ## Data Directory {/*#data-directory*/}
 
@@ -82,8 +110,8 @@ configuration error.
 
 ### Directory: `configs` {/*#config-directory-yaml*/}
 
-Under the configuration directory, there is a subdirectory named `configs` in which you can place
-any number of configuration YAML files. The following requirements must be met:
+You can place any number of configuration YAML files in a subdirectory named `configs` under the
+configuration directory. The following requirements must be met:
 
 - All files must have the `.yml` or `.yaml` extension in order to be recognized.
 - Every YAML file placed here is loaded. This behavior is non-recursive; meaning if you place YAML
@@ -106,6 +134,8 @@ import IncludeDirectory from '@site/src/partials/_include-templates-dir.mdx'
 [env-vars]: ../reference/env-vars.mdx
 [env-config]: ../reference/env-vars.mdx#config-dir
 [env-data]: ../reference/env-vars.mdx#data-dir
+[env-state]: ../reference/env-vars.mdx#state-dir
+[state]: ./troubleshooting/state.mdx
 [backups]: ./backups.mdx
 [settings]: ../reference/settings/index.mdx
 [cli-settings]: ../reference/cli-settings.mdx

@@ -30,7 +30,7 @@ A persistent server:
 - Writes its log to the console and to [log files][log-files] in `logs/server/` in the
   [data directory][data-dir].
 - Serves health probes and metrics on a separate [management port][monitoring].
-- Keeps its sync jobs in `state/server.db` in the [configuration directory][config-dir].
+- Keeps its sync jobs in `server.db` in the [state directory][state-dir].
 
 A persistent server needs an [API key](#api-key) and does not start without one.
 
@@ -231,7 +231,7 @@ does not run them again.
 [schedule]: ./settings/server.mdx#schedule
 [server-settings]: ./settings/server.mdx
 [data-dir]: ../guide/file-structure.mdx#data-directory
-[config-dir]: ../guide/file-structure.mdx#config-directory
+[state-dir]: ../guide/file-structure.mdx#state-directory
 [base-url]: ./cli-settings.mdx#base-url
 [env-server-url]: ./env-vars.mdx#server-url
 [env-api-key]: ./env-vars.mdx#api-key
