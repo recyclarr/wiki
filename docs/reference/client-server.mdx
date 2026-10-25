@@ -20,8 +20,8 @@ restarted for can take effect at that point. Restart the server to apply your ed
 
 ## Persistent Server {/*#persistent*/}
 
-A persistent server keeps running until you stop it. The [Docker image][docker] runs one, and
-[`recyclarr serve`][serve] starts one on your own machine.
+A persistent server keeps running until you stop it. The [Docker image][docker] and the
+[Helm chart][helm] run one, and [`recyclarr serve`][serve] starts one on your own machine.
 
 A persistent server:
 
@@ -102,8 +102,9 @@ The Recyclarr server rejected the request: missing or wrong API key. Set server.
 
 ### Kubernetes {/*#api-key-kubernetes*/}
 
-Store the key in a Secret, created by hand or by a tool such as External Secrets Operator, and map
-it to `RECYCLARR_API_KEY` in the container:
+The [Helm chart][helm-api-key] mounts the key from a Secret for you. When you write your own
+manifests, store the key in a Secret, created by hand or by a tool such as External Secrets
+Operator, and map it to `RECYCLARR_API_KEY` in the container:
 
 ```yml
 containers:
@@ -241,4 +242,6 @@ does not run them again.
 [log-files]: ./settings/server.mdx#logging-files
 [monitoring]: ./monitoring.mdx
 [monitoring-k8s]: ./monitoring.mdx#kubernetes
+[helm]: ../guide/installation/kubernetes.mdx
+[helm-api-key]: ../guide/installation/kubernetes.mdx#api-key
 [provider-updates]: ./settings/resource-providers/index.mdx#updates
