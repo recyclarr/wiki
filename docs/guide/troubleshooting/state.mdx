@@ -9,8 +9,8 @@ The sync state in Recyclarr allows it to more accurately detect changes to custo
 TRaSH guides. This mainly helps cover changes done on the \*arr side, like renames.
 
 Once Recyclarr creates or updates a custom format in \*arr, it records information about it in a
-state file located in the `state` subdirectory under the main app data location. The [location
-varies][app-data] depending on platform.
+state file located in the `state` subdirectory under the main app data location. The
+[location varies][app-data] depending on platform.
 
 :::info
 
@@ -32,7 +32,7 @@ Recyclarr handles this automatically. On the next sync, it detects that configur
 exist in the service by name and adopts them, emitting a warning for each one:
 
 ```txt
-CF 'CRiT' already existed in the service and was replaced by Recyclarr
+Adopted Custom Format '3D' (b8cd450cbfa689c0259a01d9e29ba3d6) from service ID 66
 ```
 
 No manual intervention is required. Recyclarr resumes managing the resources it previously created.
@@ -40,7 +40,13 @@ No manual intervention is required. Recyclarr resumes managing the resources it 
 ## Ambiguous Matches {/*#ambiguous-matches*/}
 
 If the service contains multiple resources with the same name (differing only in case, such as
-"HULU" and "hulu"), Recyclarr cannot determine which one to adopt. The sync error instructs you to
-delete or rename the duplicates in Sonarr/Radarr so each name is unique.
+"HULU" and "hulu"), Recyclarr cannot determine which one to adopt. The sync reports an error that
+lists the matching resources and their IDs:
+
+```txt
+Custom Format '3D' (b8cd450cbfa689c0259a01d9e29ba3d6) matches multiple service formats: '3D' (ID 67), '3d' (ID 68)
+```
+
+Delete or rename the duplicates in Sonarr/Radarr so each name is unique, then sync again.
 
 [app-data]: ../file-structure.mdx#config-directory
