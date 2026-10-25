@@ -70,8 +70,8 @@ Configuration options for stateless mode:
 - `mode` *(Required)*: Set to `stateless` to enable this mode.
 - `base_url` *(Required)*: The base URL of your Apprise API server.
 - `urls` *(Required)*: One or more URLs where Apprise will send notifications. For supported URL
-  types, consult the [Apprise API
-  documentation](https://github.com/caronc/apprise/wiki#notification-services).
+  types, consult the
+  [Apprise API documentation](https://github.com/caronc/apprise/wiki#notification-services).
 
 ## Notification Verbosity {/*#verbosity*/}
 
@@ -89,9 +89,9 @@ content that can be included in Recyclarr notifications:
 - **Warnings**: Important messages indicating necessary user actions, such as updating deprecated
   configurations.
 - **Information**: Statistics and details about sync actions, like the number of Custom Formats
-  synced.
+  changed.
 - **Per-Item Details**: Names of the items (e.g. Custom Formats) that were created, updated, or
-  deleted during the sync, listed under the statistics line.
+  deleted during the sync, listed under the change count.
 - **Sync Status**: Overall success or failure of the sync operation, usually shown in the
   notification title.
 
@@ -106,32 +106,25 @@ Verbosity levels:
   messages (e.g., when nothing was synced) are not sent.
 - `detailed`: Includes everything from the `normal` level, plus notifications for empty messages
   (e.g., when no changes were synced).
-- `verbose`: Includes everything from the `detailed` level, plus per-item change details. Only the
-  Custom Formats pipeline populates these details today; Quality Profiles, Quality Sizes, and Media
-  Naming still show the statistics line only.
+- `verbose`: Includes everything from the `detailed` level, plus per-item change details.
 
 ### Per-Item Change Details {/*#verbose-details*/}
 
-Under `verbose`, the Custom Formats statistics line is followed by indented sub-bullets grouped by
-action. Empty action groups are omitted, and item names are sorted alphabetically so the output
-stays stable across runs.
+Under `verbose`, each pipeline's change count is followed by indented sub-bullets grouped by action.
+Empty action groups are omitted.
 
 ```txt
 ### Instance: `radarr`
 
-Information:
-
-- Custom Formats Synced: 3
-  - Created: Obfuscated
-  - Updated: Bad Dual Groups
-  - Deleted: HDR10Plus Boost
+Custom Formats Changed: 2
+  - Updated: 3D, Upscaled
 ```
 
 Each action group is capped at 20 items. Past that, the list is truncated to the first 20 names and
 suffixed with `(and N more)`:
 
 ```txt
-- Custom Formats Synced: 25
+Custom Formats Changed: 25
   - Updated: CF01, CF02, CF03, CF04, CF05, CF06, CF07, CF08, CF09, CF10, CF11, CF12, CF13, CF14, CF15, CF16, CF17, CF18, CF19, CF20 (and 5 more)
 ```
 
@@ -157,9 +150,9 @@ Currently, Recyclarr's notification system is focused on [sync operations](../..
 Notifications are designed to be comprehensive, providing a complete overview of the operation
 without overwhelming you with too many messages:
 
-- **Single Notification per Sync**: The Recyclarr server sends one notification for each [sync
-  job][jobs] it runs, regardless of the number of service instances configured in your YAML file.
-  This applies to scheduled syncs and to syncs started from the CLI or the API.
+- **Single Notification per Sync**: The Recyclarr server sends one notification for each
+  [sync job][jobs] it runs, regardless of the number of service instances configured in your YAML
+  file. This applies to scheduled syncs and to syncs started from the CLI or the API.
 
 - **Multi-Service Support**: If you have multiple service instances configured (e.g., 2 Radarr and 1
   Sonarr), the single notification will include information about the sync operation for all

@@ -2,7 +2,7 @@
 title: Sync Behavior
 ---
 
-When you run `recyclarr sync`, Recyclarr processes your configuration through four *pipelines*—
+When you run `recyclarr sync`, Recyclarr processes your configuration through five *pipelines*—
 independent stages that each handle a specific type of data. Understanding how these pipelines work
 helps you interpret sync output and diagnose issues.
 
@@ -20,56 +20,64 @@ helps you interpret sync output and diagnose issues.
 Quality Profiles depends on Custom Formats - scores can only be assigned to custom formats that
 exist. The other pipelines are independent.
 
-When a pipeline fails, Recyclarr skips any pipelines that depend on it but continues with
-independent ones. For example, if Custom Formats fails, Quality Profiles is skipped, but Quality
-Sizes and Media Naming continue normally.
+When a pipeline does not fully succeed, Recyclarr skips any pipelines that depend on it but
+continues with independent ones. For example, if any custom format fails to sync, Quality Profiles
+is skipped, but Quality Sizes and Media Naming continue normally.
 
 ## Progress Table {/*#progress-table*/}
 
 During sync, the progress table shows status for each instance and pipeline:
 
-| Symbol | Color | Meaning                                |
-|--------|-------|----------------------------------------|
-| `✓`    | green | Succeeded with no changes              |
-| Number | green | Items synced                           |
-| `✗`    | red   | Failed with errors                     |
-| `--`   | grey  | Skipped (not configured or dependency) |
+| Symbol | Color  | Meaning                                          |
+|--------|--------|--------------------------------------------------|
+| `✓`    | green  | Succeeded with no changes                        |
+| Number | green  | Succeeded; the number of items changed           |
+| `~`    | yellow | Partial: some items synced and some did not      |
+| `✗`    | red    | Failed: no items synced                          |
+| `--`   | grey   | Not run (blocked by a dependency, or not needed) |
 
-The row prefix indicates overall instance status. If it shows `✗`, check **Sync Diagnostics** after
-the progress table for error details.
+The row prefix shows the overall status of the instance. If it shows `~` or `✗`, check
+**Sync Diagnostics** after the progress table for details.
 
 ## Example {/*#example*/}
 
-Here's output from a sync where Custom Formats failed for one instance:
+Here's output from a sync where one custom format could not be synced to the `radarr` instance:
 
 ```txt
-Legend: ✓ ok · ✗ failed · -- skipped
+Legend: ✓ ok · ~ partial · ✗ failed · -- not run
 
-           Custom  Quality Quality  Media
-          Formats Profiles   Sizes Naming
-✓ sonarr        ✓        ✓       ✓     --
-✓ shows         ✓        ✓       ✓      2
-✗ radarr        ✗       --       ✓     --
+           Custom  Quality Quality  Media Media
+          Formats Profiles   Sizes Naming  Mgmt
+✓ shows         1        ✓       ✓      ✓     ✓
+✓ sonarr        1        ✓      --      ✓     ✓
+~ radarr        ~       --       ✓      ✓     ✓
 ```
 
 The `radarr` instance shows:
 
-- **Custom Formats** shows `✗` (failed) - the pipeline encountered errors
-- **Quality Profiles** shows `--` (skipped) - skipped because it depends on Custom Formats
-- **Quality Sizes** shows `✓` - succeeded despite the Custom Formats failure
-- **Media Naming** shows `--` - not configured for this instance
+- **Custom Formats** shows `~` (partial): some custom formats synced, but one did not
+- **Quality Profiles** shows `--` (not run): it depends on Custom Formats, which did not fully
+  succeed
+- **Quality Sizes**, **Media Naming**, and **Media Management** show `✓`: they don't depend on
+  Custom Formats, so they ran and had nothing to change
 
-The `shows` instance synced 2 media naming fields. The row prefix `✗` on `radarr` indicates
-failures. Check Sync Diagnostics for details:
+The `shows` and `sonarr` instances each updated one custom format. Quality Sizes shows `--` for
+`sonarr` because that instance runs Sonarr v5, where Quality Profiles syncs the sizes instead.
+
+The row prefix `~` on `radarr` means something did not sync. Check Sync Diagnostics for details:
 
 ```txt
 ╭─Sync Diagnostics─────────────────────────────────────────────────────────────╮
 │ Errors                                                                       │
 │ ──────                                                                       │
-│   • [radarr] — Custom Format 'HDR10+' could not be synced because 2 CFs      │
-│     with that name exist in the service. Delete or rename the duplicates in  │
-│     Radarr so each name is unique.                                           │
+│ • [radarr] Custom Format '3D' (b8cd450cbfa689c0259a01d9e29ba3d6) matches     │
+│   multiple service formats: '3D' (ID 67), '3d' (ID 68)                       │
+│ • [radarr] Quality Profiles blocked by Custom Formats                        │
 ╰──────────────────────────────────────────────────────────────────────────────╯
 ```
 
-The error explains why Custom Formats failed and what to do about it.
+Radarr has two custom formats whose names differ only in case, so Recyclarr cannot tell which one to
+update. Delete or rename one of them in Radarr, then sync again. See
+[Ambiguous Matches][ambiguous-matches] for details.
+
+[ambiguous-matches]: ./troubleshooting/state.mdx#ambiguous-matches
