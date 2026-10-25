@@ -38,23 +38,11 @@ jobs:
 
       - name: Deploy to Cloudflare Pages
         if: steps.download.outcome == 'success'
-        uses: AdrianGonz97/refined-cf-pages-action@45ea15c1c69a7bce8ffbb79ba114daa2b52f0cff # v1.3.0
+        uses: cloudflare/wrangler-action@953926a2e2182532811c01a25e53647d93bf07c0 # v4.1.3
+        env:
+          BRANCH: ${{ github.event.workflow_run.head_branch }}
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          githubToken: ${{ secrets.GITHUB_TOKEN }}
-          projectName: recyclarr-wiki
-          directory: build
-          branch: ${{ github.event.workflow_run.head_branch }}
-
-      - name: Algolia Crawl
-        if: steps.download.outcome == 'success' && github.event.workflow_run.head_branch == 'master'
-        continue-on-error: true
-        uses: algolia/algoliasearch-crawler-github-actions@3ae4def15d82c60aa02b0e528b50167593cbaaf6 # v1.1.13
-        with:
-          crawler-user-id: ${{ secrets.CRAWLER_USER_ID }}
-          crawler-api-key: ${{ secrets.CRAWLER_API_KEY }}
-          algolia-app-id: ${{ secrets.ALGOLIA_APP_ID }}
-          algolia-api-key: ${{ secrets.ALGOLIA_API_KEY }}
-          site-url: https://recyclarr.dev
-          crawler-name: recyclarr
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          command: pages deploy build --project-name=recyclarr-wiki --branch="$BRANCH"

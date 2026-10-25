@@ -3,7 +3,7 @@ name: Build Site
 
 on:
   push:
-    paths:
+    paths: &paths
       - .github/workflows/build.yml
       - .github/workflows/deploy.yml
       - docs/**
@@ -14,16 +14,7 @@ on:
       - "*.json"
       - "*.lock"
   pull_request:
-    paths:
-      - .github/workflows/build.yml
-      - .github/workflows/deploy.yml
-      - docs/**
-      - src/**
-      - static/**
-      - "*.js"
-      - "*.ts"
-      - "*.json"
-      - "*.lock"
+    paths: *paths
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -35,7 +26,7 @@ permissions:
 
 jobs:
   pre-check:
-    uses: recyclarr/recyclarr/.github/workflows/reusable-precheck.yml@425ee54eeb6e92064b2e2b68b4edd341da98b237 # master
+    uses: recyclarr/recyclarr/.github/workflows/reusable-precheck.yml@b025c6d5472dc1f854cb49c427e874e90338c9f2 # v8.8.0
 
   build:
     name: Build
