@@ -81,8 +81,10 @@ have no link. Health probes and metric scrapes produce no traces.
 
 ## Kubernetes Example {/*#kubernetes*/}
 
-This container publishes both ports, checks health on the management port, and exports telemetry to
-an OpenTelemetry Collector. Remove the two `OTEL_*` variables if you have no collector.
+The [Helm chart][helm] sets up the ports and probes for you and can create a ServiceMonitor for
+metrics. When you write your own manifests, this container publishes both ports, checks health on
+the management port, and exports telemetry to an OpenTelemetry Collector. Remove the two `OTEL_*`
+variables if you have no collector.
 
 ```yml
 containers:
@@ -139,4 +141,5 @@ volume, set [`server.logging.files`][logging-files] to `false` in `settings.yml`
 [logging]: ./settings/server.mdx#logging
 [logging-files]: ./settings/server.mdx#logging-files
 [docker-health]: ../guide/installation/docker.mdx#health-check
+[helm]: ../guide/installation/kubernetes.mdx#network
 [otel-env]: https://opentelemetry.io/docs/specs/otel/protocol/exporter/
