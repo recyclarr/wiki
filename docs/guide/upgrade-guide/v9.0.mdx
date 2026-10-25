@@ -93,6 +93,23 @@ services:
 To call the HTTP API from outside the container, you also need to publish port `7982`. See
 [HTTP API][http-api].
 
+## Default Files No Longer Created {/*#no-default-files*/}
+
+Recyclarr no longer creates the `configs` and `includes` subdirectories or an empty `settings.yml`.
+A missing directory or settings file is not an error: without `settings.yml`, Recyclarr uses default
+settings. Create these yourself when you need them. Existing files and directories keep working as
+before.
+
+By default, the state and data directories are inside the configuration directory, so Recyclarr
+still creates it when it is missing. To leave the configuration directory untouched, for example to
+mount it read-only, move both directories out of it with the new [`RECYCLARR_STATE_DIR`][env-state]
+variable and [`RECYCLARR_DATA_DIR`][env-data]. See
+[File Structure][file-structure].
+
+If your configuration directory still has `cache` or `repo` folders from an older version, start
+Recyclarr once with it writable so its [migrations][migrations] can move or delete them. You can
+also delete the folders yourself. Otherwise, startup fails on a read-only mount.
+
 ## CLI: Server Executable Required {/*#server-executable*/}
 
 The release archives now contain two executables: `recyclarr` and `recyclarr-server`. The CLI sends
@@ -160,3 +177,6 @@ to notice and adjust your config if needed.
 [default-yaml]: ../file-structure.mdx#default-yaml
 [templates]: ../guide-configs.mdx
 [migrations]: ../troubleshooting/migrations.mdx
+[env-state]: ../../reference/env-vars.mdx#state-dir
+[env-data]: ../../reference/env-vars.mdx#data-dir
+[file-structure]: ../file-structure.mdx

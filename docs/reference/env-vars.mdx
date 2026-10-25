@@ -14,13 +14,19 @@ To substitute environment variable values into your YAML configuration files, se
 
 ## `RECYCLARR_CONFIG_DIR` {/*#config-dir*/}
 
-Overrides the default [configuration directory][configdir] location. This directory holds user
-configuration and state that should be backed up. See [File Structure][configdir] for platform
+Overrides the default [configuration directory][configdir] location. This directory holds the files
+you write, such as `recyclarr.yml` and `settings.yml`. See [File Structure][configdir] for platform
 defaults and directory contents.
 
 ```bash
 export RECYCLARR_CONFIG_DIR="/custom/path/to/config"
 ```
+
+When you set both `RECYCLARR_DATA_DIR` and `RECYCLARR_STATE_DIR` to paths outside the config
+directory, Recyclarr only reads from it, so you can mount it read-only (for example, from a
+Kubernetes ConfigMap). The exception is leftover `cache` or `repo` folders from older versions,
+which startup [migrations][migrations] move or delete. Start once with the directory writable, or
+delete those folders, before you mount it read-only.
 
 ## `RECYCLARR_DATA_DIR` {/*#data-dir*/}
 
@@ -31,10 +37,29 @@ downloaded resources and logs.
 export RECYCLARR_DATA_DIR="/custom/path/to/data"
 ```
 
-If unset, defaults to the same path as `RECYCLARR_CONFIG_DIR`. When both variables are set, only the
-config directory needs to be backed up.
+If unset or empty, defaults to the same path as `RECYCLARR_CONFIG_DIR`. Relative paths are resolved
+from the config directory.
 
-Relative paths are resolved from the config directory.
+## `RECYCLARR_STATE_DIR` {/*#state-dir*/}
+
+Overrides the location of the [state directory][statedir], which holds sync state and the server's
+job history. This directory must persist and be backed up: if you lose it, Recyclarr loses track of
+which Sonarr and Radarr resources it manages.
+
+```bash
+export RECYCLARR_STATE_DIR="/custom/path/to/state"
+```
+
+If unset or empty, defaults to `state` inside the config directory. Relative paths are resolved from
+the config directory.
+
+This example keeps the config directory read-only and gives each kind of file its own location:
+
+```bash
+export RECYCLARR_CONFIG_DIR="/config"  # can be read-only
+export RECYCLARR_DATA_DIR="/data"      # can be ephemeral
+export RECYCLARR_STATE_DIR="/state"    # must persist
+```
 
 ## `RECYCLARR_SERVER_URL` {/*#server-url*/}
 
@@ -103,6 +128,8 @@ See [no-color.org](https://no-color.org/) for more information about this standa
 [value-sub]: ./configuration/value-substitution.mdx#env-vars
 [configdir]: ../guide/file-structure.mdx#config-directory
 [datadir]: ../guide/file-structure.mdx#data-directory
+[statedir]: ../guide/file-structure.mdx#state-directory
+[migrations]: ../guide/troubleshooting/migrations.mdx
 [base-url]: ./cli-settings.mdx#base-url
 [api-key]: ./client-server.mdx#api-key
 [cli-api-key]: ./cli-settings.mdx#api-key
