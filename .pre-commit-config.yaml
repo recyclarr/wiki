@@ -32,9 +32,3 @@ repos:
         entry: yarn prettier --write --ignore-unknown
         language: node
         types_or: [javascript, jsx, ts, tsx, css, scss]
-
-      - id: markdown-table-formatter
-        name: Format Markdown Tables
-        entry: yarn markdown-table-formatter
-        language: node
-        types_or: [markdown, mdx]
