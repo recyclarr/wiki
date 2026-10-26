@@ -110,6 +110,30 @@ If your configuration directory still has `cache` or `repo` folders from an olde
 Recyclarr once with it writable so its [migrations][migrations] can move or delete them. You can
 also delete the folders yourself. Otherwise, startup fails on a read-only mount.
 
+## Invalid Configuration Stops the Server {/*#invalid-config*/}
+
+Previously, when a configuration file had errors, Recyclarr reported them and still synced the
+instances in your other files. Now the server checks your configuration files when it starts, and an
+error in any of them stops it from starting. Fix every error the server logs, then start it again.
+See [Client and Server][client-server].
+
+## Log Files and Console Format {/*#logs*/}
+
+Log files moved from `logs/cli/` to `logs/server/` in the [data directory][env-data]. The CLI no
+longer writes log files; the server writes them instead. Use `--log` on CLI commands to show log
+output on the console.
+
+When its output is not a terminal, as with `docker logs`, the server now writes one JSON object per
+line instead of text. To keep text output, set [`server.logging.format`][logging-format] in
+`settings.yml`:
+
+```yml
+# settings.yml
+server:
+  logging:
+    format: text
+```
+
 ## CLI: Server Executable Required {/*#server-executable*/}
 
 The release archives now contain two executables: `recyclarr` and `recyclarr-server`. The CLI sends
@@ -180,3 +204,4 @@ to notice and adjust your config if needed.
 [env-state]: ../../reference/env-vars.mdx#state-dir
 [env-data]: ../../reference/env-vars.mdx#data-dir
 [file-structure]: ../file-structure.mdx
+[logging-format]: ../../reference/settings/server.mdx#logging-format
