@@ -33,8 +33,8 @@ help you get all the benefits listed above.
 First you must prepare Visual Studio Code for editing YAML and validating using schemas.
 
 1. If you don't already have it, [install][vs-code-setup] VS Code. It's available on most platforms.
-1. Install the [YAML Extension][yaml] in VS Code. Don't know how to install extensions? [Watch
-   this][vs-code-ext-inst].
+1. Install the [YAML Extension][yaml] in VS Code. Don't know how to install extensions?
+   [Watch this][vs-code-ext-inst].
 
 ## Enable Schema Validation {/*#enable-schema-validation*/}
 
@@ -78,7 +78,7 @@ the [repository][repo-schemas] at their version tag.
 <summary>Edge schemas for unstable builds</summary>
 
 The [schemas in the GitHub repository][repo-schemas] reflect the latest unreleased changes. Use
-these only if you are running the `edge` Docker tag or another unstable build.
+these only if you are running a [dev image][dev-builds] or another unstable build.
 
 Configuration schema:
 
@@ -103,8 +103,8 @@ https://raw.githubusercontent.com/recyclarr/recyclarr/master/schemas/cli-schema.
 ## Custom YAML Tags {/*#custom-yaml-tags*/}
 
 If you are editing YAML in VS Code and using custom tags like `!secret` or `!env_var`, you will get
-"Unknown Tag" errors. Remove them by adding the following to [VS Code's `settings.json`
-file][vs-code-settings]:
+"Unknown Tag" errors. Remove them by adding the following to
+[VS Code's `settings.json` file][vs-code-settings]:
 
 ```json
   "yaml.customTags": [
@@ -124,3 +124,4 @@ The `yaml.customTags` setting is documented in the [VS Code YAML extension docs]
 [CLI Settings YAML]: ../reference/cli-settings.mdx
 [custom-tags]: https://github.com/redhat-developer/vscode-yaml#extension-settings
 [repo-schemas]: https://github.com/recyclarr/recyclarr/tree/master/schemas
+[dev-builds]: ./installation/docker.mdx#dev-builds

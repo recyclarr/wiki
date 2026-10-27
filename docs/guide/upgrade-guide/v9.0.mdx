@@ -93,6 +93,22 @@ services:
 To call the HTTP API from outside the container, you also need to publish port `7982`. See
 [HTTP API][http-api].
 
+### `edge` Tag Replaced by Dev Images {/*#edge-removed*/}
+
+The `edge` tag is no longer updated on Docker Hub or GHCR. The existing `edge` images stay where
+they are but get no new builds. The latest unreleased code is now in the `master` dev image,
+published to GHCR only:
+
+```yml
+services:
+  recyclarr:
+    # <<< CHANGED from ghcr.io/recyclarr/recyclarr:edge
+    image: ghcr.io/recyclarr/recyclarr-dev:master
+```
+
+Dev images are just as unstable as `edge` was. See [Dev Builds][dev-builds] for branch tags, digest
+pins, and how long old builds are kept.
+
 ## Default Files No Longer Created {/*#no-default-files*/}
 
 Recyclarr no longer creates the `configs` and `includes` subdirectories or an empty `settings.yml`.
@@ -196,6 +212,7 @@ to notice and adjust your config if needed.
 [schedule-cron]: ../../reference/settings/server.mdx#schedule-cron
 [external]: ../installation/docker.mdx#external-scheduler
 [http-api]: ../installation/docker.mdx#http-api
+[dev-builds]: ../installation/docker.mdx#dev-builds
 [docker-api-key]: ../installation/docker.mdx#api-key
 [client-server]: ../../reference/client-server.mdx
 [default-yaml]: ../file-structure.mdx#default-yaml
