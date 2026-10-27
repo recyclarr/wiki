@@ -7,7 +7,7 @@ sidebar_position: 2
 Recyclarr has an official Docker image hosted on the following platforms:
 
 | Registry                                 | Image Name                    |
-|------------------------------------------|-------------------------------|
+| ---------------------------------------- | ----------------------------- |
 | [Github Container Registry (GHCR)][ghcr] | `ghcr.io/recyclarr/recyclarr` |
 | [Docker Hub][dockerhub]                  | `recyclarr/recyclarr`         |
 
@@ -98,7 +98,7 @@ by *risk* in descending order. For maximum *stability*, use the bottom row. For 
 updates (highest risk), use the top row.
 
 | Tag     | Description                                                             |
-|---------|-------------------------------------------------------------------------|
+| ------- | ----------------------------------------------------------------------- |
 | `2`     | Latest *feature* and *bugfix* release; manual update for major releases |
 | `2.1`   | Latest *bugfix* release; manual update if you want new features         |
 | `2.1.2` | Exact release; no automatic updates                                     |
@@ -118,24 +118,48 @@ of Recyclarr.
 
 :::
 
-### Edge (Dev) Builds {/*#edge-warning*/}
+### Dev Builds {/*#dev-builds*/}
 
 :::danger
 
-The `edge` tag should be considered **extremely unstable**. It contains unreleased code on the
-`master` branch and most likely has bugs.
+Dev images are **extremely unstable**. They contain unreleased code and most likely have bugs.
 
-This tag should **not** be used just to get the latest features. It is intended for testing new
-features prior to the next release and should not be run against production instances of Radarr or
-Sonarr.
+Do **not** use them just to get the latest features. They are for testing changes before the next
+release and should not be run against production instances of Radarr or Sonarr.
 
-*Use this tag at your own risk!*
+*Use these images at your own risk!*
 
 :::
 
-A *mutable* docker tag named `edge` is also available. It contains the absolute latest code changes
-on the `master` branch. This is the most volatile and risky tag. Only use it with full understanding
-of the consequences.
+Every CI build of a branch in the Recyclarr repository publishes a dev image to the GitHub Container
+Registry (not Docker Hub), tagged with the branch name. The `master` branch, which holds the latest
+unreleased code, is `ghcr.io/recyclarr/recyclarr-dev:master`:
+
+```yml
+services:
+  recyclarr:
+    image: ghcr.io/recyclarr/recyclarr-dev:master
+```
+
+In the tag, any character in the branch name other than a letter, digit, or `-` becomes `-`, so
+branch `feat/x` is tagged `feat-x`. A branch name that does not start with a letter gets a `b-`
+prefix.
+
+The tag moves to each new build of its branch. To stay on one build, pin its digest:
+
+```yml
+services:
+  recyclarr:
+    image: ghcr.io/recyclarr/recyclarr-dev:master@sha256:<digest>
+```
+
+The image label `org.opencontainers.image.revision` holds the commit SHA of the build.
+
+When a newer build of the same branch replaces an image, the old image is deleted 30 days after its
+own build. A digest pin to a replaced build can stop working once that build is older than 30 days.
+The latest build of each branch is kept, even after the branch is deleted.
+
+For Kubernetes, a matching dev chart is available; see [Dev Chart][helm-dev].
 
 ## Configuration {/*#configuration*/}
 
@@ -453,3 +477,4 @@ services:
 [provider-updates]: ../../reference/settings/resource-providers/index.mdx#updates
 [compose-secrets]: https://docs.docker.com/compose/how-tos/use-secrets/
 [network-security]: ../../reference/client-server.mdx#network-security
+[helm-dev]: ./kubernetes.mdx#dev-chart
