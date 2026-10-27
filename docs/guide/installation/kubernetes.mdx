@@ -215,6 +215,22 @@ If you write your own manifests, these are the parts the chart handles for you:
   [data directory][data-dir] (`RECYCLARR_DATA_DIR`).
 - One replica with the `Recreate` strategy.
 
+## Dev Chart {/*#dev-chart*/}
+
+Each [dev image][dev-builds] has a matching dev chart. These are extremely unstable and not for
+production Sonarr or Radarr instances. The dev chart for a branch has version `0.0.0-<branch>`, with
+the branch name changed the same way as the image tag, and it defaults to that branch's dev image:
+
+```bash
+helm install recyclarr oci://ghcr.io/recyclarr/charts-dev/recyclarr \
+  --version 0.0.0-master -f values.yaml
+```
+
+The image tag moves with each build, but the chart's default `image.pullPolicy` is `IfNotPresent`,
+so a node keeps using the image it already pulled. Set `image.pullPolicy: Always` and restart the
+pod to get the latest build. Dev chart versions follow the same [retention][dev-builds] as dev
+images.
+
 [api-key]: ../../reference/client-server.mdx#api-key
 [schedule]: ../../reference/settings/server.mdx#schedule
 [file-structure]: ../file-structure.mdx
@@ -229,3 +245,4 @@ If you write your own manifests, these are the parts the chart handles for you:
 [network-security]: ../../reference/client-server.mdx#network-security
 [monitoring]: ../../reference/monitoring.mdx
 [otel]: ../../reference/monitoring.mdx#opentelemetry
+[dev-builds]: ./docker.mdx#dev-builds
