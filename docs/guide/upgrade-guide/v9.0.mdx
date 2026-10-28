@@ -126,6 +126,12 @@ If your configuration directory still has `cache` or `repo` folders from an olde
 Recyclarr once with it writable so its [migrations][migrations] can move or delete them. You can
 also delete the folders yourself. Otherwise, startup fails on a read-only mount.
 
+You can reuse your old v8 configuration volume as the new state directory, for example as the state
+volume of the [Helm chart][helm-storage]. v8 kept state in a `state` folder inside that volume, so
+the server moves its contents up to the root of the state directory when it starts. Recyclarr does
+not delete the other files on the volume, such as old configs, `settings.yml`, and logs. It logs a
+warning that lists them so you can delete them yourself.
+
 ## Invalid Configuration Stops the Server {/*#invalid-config*/}
 
 Previously, when a configuration file had errors, Recyclarr reported them and still synced the
@@ -222,3 +228,4 @@ to notice and adjust your config if needed.
 [env-data]: ../../reference/env-vars.mdx#data-dir
 [file-structure]: ../file-structure.mdx
 [logging-format]: ../../reference/settings/server.mdx#logging-format
+[helm-storage]: ../installation/kubernetes.mdx#storage
