@@ -100,15 +100,15 @@ include:
 
 ### Recyclarr-Specific Terms {/*#recyclarr-terms*/}
 
-- **Include Template**<br/>
+- **Include Template**\
   A type of template that may *only* be included. The official config-templates repository no longer
   provides include templates; this concept applies only to custom resource providers.
 
-- **Config Template**<br/>
+- **Config Template**\
   A type of template that may *only* be used as a configuration file. It *cannot* be included. Copy
   its contents into your own configuration file to use it.
 
-- **Include Directive**<br/>
+- **Include Directive**\
   A specific method of including a YAML file (e.g. `config: myfile.yml`). See the
   [include directives](#include) section above for all available types.
 
@@ -118,7 +118,7 @@ Most of these definitions were taken verbatim from the [official YAML glossary][
 list of terms is not comprehensive. It only touches on terms that are relevant to understanding
 Recyclarr's include YAML merge behavior.
 
-- **Sequence**<br/>
+- **Sequence**\
   A *sequence* is a collection that is an ordered list of 0 or more nodes.
 
   ```yml
@@ -127,7 +127,7 @@ Recyclarr's include YAML merge behavior.
   - three
   ```
 
-- **Mapping**<br/>
+- **Mapping**\
   A *mapping* is a collection that consists of a set of 0 or more key/value pairs. In YAML, both the
   key and the value can be any kind of node.
 
@@ -137,7 +137,7 @@ Recyclarr's include YAML merge behavior.
   three: "3"
   ```
 
-- **Scalar**<br/>
+- **Scalar**\
   A *scalar* is a node that consists of a single value unit. Strings, numbers and boolean values are
   examples of scalar nodes. In the example below, the value `true` is considered a scalar value.
 

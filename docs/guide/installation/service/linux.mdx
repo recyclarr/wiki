@@ -72,15 +72,15 @@ Restart=on-failure
 WantedBy=multi-user.target
 ```
 
-- `Type=notify`<br/>
+- `Type=notify`\
   The server tells systemd when it is ready to accept requests. Until then, `systemctl start` waits,
   and if startup fails, the command reports the failure.
-- `RECYCLARR_CONFIG_DIR`<br/>
+- `RECYCLARR_CONFIG_DIR`\
   Sets the [configuration directory][env-config]. Always use an absolute path here.
-- `ExecStart`<br/>
+- `ExecStart`\
   Starts `recyclarr-server` directly. Do not use `recyclarr serve` or a wrapper script; systemd then
   cannot get the ready signal, and the start times out.
-- `Restart=on-failure`<br/>
+- `Restart=on-failure`\
   Starts the server again when it exits with an error. A normal stop does not restart it.
 
 Then enable and start the service:
