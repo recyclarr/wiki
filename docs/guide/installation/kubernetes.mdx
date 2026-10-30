@@ -16,52 +16,54 @@ version comes out with each Recyclarr release, and fixes to the chart itself shi
 release. By default the chart uses the `ghcr.io/recyclarr/recyclarr` image tagged with that same
 version.
 
-This page assumes you have a cluster, `kubectl`, and `helm`.
+## Example {/*#example*/}
 
-## Quick Start {/*#quick-start*/}
+This example keeps the server's [API key][api-key] and the Sonarr and Radarr API keys in Secrets you
+create:
 
-1. Create a Secret with the server's [API key][api-key]:
+```bash
+kubectl create secret generic recyclarr-api-key \
+  --from-literal=api-key="$(openssl rand -hex 32)"
+kubectl create secret generic recyclarr-servarr-keys \
+  --from-literal=SONARR_API_KEY=your-sonarr-api-key \
+  --from-literal=RADARR_API_KEY=your-radarr-api-key
+```
 
-   ```bash
-   kubectl create secret generic recyclarr-api-key \
-     --from-literal=api-key="$(openssl rand -hex 32)"
-   ```
+```yml
+# values.yaml
+apiKey:
+  existingSecret: recyclarr-api-key
+configs:
+  files:
+    sonarr.yml: |
+      sonarr:
+        main:
+          base_url: http://sonarr:8989
+          api_key: !env_var SONARR_API_KEY
+    radarr.yml: |
+      radarr:
+        main:
+          base_url: http://radarr:7878
+          api_key: !env_var RADARR_API_KEY
+settings:
+  content: |
+    server:
+      schedule:
+        cron: 0 4 * * *
+env:
+  - name: TZ
+    value: America/Santiago
+envFrom:
+  - secretRef:
+      name: recyclarr-servarr-keys
+```
 
-1. Create a Secret with your Sonarr and Radarr API keys:
+```bash
+helm install recyclarr oci://ghcr.io/recyclarr/charts/recyclarr -f values.yaml
+```
 
-   ```bash
-   kubectl create secret generic recyclarr-servarr-keys \
-     --from-literal=SONARR_API_KEY=your-sonarr-api-key
-   ```
-
-1. Create a `values.yaml` file:
-
-   ```yml
-   apiKey:
-     existingSecret: recyclarr-api-key
-   configs:
-     files:
-       recyclarr.yml: |
-         sonarr:
-           main:
-             base_url: http://sonarr:8989
-             api_key: !env_var SONARR_API_KEY
-   envFrom:
-     - secretRef:
-         name: recyclarr-servarr-keys
-   ```
-
-1. Install the chart:
-
-   ```bash
-   helm install recyclarr oci://ghcr.io/recyclarr/charts/recyclarr -f values.yaml
-   ```
-
-The pod runs a persistent server that syncs on its [built-in schedule][schedule]. The first start
-downloads the TRaSH Guides before the server becomes ready, which can take a few minutes.
-
-To install a specific version, add `--version 9.0.0`. To upgrade, run `helm upgrade` with the same
-arguments.
+The server syncs on its [built-in schedule][schedule]. `TZ` sets the schedule's time zone (default
+`UTC`). The pod becomes ready after the first TRaSH Guides download, which can take a few minutes.
 
 ## API Key {/*#api-key*/}
 
@@ -92,81 +94,22 @@ come from your values or from a ConfigMap you manage, but not both:
 `configs.files` and `includes.files` map each file name to its contents. File names in
 `configs.files` must end in `.yml` or `.yaml`. `settings.content` holds the contents of
 `settings.yml`. Without it, the server uses default settings. Write every file's contents as a
-string (with `|`), as in the [quick start](#quick-start). Helm then passes YAML tags such as
-`!env_var` through unchanged.
+string (with `|`), as in the [example](#example). Helm then passes YAML tags such as `!env_var`
+through unchanged.
 
 In an existing ConfigMap, each key is a file name and its value is the file's contents. A settings
-ConfigMap must have a `settings.yml` key.
+ConfigMap must have a `settings.yml` key. If you generate it with a Kustomize `configMapGenerator`,
+set `disableNameSuffixHash: true`, because Kustomize does not rewrite names inside Helm values.
 
-```yml
-configs:
-  files:
-    sonarr.yml: |
-      sonarr:
-        main:
-          base_url: http://sonarr:8989
-          api_key: !env_var SONARR_API_KEY
-    radarr.yml: |
-      radarr:
-        main:
-          base_url: http://radarr:7878
-          api_key: !env_var RADARR_API_KEY
-settings:
-  content: |
-    server:
-      schedule:
-        cron: 0 4 * * *
-```
-
-### Kustomize {/*#kustomize*/}
-
-To keep your configuration as plain YAML files, generate a ConfigMap with a Kustomize
-`configMapGenerator` and pass its name to `configs.existingConfigMap`. Kustomize normally adds a
-hash suffix to generated names, and it does not update names inside Helm values. Turn the suffix off
-so the name stays the same:
-
-```yml
-configMapGenerator:
-  - name: recyclarr-configs
-    files:
-      - recyclarr.yml
-    options:
-      disableNameSuffixHash: true
-```
-
-```yml
-configs:
-  existingConfigMap: recyclarr-configs
-```
-
-### Applying Changes {/*#config-changes*/}
-
-The server reads its configuration when it starts (see [Client and Server][client-server]):
-
-- When you change files or the API key in your values, `helm upgrade` restarts the pod for you.
-- When you change a ConfigMap or Secret that you manage, restart the pod yourself, or use a tool
-  that restarts pods when their ConfigMaps change:
-
-  ```bash
-  kubectl rollout restart deployment/recyclarr
-  ```
+The server reads its configuration only when it starts (see [Client and Server][client-server]).
+`helm upgrade` restarts the pod when files or the API key in your values change. After you change a
+ConfigMap you manage, or a Secret the container reads through `env` or `envFrom`, restart the
+Deployment yourself or use a tool such as Reloader.
 
 ## Environment Variables {/*#env*/}
 
-Use `env` and `envFrom` to add environment variables to the container. They follow the Kubernetes
-container fields of the same name. The usual use is Sonarr and Radarr API keys that your
-configuration reads with [`!env_var`][env-var]:
-
-```yml
-env:
-  - name: TZ
-    value: America/Santiago
-envFrom:
-  - secretRef:
-      name: recyclarr-servarr-keys
-```
-
-`TZ` sets the time zone for the sync schedule. It is `UTC` when unset.
+`env` and `envFrom` add environment variables to the container, usually Sonarr and Radarr API keys
+that your configuration reads with [`!env_var`][env-var].
 
 The chart does not mount a `secrets.yml` file. Set each API key with `api_key: !env_var ...` from a
 Secret as shown above. [`!secret`][secrets] references and the [implicit][implicit]
@@ -186,9 +129,6 @@ PersistentVolumeClaim and the [data directory][data-dir] (downloaded guides and 
 | `persistence.accessMode`    | `ReadWriteOnce` | Access mode for the claim                                 |
 | `persistence.size`          | `1Gi`           | Size of the claim                                         |
 
-If your cluster has no default StorageClass, the claim stays `Pending` and the pod never starts. Set
-`persistence.storageClass` or `persistence.existingClaim`.
-
 Uninstalling the chart keeps the claim, so a later install with the same release name picks up the
 same state. Delete the claim yourself when you no longer need it.
 
@@ -206,17 +146,12 @@ in `settings.content`.
 
 ## Running CLI Commands {/*#cli*/}
 
-The image includes the `recyclarr` CLI. Run it in the pod with `kubectl exec`. It sends each command
-to the server in the same pod and uses the same API key, so it needs no other setup:
+The `recyclarr` CLI in the pod sends commands to the server in the same pod with the same API key,
+so it needs no setup. `helm install` prints the exact command for your release:
 
 ```bash
 kubectl exec deploy/recyclarr -- recyclarr sync --preview
 ```
-
-The Deployment is named after the release. A release name that contains `recyclarr` is used as is:
-`recyclarr` gives `deploy/recyclarr`, and `recyclarr-prod` gives `deploy/recyclarr-prod`. Other
-names get a `-recyclarr` suffix, so `media` gives `deploy/media-recyclarr`. `fullnameOverride`
-replaces the name entirely. `helm install` prints the exact command for your release.
 
 ## Network and Monitoring {/*#network*/}
 
@@ -237,6 +172,16 @@ Operator scrape [metrics][monitoring], set `serviceMonitor.enabled: true`. Set
 `serviceMonitor.interval` to change the scrape interval and `serviceMonitor.labels` to add labels
 your Prometheus selects on.
 
+To export telemetry to an OpenTelemetry Collector, set the [OpenTelemetry variables][otel] in `env`:
+
+```yml
+env:
+  - name: OTEL_EXPORTER_OTLP_ENDPOINT
+    value: http://otel-collector.monitoring:4317
+  - name: OTEL_RESOURCE_ATTRIBUTES
+    value: deployment.environment=home
+```
+
 ## Other Values {/*#other-values*/}
 
 The chart runs one replica with the `Recreate` update strategy, because only one server can use the
@@ -252,6 +197,24 @@ and its default, run:
 helm show values oci://ghcr.io/recyclarr/charts/recyclarr
 ```
 
+## Without the Chart {/*#manifests*/}
+
+If you write your own manifests, these are the parts the chart handles for you:
+
+- Image `ghcr.io/recyclarr/recyclarr:9`. It runs as UID and GID `1000` and works with a read-only
+  root filesystem when `/tmp` is a writable volume.
+- Container ports `7982` (API) and `7983` (management). See [Monitoring][monitoring].
+- `startupProbe` and `livenessProbe` on `/livez`, `readinessProbe` on `/readyz`, all on the
+  management port. The server opens no port until the first guide download finishes, so give the
+  startup probe several minutes.
+- The API key in a Secret volume, with `RECYCLARR_API_KEY_FILE` set to the file path. Without a
+  `subPath` mount, Kubernetes updates the file when the Secret changes, and the server uses the new
+  key without a restart.
+- Config files mounted read-only under `/config`, a PersistentVolumeClaim for the
+  [state directory][state-dir] (`RECYCLARR_STATE_DIR`), and an `emptyDir` for the
+  [data directory][data-dir] (`RECYCLARR_DATA_DIR`).
+- One replica with the `Recreate` strategy.
+
 [api-key]: ../../reference/client-server.mdx#api-key
 [schedule]: ../../reference/settings/server.mdx#schedule
 [file-structure]: ../file-structure.mdx
@@ -265,3 +228,4 @@ helm show values oci://ghcr.io/recyclarr/charts/recyclarr
 [api]: /api/recyclarr-api
 [network-security]: ../../reference/client-server.mdx#network-security
 [monitoring]: ../../reference/monitoring.mdx
+[otel]: ../../reference/monitoring.mdx#opentelemetry
