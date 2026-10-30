@@ -45,13 +45,13 @@ enable_ssl_certificate_validation: true
 git_path: /usr/local/bin/git
 ```
 
-- `enable_ssl_certificate_validation` *(Default: `true`)*<br/>
+- `enable_ssl_certificate_validation` *(Default: `true`)*\
   If set to `false`, SSL certificates are not validated. This is useful if you are connecting to a
   Sonarr or Radarr instance using `https` and it is set up with self-signed certificates. Note that
   disabling this setting is a **security risk** and should be avoided unless you are absolutely sure
   what you are doing.
 
-- `git_path` *(Default: Search on `PATH`)*<br/>
+- `git_path` *(Default: Search on `PATH`)*\
 
   Provide an explicit path to your `git` executable. Note that this is a path to the actual
   executable itself and not a directory path. If this setting is not specified, Recyclarr will
