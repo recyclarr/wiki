@@ -72,6 +72,26 @@ for more details.
 
 </details>
 
+<details>
+<summary>
+Error: Cannot lock ... Another Recyclarr server may be using it.
+</summary>
+
+Each Recyclarr server needs its own data and state directories, and a second server that points at
+the same ones refuses to start. This usually happens when you run a CLI command without
+[`server.base_url`][cli-base-url] in `cli.yml` while a persistent server is already running: the
+CLI starts its own temporary server, which collides with the running one. Set `server.base_url` to
+the running server's address, or stop that server.
+
+To run two servers on purpose, give each one its own [`RECYCLARR_DATA_DIR`][data-dir] and
+[`RECYCLARR_STATE_DIR`][state-dir].
+
+[cli-base-url]: ../../reference/cli-settings.mdx#base-url
+[data-dir]: ../../reference/env-vars.mdx#data-dir
+[state-dir]: ../../reference/env-vars.mdx#state-dir
+
+</details>
+
 ## Custom Formats {/*#custom-formats*/}
 
 <details>
@@ -181,6 +201,18 @@ radarr:
 ```
 
 See [issue #42](https://github.com/recyclarr/recyclarr/issues/42) for more details.
+
+</details>
+
+<details>
+<summary>
+Error: The service redirected the request (3xx)
+</summary>
+
+Recyclarr does not follow redirects from Sonarr or Radarr. A redirect usually means `base_url` is
+missing a path (such as `/radarr`), or a reverse proxy in front of the service sends API calls to
+its login page. Fix `base_url`, or configure the proxy to pass `/api` requests through to the
+service. Sonarr and Radarr still require the API key on those requests.
 
 </details>
 
