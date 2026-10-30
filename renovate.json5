@@ -18,6 +18,12 @@
       matchPackageNames: ["/^@docusaurus//"],
     },
     {
+      description: "Keep the Node version in CI workflows and mise.toml in sync",
+      groupName: "node",
+      matchManagers: ["github-actions", "mise"],
+      matchDepNames: ["node"],
+    },
+    {
       description: "Semantic commits for major updates",
       matchUpdateTypes: ["major"],
       semanticCommitType: "build",
