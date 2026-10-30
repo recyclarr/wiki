@@ -14,13 +14,13 @@ Before you start, install Recyclarr with [Homebrew][homebrew].
 
 The service runs as your user and uses your normal [configuration directory][config-dir],
 `~/Library/Application Support/recyclarr`. Put your YAML configuration there, for example in
-`recyclarr.yml`. See [Getting Started][getting-started] for what to put in the file, and [File
-Structure][file-structure] for the `configs` and `includes` subdirectories.
+`recyclarr.yml`. See [Getting Started][getting-started] for what to put in the file, and
+[File Structure][file-structure] for the `configs` and `includes` subdirectories.
 
 ## Set the API Key {/*#api-key*/}
 
-The server does not start without an [API key][api-key]. Homebrew gives the service the variables
-in an environment file named `recyclarr.env`. The file is in `~/.homebrew/services/`, or in
+The server does not start without an [API key][api-key]. Homebrew gives the service the variables in
+an environment file named `recyclarr.env`. The file is in `~/.homebrew/services/`, or in
 `$XDG_CONFIG_HOME/homebrew/services/` if you set `XDG_CONFIG_HOME`. These commands create it with a
 random key in the right place:
 
@@ -57,8 +57,8 @@ brew services stop recyclarr
 ## Logs {/*#logs*/}
 
 The server writes log files to `logs/server/` in the configuration directory. Homebrew also saves
-the server's error output to `$(brew --prefix)/var/log/recyclarr.log`. If the service does not
-start and the log files show no cause, look there.
+the server's error output to `$(brew --prefix)/var/log/recyclarr.log`. If the service does not start
+and the log files show no cause, look there.
 
 ## Run CLI Commands {/*#cli*/}
 

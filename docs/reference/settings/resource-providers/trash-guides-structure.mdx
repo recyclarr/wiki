@@ -10,8 +10,8 @@ formats, quality sizes, quality profiles, and media naming schemes.
 :::tip
 
 If you just want to add a few custom formats, use the simpler `custom-formats` type instead. It
-requires no special structure, just a folder of JSON files. See the [main resource providers
-page][rp-quick-start] for details.
+requires no special structure, just a folder of JSON files. See the
+[main resource providers page][rp-quick-start] for details.
 
 :::
 
@@ -118,7 +118,7 @@ Each custom format JSON file follows the Sonarr/Radarr custom format API structu
 ```
 
 | Field            | Required | Description                                        |
-|------------------|----------|----------------------------------------------------|
+| ---------------- | -------- | -------------------------------------------------- |
 | `trash_id`       | Yes      | Unique identifier. Use a UUID or descriptive slug. |
 | `name`           | Yes      | Display name shown in Radarr/Sonarr.               |
 | `specifications` | Yes      | Array of conditions that define the format.        |
@@ -164,7 +164,7 @@ group file lists the custom formats it contains by `trash_id`:
 ```
 
 | Field              | Required | Description                                            |
-|--------------------|----------|--------------------------------------------------------|
+| ------------------ | -------- | ------------------------------------------------------ |
 | `trash_id`         | Yes      | Unique identifier for the group.                       |
 | `name`             | Yes      | Display name for the group.                            |
 | `custom_formats`   | Yes      | Array of CFs in the group, each with a `trash_id`.     |
@@ -247,8 +247,8 @@ profile.
 
 ### Quality Profile Groups {/*#quality-profile-groups*/}
 
-Quality profile groups organize related quality profiles together. The file contains a JSON array
-of group objects:
+Quality profile groups organize related quality profiles together. The file contains a JSON array of
+group objects:
 
 ```json
 [

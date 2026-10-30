@@ -52,7 +52,7 @@ configure.
 Each provider has a `type` that determines what kind of content it provides:
 
 | Type               | Description                                                               | Structure Required               |
-|--------------------|---------------------------------------------------------------------------|----------------------------------|
+| ------------------ | ------------------------------------------------------------------------- | -------------------------------- |
 | `trash-guides`     | Full TRaSH Guides structure (custom formats, quality sizes, media naming) | Requires `metadata.json` at root |
 | `config-templates` | Reusable include files for configurations                                 | Requires `includes.json` at root |
 | `custom-formats`   | Simple flat folder of custom format JSON files                            | No structure required            |
@@ -108,7 +108,7 @@ Different resource types use different fields to determine uniqueness when mergi
 All comparisons are case-insensitive.
 
 | Resource Type    | Identification Key | Example                               |
-|------------------|--------------------|---------------------------------------|
+| ---------------- | ------------------ | ------------------------------------- |
 | Custom Formats   | `trash_id` field   | `ae4cfaa9283a4f2150ac3da08e388723`    |
 | Quality Profiles | `trash_id` field   | `d1d67249d3890e49bc12e275d989a7e9`    |
 | Quality Sizes    | `type` field       | `series`, `movie`                     |

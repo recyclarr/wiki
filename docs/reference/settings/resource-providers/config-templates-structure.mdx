@@ -73,7 +73,7 @@ An include listed under `radarr` can only be used in Radarr configurations, and 
 ### Include JSON Fields {/*#include-json-fields*/}
 
 | Field      | Required | Description                                                                                 |
-|------------|----------|---------------------------------------------------------------------------------------------|
+| ---------- | -------- | ------------------------------------------------------------------------------------------- |
 | `id`       | Yes      | Identifier used in the config's `include` directive. Letters, digits, `_`, and `-` only     |
 | `template` | Yes      | Path to the YAML file, relative to the repository root. Must not contain `..` path segments |
 
@@ -159,8 +159,8 @@ includes. The include examples on this page apply only to your own resource prov
 ## Duplicate IDs {/*#duplicate-ids*/}
 
 If more than one provider defines the same include ID for the same service, the provider listed last
-in `resource_providers` wins. IDs are compared case-insensitively. See [How Precedence
-Works][precedence] for the full ordering rules.
+in `resource_providers` wins. IDs are compared case-insensitively. See
+[How Precedence Works][precedence] for the full ordering rules.
 
 [official]: https://github.com/recyclarr/config-templates
 [precedence]: ./index.mdx#how-precedence-works

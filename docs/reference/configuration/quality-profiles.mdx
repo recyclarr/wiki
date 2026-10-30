@@ -207,8 +207,8 @@ reset_unmatched_scores:
     - "^\\[My\\]"
 ```
 
-The example above excludes any custom format whose name starts with `[My]` (e.g. `[My] Audio
-Surround`, `[My] Resolution`).
+The example above excludes any custom format whose name starts with `[My]` (e.g.
+`[My] Audio Surround`, `[My] Resolution`).
 
 :::info
 
@@ -339,10 +339,10 @@ will be disallowed (unchecks the box).
 :::warning
 
 There are two distinct methods of disabling (disallowing) a quality: Either set this property to
-`false` or delete the quality from the list entirely. **Make sure you understand the behavioral
-impact of both choices!** The *safest* way to disable a quality is to set `enabled: false`, leave it
-in your YAML, and in the exact order it already is. If you remove a quality to disable it, make sure
-you understand [the consequences](#order-matters).
+`false` or delete the quality from the list entirely.
+**Make sure you understand the behavioral impact of both choices!** The *safest* way to disable a
+quality is to set `enabled: false`, leave it in your YAML, and in the exact order it already is. If
+you remove a quality to disable it, make sure you understand [the consequences](#order-matters).
 
 :::
 
@@ -371,8 +371,8 @@ in the order in which they appear in the `qualities` section.
 
 ### Why Order Matters {/*#order-matters*/}
 
-It's important to know that even when a quality is disabled in your quality profile, *its order
-still matters* for the following reasons:
+It's important to know that even when a quality is disabled in your quality profile,
+*its order still matters* for the following reasons:
 
 - Manual search results, by default, are sorted based on the order of the qualities in your quality
   profile.
@@ -459,8 +459,8 @@ Syncing this will yield the following qualities list when you view them from the
 
 ## `quality_definition` {/*#quality-definition*/}
 
-**Optional.** *Default: Use the guide profile's quality definition, then the instance-level
-`quality_definition`*
+**Optional.**
+*Default: Use the guide profile's quality definition, then the instance-level `quality_definition`*
 
 > **Sonarr v5 only**: Radarr and Sonarr v4 ignore this property and print a warning.
 
