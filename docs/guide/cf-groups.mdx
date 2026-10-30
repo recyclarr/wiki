@@ -27,8 +27,8 @@ because the TRaSH Guide marks these as defaults for the UHD Bluray + WEB profile
 Use [`custom_format_groups`][cfg-ref] only when you need to customize this behavior:
 
 - **`skip`** — Opt-out of groups you don't want
-- **`add`** — Opt-in to non-default groups, or customize which CFs sync with `select`,
-  `select_all`, and `exclude`
+- **`add`** — Opt-in to non-default groups, or customize which CFs sync with `select`, `select_all`,
+  and `exclude`
 
 [guide-qp]: ../reference/configuration/quality-profiles.mdx#trash-id
 [cfg-ref]: ../reference/configuration/custom-formats.mdx#custom-format-groups
@@ -52,7 +52,7 @@ scores.
 Which custom formats sync from a group depends on flags set in the TRaSH Guide JSON:
 
 | Flag in Guide    | Behavior                                                           |
-|------------------|--------------------------------------------------------------------|
+| ---------------- | ------------------------------------------------------------------ |
 | `required: true` | Always synced. Cannot be excluded or deselected.                   |
 | `default: true`  | Synced automatically. Can be removed with `exclude`.               |
 | No flag          | Not synced unless listed in `select` or included via `select_all`. |
