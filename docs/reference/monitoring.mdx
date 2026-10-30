@@ -7,7 +7,7 @@ description: Health probes, Prometheus metrics, logs, and OpenTelemetry for the 
 A [persistent server][persistent] (`recyclarr serve` or the Docker image) has two ports:
 
 | Port       | Default | Serves                                                                  |
-|------------|---------|-------------------------------------------------------------------------|
+| ---------- | ------- | ----------------------------------------------------------------------- |
 | API        | `7982`  | The [HTTP API][api-ref] and the [API reference pages][api-docs]         |
 | Management | `7983`  | Health probes (`/livez`, `/readyz`) and Prometheus metrics (`/metrics`) |
 
@@ -30,8 +30,8 @@ unhealthy.
 
 The server opens no port at all until startup finishes. Startup includes database migrations and the
 first download of the TRaSH Guides, which can take several minutes on a slow connection. Give the
-first check enough time, for example with a Kubernetes `startupProbe` (see the
-[example](#kubernetes)).
+first check enough time, for example with a Kubernetes `startupProbe`. The [Helm chart][helm] sets
+up the probes for you.
 
 The Docker image has a built-in health check that uses `/livez`. See [Health Check][docker-health].
 
@@ -68,7 +68,7 @@ Configure the export with the [standard OpenTelemetry environment variables][ote
 has no settings of its own for it. Common ones:
 
 | Variable                      | Purpose                                                                   |
-|-------------------------------|---------------------------------------------------------------------------|
+| ----------------------------- | ------------------------------------------------------------------------- |
 | `OTEL_EXPORTER_OTLP_ENDPOINT` | Collector address. Turns the export on.                                   |
 | `OTEL_EXPORTER_OTLP_PROTOCOL` | `grpc` (default, usually port `4317`) or `http/protobuf` (usually `4318`) |
 | `OTEL_EXPORTER_OTLP_HEADERS`  | Headers to send, such as an authentication token                          |
@@ -79,67 +79,16 @@ The export includes the same metrics as `/metrics`. Each sync job is its own tra
 an API request, including one from a CLI command, links to the trace of that request. Scheduled jobs
 have no link. Health probes and metric scrapes produce no traces.
 
-## Kubernetes Example {/*#kubernetes*/}
-
-The [Helm chart][helm] sets up the ports and probes for you and can create a ServiceMonitor for
-metrics. When you write your own manifests, this container publishes both ports, checks health on
-the management port, and exports telemetry to an OpenTelemetry Collector. Remove the two `OTEL_*`
-variables if you have no collector.
-
-```yml
-containers:
-  - name: recyclarr
-    image: ghcr.io/recyclarr/recyclarr:9
-    ports:
-      - name: http
-        containerPort: 7982
-      - name: management
-        containerPort: 7983
-    env:
-      - name: RECYCLARR_API_KEY
-        valueFrom:
-          secretKeyRef:
-            name: recyclarr
-            key: api-key
-      - name: OTEL_EXPORTER_OTLP_ENDPOINT
-        value: http://otel-collector.monitoring:4317
-      - name: OTEL_RESOURCE_ATTRIBUTES
-        value: deployment.environment=home
-    startupProbe:
-      httpGet:
-        path: /livez
-        port: management
-      periodSeconds: 10
-      failureThreshold: 60 # allow up to 10 minutes for the first guide download
-    livenessProbe:
-      httpGet:
-        path: /livez
-        port: management
-    readinessProbe:
-      httpGet:
-        path: /readyz
-        port: management
-```
-
-Put only the `http` port in your Service. Prometheus scrapes `/metrics` from the pod's `management`
-port directly, for example with a PodMonitor. See [Kubernetes][api-key-k8s] for how to create the
-`recyclarr` Secret.
-
-Kubernetes collects the container's JSON console output. If you do not also want log files in the
-volume, set [`server.logging.files`][logging-files] to `false` in `settings.yml`.
-
 [persistent]: ./client-server.mdx#persistent
 [temporary]: ./client-server.mdx#temporary
 [api-ref]: /api/recyclarr-api
 [api-docs]: ./client-server.mdx#api-reference
-[api-key-k8s]: ./client-server.mdx#api-key-kubernetes
 [job-status]: ./client-server.mdx#jobs
 [port]: ./settings/server.mdx#port
 [bind-address]: ./settings/server.mdx#bind-address
 [management-port]: ./settings/server.mdx#management-port
 [management-metrics]: ./settings/server.mdx#management-metrics
 [logging]: ./settings/server.mdx#logging
-[logging-files]: ./settings/server.mdx#logging-files
 [docker-health]: ../guide/installation/docker.mdx#health-check
 [helm]: ../guide/installation/kubernetes.mdx#network
 [otel-env]: https://opentelemetry.io/docs/specs/otel/protocol/exporter/
