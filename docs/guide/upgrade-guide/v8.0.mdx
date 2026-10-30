@@ -205,7 +205,7 @@ resource_providers:
 ### Key Changes {/*#key-changes*/}
 
 | Old                                                     | New                                         |
-|---------------------------------------------------------|---------------------------------------------|
+| ------------------------------------------------------- | ------------------------------------------- |
 | Nested structure (`trash_guides:`, `config_templates:`) | Flat list with explicit `type` property     |
 | `branch` and `sha1` properties                          | Unified `reference` property                |
 | Implicit replacement of official sources                | Explicit `replace_default: true` required   |
@@ -229,13 +229,13 @@ matching: if a custom format is in the state, Recyclarr trusts that tracked ID r
 changes in the service.
 
 Remove `replace_existing_custom_formats` from your configuration; it is no longer recognized.
-Recyclarr now automatically adopts existing custom formats that match by name during sync. No
-manual command is needed.
+Recyclarr now automatically adopts existing custom formats that match by name during sync. No manual
+command is needed.
 
 :::info
 
-The `state repair --adopt` command previously recommended here was [removed in
-v9.0][v9-state-repair]. Sync handles adoption automatically.
+The `state repair --adopt` command previously recommended here was
+[removed in v9.0][v9-state-repair]. Sync handles adoption automatically.
 
 :::
 
@@ -339,9 +339,9 @@ configuration uses `include: - template:` directives referencing official includ
 will no longer resolve.
 
 The old include templates were static lists of trash IDs for custom formats and quality profiles.
-This approach has been replaced by [guide-backed quality profiles][qp-trash-id] and [custom format
-groups][cf-groups], which reference TRaSH Guides content dynamically instead of hardcoding
-individual trash IDs.
+This approach has been replaced by [guide-backed quality profiles][qp-trash-id] and
+[custom format groups][cf-groups], which reference TRaSH Guides content dynamically instead of
+hardcoding individual trash IDs.
 
 **Before (v7):**
 
@@ -406,8 +406,8 @@ each profile you want to convert to guide-backed.
    it). The `name` must match what the profile is currently called in Sonarr/Radarr. Remove all
    other properties temporarily.
 
-2. Add the `trash_id` for the corresponding guide profile. See the [name reference
-   table](#qp-name-changes) below to find the correct `trash_id`.
+2. Add the `trash_id` for the corresponding guide profile. See the
+   [name reference table](#qp-name-changes) below to find the correct `trash_id`.
 
 3. Run `recyclarr sync`. Recyclarr automatically adopts the existing profile and recognizes it as
    the guide-backed profile going forward.
@@ -481,14 +481,14 @@ profile will be renamed to if you remove the `name` override.
 #### Anime {/*#qp-anime*/}
 
 | Old Name            | Guide Name          | Service | `trash_id`                         |
-|---------------------|---------------------|---------|------------------------------------|
+| ------------------- | ------------------- | ------- | ---------------------------------- |
 | Remux-1080p - Anime | [Anime] Remux-1080p | Sonarr  | `20e0fc959f1f1704bed501f23bdae76f` |
 | Remux-1080p - Anime | [Anime] Remux-1080p | Radarr  | `722b624f9af1e492284c4bc842153a38` |
 
 #### German {/*#qp-german*/}
 
 | Old Name                      | Guide Name                              | Service | `trash_id`                         |
-|-------------------------------|-----------------------------------------|---------|------------------------------------|
+| ----------------------------- | --------------------------------------- | ------- | ---------------------------------- |
 | HD Bluray + WEB (GER)         | [German] HD Bluray + WEB                | Sonarr  | `dca7e5e9e99c703bcbdaaa471dd40e98` |
 | HD Bluray + WEB (GER)         | [German] HD Bluray + WEB                | Radarr  | `2b90e905c99490edc7c7a5787443748b` |
 | HD Remux + WEB (GER)          | [German] HD Remux + WEB                 | Sonarr  | `0dd5f085ed61a1e01f6d347779dfa1bc` |
@@ -503,7 +503,7 @@ profile will be renamed to if you remove the `name` override.
 #### French MULTi.VO {/*#qp-french*/}
 
 | Old Name              | Guide Name                                 | Service | `trash_id`                         |
-|-----------------------|--------------------------------------------|---------|------------------------------------|
+| --------------------- | ------------------------------------------ | ------- | ---------------------------------- |
 | FR-MULTi-VO-WEB-1080p | [French MULTi.VO] HD Bluray + WEB (1080p)  | Sonarr  | `4c48f506c1116a3a57ae33f12346bd15` |
 | FR-MULTi-VO-WEB-2160p | [French MULTi.VO] UHD Bluray + WEB (2160p) | Sonarr  | `6fa7364373e8f06206871d9c20a4fb3e` |
 | FR-MULTi-VO-HD        | [French MULTi.VO] HD Bluray + WEB          | Radarr  | `2572ce3ea4eef1c19d59e0e20ed1cea7` |

@@ -109,8 +109,8 @@ include:
   its contents into your own configuration file to use it.
 
 - **Include Directive**<br/>
-  A specific method of including a YAML file (e.g. `config: myfile.yml`). See the [include
-  directives](#include) section above for all available types.
+  A specific method of including a YAML file (e.g. `config: myfile.yml`). See the
+  [include directives](#include) section above for all available types.
 
 ### YAML-Specific Terms {/*#yaml-terms*/}
 
@@ -183,8 +183,8 @@ You essentially start an include file as if it's everything under `instance_name
 Recyclarr handles includes using the following rules:
 
 1. Includes are processed from top to bottom, in order. Configuration is merged using specific
-   strategies discussed in the sections [Merge Behavior](#behavior) and [Merge
-   Reference](#reference).
+   strategies discussed in the sections [Merge Behavior](#behavior) and
+   [Merge Reference](#reference).
 1. The root configuration is merged into the final, aggregated include configuration data. Root
    configuration YAML always takes precedence over included YAML.
 
@@ -197,12 +197,12 @@ As Recyclarr visits each node in included YAML, it decides what to do based on t
 
 1. If `B` has a node but not `A`, then it takes the node from `B`.
 1. Otherwise, if `A` has a node but not `B`, then it takes the node from `A`.
-1. Otherwise, if both sides (`A` and `B`) have the same node, then a pre-determined *Merge
-   Operation* is used.
+1. Otherwise, if both sides (`A` and `B`) have the same node, then a pre-determined
+   *Merge Operation* is used.
 
 Recyclarr uses *Merge Operations* to decide how to aggregate (combine/merge) YAML data that exists
-in two YAML files. These operations are important to understand as they are used in the [Merge
-Reference](#reference) section that follows.
+in two YAML files. These operations are important to understand as they are used in the
+[Merge Reference](#reference) section that follows.
 
 Before getting into the specifics of each operation, it's important to understand some YAML-specific
 terminology. See the [Terminology](#yaml-terms) section to learn more.
@@ -335,7 +335,7 @@ semantics, those will be documented in later sections. This will especially be t
 [union](#union) operations.
 
 | Property Name               | Node Type | Merge Operation     |
-|-----------------------------|-----------|---------------------|
+| --------------------------- | --------- | ------------------- |
 | `custom_formats`            | Sequence  | [Join](#detail-cfs) |
 | `custom_format_groups`      | Sequence  | Join                |
 | `quality_profiles`          | Sequence  | Join                |
@@ -347,7 +347,7 @@ semantics, those will be documented in later sections. This will especially be t
 ### Quality Definition {/*#merge-quality-definition*/}
 
 | Property Name     | Node Type | Merge Operation |
-|-------------------|-----------|-----------------|
+| ----------------- | --------- | --------------- |
 | `type`            | Scalar    | Replace         |
 | `preferred_ratio` | Scalar    | Replace         |
 | `qualities`       | Sequence  | Join            |
@@ -362,7 +362,7 @@ otherwise by `name` alone. Profiles sharing a `trash_id` but with different name
 separate entries, not merged.
 
 | Property Name            | Node Type | Merge Operation              |
-|--------------------------|-----------|------------------------------|
+| ------------------------ | --------- | ---------------------------- |
 | `upgrade`                | Mapping   | Union                        |
 | `min_format_score`       | Scalar    | Replace                      |
 | `quality_sort`           | Scalar    | Replace                      |
@@ -377,7 +377,7 @@ The profile's `quality_definition` merges the same way as the instance-level
 Merge operations for properties of `upgrade`:
 
 | Property Name   | Node Type | Merge Operation |
-|-----------------|-----------|-----------------|
+| --------------- | --------- | --------------- |
 | `allowed`       | Scalar    | Replace         |
 | `until_quality` | Scalar    | Replace         |
 | `until_score`   | Scalar    | Replace         |
@@ -385,7 +385,7 @@ Merge operations for properties of `upgrade`:
 Merge operations for properties of `reset_unmatched_scores`:
 
 | Property Name     | Node Type | Merge Operation |
-|-------------------|-----------|-----------------|
+| ----------------- | --------- | --------------- |
 | `enabled`         | Scalar    | Replace         |
 | `except`          | Sequence  | Add             |
 | `except_patterns` | Sequence  | Add             |
@@ -395,7 +395,7 @@ Merge operations for properties of `reset_unmatched_scores`:
 Items in `custom_format_groups` are joined by `trash_id`.
 
 | Property Name      | Node Type | Merge Operation |
-|--------------------|-----------|-----------------|
+| ------------------ | --------- | --------------- |
 | `assign_scores_to` | Sequence  | Replace         |
 | `select`           | Sequence  | Replace         |
 | `select_all`       | Scalar    | Replace         |
@@ -408,7 +408,7 @@ Items in `custom_format_groups` are joined by `trash_id`.
 Under `media_naming`:
 
 | Property Name | Node Type | Merge Operation |
-|---------------|-----------|-----------------|
+| ------------- | --------- | --------------- |
 | `series`      | Scalar    | Replace         |
 | `season`      | Scalar    | Replace         |
 | `episodes`    | Mapping   | Union           |
@@ -416,7 +416,7 @@ Under `media_naming`:
 Under `episodes`:
 
 | Property Name | Node Type | Merge Operation |
-|---------------|-----------|-----------------|
+| ------------- | --------- | --------------- |
 | `rename`      | Scalar    | Replace         |
 | `standard`    | Scalar    | Replace         |
 | `daily`       | Scalar    | Replace         |
@@ -427,21 +427,21 @@ Under `episodes`:
 Under `media_naming`:
 
 | Property Name | Node Type | Merge Operation |
-|---------------|-----------|-----------------|
+| ------------- | --------- | --------------- |
 | `folder`      | Scalar    | Replace         |
 | `movie`       | Mapping   | Union           |
 
 Under `movie`:
 
 | Property Name | Node Type | Merge Operation |
-|---------------|-----------|-----------------|
+| ------------- | --------- | --------------- |
 | `rename`      | Scalar    | Replace         |
 | `standard`    | Scalar    | Replace         |
 
 ### Media Management {/*#merge-media-management*/}
 
 | Property Name         | Node Type | Merge Operation |
-|-----------------------|-----------|-----------------|
+| --------------------- | --------- | --------------- |
 | `propers_and_repacks` | Scalar    | Replace         |
 
 ### Unsupported Properties {/*#merge-unsupported*/}

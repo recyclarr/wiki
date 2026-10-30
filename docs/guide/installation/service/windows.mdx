@@ -5,8 +5,8 @@ description: Run the Recyclarr server as a Windows service that starts at boot
 ---
 
 This guide sets up the Recyclarr server as a Windows service. Windows starts the server at boot,
-without anyone logging in, and starts it again if it fails. The server then syncs on its [built-in
-schedule][schedule] and accepts commands from the CLI.
+without anyone logging in, and starts it again if it fails. The server then syncs on its
+[built-in schedule][schedule] and accepts commands from the CLI.
 
 Run every command on this page in PowerShell as Administrator.
 
@@ -37,9 +37,9 @@ New-Item -ItemType Directory -Force "C:\ProgramData\recyclarr"
 icacls "C:\ProgramData\recyclarr" /grant "NT AUTHORITY\LocalService:(OI)(CI)M"
 ```
 
-Put your YAML configuration in `C:\ProgramData\recyclarr\recyclarr.yml`. See [Getting
-Started][getting-started] for what to put in the file, and [File Structure][file-structure] for the
-`configs` and `includes` subdirectories.
+Put your YAML configuration in `C:\ProgramData\recyclarr\recyclarr.yml`. See
+[Getting Started][getting-started] for what to put in the file, and [File Structure][file-structure]
+for the `configs` and `includes` subdirectories.
 
 ## Create the Service {/*#service*/}
 
@@ -105,8 +105,8 @@ cause, such as a configuration that is not valid or a missing API key.
 ## Run CLI Commands {/*#cli*/}
 
 The CLI sends commands to the server over HTTP. To use the service, give the CLI the server address
-and the API key in `%APPDATA%\recyclarr\cli.yml` (the [CLI settings][cli-settings] file for your
-own Windows user):
+and the API key in `%APPDATA%\recyclarr\cli.yml` (the [CLI settings][cli-settings] file for your own
+Windows user):
 
 ```yml
 server:
