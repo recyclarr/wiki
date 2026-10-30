@@ -64,24 +64,24 @@ docker compose up -d
 
 Here is a breakdown of the above YAML:
 
-- `networks`<br/>
+- `networks`\
   Recyclarr needs network access to Sonarr and Radarr instances. How those services are hosted
   determines the network configuration. This example uses a dedicated Docker bridge network (named
   `recyclarr`) shared with those services, allowing Recyclarr to reach them directly without going
   through a reverse proxy.
-- `image`<br/>
+- `image`\
   The official Recyclarr image, hosted on Github. The `:9` tag receives all feature and bugfix
   updates within major version 9. See [Tags](#tags) for other options.
-- `container_name`<br/>
+- `container_name`\
   Optional. Prevents Docker Compose from generating a prefixed name like `prefix_recyclarr`.
-- `restart`<br/>
+- `restart`\
   Starts the server again after a crash or a reboot of the host. Without a restart policy, scheduled
   syncs stop until you start the container yourself.
-- `user`<br/>
+- `user`\
   Optional user and group ID for the container process. Recyclarr runs as this UID:GID, and any
   files it creates in the `/config` volume are owned by this user and group. Defaults to `1000:1000`
   if not specified.
-- `environment`<br/>
+- `environment`\
   `TZ` sets the time zone for the sync schedule. `RECYCLARR_API_KEY` sets the server's API key; see
   [API Key](#api-key).
 
@@ -165,7 +165,7 @@ For Kubernetes, a matching dev chart is available; see [Dev Chart][helm-dev].
 
 ### Volumes {/*#volumes*/}
 
-- `/config`<br/>
+- `/config`\
   The default directory for all Recyclarr files: configuration, state, logs, and downloaded
   resources. Server logs are written to `/config/logs/server/`. `docker logs recyclarr` also shows
   the server's log output.
@@ -216,22 +216,22 @@ Recyclarr's Docker container is **rootless**. Use the `user` property (in Docker
 
 :::
 
-- `RECYCLARR_API_KEY` or `RECYCLARR_API_KEY_FILE` (Required, set only one)<br/>
+- `RECYCLARR_API_KEY` or `RECYCLARR_API_KEY_FILE` (Required, set only one)\
   The server's API key, or the path of a file that contains it. The image has no default, and the
   server does not start without a key. See [API Key](#api-key).
 
-- `TZ` (Default: `UTC`)<br/>
+- `TZ` (Default: `UTC`)\
   The time zone for Recyclarr's local time in the container. The [sync schedule](#scheduling) uses
   this time zone.
 
-- `RECYCLARR_CONFIG_DIR` (Default: `/config`)<br/>
+- `RECYCLARR_CONFIG_DIR` (Default: `/config`)\
   Override the config directory path inside the container. See [Environment Variables][env-config].
 
-- `RECYCLARR_DATA_DIR` (Default: same as `RECYCLARR_CONFIG_DIR`)<br/>
+- `RECYCLARR_DATA_DIR` (Default: same as `RECYCLARR_CONFIG_DIR`)\
   Override the data directory path inside the container for ephemeral files (resources, logs). See
   [Environment Variables][env-data].
 
-- `RECYCLARR_STATE_DIR` (Default: `state` inside `RECYCLARR_CONFIG_DIR`)<br/>
+- `RECYCLARR_STATE_DIR` (Default: `state` inside `RECYCLARR_CONFIG_DIR`)\
   Override the state directory path inside the container for sync state and job history. See
   [Environment Variables][env-state].
 
