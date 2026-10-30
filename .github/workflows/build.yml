@@ -22,16 +22,15 @@ concurrency:
 
 permissions:
   contents: read
-  pull-requests: read
 
 jobs:
-  pre-check:
-    uses: recyclarr/recyclarr/.github/workflows/reusable-precheck.yml@b025c6d5472dc1f854cb49c427e874e90338c9f2 # v8.8.0
-
   build:
     name: Build
-    needs: pre-check
-    if: needs.pre-check.outputs.should_run == 'true'
+    # Same-repo PR commits are already built by their push run; only fork PRs need this event.
+    # deploy.yml relies on this to ignore the skipped same-repo pull_request runs.
+    if: >-
+      github.event_name == 'push'
+      || github.event.pull_request.head.repo.full_name != github.repository
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

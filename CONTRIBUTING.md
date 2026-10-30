@@ -67,10 +67,10 @@ issues in pull requests too.
 
 ### Markdown Lint
 
-Markdown lint rules must be followed. See [`.markdownlint.json`](.markdownlint.json). I personally
-use the [markdownlint] extension for VS Code.
+Markdown lint rules must be followed. See [`.markdownlint-cli2.yaml`](.markdownlint-cli2.yaml). I
+personally use the [markdownlint] extension for VS Code.
 
-Each pull request opened will run a workflow to verify markdownlint rules are not violated.
+Each pull request runs the pre-commit hooks, including markdownlint, in a workflow.
 
 [markdownlint]: https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint
 
@@ -102,18 +102,18 @@ guidelines below to know which admonition types to use in what situation.
 
 [admon]: https://docusaurus.io/docs/markdown-features/admonitions
 
-- 🔵 **INFO** (`:::info`)<br/>
+- 🔵 **INFO** (`:::info`)\
   Optional steps, informational text. Directly related to the subject matter.
 
-- 🟢 **TIP** (`:::tip`)<br/>
+- 🟢 **TIP** (`:::tip`)\
   Advice or tips that help the user. Topics might not be directly related to surrounding subject
   matter.
 
-- 🟡 **CAUTION** (`:::warning`)<br/>
+- 🟡 **CAUTION** (`:::warning`)\
   Warning messages about an action or piece of information. Things the user should heed, but it
   won't be the end of the world if they don't.
 
-- 🔴 **DANGER** (`:::danger`)<br/>
+- 🔴 **DANGER** (`:::danger`)\
   Most critical admonition. Represents things the user *should not do*.
 
 Additionally, admonitions should have spaces before and after the text inside of it. For example:

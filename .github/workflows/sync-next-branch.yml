@@ -23,7 +23,7 @@ jobs:
         id: app-token
         uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
         with:
-          app-id: ${{ secrets.RECYCLARR_APP_ID }}
+          client-id: Iv23li5BoJP7gAdtDQkk
           private-key: ${{ secrets.RECYCLARR_PRIVATE_KEY }}
           permission-contents: write
 
@@ -37,7 +37,7 @@ jobs:
       - name: Rebase next onto master
         run: |
           git config user.name "recyclarr[bot]"
-          git config user.email "recyclarr[bot]@users.noreply.github.com"
+          git config user.email "246937170+recyclarr[bot]@users.noreply.github.com"
           git checkout next
           git rebase master
           git push --force-with-lease origin next
