@@ -28,29 +28,62 @@ services:
     restart: unless-stopped
     environment:
       - TZ=America/New_York
+      - RECYCLARR_API_KEY=${RECYCLARR_API_KEY}
     volumes:
       - ./config:/config
 ```
 
-Don't start the container yet. Recyclarr runs as a server that stays running, and it reads your
-configuration when it starts. You'll create that configuration in the next steps.
+The Recyclarr server does not start without its own API key, which must be at least 32 characters.
+This is separate from your Radarr API key. Create a `.env` file next to `compose.yaml` with a random
+key; Docker Compose reads it automatically:
+
+```bash
+echo "RECYCLARR_API_KEY=$(openssl rand -hex 32)" > .env
+```
+
+`docker exec` commands use the same key automatically. See [API Key][docker-api-key] for other ways
+to store it.
+
+[docker-api-key]: ./installation/docker.mdx#api-key
+
+Start the container in the background:
+
+```bash
+docker compose up -d
+```
+
+Recyclarr runs as a server that stays running. It takes a few seconds to start; wait until
+`docker compose ps` shows the container as `healthy`. The server has nothing to sync yet. You'll
+create its configuration in the next steps.
 
 For networking, tags, and native installs, see the [Installation Guide](./installation/index.mdx).
 
 ## Step 2: Choose a Quality Profile {/*#choose-profile*/}
 
-Recyclarr provides ready-to-use templates that match TRaSH Guide quality profiles. Browse them on
-the [Quick Setup Templates][templates] page. Each matches a [TRaSH Guides profile][trash-radarr].
+Recyclarr provides ready-to-use templates that match TRaSH Guide quality profiles. Read the
+[TRaSH Guides profile descriptions][trash-radarr] to pick one, then list the templates to find its
+ID:
+
+```bash
+docker exec recyclarr recyclarr config list templates
+```
+
+The list shows each template's ID next to its guide profile name. See
+[Quick Setup Templates][templates] for how to preview a template before you use it.
 
 [trash-radarr]: https://trash-guides.info/Radarr/radarr-setup-quality-profiles/
 [templates]: ./guide-configs.mdx
-[hd-bluray-web]: ./guide-configs.mdx#hd-bluray-web
+[preview]: ./guide-configs.mdx#preview
 
 ## Step 3: Create Your Configuration {/*#create-config*/}
 
-Create a config file from your chosen template. For example, to use the `HD Bluray + WEB` profile,
-copy the contents of the [HD Bluray + WEB template][hd-bluray-web] into a new file at
-`config/configs/hd-bluray-web.yml`. Then update `base_url` and `api_key`:
+Create a config file from your chosen template. For example, to use the `HD Bluray + WEB` profile:
+
+```bash
+docker exec recyclarr recyclarr config create -t hd-bluray-web
+```
+
+This creates `config/configs/hd-bluray-web.yml`. Open it and update `base_url` and `api_key`:
 
 ```yml
 radarr:
@@ -69,16 +102,16 @@ are no longer in your configuration:
 That's it. The template already includes the quality definition, quality profile, and custom formats
 from the TRaSH Guide.
 
-## Step 4: Start Recyclarr and Sync {/*#first-sync*/}
+## Step 4: Restart Recyclarr and Sync {/*#first-sync*/}
 
-Start the container in the background:
+Restart the container so the server loads your new configuration:
 
 ```bash
-docker compose up -d
+docker compose restart recyclarr
 ```
 
-The server takes a few seconds to start. Wait until `docker compose ps` shows the container as
-`healthy`. Recyclarr now syncs automatically once a day. To run your first sync right away:
+Wait until `docker compose ps` shows the container as `healthy` again. Recyclarr now syncs
+automatically once a day. To run your first sync right away:
 
 ```bash
 docker exec recyclarr recyclarr sync
@@ -146,8 +179,8 @@ the TRaSH Guides, so a single `trash_id` is all you need per profile.
 :::tip
 
 Each template also includes commented-out `custom_format_groups` for optional CF groups like
-streaming services and movie versions. See the [Quick Setup Templates][templates] page for the full
-template contents.
+streaming services and movie versions. To see them for another profile,
+[preview its template][preview].
 
 :::
 
@@ -211,7 +244,7 @@ For customization examples, see the [Configuration Examples](../reference/config
 
 - [Configuration Reference](../reference/configuration/index.mdx) — All available settings
 - [Configuration Examples](../reference/config-examples.mdx) — Real-world configuration patterns
-- [Quick Setup Templates](./guide-configs.mdx) — Browse all available templates
+- [Quick Setup Templates](./guide-configs.mdx) — Find, preview, and create templates
 - [Secrets](../reference/configuration/value-substitution.mdx#secrets) — Store API keys securely
 - [Docker Guide](./installation/docker.mdx) — Sync schedule, CLI commands, and the HTTP API
 - [CLI Reference](../cli/index.mdx) — All commands and options

@@ -1,20 +1,15 @@
-These pre-built configuration files use [guide-backed quality profiles][qp] and
-[custom format groups][cfg] to synchronize all mandatory elements of any given guide profile. A
-single `trash_id` reference per quality profile replaces what previously required multiple include
-templates. The content of these templates can be found in the
-[Recyclarr config-templates GitHub repository][config-templates-repo].
+## Deployment {/*#deployment*/}
 
-[qp]: /reference/configuration/quality-profiles
-[cfg]: /guide/cf-groups
-[config-templates-repo]: https://github.com/recyclarr/config-templates/tree/master
+Create a configuration file from a template with [`recyclarr config create`][cli]:
 
-## Deployment
+```bash
+recyclarr config create -t hd-bluray-web
+```
 
-To deploy a pre-built configuration file, copy its contents into a
-[supported file location][file-structure]. The files can be found in the index below. If a Recyclarr
-server is running (for example, in Docker), restart it afterward so it loads the new file.
+In Docker, run the same command with `docker exec recyclarr` in front of it. Then fill in `base_url`
+and `api_key`, and restart the Recyclarr server so it loads the new file.
 
-## Customization
+## Customization {/*#customization*/}
 
 :::warning
 
@@ -36,7 +31,7 @@ The guide-backed profile's qualities will be replaced by your custom list as des
 
 Additional custom formats can be added to the configuration file in the same way as normal.
 
-[file-structure]: /guide/file-structure#default-yaml
+[cli]: /cli/config/create
 [behavior]: /reference/configuration/include
 [config-qp]: /reference/configuration/quality-profiles
 [include-qp]: /reference/configuration/include#merge-quality-profiles
