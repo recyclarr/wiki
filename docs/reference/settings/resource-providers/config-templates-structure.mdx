@@ -126,18 +126,10 @@ Add your config-templates repository to `settings.yml`:
 
 ```yml
 resource_providers:
-  # As a supplemental source (adds to official)
   - name: my-templates
     type: config-templates
     clone_url: https://github.com/yourname/my-templates.git
     reference: main
-
-  # Or as a replacement (replaces official)
-  - name: my-templates
-    type: config-templates
-    clone_url: https://github.com/yourname/my-templates.git
-    reference: main
-    replace_default: true
 ```
 
 For local directories:
@@ -151,8 +143,9 @@ resource_providers:
 
 :::info
 
-The official [config-templates repository][official] has no `includes.json`, so it provides no
-includes. The include examples on this page apply only to your own resource providers.
+Recyclarr has no official `config-templates` provider, so include templates come only from providers
+you add. The templates used by [`config create`][config-create] are generated from the TRaSH Guides
+and do not come from a `config-templates` provider.
 
 :::
 
@@ -162,5 +155,5 @@ If more than one provider defines the same include ID for the same service, the 
 in `resource_providers` wins. IDs are compared case-insensitively. See
 [How Precedence Works][precedence] for the full ordering rules.
 
-[official]: https://github.com/recyclarr/config-templates
+[config-create]: ../../../cli/config/config-create.mdx
 [precedence]: ./index.mdx#how-precedence-works
