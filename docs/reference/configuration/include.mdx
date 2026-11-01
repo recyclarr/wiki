@@ -64,16 +64,15 @@ include:
 
 ## Template Includes {/*#template*/}
 
-Utilize a [Configuration Templates][templates] repository to include YAML files. Template includes
-reference entries in a repository's `includes.json`.
+Include YAML files from a [config templates repository][templates] that you add as a resource
+provider. Template includes reference entries in that repository's `includes.json`.
 
-[templates]: https://github.com/recyclarr/config-templates
+[templates]: ../settings/resource-providers/config-templates-structure.mdx
 
 :::warning
 
-The official config-templates repository no longer provides include templates as of v8. This
-directive is only useful with [custom resource providers][providers] that supply their own
-`includes.json`.
+Recyclarr has no official `config-templates` provider. This directive is only useful with
+[custom resource providers][providers] that supply their own `includes.json`.
 
 [providers]: ../../reference/settings/resource-providers/index.mdx
 
@@ -101,12 +100,13 @@ include:
 ### Recyclarr-Specific Terms {/*#recyclarr-terms*/}
 
 - **Include Template**\
-  A type of template that may *only* be included. The official config-templates repository no longer
-  provides include templates; this concept applies only to custom resource providers.
+  A type of template that may *only* be included. Include templates come only from custom resource
+  providers.
 
 - **Config Template**\
-  A type of template that may *only* be used as a configuration file. It *cannot* be included. Copy
-  its contents into your own configuration file to use it.
+  A type of template that may *only* be used as a configuration file. It *cannot* be included.
+  Recyclarr generates one for each TRaSH Guides quality profile; create one with the
+  [`config create`][config-create] command.
 
 - **Include Directive**\
   A specific method of including a YAML file (e.g. `config: myfile.yml`). See the
@@ -146,6 +146,7 @@ Recyclarr's include YAML merge behavior.
   ```
 
 [yamlglossary]: https://yaml.com/doc/glossary/
+[config-create]: ../../cli/config/config-create.mdx
 
 ## Include YAML Schema {/*#schema*/}
 

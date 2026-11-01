@@ -13,12 +13,12 @@ For property details, see the [configuration reference][config-ref].
 
 ## Default Behavior {/*#default-behavior*/}
 
-Recyclarr automatically includes official sources with zero configuration:
+Recyclarr automatically includes the official TRaSH Guides repository with zero configuration:
+`https://github.com/TRaSH-Guides/Guides.git` (custom formats, quality profiles, quality sizes, media
+naming). Recyclarr also generates the templates for [`config create`][config-create] from this data.
 
-- **Trash Guides**: `https://github.com/TRaSH-Guides/Guides.git` (custom formats, quality sizes,
-  media naming)
-- **Config Templates**: `https://github.com/recyclarr/config-templates.git` (pre-made YAML
-  configurations)
+There is no official `config-templates` provider. That type serves only include templates from
+repositories you configure.
 
 For most users, no `resource_providers` configuration is needed.
 
@@ -279,7 +279,7 @@ resource_providers:
 
 With this configuration:
 
-- Official Trash Guides and Config Templates are automatically included (lowest precedence)
+- Official Trash Guides are automatically included (lowest precedence)
 - Community extras are added next
 - Local custom formats have highest precedence (listed last)
 
@@ -332,5 +332,6 @@ locations.
 :::
 
 [temporary]: ../../client-server.mdx#temporary
+[config-create]: ../../../cli/config/config-create.mdx
 [include]: ../../configuration/include.mdx
 [data-dir]: ../../../guide/file-structure.mdx#data-directory

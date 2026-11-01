@@ -1,0 +1,132 @@
+---
+id: create
+title: recyclarr config create
+sidebar_label: create
+---
+
+## Usage {/*#usage*/}
+
+```js
+recyclarr config create [OPTIONS]
+```
+
+## Description {/*#description*/}
+
+Create a starter configuration YAML file. Without [`--template`](#template), this writes an empty
+starter configuration to `recyclarr.yml` in the [configuration directory][config-dir]. The empty
+starter configuration does not work as is: fill in your instance details and the settings you want.
+
+With `--template`, each file is a configuration built from a TRaSH Guides quality profile. See
+[Templates](#templates).
+
+If a file already exists, the command reports an error and leaves the file unchanged. Use
+[`--force`](#force) to replace it.
+
+### Where Files Are Written {/*#location*/}
+
+The CLI writes files on the machine where it runs, in its own configuration directory: the path in
+[`RECYCLARR_CONFIG_DIR`][env-config], or the platform default. The server only supplies the template
+contents and never writes configuration files itself.
+
+- **Docker**: Run the command with `docker exec`. The CLI runs inside the container, so files land
+  in the same configuration directory the server reads.
+- **Remote server**: When the CLI uses a server on another machine through
+  [`server.base_url`][base-url], the file is written on the machine running the CLI. Copy it into
+  the server's configuration directory yourself.
+
+The server loads configuration files when it starts. After you create a file and fill in its values,
+restart the server so it loads the file. See [Client and Server][client-server].
+
+### Templates {/*#templates*/}
+
+Recyclarr generates templates from the TRaSH Guides data the server uses, with one template for each
+guide quality profile. New guide profiles become templates when the server gets the guide update.
+Run [`recyclarr config list templates`][list-templates] to see the available template IDs.
+
+- A template's ID is the file name of its quality profile in the guide, without the extension (for
+  example, `hd-bluray-web`).
+- When Radarr and Sonarr both have a quality profile file with the same name, both IDs get a
+  `radarr-` or `sonarr-` prefix (for example, `radarr-anime-remux-1080p` and
+  `sonarr-anime-remux-1080p`).
+- Quality profiles in the guide's `TEST` group have no template.
+
+Each template contains one instance, named after the template ID, with placeholders for `base_url`
+and `api_key`. It also includes the matching [quality definition][quality-definition], the
+[guide-backed quality profile][quality-profiles], and the profile's
+[custom format groups][cf-groups]. Optional groups are commented out; uncomment the ones you want.
+
+## Options {/*#options*/}
+
+Visit [Common Options](../common.mdx) to read about options usable by all commands.
+
+### `-p|--path` {/*#path*/}
+
+The absolute or relative path of the file to write, instead of the default location. Without
+`--template`, the file gets the empty starter configuration. With exactly one `--template`, the file
+gets that template.
+
+Using `--path` with more than one `--template` is an error, and no files are written.
+
+#### Command Line Examples {/*#command-line-examples*/}
+
+```bash
+# Create the empty starter config at the default location, recyclarr.yml
+recyclarr config create
+
+# Create the empty starter config in a specific location
+recyclarr config create --path ~/myconfig.yml
+
+# Write a template to a specific file
+recyclarr config create -t sonarr-web-1080p -p ./sonarr.yml
+```
+
+### `-t|--template` {/*#template*/}
+
+The ID of a [template](#templates) to create. You may specify this option more than once. Each
+template is written to `configs/<id>.yml` in the configuration directory, unless you also use
+[`--path`](#path).
+
+If an ID matches no template, the command reports an error for it and still writes the other
+templates you listed. The command then exits with a failure exit code.
+
+#### Command Line Examples {/*#command-line-examples-1*/}
+
+```bash
+# Create a configuration from a single template
+recyclarr config create --template hd-bluray-web
+
+# Create from multiple templates
+recyclarr config create -t hd-bluray-web -t sonarr-web-1080p
+
+# Create a template in a Docker container's configuration directory
+docker exec recyclarr recyclarr config create -t hd-bluray-web
+```
+
+### `-f|--force` {/*#force*/}
+
+:::warning
+
+This is a destructive operation! Use carefully.
+
+:::
+
+Replace existing configuration files.
+
+#### Command Line Examples {/*#command-line-examples-2*/}
+
+```bash
+# Replace an existing file with the empty starter config
+recyclarr config create -p ./recyclarr.yml --force
+
+# Replace an existing file created from a template
+recyclarr config create --template hd-bluray-web --force
+```
+
+[config-dir]: ../../guide/file-structure.mdx#config-directory
+[env-config]: ../../reference/env-vars.mdx#config-dir
+[base-url]: ../../reference/cli-settings.mdx#base-url
+[client-server]: ../../reference/client-server.mdx
+[list-templates]: ./config-list-templates.mdx
+[quality-definition]: ../../reference/configuration/quality-definition.mdx
+[quality-profiles]: ../../reference/configuration/quality-profiles.mdx
+[cf-groups]: ../../guide/cf-groups.mdx
