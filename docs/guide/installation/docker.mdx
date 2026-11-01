@@ -354,6 +354,9 @@ docker exec recyclarr recyclarr sync sonarr --log debug
 
 # Do a preview (dry run) sync for Radarr
 docker exec recyclarr recyclarr sync radarr --preview
+
+# Create configs/hd-bluray-web.yml in the container's configuration directory
+docker exec recyclarr recyclarr config create -t hd-bluray-web
 ```
 
 Syncs you start this way wait in the same queue as scheduled syncs. See the [CLI reference][cli] for

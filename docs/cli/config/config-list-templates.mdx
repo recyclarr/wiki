@@ -1,0 +1,58 @@
+---
+id: templates
+title: recyclarr config list templates
+sidebar_label: list templates
+---
+
+## Usage {/*#usage*/}
+
+```js
+recyclarr config list templates [OPTIONS]
+```
+
+## Description {/*#description*/}
+
+Lists the IDs of the [templates][templates] you can use with
+[`recyclarr config create --template`][create]. A "Profile" column shows the name of each template's
+TRaSH Guides quality profile, so you can find the ID for a profile you picked in the guide. The
+server generates these templates from the TRaSH Guides, so it needs guide data to list them.
+
+## Options {/*#options*/}
+
+Visit [Common Options](../common.mdx) to read about options usable by all commands.
+
+### `-i|--includes` {/*#include*/}
+
+Lists the IDs of include templates instead. In contrast to configuration templates, which are only
+usable with the `config create` command, include templates may only be included with the
+[`include` property][include].
+
+Include templates come only from `config-templates` [resource providers][providers] that you
+configure. Without one, this list is empty.
+
+### `--raw` {/*#raw*/}
+
+Output one tab-separated line per template, for use in scripts. Suppresses table formatting. Cannot
+be combined with `--log`.
+
+- Templates: `<service>`, `<id>`, and `<profile name>` (for example, `radarr`, `hd-bluray-web`, and
+  `HD Bluray + WEB`)
+- Include templates (with `--includes`): `<service>` and `<id>`
+
+## Command Line Examples {/*#command-line-examples*/}
+
+```bash
+# List available configuration templates
+recyclarr config list templates
+
+# List templates in a script-friendly format
+recyclarr config list templates --raw
+
+# List include templates (only useful with custom resource providers)
+recyclarr config list templates --includes
+```
+
+[templates]: ./config-create.mdx#templates
+[create]: ./config-create.mdx#template
+[include]: ../../reference/configuration/include.mdx#template
+[providers]: ../../reference/settings/resource-providers/index.mdx

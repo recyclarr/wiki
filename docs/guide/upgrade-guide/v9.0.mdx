@@ -173,11 +173,15 @@ into the `configs` directory.
 recyclarr sync --config ../myconfig.yml # <<< REMOVED
 ```
 
-## CLI: `config` Commands Removed {/*#config-commands-removed*/}
+## CLI: `config list local` Removed {/*#config-commands-removed*/}
 
-The `recyclarr config create`, `recyclarr config list local`, and `recyclarr config list templates`
-commands have been removed. To start from a template, copy it from the
-[Quick Setup Templates][templates] page into your configuration directory.
+The `recyclarr config list local` command has been removed. The server loads every configuration
+file in its [default locations][default-yaml], so there is no separate list of local files to check.
+Remove any calls to `recyclarr config list local` from your scripts.
+
+[`recyclarr config create`][config-create] and `recyclarr config list templates` keep their syntax.
+Recyclarr now generates their templates from the TRaSH Guides instead of downloading the
+config-templates repository.
 
 ## CLI: `migrate` Removed {/*#migrate-removed*/}
 
@@ -222,7 +226,7 @@ to notice and adjust your config if needed.
 [docker-api-key]: ../installation/docker.mdx#api-key
 [client-server]: ../../reference/client-server.mdx
 [default-yaml]: ../file-structure.mdx#default-yaml
-[templates]: ../guide-configs.mdx
+[config-create]: ../../cli/config/config-create.mdx
 [migrations]: ../troubleshooting/migrations.mdx
 [env-state]: ../../reference/env-vars.mdx#state-dir
 [env-data]: ../../reference/env-vars.mdx#data-dir
