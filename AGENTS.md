@@ -52,8 +52,8 @@ parent package keeps the version it requires.
 
 ## API Reference
 
-- `api/` is generated from `openapi/recyclarr-server.json` (`yarn gen-api-docs`); MUST NOT edit it
-  by hand. Fix reference text (operations, parameters, schemas) in the recyclarr server code.
+- `@scalar/docusaurus` renders `openapi/recyclarr-server.json` at `/api`. Fix reference text
+  (operations, parameters, schemas) in the recyclarr server code.
 - Conceptual API prose (overview, job lifecycle, CLI and schedule relationship, authentication) goes
   in hand-written wiki pages.
 
