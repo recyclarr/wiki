@@ -1,4 +1,5 @@
 import type { Config } from "@docusaurus/types";
+import type { ScalarOptions } from "@scalar/docusaurus";
 import { themes } from "prism-react-renderer";
 // import darkCodeTheme from 'prism-react-renderer/themes/dracula';
 
@@ -70,37 +71,20 @@ const config: Config = {
 
   plugins: [
     "docusaurus-plugin-sass",
-    // The API reference uses its own docs instance so that @theme/ApiItem renders only the
-    // generated endpoint pages, leaving the hand-written docs on the default DocItem.
     [
-      "@docusaurus/plugin-content-docs",
+      "@scalar/docusaurus",
       {
-        id: "api",
-        path: "api",
-        routeBasePath: "api",
-        sidebarPath: require.resolve("./sidebars-api.js"),
-        docItemComponent: "@theme/ApiItem",
-      },
-    ],
-    [
-      "docusaurus-plugin-openapi-docs",
-      {
-        id: "openapi",
-        docsPluginId: "api",
-        config: {
-          recyclarr: {
-            specPath: "openapi/recyclarr-server.json",
-            outputDir: "api",
-            sidebarOptions: {
-              groupPathsBy: "tag",
-            },
-          },
+        route: "/api",
+        // The navbar "API" item below links here and keeps the active state for /api paths.
+        showNavLink: false,
+        configuration: {
+          content: require("./openapi/recyclarr-server.json"),
         },
-      },
+      } satisfies ScalarOptions,
     ],
   ],
 
-  themes: ["docusaurus-theme-github-codeblock", "docusaurus-theme-openapi-docs"],
+  themes: ["docusaurus-theme-github-codeblock"],
 
   themeConfig: {
     navbar: {
@@ -130,7 +114,7 @@ const config: Config = {
           label: "CLI",
         },
         {
-          to: "/api/recyclarr-api",
+          to: "/api",
           position: "left",
           label: "API",
           activeBasePath: "api",
