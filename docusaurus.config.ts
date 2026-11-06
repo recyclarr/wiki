@@ -24,6 +24,8 @@ const config: Config = {
   baseUrl: "/",
   trailingSlash: true,
   onBrokenLinks: "throw",
+  // Publishes Scalar's self-contained browser bundle at the site root.
+  staticDirectories: ["static", "node_modules/@scalar/api-reference/dist/browser"],
   favicon: "img/favicon.ico",
 
   markdown: {
@@ -77,8 +79,12 @@ const config: Config = {
         route: "/api",
         // The navbar "API" item below links here and keeps the active state for /api paths.
         showNavLink: false,
+        // Served from staticDirectories so the page loads nothing from jsDelivr.
+        cdn: "/standalone.js",
         configuration: {
           content: require("./openapi/recyclarr-server.json"),
+          telemetry: false,
+          withDefaultFonts: false,
         },
       } satisfies ScalarOptions,
     ],
