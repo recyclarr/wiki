@@ -54,10 +54,11 @@ jobs:
 
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/wrangler-action@953926a2e2182532811c01a25e53647d93bf07c0 # v4.1.3
-        env:
-          BRANCH: ${{ steps.branch.outputs.name }}
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
-          command: pages deploy build --project-name=recyclarr-wiki --branch="$BRANCH"
+          # The action runs this without a shell, so environment variables are not expanded.
+          command: >-
+            pages deploy build --project-name=recyclarr-wiki
+            --branch=${{ steps.branch.outputs.name }}
