@@ -74,6 +74,7 @@ The list shows each template's ID next to its guide profile name. See
 [trash-radarr]: https://trash-guides.info/Radarr/radarr-setup-quality-profiles/
 [templates]: ./guide-configs.mdx
 [preview]: ./guide-configs.mdx#preview
+[config-changes]: ../reference/client-server.mdx#config-changes
 
 ## Step 3: Create Your Configuration {/*#create-config*/}
 
@@ -102,27 +103,25 @@ are no longer in your configuration:
 That's it. The template already includes the quality definition, quality profile, and custom formats
 from the TRaSH Guide.
 
-## Step 4: Restart Recyclarr and Sync {/*#first-sync*/}
+## Step 4: Run Your First Sync {/*#first-sync*/}
 
-Restart the container so the server loads your new configuration:
+The server checks your configuration files once a minute and loads your new file on its own, without
+a restart. Follow its log until it shows `Configuration changed and was reloaded`, then press
+`Ctrl+C`:
 
 ```bash
-docker compose restart recyclarr
+docker compose logs -f recyclarr
 ```
 
-Wait until `docker compose ps` shows the container as `healthy` again. Recyclarr now syncs
+If the log shows errors instead, fix them in your file and save it again. Recyclarr now syncs
 automatically once a day. To run your first sync right away:
 
 ```bash
 docker exec recyclarr recyclarr sync
 ```
 
-When you edit your configuration later, restart the container so Recyclarr reads the changes. Wait
-until it is `healthy` again before you run `recyclarr` commands:
-
-```bash
-docker compose restart recyclarr
-```
+When you edit your configuration later, the server loads your changes the same way. See
+[Configuration Changes][config-changes].
 
 ## Step 5: Verify the Sync {/*#verify*/}
 
@@ -184,13 +183,7 @@ streaming services and movie versions. To see them for another profile,
 
 :::
 
-Restart the container:
-
-```bash
-docker compose restart recyclarr
-```
-
-When `docker compose ps` shows the container as `healthy`, sync again to create all profiles:
+When the log shows `Configuration changed and was reloaded`, sync again to create all profiles:
 
 ```bash
 docker exec recyclarr recyclarr sync

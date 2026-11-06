@@ -286,10 +286,11 @@ uses the old key.
 
 ## Configuration Changes {/*#config-changes*/}
 
-The server reads your YAML configuration and `settings.yml` when it starts. If the configuration is
-not valid, the server does not start. The server also reads your YAML configuration again when an
-[update][provider-updates] brings new guide data, but to apply edits right away, restart the
-container:
+The server checks your YAML configuration once a minute and applies edits without a restart. Run
+`docker compose logs recyclarr` to see whether it reloaded the configuration or found errors. See
+[Configuration Changes][client-server-changes].
+
+Changes to `settings.yml` need a restart:
 
 ```bash
 docker compose restart recyclarr
@@ -477,7 +478,7 @@ services:
 [api-key]: ../../reference/client-server.mdx#api-key
 [cli-settings]: ../../reference/cli-settings.mdx
 [monitoring]: ../../reference/monitoring.mdx
-[provider-updates]: ../../reference/settings/resource-providers/index.mdx#updates
+[client-server-changes]: ../../reference/client-server.mdx#config-changes
 [compose-secrets]: https://docs.docker.com/compose/how-tos/use-secrets/
 [network-security]: ../../reference/client-server.mdx#network-security
 [helm-dev]: ./kubernetes.mdx#dev-chart
