@@ -101,10 +101,13 @@ In an existing ConfigMap, each key is a file name and its value is the file's co
 ConfigMap must have a `settings.yml` key. If you generate it with a Kustomize `configMapGenerator`,
 set `disableNameSuffixHash: true`, because Kustomize does not rewrite names inside Helm values.
 
-The server reads its configuration only when it starts (see [Client and Server][client-server]).
-`helm upgrade` restarts the pod when files or the API key in your values change. After you change a
-ConfigMap you manage, or a Secret the container reads through `env` or `envFrom`, restart the
-Deployment yourself or use a tool such as Reloader.
+The server applies edits to its YAML configuration files without a restart (see
+[Configuration Changes][client-server-changes]), but reads `settings.yml` and environment variables
+only when it starts. `helm upgrade` restarts the pod when files or the API key in your values
+change. When you change a configs or includes ConfigMap you manage, Kubernetes updates the mounted
+files after a short delay, and the server picks up the edit. After you change a settings ConfigMap
+you manage, or a Secret the container reads through `env` or `envFrom`, restart the Deployment
+yourself or use a tool such as Reloader.
 
 ## Environment Variables {/*#env*/}
 
@@ -234,7 +237,7 @@ images.
 [api-key]: ../../reference/client-server.mdx#api-key
 [schedule]: ../../reference/settings/server.mdx#schedule
 [file-structure]: ../file-structure.mdx
-[client-server]: ../../reference/client-server.mdx
+[client-server-changes]: ../../reference/client-server.mdx#config-changes
 [env-var]: ../../reference/configuration/value-substitution.mdx#env-vars
 [secrets]: ../../reference/configuration/value-substitution.mdx#secrets
 [implicit]: ../../reference/configuration/value-substitution.mdx#implicit-url-key

@@ -129,8 +129,8 @@ service. The server listens on port `7982` on the local machine only. To change 
 
 ## Configuration Changes {/*#config-changes*/}
 
-The server reads your YAML configuration and `settings.yml` once, when it starts. After you change
-them, restart the service:
+The server checks your YAML configuration once a minute and applies edits without a restart. See
+[Configuration Changes][config-changes]. After you change `settings.yml`, restart the service:
 
 ```bash
 sudo systemctl restart recyclarr
@@ -157,5 +157,6 @@ sudo systemctl start recyclarr
 [env-config]: ../../../reference/env-vars.mdx#config-dir
 [cli-settings]: ../../../reference/cli-settings.mdx
 [temporary]: ../../../reference/client-server.mdx#temporary
+[config-changes]: ../../../reference/client-server.mdx#config-changes
 [server-settings]: ../../../reference/settings/server.mdx
 [log-format]: ../../../reference/settings/server.mdx#logging-format
