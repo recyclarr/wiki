@@ -2839,13 +2839,13 @@ __metadata:
   linkType: hard
 
 "@iconify/react@npm:^6.0.2":
-  version: 6.0.3
-  resolution: "@iconify/react@npm:6.0.3"
+  version: 6.0.4
+  resolution: "@iconify/react@npm:6.0.4"
   dependencies:
     "@iconify/types": "npm:^2.0.0"
   peerDependencies:
     react: ">=18.0.0"
-  checksum: 10c0/5c0c88d5724220bae2107b4a073f44088ae313fb89cc3f6aaa7f9e48dc91ad78cf694ca3f911556bbec8d17539d62863b09bad5c2940dae7e5ed2eaf58b1fe24
+  checksum: 10c0/9c1c7389e8a14156c0a76ca6d696e7223ce2dc6a11d02a46dce805914c32d475a887f09e309f8b30e39a62b05871be96eeec2b5aa5961076af88cc7bfcc4b181
   languageName: node
   linkType: hard
 
