@@ -87,6 +87,8 @@ const config: Config = {
           withDefaultFonts: false,
           agent: { disabled: true },
           mcp: { disabled: true },
+          showToolbar: "never",
+          showDeveloperTools: "never",
         },
       } satisfies ScalarOptions,
     ],
