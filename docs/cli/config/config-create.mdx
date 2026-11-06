@@ -34,8 +34,9 @@ contents and never writes configuration files itself.
   [`server.base_url`][base-url], the file is written on the machine running the CLI. Copy it into
   the server's configuration directory yourself.
 
-The server loads configuration files when it starts. After you create a file and fill in its values,
-restart the server so it loads the file. See [Client and Server][client-server].
+After you create a file and fill in its values, a persistent server loads it at its next check for
+configuration changes, without a restart. The server checks once a minute. See
+[Configuration Changes][config-changes].
 
 ### Templates {/*#templates*/}
 
@@ -125,7 +126,7 @@ recyclarr config create --template hd-bluray-web --force
 [config-dir]: ../../guide/file-structure.mdx#config-directory
 [env-config]: ../../reference/env-vars.mdx#config-dir
 [base-url]: ../../reference/cli-settings.mdx#base-url
-[client-server]: ../../reference/client-server.mdx
+[config-changes]: ../../reference/client-server.mdx#config-changes
 [list-templates]: ./config-list-templates.mdx
 [quality-definition]: ../../reference/configuration/quality-definition.mdx
 [quality-profiles]: ../../reference/configuration/quality-profiles.mdx

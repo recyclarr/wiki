@@ -15,11 +15,12 @@ Synchronizes the guide with various services. See [Sync Behavior][behavior] for 
 works and how to interpret its output.
 
 The command starts a sync job on a Recyclarr server, waits for it to finish, and shows the results.
-The server syncs the configuration files it loaded at startup. See
-[Client and Server][client-server].
+The server syncs the configuration it has loaded. A persistent server loads edits to your
+configuration files once a minute, so a sync started right after an edit can still use the previous
+configuration. See [Configuration Changes][config-changes].
 
 [behavior]: ../guide/sync-behavior.mdx
-[client-server]: ../reference/client-server.mdx
+[config-changes]: ../reference/client-server.mdx#config-changes
 
 ## Arguments {/*#arguments*/}
 

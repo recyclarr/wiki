@@ -12,11 +12,9 @@ Recyclarr has two programs:
   the result. Other programs can send the same requests through the [HTTP API][api].
 
 The server reads your YAML configuration and `settings.yml` when it starts. If either is not valid,
-the server does not start. Restart the server after you change them.
-
-A persistent server also [updates guide data][provider-updates] while it runs. When an update brings
-new guide data, the server reads your YAML configuration files again, so an edit you have not
-restarted for can take effect at that point. Restart the server to apply your edits right away.
+the server does not start. A persistent server applies later edits to your YAML configuration on its
+own, but needs a restart for changes to `settings.yml`. See
+[Configuration Changes](#config-changes).
 
 ## Persistent Server {/*#persistent*/}
 
@@ -50,6 +48,37 @@ so most commands start without network access.
 This is the default when you run `recyclarr` outside Docker without any extra setup. You do not need
 to set an API key: the CLI creates a new one-time key for each command and gives it to the temporary
 server.
+
+## Configuration Changes {/*#config-changes*/}
+
+A persistent server applies edits to your YAML configuration while it runs, without a restart. Once
+a minute, when it checks for [guide data updates][provider-updates], it compares the contents of
+these files with the previous check:
+
+- YAML files in the `configs` directory
+- `recyclarr.yml` or `recyclarr.yaml`
+- `secrets.yml` or `secrets.yaml`
+- Local files you add with [config includes][include-config], whether in the `includes` directory or
+  at an absolute path
+- Files you read with the [`!file`][file-tag] tag
+
+Creating, deleting, or editing any of these files counts as a change. When the server finds one, it
+loads the configuration again:
+
+- If the new configuration is valid, the server logs `Configuration changed and was reloaded`, and
+  the next sync uses it. A sync that is already running finishes with the configuration it started
+  with.
+- If the new configuration is not valid, the server logs its errors once, followed by
+  `Configuration changed but is invalid`. It keeps syncing with the previous configuration and does
+  not try again until you change the files again.
+- If a sync or another request that reads guide data is running during a check, the server leaves
+  your edit for the next check where none is running.
+
+Changes to `settings.yml` and to environment variables need a restart. An invalid configuration
+still stops the server when it starts.
+
+A [temporary server](#temporary) reads your configuration fresh for each command, so edits always
+apply to the next command.
 
 ## Server API Key {/*#api-key*/}
 
@@ -202,3 +231,5 @@ does not run them again.
 [monitoring]: ./monitoring.mdx
 [helm]: ../guide/installation/kubernetes.mdx
 [provider-updates]: ./settings/resource-providers/index.mdx#updates
+[include-config]: ./configuration/include.mdx#config
+[file-tag]: ./configuration/value-substitution.mdx#files
