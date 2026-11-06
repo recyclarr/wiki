@@ -85,6 +85,8 @@ const config: Config = {
           content: require("./openapi/recyclarr-server.json"),
           telemetry: false,
           withDefaultFonts: false,
+          agent: { disabled: true },
+          mcp: { disabled: true },
         },
       } satisfies ScalarOptions,
     ],
