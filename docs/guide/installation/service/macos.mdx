@@ -83,8 +83,9 @@ service. The server listens on port `7982` on the local machine only. To change 
 
 ## Configuration Changes {/*#config-changes*/}
 
-The server reads your YAML configuration and `settings.yml` once, when it starts. After you change
-them or `recyclarr.env`, restart the service:
+The server checks your YAML configuration once a minute and applies edits without a restart. See
+[Configuration Changes][config-changes]. After you change `settings.yml` or `recyclarr.env`, restart
+the service:
 
 ```bash
 brew services restart recyclarr
@@ -109,4 +110,5 @@ brew services restart recyclarr
 [env-config]: ../../../reference/env-vars.mdx#config-dir
 [cli-settings]: ../../../reference/cli-settings.mdx
 [temporary]: ../../../reference/client-server.mdx#temporary
+[config-changes]: ../../../reference/client-server.mdx#config-changes
 [server-settings]: ../../../reference/settings/server.mdx
