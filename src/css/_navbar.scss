@@ -116,12 +116,7 @@
   background-color: #282c34;
 }
 
-/* Active link styling - keep consistent across pages */
-.navbar__link--active {
-  background-color: transparent;
-  color: inherit;
-}
-
+.navbar__link--active,
 .navbar__link--active:hover {
   color: var(--ifm-color-primary);
   background-color: rgba(37, 194, 160, 0.067);
@@ -168,6 +163,12 @@ html[data-theme="light"] {
   /* Force dark background on hover */
   .navbar__link:hover {
     background-color: #282c34;
+  }
+
+  .navbar__link--active,
+  .navbar__link--active:hover {
+    color: var(--ifm-color-primary);
+    background-color: rgba(37, 194, 160, 0.067);
   }
 
   /* Search button dark styling */
