@@ -15,11 +15,95 @@ development cycle.
 
 :::
 
+## Overview {/*#overview*/}
+
+Recyclarr is now two programs: a server that runs your syncs, and the `recyclarr` CLI, which sends
+commands to a server. What that means for you depends on how you run Recyclarr:
+
+- **Docker:** There is still one image and one container. The container now runs the server, which
+  stays running and syncs on its own schedule instead of using cron. To run a command yourself, use
+  the CLI included in the image through `docker exec`, for example
+  `docker exec recyclarr recyclarr sync`. See [Docker: Persistent Server](#docker-server) for a v8
+  compose file and its v9 equivalent.
+- **Without Docker:** You run `recyclarr sync` and other commands the same way. If you have not set
+  up a server, each command starts a temporary server in the background, uses it, and stops it when
+  the command ends. You do not need to set anything up, but `recyclarr-server` must stay in the same
+  directory as `recyclarr`. See [Temporary Server][temporary] and
+  [CLI: Server Executable Required](#server-executable).
+
+Your configuration files keep working: the YAML format of `recyclarr.yml` and the files in `configs`
+has not changed. In Docker, you change environment variables in your compose file and move the sync
+schedule to `settings.yml`. These changes affect how Recyclarr finds and checks your configuration
+files:
+
+- [Default Files No Longer Created](#no-default-files)
+- [Invalid Configuration Stops the Server](#invalid-config)
+- [CLI: `sync --config` Removed](#sync-config-removed)
+
 ## Docker: Persistent Server {/*#docker-server*/}
 
 The Docker image now runs the Recyclarr server instead of a cron job. The server stays running,
 syncs on a built-in schedule, and accepts commands from the CLI. See the [Docker guide][docker] for
 the full setup.
+
+Here is a v8 compose file and the same setup in v9. The sections below explain each change.
+
+```yml title="Version 8"
+networks:
+  recyclarr:
+    name: recyclarr
+    external: true
+
+services:
+  recyclarr:
+    image: ghcr.io/recyclarr/recyclarr:8
+    container_name: recyclarr
+    user: 1000:1000
+    networks: [recyclarr]
+    volumes:
+      - ./config:/config
+    environment:
+      - TZ=America/Santiago
+      - CRON_SCHEDULE=0 4 * * *
+      - RECYCLARR_CREATE_CONFIG=true
+      - RECYCLARR_LOG_LEVEL=debug
+```
+
+```yml title="Version 9"
+networks:
+  recyclarr:
+    name: recyclarr
+    external: true
+
+services:
+  recyclarr:
+    image: ghcr.io/recyclarr/recyclarr:9  # <<< CHANGED
+    container_name: recyclarr
+    restart: unless-stopped  # <<< ADDED
+    user: 1000:1000
+    networks: [recyclarr]
+    volumes:
+      - ./config:/config
+    environment:
+      - TZ=America/Santiago
+      - RECYCLARR_API_KEY=${RECYCLARR_API_KEY}  # <<< ADDED
+      # CRON_SCHEDULE: moved to settings.yml
+      # RECYCLARR_CREATE_CONFIG and RECYCLARR_LOG_LEVEL: removed
+```
+
+```yml title="Version 9: config/settings.yml"
+server:
+  schedule:
+    cron: 0 4 * * *
+```
+
+To upgrade:
+
+1. [Add an API key](#docker-api-key) in `RECYCLARR_API_KEY`.
+1. [Move the schedule](#cron-schedule) from `CRON_SCHEDULE` to `settings.yml`.
+1. [Remove `RECYCLARR_CREATE_CONFIG` and `RECYCLARR_LOG_LEVEL`](#docker-env-removed).
+1. [Add a restart policy](#docker-restart) so scheduled syncs keep running.
+1. Replace `docker compose run` commands with [`docker exec`](#docker-run-args).
 
 ### API Key Required {/*#docker-api-key*/}
 
@@ -225,6 +309,7 @@ to notice and adjust your config if needed.
 [dev-builds]: ../installation/docker.mdx#dev-builds
 [docker-api-key]: ../installation/docker.mdx#api-key
 [client-server]: ../../reference/client-server.mdx
+[temporary]: ../../reference/client-server.mdx#temporary
 [default-yaml]: ../file-structure.mdx#default-yaml
 [config-create]: ../../cli/config/config-create.mdx
 [migrations]: ../troubleshooting/migrations.mdx
