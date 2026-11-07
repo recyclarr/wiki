@@ -2,6 +2,6 @@
 ALGOLIA_APPLICATION_ID = "55D8QHPBTN"
 
 [tools]
-node = "24"
+node = "26"
 yarn = "4"
 "github:algolia/cli" = "latest"
