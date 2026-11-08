@@ -1,6 +1,6 @@
 ---
 title: Server
-description: Configure the Recyclarr server's network address, management port, logging, and built-in sync schedule
+description: Configure the Recyclarr server's network address, management port, logging, sync time limit, and built-in sync schedule
 ---
 
 ```yml
@@ -13,6 +13,7 @@ server:
   logging:
     format: json # leave out to detect from the console
     files: true
+  sync_timeout: 5
   schedule:
     enabled: true
     cron: 0 0 * * *
@@ -108,6 +109,32 @@ default, however you run it. These files hold the debug logs you attach to a
 
 Set to `false` when something else already collects the console output and you do not want the
 files, for example in Kubernetes.
+
+## `sync_timeout` {/*#sync-timeout*/}
+
+**Optional.** *Default: `5`*
+
+The number of whole minutes a sync job may run before the server cancels it. The minimum is `1`; a
+lower value fails settings validation and the server does not start. This applies to the persistent
+server and to the temporary server started by a CLI command.
+
+Because the server runs one sync job at a time, this limit keeps a stuck sync from holding up every
+job and scheduled sync behind it. A sync that runs past the limit stops, and the next job in the
+queue starts. The stopped job ends `partial` if at least one of its instances already finished
+syncing (those instances keep their results), and `failed` otherwise. The server log says that the
+job reached the limit and names `server.sync_timeout`.
+
+The time counts from when the job starts running, not while it waits in the queue behind another
+job. It does include any time the sync spends waiting for a background guide update to finish. The
+first guide download when the server starts never counts.
+
+Raise the limit if syncs reach it on a slow internet connection, with dozens of instances, or with
+Sonarr or Radarr servers that are slow to respond:
+
+```yml
+server:
+  sync_timeout: 15
+```
 
 ## `schedule` {/*#schedule*/}
 
