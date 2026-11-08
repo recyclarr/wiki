@@ -194,7 +194,8 @@ enter the key there before you try them. This site also has the reference under 
 ## Sync Jobs {/*#jobs*/}
 
 Every sync runs as a job, whether the schedule, the CLI, or the API started it. The server runs one
-job at a time, oldest first. Other jobs wait in a queue.
+job at a time, oldest first. Other jobs wait in a queue. A job that runs longer than the
+[sync time limit][sync-timeout] stops so that the next job can start.
 
 Each job has one of these statuses:
 
@@ -218,6 +219,7 @@ does not run them again.
 [docker]: ../guide/installation/docker.mdx
 [serve]: ../cli/serve.mdx
 [schedule]: ./settings/server.mdx#schedule
+[sync-timeout]: ./settings/server.mdx#sync-timeout
 [server-settings]: ./settings/server.mdx
 [data-dir]: ../guide/file-structure.mdx#data-directory
 [state-dir]: ../guide/file-structure.mdx#state-directory
