@@ -118,6 +118,28 @@ The chart does not mount a `secrets.yml` file. Set each API key with `api_key: !
 Secret as shown above. [`!secret`][secrets] references and the [implicit][implicit]
 `<instance>_api_key` lookups from `secrets.yml` are not available with the chart.
 
+If your configuration uses `!secret`, replace each reference with `!env_var`:
+
+```yml
+# Before: the key comes from secrets.yml
+api_key: !secret sonarr_api_key
+
+# After: the key comes from an environment variable
+api_key: !env_var SONARR_API_KEY
+```
+
+Then put the key in a Secret and pass it to the container with `envFrom`, as in the
+[example](#example), or with `env`:
+
+```yml
+env:
+  - name: SONARR_API_KEY
+    valueFrom:
+      secretKeyRef:
+        name: recyclarr-servarr-keys
+        key: SONARR_API_KEY
+```
+
 ## Storage {/*#storage*/}
 
 The chart puts the [state directory][state-dir] (sync state and job history) on a
