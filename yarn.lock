@@ -4140,17 +4140,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@replit/codemirror-css-color-picker@npm:^6.3.0":
-  version: 6.3.0
-  resolution: "@replit/codemirror-css-color-picker@npm:6.3.0"
-  peerDependencies:
-    "@codemirror/language": ^6.0.0
-    "@codemirror/state": ^6.0.0
-    "@codemirror/view": ^6.0.0
-  checksum: 10c0/8018d3378d790aaa3c49895caa0b4a66b92154a864998075e3288353ea1a4fd704b818767a31eae65712859c225e135dd8bd20aa014be8b362996c06f3897090
-  languageName: node
-  linkType: hard
-
 "@rolldown/pluginutils@npm:^1.0.1":
   version: 1.0.1
   resolution: "@rolldown/pluginutils@npm:1.0.1"
@@ -4292,55 +4281,55 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@scalar/agent-chat@npm:0.12.49":
-  version: 0.12.49
-  resolution: "@scalar/agent-chat@npm:0.12.49"
+"@scalar/agent-chat@npm:0.12.51":
+  version: 0.12.51
+  resolution: "@scalar/agent-chat@npm:0.12.51"
   dependencies:
     "@ai-sdk/vue": "npm:4.0.142"
-    "@scalar/api-client": "npm:3.23.6"
-    "@scalar/components": "npm:0.33.1"
-    "@scalar/helpers": "npm:0.16.4"
+    "@scalar/api-client": "npm:3.25.0"
+    "@scalar/components": "npm:0.34.0"
+    "@scalar/helpers": "npm:0.17.1"
     "@scalar/icons": "npm:0.7.8"
-    "@scalar/json-magic": "npm:0.17.0"
-    "@scalar/openapi-types": "npm:0.9.8"
-    "@scalar/schemas": "npm:0.16.0"
+    "@scalar/json-magic": "npm:0.19.0"
+    "@scalar/openapi-types": "npm:0.9.9"
+    "@scalar/schemas": "npm:0.17.0"
     "@scalar/themes": "npm:0.20.0"
-    "@scalar/types": "npm:0.26.0"
+    "@scalar/types": "npm:0.28.0"
     "@scalar/use-toasts": "npm:0.10.6"
     "@scalar/validation": "npm:0.6.7"
-    "@scalar/workspace-store": "npm:0.69.3"
+    "@scalar/workspace-store": "npm:0.71.0"
     "@vueuse/core": "npm:15.0.0"
     ai: "npm:7.0.142"
     js-base64: "npm:^3.9.4"
     neverpanic: "npm:0.0.8"
     truncate-json: "npm:3.0.1"
     vue: "npm:^3.5.44"
-  checksum: 10c0/495196154ddf8b4efbf1d42e7b6b9db9fda85a2c889e68caf665298c730dbb3773199c40ebeab4bac7b1a195f42ebe7154180a10eccff7638d128c782d5e5aa7
+  checksum: 10c0/7faee986679a6cd1a8922ececc2fb6f55af5af6263ee865e935a58dd85a9ee6e696302e7362de4b44c223cb592884a60f1bbacddbe669abbcc2808f84c67e2db
   languageName: node
   linkType: hard
 
-"@scalar/api-client@npm:3.23.6":
-  version: 3.23.6
-  resolution: "@scalar/api-client@npm:3.23.6"
+"@scalar/api-client@npm:3.25.0":
+  version: 3.25.0
+  resolution: "@scalar/api-client@npm:3.25.0"
   dependencies:
     "@headlessui/tailwindcss": "npm:^0.2.2"
     "@headlessui/vue": "npm:1.7.23"
-    "@scalar/blocks": "npm:0.6.3"
-    "@scalar/components": "npm:0.33.1"
-    "@scalar/helpers": "npm:0.16.4"
+    "@scalar/blocks": "npm:0.7.0"
+    "@scalar/components": "npm:0.34.0"
+    "@scalar/helpers": "npm:0.17.1"
     "@scalar/icons": "npm:0.7.8"
-    "@scalar/localization": "npm:0.2.9"
-    "@scalar/oas-utils": "npm:0.20.18"
-    "@scalar/openapi-types": "npm:0.9.8"
-    "@scalar/sidebar": "npm:0.12.6"
-    "@scalar/snippetz": "npm:0.10.14"
+    "@scalar/localization": "npm:0.2.11"
+    "@scalar/oas-utils": "npm:0.20.20"
+    "@scalar/openapi-types": "npm:0.9.9"
+    "@scalar/sidebar": "npm:0.12.8"
+    "@scalar/snippetz": "npm:0.10.16"
     "@scalar/themes": "npm:0.20.0"
     "@scalar/typebox": "npm:^0.1.3"
-    "@scalar/types": "npm:0.26.0"
-    "@scalar/use-codemirror": "npm:0.14.16"
-    "@scalar/use-hooks": "npm:0.4.22"
+    "@scalar/types": "npm:0.28.0"
+    "@scalar/use-codemirror": "npm:0.14.18"
+    "@scalar/use-hooks": "npm:0.4.24"
     "@scalar/use-toasts": "npm:0.10.6"
-    "@scalar/workspace-store": "npm:0.69.3"
+    "@scalar/workspace-store": "npm:0.71.0"
     "@vueuse/core": "npm:15.0.0"
     "@vueuse/integrations": "npm:15.0.0"
     focus-trap: "npm:^8.2.3"
@@ -4354,108 +4343,109 @@ __metadata:
     vue: "npm:^3.5.44"
     yaml: "npm:^2.9.1"
     zod: "npm:^4.6.7"
-  checksum: 10c0/ad61d3fdc41bdd2328876638ffabe2dbfe2c276dabf044bff810d08faf4bf9283148c8ed06a3f4eb160bfcea66f53944c9a7971c7c03d0358fb5a4c96dd1707e
+  checksum: 10c0/64f4f668e6dd58c88a27199f57a2d934c41f1990107e590b5c92c429e30d708659a0daec7dc07d31d449c7b45273142f8387c764b511bdf00ecd6a2ecd699b34
   languageName: node
   linkType: hard
 
-"@scalar/api-reference@npm:^1.76.4":
-  version: 1.76.4
-  resolution: "@scalar/api-reference@npm:1.76.4"
+"@scalar/api-reference@npm:^1.78.0":
+  version: 1.78.0
+  resolution: "@scalar/api-reference@npm:1.78.0"
   dependencies:
     "@headlessui/vue": "npm:1.7.23"
-    "@scalar/agent-chat": "npm:0.12.49"
-    "@scalar/api-client": "npm:3.23.6"
-    "@scalar/asyncapi-to-markdown": "npm:0.2.5"
-    "@scalar/blocks": "npm:0.6.3"
-    "@scalar/code-highlight": "npm:0.4.11"
-    "@scalar/components": "npm:0.33.1"
-    "@scalar/helpers": "npm:0.16.4"
+    "@scalar/agent-chat": "npm:0.12.51"
+    "@scalar/api-client": "npm:3.25.0"
+    "@scalar/asyncapi-to-markdown": "npm:0.2.7"
+    "@scalar/blocks": "npm:0.7.0"
+    "@scalar/code-highlight": "npm:0.4.13"
+    "@scalar/components": "npm:0.34.0"
+    "@scalar/helpers": "npm:0.17.1"
     "@scalar/icons": "npm:0.7.8"
-    "@scalar/localization": "npm:0.2.9"
-    "@scalar/oas-utils": "npm:0.20.18"
-    "@scalar/openapi-to-markdown": "npm:1.7.3"
-    "@scalar/schemas": "npm:0.16.0"
-    "@scalar/sidebar": "npm:0.12.6"
-    "@scalar/snippetz": "npm:0.10.14"
+    "@scalar/localization": "npm:0.2.11"
+    "@scalar/oas-utils": "npm:0.20.20"
+    "@scalar/openapi-to-markdown": "npm:1.7.5"
+    "@scalar/schemas": "npm:0.17.0"
+    "@scalar/sidebar": "npm:0.12.8"
+    "@scalar/snippetz": "npm:0.10.16"
     "@scalar/themes": "npm:0.20.0"
-    "@scalar/types": "npm:0.26.0"
-    "@scalar/use-hooks": "npm:0.4.22"
+    "@scalar/types": "npm:0.28.0"
+    "@scalar/use-hooks": "npm:0.4.24"
     "@scalar/use-toasts": "npm:0.10.6"
     "@scalar/validation": "npm:0.6.7"
-    "@scalar/workspace-store": "npm:0.69.3"
+    "@scalar/workspace-store": "npm:0.71.0"
     "@unhead/vue": "npm:^3.4.3"
     "@vueuse/core": "npm:15.0.0"
     fuse.js: "npm:^7.5.0"
     microdiff: "npm:1.5.0"
     nanoid: "npm:^5.1.16"
+    proto-parser: "npm:0.0.9"
     vue: "npm:^3.5.44"
     yaml: "npm:^2.9.1"
-  checksum: 10c0/50870b1a9e6f746c7cca9422c0b4c365761497218c897c904b89bbb3cbd2d845a49a249b5d4ff5ea167837245823e47a58de9c46c0b80bca3b5d900ab559ddc5
+  checksum: 10c0/459ff51baa27f7652f66a13c2838a8d1c964ac27ab513c7e1b332e6528b5e1c03fa0b9db41cfb82d251e8543c2dad762cc00f54ce0f2252cdf05637726c2437d
   languageName: node
   linkType: hard
 
-"@scalar/asyncapi-to-markdown@npm:0.2.5":
-  version: 0.2.5
-  resolution: "@scalar/asyncapi-to-markdown@npm:0.2.5"
+"@scalar/asyncapi-to-markdown@npm:0.2.7":
+  version: 0.2.7
+  resolution: "@scalar/asyncapi-to-markdown@npm:0.2.7"
   dependencies:
-    "@scalar/asyncapi-upgrader": "npm:0.1.18"
-    "@scalar/helpers": "npm:0.16.4"
-    "@scalar/json-magic": "npm:0.17.0"
-    "@scalar/openapi-to-markdown": "npm:1.7.3"
-    "@scalar/types": "npm:0.26.0"
-    "@scalar/workspace-store": "npm:0.69.3"
+    "@scalar/asyncapi-upgrader": "npm:0.1.20"
+    "@scalar/helpers": "npm:0.17.1"
+    "@scalar/json-magic": "npm:0.19.0"
+    "@scalar/openapi-to-markdown": "npm:1.7.5"
+    "@scalar/types": "npm:0.28.0"
+    "@scalar/workspace-store": "npm:0.71.0"
     remark-gfm: "npm:^4.0.1"
     remark-stringify: "npm:^11.0.0"
     unified: "npm:^11.0.5"
-  checksum: 10c0/6a528de32377e653d479ab47b6f283a95e746d1063aedae833aa8913c15a07cbf110093d8cf11741ee6eb6d38eb085549f3cf142a3a6bd70cdfe2b92657e23f2
+  checksum: 10c0/1e137cf63c027dfb9dd39a3114856a87257e51fb43ef22d09dea059c5c78d0966e69033f844c970b9b056450f1db095f48ef3f613c7f9c87664c3845cd6c3b19
   languageName: node
   linkType: hard
 
-"@scalar/asyncapi-upgrader@npm:0.1.18":
-  version: 0.1.18
-  resolution: "@scalar/asyncapi-upgrader@npm:0.1.18"
+"@scalar/asyncapi-upgrader@npm:0.1.20":
+  version: 0.1.20
+  resolution: "@scalar/asyncapi-upgrader@npm:0.1.20"
   dependencies:
-    "@scalar/helpers": "npm:0.16.4"
-  checksum: 10c0/138ef802aa19938472bceaf18d7313155c6f17520dd619c9f75084af6d196d70324dcb31e1eeea91cc91549de77168f55de44b78d7cf1284440b42de0ef0967c
+    "@scalar/helpers": "npm:0.17.1"
+  checksum: 10c0/b7847a771bc0c31101d46e526b4bf00cd744df9917b5bfa6169627c9a6204066cf36e891996ef15cd47cb83cc758ea1d0e6d7cbc44fdb8c32b49118338c644ae
   languageName: node
   linkType: hard
 
-"@scalar/blocks@npm:0.6.3":
-  version: 0.6.3
-  resolution: "@scalar/blocks@npm:0.6.3"
+"@scalar/blocks@npm:0.7.0":
+  version: 0.7.0
+  resolution: "@scalar/blocks@npm:0.7.0"
   dependencies:
-    "@scalar/components": "npm:0.33.1"
-    "@scalar/helpers": "npm:0.16.4"
+    "@scalar/components": "npm:0.34.0"
+    "@scalar/helpers": "npm:0.17.1"
     "@scalar/icons": "npm:0.7.8"
-    "@scalar/localization": "npm:0.2.9"
-    "@scalar/snippetz": "npm:0.10.14"
+    "@scalar/localization": "npm:0.2.11"
+    "@scalar/snippetz": "npm:0.10.16"
     "@scalar/themes": "npm:0.20.0"
-    "@scalar/types": "npm:0.26.0"
-    "@scalar/use-hooks": "npm:0.4.22"
-    "@scalar/workspace-store": "npm:0.69.3"
+    "@scalar/types": "npm:0.28.0"
+    "@scalar/use-hooks": "npm:0.4.24"
+    "@scalar/workspace-store": "npm:0.71.0"
     "@types/har-format": "npm:^1.2.16"
     "@vueuse/core": "npm:15.0.0"
     js-base64: "npm:^3.9.4"
     vue: "npm:^3.5.44"
-  checksum: 10c0/f758d7e39ad6f1b75bf8bba7ac00038d823a844ffded5b0ee8c7a75f4bcfc2ef48763bf73fef5809e1e4d59fac7af5c36ec0abbafcb5a043fe94c9c092433e57
+  checksum: 10c0/ab3baff8de2208907f86ee0b65d7907cac59a43a452286e4d96b27ae858b9c4d48a1571828dda5943728d4f6be84fe0e8b87e7f58d08698cfd092f9e0ccac238
   languageName: node
   linkType: hard
 
-"@scalar/client-side-rendering@npm:0.4.16":
-  version: 0.4.16
-  resolution: "@scalar/client-side-rendering@npm:0.4.16"
+"@scalar/client-side-rendering@npm:0.4.18":
+  version: 0.4.18
+  resolution: "@scalar/client-side-rendering@npm:0.4.18"
   dependencies:
-    "@scalar/helpers": "npm:0.16.4"
-    "@scalar/schemas": "npm:0.16.0"
-    "@scalar/types": "npm:0.26.0"
+    "@scalar/helpers": "npm:0.17.1"
+    "@scalar/schemas": "npm:0.17.0"
+    "@scalar/types": "npm:0.28.0"
     "@scalar/validation": "npm:0.6.7"
-  checksum: 10c0/9cfa2bfea32cb79c538279769ee6fcf79066656a1f00382730cd1dccb7722d50f0bd3f68f4a9d10c3758a547d325f495db79b22fb128047d1a340b1de9cdd4cb
+  checksum: 10c0/d229cd5d0845c4610c14dd6356ee80f94a3c6878567abbd90874198f9e45908ff98adbf20f47f05ae355382759d832e755db0288c0c09e5ab410ac488ee7419b
   languageName: node
   linkType: hard
 
-"@scalar/code-highlight@npm:0.4.11":
-  version: 0.4.11
-  resolution: "@scalar/code-highlight@npm:0.4.11"
+"@scalar/code-highlight@npm:0.4.13":
+  version: 0.4.13
+  resolution: "@scalar/code-highlight@npm:0.4.13"
   dependencies:
     hast-util-to-text: "npm:^4.0.2"
     highlight.js: "npm:^11.12.0"
@@ -4472,50 +4462,50 @@ __metadata:
     remark-stringify: "npm:^11.0.0"
     unified: "npm:^11.0.5"
     unist-util-visit: "npm:^5.1.0"
-  checksum: 10c0/67244f9a50aaf70e34d1cbd0e3efd9b5d623c74cb92dfde38e9346bf74d53a6a7860675465ef48e68b65a9941d4d28d992561e86b4a5879fffdcb1c080b852e4
+  checksum: 10c0/ab514b4b5442d37b2849c31e63fb9957908baa403b647738cefd695aa5a60b623f0768dae8b9aa454cf56460b74504ec1027623e7d9de29fc32ab5b254e0716d
   languageName: node
   linkType: hard
 
-"@scalar/components@npm:0.33.1":
-  version: 0.33.1
-  resolution: "@scalar/components@npm:0.33.1"
+"@scalar/components@npm:0.34.0":
+  version: 0.34.0
+  resolution: "@scalar/components@npm:0.34.0"
   dependencies:
     "@floating-ui/utils": "npm:0.2.12"
     "@floating-ui/vue": "npm:2.0.1"
     "@headlessui/tailwindcss": "npm:^0.2.2"
     "@headlessui/vue": "npm:1.7.23"
-    "@scalar/code-highlight": "npm:0.4.11"
-    "@scalar/helpers": "npm:0.16.4"
+    "@scalar/code-highlight": "npm:0.4.13"
+    "@scalar/helpers": "npm:0.17.1"
     "@scalar/highlight": "npm:0.6.0"
     "@scalar/icons": "npm:0.7.8"
     "@scalar/themes": "npm:0.20.0"
-    "@scalar/use-hooks": "npm:0.4.22"
+    "@scalar/use-hooks": "npm:0.4.24"
     "@vueuse/core": "npm:15.0.0"
     cva: "npm:1.0.0-beta.4"
     radix-vue: "npm:^1.9.17"
     vue: "npm:^3.5.44"
     vue-component-type-helpers: "npm:^3.3.13"
-  checksum: 10c0/37727e9a1475fd14bf40cf9c094e2a320a1f5513e53afb34d8103405ea62474fb750f724089c23217eb6c9ba9ac1ebed6cb9d7260dff734dfe102125fe5e45cc
+  checksum: 10c0/946ba4cdabd71b3dbcc7f0a2c0fd5449821cc90f678ebe703b6826201ae909dfbf4385c6be7e674161cbe49881a737ecafaabc5038af0a8fafdf825b90ed8132
   languageName: node
   linkType: hard
 
-"@scalar/docusaurus@npm:^0.8.55":
-  version: 0.8.55
-  resolution: "@scalar/docusaurus@npm:0.8.55"
+"@scalar/docusaurus@npm:^0.8.57":
+  version: 0.8.57
+  resolution: "@scalar/docusaurus@npm:0.8.57"
   dependencies:
-    "@scalar/client-side-rendering": "npm:0.4.16"
-    "@scalar/types": "npm:0.26.0"
+    "@scalar/client-side-rendering": "npm:0.4.18"
+    "@scalar/types": "npm:0.28.0"
   peerDependencies:
     "@docusaurus/utils": ^3.9.2
     react: ^18.0.0 || ^19.0.0
-  checksum: 10c0/d4cfb58ad0133c7c2a0c965c10ece2bce7e5e1ae928d48a079f41481046bb756654e860a7c59ed380ddf43675678f4534390f95d2c3d23f95d1d3e420ac7f805
+  checksum: 10c0/c99b63a3902a80e2dd23e2ac8f3b8fd2f8d828259621d48ffa9dc98f27d302a33d366d52d4405f4fb986ea551e3122d1d71cb56deb7836f3602df381a731112c
   languageName: node
   linkType: hard
 
-"@scalar/helpers@npm:0.16.4":
-  version: 0.16.4
-  resolution: "@scalar/helpers@npm:0.16.4"
-  checksum: 10c0/5347ace1a7451b2145a37087419efa201c756427aa5b902b2b92647bf99c8ecf511a1ca36e269ef8a26573966e251e276b370395f728f7cff2b24dea93463843
+"@scalar/helpers@npm:0.17.1":
+  version: 0.17.1
+  resolution: "@scalar/helpers@npm:0.17.1"
+  checksum: 10c0/964c83f119208ca93c210b49a8f2defa92d988d694c0061bcc4acd00692d29704eec9c256013b84613e5f3db31d06c43aef7466533c7c91d2ec4d46036e377e3
   languageName: node
   linkType: hard
 
@@ -4540,53 +4530,53 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@scalar/json-magic@npm:0.17.0":
-  version: 0.17.0
-  resolution: "@scalar/json-magic@npm:0.17.0"
+"@scalar/json-magic@npm:0.19.0":
+  version: 0.19.0
+  resolution: "@scalar/json-magic@npm:0.19.0"
   dependencies:
-    "@scalar/helpers": "npm:0.16.4"
+    "@scalar/helpers": "npm:0.17.1"
     pathe: "npm:^2.0.3"
     undici: "npm:8.12.3"
     yaml: "npm:^2.9.1"
-  checksum: 10c0/bd024809345474526b6ad803f37476a82e1c33aa942d2d98cbcdbf0a25b2c36b8c2b6941708dffa22d496da4ba625588fb101cd1caf05627495005349a11286e
+  checksum: 10c0/a4b5adcb79acfd057bc5da798b6640e41895c788faf980ff9e26cb163dede3eaa034925e4d1a6e4d1ebc962a737cff6a8c619d3423f95285f7bb6fcb3fb1500d
   languageName: node
   linkType: hard
 
-"@scalar/localization@npm:0.2.9":
-  version: 0.2.9
-  resolution: "@scalar/localization@npm:0.2.9"
+"@scalar/localization@npm:0.2.11":
+  version: 0.2.11
+  resolution: "@scalar/localization@npm:0.2.11"
   dependencies:
-    "@scalar/helpers": "npm:0.16.4"
+    "@scalar/helpers": "npm:0.17.1"
     type-fest: "npm:^5.10.0"
     vue: "npm:^3.5.44"
-  checksum: 10c0/fad251cb7caf5cf821097fcb0fbe82132febd53ce9f781c0192d9d7df7d8251a796b340bcd3370bb82fd8aa3676824eae1c232229e299fd0cc8b7cf1dba1df24
+  checksum: 10c0/cdf556d6eae416dfc651bafdfdd5034ea7257277f2e7f5a50bb1f8462ccb2c4f415b494d3e35f06465b4f0bd7470f9716f18e0dc4f34b0bdbac38302e83c24b7
   languageName: node
   linkType: hard
 
-"@scalar/oas-utils@npm:0.20.18":
-  version: 0.20.18
-  resolution: "@scalar/oas-utils@npm:0.20.18"
+"@scalar/oas-utils@npm:0.20.20":
+  version: 0.20.20
+  resolution: "@scalar/oas-utils@npm:0.20.20"
   dependencies:
-    "@scalar/helpers": "npm:0.16.4"
+    "@scalar/helpers": "npm:0.17.1"
     "@scalar/themes": "npm:0.20.0"
-    "@scalar/types": "npm:0.26.0"
-    "@scalar/workspace-store": "npm:0.69.3"
+    "@scalar/types": "npm:0.28.0"
+    "@scalar/workspace-store": "npm:0.71.0"
     flatted: "npm:^3.4.4"
     vue: "npm:^3.5.44"
     yaml: "npm:^2.9.1"
-  checksum: 10c0/86551c9005a6131668bb15640e89d2dc034e61ec76f20f91b1860932c4e3eccd2a7ea9f891da35939ebbf3e2a5645a458eea9afd9d047eae0c138a68e81db8fb
+  checksum: 10c0/5c58fbee47ee66194d5027e470639c91cf8d79b779443bf98a92b261f3662ead8fa9cddae6cdda520f9a8b50e3c1635c864c2ea2ec58aa3316070bc62b796cf0
   languageName: node
   linkType: hard
 
-"@scalar/openapi-to-markdown@npm:1.7.3":
-  version: 1.7.3
-  resolution: "@scalar/openapi-to-markdown@npm:1.7.3"
+"@scalar/openapi-to-markdown@npm:1.7.5":
+  version: 1.7.5
+  resolution: "@scalar/openapi-to-markdown@npm:1.7.5"
   dependencies:
-    "@scalar/code-highlight": "npm:0.4.11"
-    "@scalar/helpers": "npm:0.16.4"
-    "@scalar/json-magic": "npm:0.17.0"
-    "@scalar/openapi-upgrader": "npm:0.4.6"
-    "@scalar/workspace-store": "npm:0.69.3"
+    "@scalar/code-highlight": "npm:0.4.13"
+    "@scalar/helpers": "npm:0.17.1"
+    "@scalar/json-magic": "npm:0.19.0"
+    "@scalar/openapi-upgrader": "npm:0.4.8"
+    "@scalar/workspace-store": "npm:0.71.0"
     rehype-parse: "npm:^9.0.1"
     rehype-remark: "npm:^10.0.1"
     rehype-sanitize: "npm:^6.0.0"
@@ -4594,61 +4584,61 @@ __metadata:
     remark-parse: "npm:^11.0.0"
     remark-stringify: "npm:^11.0.0"
     unified: "npm:^11.0.5"
-  checksum: 10c0/beb98bc47557a74a5a46da134839c4e290f2200cbe1444c5b56fa644348ee45aa1164f0026e62d67589113a63bd962b8dc2b2a086520ae023913bfc27230a091
+  checksum: 10c0/274737cdf77182c6f37a20b2d4c1f56efb1941df80009005a0af2acd55068f4c02664dee38ac3d047e3897e30531ee55b6f3a6711a5e40da8cf5dba3dd35da11
   languageName: node
   linkType: hard
 
-"@scalar/openapi-types@npm:0.9.8":
-  version: 0.9.8
-  resolution: "@scalar/openapi-types@npm:0.9.8"
-  checksum: 10c0/962c3abc16a6049c69a704c6ad819df62ff5c3c3e6b7e1eecf1ca658cb74350dcc278e42d6a93f8bb3e779fab327ca0c1e6ba9559b1f4598af07c7b1476443f0
+"@scalar/openapi-types@npm:0.9.9":
+  version: 0.9.9
+  resolution: "@scalar/openapi-types@npm:0.9.9"
+  checksum: 10c0/f331e6120be99bba02f6d49d187ba6fcdb2f8be72ee119db15f0e7d321a44fadbe07ce2dbf3ddd44c602391c2cfe339dd7b6654d155ebb883520a0b19a4ef076
   languageName: node
   linkType: hard
 
-"@scalar/openapi-upgrader@npm:0.4.6":
-  version: 0.4.6
-  resolution: "@scalar/openapi-upgrader@npm:0.4.6"
+"@scalar/openapi-upgrader@npm:0.4.8":
+  version: 0.4.8
+  resolution: "@scalar/openapi-upgrader@npm:0.4.8"
   dependencies:
-    "@scalar/helpers": "npm:0.16.4"
-    "@scalar/openapi-types": "npm:0.9.8"
-  checksum: 10c0/9926fb3d53c91d0a8911bf2ebdab971d752f2baf2f7cf910a9df26f7448de6d90b444db157c285d2545566a40b67727a6c1f53560aa5bfaaf0d5f8b576c1a094
+    "@scalar/helpers": "npm:0.17.1"
+    "@scalar/openapi-types": "npm:0.9.9"
+  checksum: 10c0/60bc860fa9fb9091d9bb52984239f8b501f8692e55d8bbe49461f61dfe16f74b747d7f7e3151c0502eeea9e94dc8dcd3cc412cd5f098be7685617c585731b591
   languageName: node
   linkType: hard
 
-"@scalar/schemas@npm:0.16.0":
-  version: 0.16.0
-  resolution: "@scalar/schemas@npm:0.16.0"
+"@scalar/schemas@npm:0.17.0":
+  version: 0.17.0
+  resolution: "@scalar/schemas@npm:0.17.0"
   dependencies:
-    "@scalar/helpers": "npm:0.16.4"
-    "@scalar/types": "npm:0.26.0"
+    "@scalar/helpers": "npm:0.17.1"
+    "@scalar/types": "npm:0.28.0"
     "@scalar/validation": "npm:0.6.7"
-  checksum: 10c0/62cc51753fd2954fa7957e8119dbfbdcbafe7bd155c55455edb5abf1d729c330dd2702df58ec7d6d50d9a3703887372d27f89f155002c3942078192f088f8c3c
+  checksum: 10c0/2269de2233c58d76d6cba8d2bee868d4a94ab129087533944dfb0070f48e00b27cace4a7da5cb778e6b1ba28c5416742f99a85c01b0020dc298c5abedee7da47
   languageName: node
   linkType: hard
 
-"@scalar/sidebar@npm:0.12.6":
-  version: 0.12.6
-  resolution: "@scalar/sidebar@npm:0.12.6"
+"@scalar/sidebar@npm:0.12.8":
+  version: 0.12.8
+  resolution: "@scalar/sidebar@npm:0.12.8"
   dependencies:
-    "@scalar/components": "npm:0.33.1"
-    "@scalar/helpers": "npm:0.16.4"
+    "@scalar/components": "npm:0.34.0"
+    "@scalar/helpers": "npm:0.17.1"
     "@scalar/icons": "npm:0.7.8"
     "@scalar/themes": "npm:0.20.0"
-    "@scalar/use-hooks": "npm:0.4.22"
-    "@scalar/workspace-store": "npm:0.69.3"
+    "@scalar/use-hooks": "npm:0.4.24"
+    "@scalar/workspace-store": "npm:0.71.0"
     vue: "npm:^3.5.44"
-  checksum: 10c0/d520279fd5a4d36d6d3fb819cd02e6d1277c0a0cfbc6f84a2779cbd6561bbf96c4e4b13d38cabc322723cefe4d11cdab66e3ea1839632d557b322d9de8c80c47
+  checksum: 10c0/9f64ce79a075ad73543d6bfff5b5cd69eea03e33019ce4f908c1c31c749fe3efc37f226f468abf6a2c51a43a1eaadadd3d4f388bd6792705f7ecf6d4ca8dfa9d
   languageName: node
   linkType: hard
 
-"@scalar/snippetz@npm:0.10.14":
-  version: 0.10.14
-  resolution: "@scalar/snippetz@npm:0.10.14"
+"@scalar/snippetz@npm:0.10.16":
+  version: 0.10.16
+  resolution: "@scalar/snippetz@npm:0.10.16"
   dependencies:
-    "@scalar/helpers": "npm:0.16.4"
-    "@scalar/types": "npm:0.26.0"
+    "@scalar/helpers": "npm:0.17.1"
+    "@scalar/types": "npm:0.28.0"
     js-base64: "npm:^3.9.4"
-  checksum: 10c0/404df7fbfe0af23a5f3e675ae6a701240df9cc83161717385d4fe18ab459144dba5de3bbde299c1f4c217275a09ebd419953a51f0e6bebe1b1cd4ba78d88a81d
+  checksum: 10c0/d97a75f063be3dfeac063cb0038604a872923549ded9841a955476e1f9cd4616ba8fcdb15538bbb3d62c5298295a2abb09c228862a4fba351523cca59900a2a0
   languageName: node
   linkType: hard
 
@@ -4668,21 +4658,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@scalar/types@npm:0.26.0":
-  version: 0.26.0
-  resolution: "@scalar/types@npm:0.26.0"
+"@scalar/types@npm:0.28.0":
+  version: 0.28.0
+  resolution: "@scalar/types@npm:0.28.0"
   dependencies:
-    "@scalar/helpers": "npm:0.16.4"
+    "@scalar/helpers": "npm:0.17.1"
     nanoid: "npm:^5.1.16"
     type-fest: "npm:^5.10.0"
     zod: "npm:^4.6.7"
-  checksum: 10c0/eae71cecf158182d119e21e8f470b61c523a9645bfadcd03e2ec10b5ef343606248e3c7d1fef67746e53075de37b7f3990c571ddfaf91baa64bcdcb137096860
+  checksum: 10c0/1a6b4c162f62828b3fa2687bdd9aae0ccc30996cfe15ff1f63915f36d10d558cd585cb783be524571ca8220abb6a8eb7b336f2bec82c10edfbe993f831e98f2a
   languageName: node
   linkType: hard
 
-"@scalar/use-codemirror@npm:0.14.16":
-  version: 0.14.16
-  resolution: "@scalar/use-codemirror@npm:0.14.16"
+"@scalar/use-codemirror@npm:0.14.18":
+  version: 0.14.18
+  resolution: "@scalar/use-codemirror@npm:0.14.18"
   dependencies:
     "@codemirror/autocomplete": "npm:^6.20.3"
     "@codemirror/commands": "npm:^6.11.1"
@@ -4695,25 +4685,25 @@ __metadata:
     "@codemirror/lint": "npm:^6.9.7"
     "@codemirror/state": "npm:^6.7.6"
     "@codemirror/view": "npm:^6.43.14"
+    "@lezer/common": "npm:^1.5.0"
     "@lezer/highlight": "npm:^1.2.5"
-    "@replit/codemirror-css-color-picker": "npm:^6.3.0"
     vue: "npm:^3.5.44"
-  checksum: 10c0/aea013ac847189282cfc6b8b1b42a284db1bb53df8d77b4ad7d356f210d0d14b1743fc6ce704b532235eeb6d768097cb6e454b3121bf0023469e3c18a5efdc7a
+  checksum: 10c0/2d500185735cf73a4abff4caeaea1dcea4e0bd5d26ffd64211beeabe51ddd339660a1f92d19408ade578b8e06c93116b856216e8d1722c6d128a714b7ddb16d3
   languageName: node
   linkType: hard
 
-"@scalar/use-hooks@npm:0.4.22":
-  version: 0.4.22
-  resolution: "@scalar/use-hooks@npm:0.4.22"
+"@scalar/use-hooks@npm:0.4.24":
+  version: 0.4.24
+  resolution: "@scalar/use-hooks@npm:0.4.24"
   dependencies:
-    "@scalar/helpers": "npm:0.16.4"
+    "@scalar/helpers": "npm:0.17.1"
     "@scalar/use-toasts": "npm:0.10.6"
     "@scalar/validation": "npm:0.6.7"
     "@vueuse/core": "npm:15.0.0"
     cva: "npm:1.0.0-beta.4"
     tailwind-merge: "npm:3.7.0"
     vue: "npm:^3.5.44"
-  checksum: 10c0/09ca98b64de18d497d0c4a3621d16eee92e7fd3fc95f21ff9beb701f2b8bfffc2d7db44fdd442c3834730f8787caa8430778b079f941547d4d43d3c6e314c6c7
+  checksum: 10c0/c9095e5966c1e331edc168aadc9906238b7d69de5c67aaca4c8b9febfced6aa6cb18673a19b44c5f442efe2d03af939f0a0eda1d47ea68c60026319bd02132cd
   languageName: node
   linkType: hard
 
@@ -4734,24 +4724,24 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@scalar/workspace-store@npm:0.69.3":
-  version: 0.69.3
-  resolution: "@scalar/workspace-store@npm:0.69.3"
+"@scalar/workspace-store@npm:0.71.0":
+  version: 0.71.0
+  resolution: "@scalar/workspace-store@npm:0.71.0"
   dependencies:
-    "@scalar/asyncapi-upgrader": "npm:0.1.18"
-    "@scalar/helpers": "npm:0.16.4"
-    "@scalar/json-magic": "npm:0.17.0"
-    "@scalar/openapi-upgrader": "npm:0.4.6"
-    "@scalar/schemas": "npm:0.16.0"
-    "@scalar/snippetz": "npm:0.10.14"
+    "@scalar/asyncapi-upgrader": "npm:0.1.20"
+    "@scalar/helpers": "npm:0.17.1"
+    "@scalar/json-magic": "npm:0.19.0"
+    "@scalar/openapi-upgrader": "npm:0.4.8"
+    "@scalar/schemas": "npm:0.17.0"
+    "@scalar/snippetz": "npm:0.10.16"
     "@scalar/typebox": "npm:0.1.3"
-    "@scalar/types": "npm:0.26.0"
+    "@scalar/types": "npm:0.28.0"
     "@scalar/validation": "npm:0.6.7"
     js-base64: "npm:^3.9.4"
     type-fest: "npm:^5.10.0"
     vue: "npm:^3.5.44"
     yaml: "npm:^2.9.1"
-  checksum: 10c0/bc61cbe4c3d5a09adec283978efeebe84e9ca7d4b2aac73956ff8790da5a60f85ec38b9871a57abfbe0b39058c9502b34199ef278ef39fb3a5fcbe3452072164
+  checksum: 10c0/70d36ec2bb2f665e537d36f5b4b778e8e8f3ad7656b83bc4b295a5b665fa2e6fa5fbe60ef1c5b5c0f50b47fa2f6a9ff5fd6d02a8abe20dedf280fd960ac832c5
   languageName: node
   linkType: hard
 
@@ -13263,6 +13253,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"proto-parser@npm:0.0.9":
+  version: 0.0.9
+  resolution: "proto-parser@npm:0.0.9"
+  checksum: 10c0/ab7340f4a67fb7d54c638fe6ebc0ec83084023f3905791f45a9b68abbd1314c8a16a2a504771644714b34c62a53de27b0c53dfd45d4d69e250a6fb864138e90f
+  languageName: node
+  linkType: hard
+
 "proxy-addr@npm:~2.0.7":
   version: 2.0.7
   resolution: "proxy-addr@npm:2.0.7"
@@ -13631,8 +13628,8 @@ __metadata:
     "@docusaurus/utils-validation": "npm:^3.10.0"
     "@iconify/react": "npm:^6.0.2"
     "@mdx-js/react": "npm:^3.1.1"
-    "@scalar/api-reference": "npm:^1.76.4"
-    "@scalar/docusaurus": "npm:^0.8.55"
+    "@scalar/api-reference": "npm:^1.78.0"
+    "@scalar/docusaurus": "npm:^0.8.57"
     clsx: "npm:^2.1.1"
     concurrently: "npm:^10.0.0"
     cross-env: "npm:^10.1.0"
