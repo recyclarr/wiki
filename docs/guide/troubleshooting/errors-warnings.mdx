@@ -218,6 +218,21 @@ service. Sonarr and Radarr still require the API key on those requests.
 
 </details>
 
+<details>
+<summary>
+Error: The service rejected the hostname in base_url because of its Allowed Hosts setting (400)
+</summary>
+
+Sonarr has an Allowed Hosts setting under Settings > General. When the hostname in your `base_url`
+is not on that list, Sonarr rejects every request from Recyclarr before it checks the API key. The
+server log names the rejected hostname, and the sync results API reports the instance failure as
+`serviceHostRejected`.
+
+Either change `base_url` to use a hostname that Sonarr allows, or add the hostname to Sonarr's
+Allowed Hosts setting.
+
+</details>
+
 ## Docker {/*#docker*/}
 
 A series of troubleshooting steps for docker-specific issues.
