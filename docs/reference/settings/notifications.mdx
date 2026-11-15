@@ -108,6 +108,9 @@ Verbosity levels:
   (e.g., when no changes were synced).
 - `verbose`: Includes everything from the `detailed` level, plus per-item change details.
 
+At every level, [server diagnostics][diagnostics] count as warnings and errors. While any exist,
+every sync sends a notification, even one that had nothing else to report.
+
 ### Per-Item Change Details {/*#verbose-details*/}
 
 Under `verbose`, each pipeline's change count is followed by indented sub-bullets grouped by action.
@@ -143,6 +146,7 @@ real-time updates on the process and detailed information about the results.
 [apprise]: https://github.com/caronc/apprise-api
 [apprise-urls]: https://github.com/caronc/apprise/wiki#notification-services
 [jobs]: ../client-server.mdx#jobs
+[diagnostics]: ../client-server.mdx#diagnostics
 
 ### Key Points {/*#key-points*/}
 
@@ -175,3 +179,7 @@ The notification sent after each sync operation includes the following informati
 
 - **Error and Warning Reports**: Any errors or warnings that occurred during the sync operation are
   included in the notification.
+
+- **Server Diagnostics**: A **Server** section lists the server's current
+  [diagnostics][diagnostics], such as a deprecated setting or a configuration edit the server could
+  not use. It appears in every notification until you fix the problem.

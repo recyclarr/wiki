@@ -70,7 +70,8 @@ loads the configuration again:
   with.
 - If the new configuration is not valid, the server logs its errors once, followed by
   `Configuration changed but is invalid`. It keeps syncing with the previous configuration and does
-  not try again until you change the files again.
+  not try again until you change the files again. Until then, the errors stay in the
+  [server diagnostics](#diagnostics).
 - If a sync or another request that reads guide data is running during a check, the server leaves
   your edit for the next check where none is running.
 
@@ -79,6 +80,56 @@ still stops the server when it starts.
 
 A [temporary server](#temporary) reads your configuration fresh for each command, so edits always
 apply to the next command.
+
+## Server Diagnostics {/*#diagnostics*/}
+
+Server diagnostics are problems the server has right now that you need to fix, such as a deprecated
+setting or a configuration edit it could not use. The server logs each problem when it finds it, and
+also keeps it in a list until the problem is gone. You see this list in three places:
+
+- **Notifications**: Every [sync notification][notifications] has a **Server** section with the
+  current diagnostics. While the list is not empty, the server sends a notification after every
+  sync, even when the sync itself had nothing to report.
+- **`recyclarr sync`**: The [sync command][sync] lists them under **Sync Diagnostics** after the
+  results, and in the log output when you use `--log`. They do not change the exit code. If the
+  server cannot return the list, the command shows its results without it.
+- **HTTP API**: `GET /api/v1/diagnostics` returns the list.
+
+| Code                           | Severity  | Cause                                                                                                                    | Goes away when                                              |
+| ------------------------------ | --------- | ------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------- |
+| `environmentVariableRemoved`   | `warning` | A Recyclarr 8 Docker variable such as `CRON_SCHEDULE` is still set                                                       | You remove the variable and restart the server              |
+| `settingDeprecated`            | `warning` | `settings.yml` uses a deprecated setting                                                                                 | You remove the setting and restart the server               |
+| `configPropertyDeprecated`     | `warning` | A configuration file uses a deprecated property                                                                          | The server loads your configuration without it              |
+| `configEditRejected`           | `error`   | An edit to your configuration is not valid, so the server syncs with the [previous configuration](#config-changes)       | The server loads a valid edit, or you change the files back |
+| `guideUpdateRejected`          | `warning` | New guide data made your configuration invalid, so the server went back to the [last data that worked][provider-updates] | A later guide data update leaves your configuration valid   |
+| `resourceProviderUpdateFailed` | `warning` | A resource provider could not be downloaded, so syncs use its cached copy                                                | The next download of that provider succeeds                 |
+
+The server reads `settings.yml` and environment variables only when it starts, so those problems
+last until a restart. It checks your configuration each time it loads it, such as at startup and
+after you edit it.
+
+The API returns errors first. Each diagnostic has an `id` that stays the same while the problem
+lasts, a `code` from the table above, a `severity`, a `message`, and a `data` object. The
+[API reference][api] lists the `data` fields for each code. Reading the list changes nothing, and
+the list is empty when the server has no problems:
+
+```json
+{
+  "diagnostics": [
+    {
+      "id": "environmentVariableRemoved:CRON_SCHEDULE",
+      "code": "environmentVariableRemoved",
+      "severity": "warning",
+      "message": "CRON_SCHEDULE is no longer used; set `server.schedule.cron` in settings.yml instead. See https://recyclarr.dev/guide/upgrade-guide/v9.0/#cron-schedule",
+      "data": { "variable": "CRON_SCHEDULE" }
+    }
+  ]
+}
+```
+
+The server keeps the list in memory and builds it again after a restart. Problems found at startup
+appear right away. A guide data update that was held back appears again the next time the server
+updates that provider, up to one hour after the restart.
 
 ## Server API Key {/*#api-key*/}
 
@@ -215,6 +266,7 @@ does not run them again.
 
 [notifications]: ./settings/notifications.mdx
 [cli]: ../cli/index.mdx
+[sync]: ../cli/sync.mdx
 [api]: /api
 [docker]: ../guide/installation/docker.mdx
 [serve]: ../cli/serve.mdx

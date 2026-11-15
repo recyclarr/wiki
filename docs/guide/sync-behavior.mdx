@@ -39,6 +39,9 @@ During sync, the progress table shows status for each instance and pipeline:
 The row prefix shows the overall status of the instance. If it shows `~` or `✗`, check
 **Sync Diagnostics** after the progress table for details.
 
+Sync Diagnostics also lists [server diagnostics][server-diagnostics]: problems with the server
+itself, such as a deprecated setting, that appear after every sync until you fix them.
+
 ## Example {/*#example*/}
 
 Here's output from a sync where one custom format could not be synced to the `radarr` instance:
@@ -81,3 +84,4 @@ update. Delete or rename one of them in Radarr, then sync again. See
 [Ambiguous Matches][ambiguous-matches] for details.
 
 [ambiguous-matches]: ./troubleshooting/state.mdx#ambiguous-matches
+[server-diagnostics]: ../reference/client-server.mdx#diagnostics

@@ -83,6 +83,8 @@ The server downloads git providers when it starts and keeps them current while i
   data. A download that finds nothing new changes nothing. If new data makes your configuration
   invalid, for example because an [include][include] it uses was removed, the server logs a warning,
   goes back to the last data that worked, and keeps running.
+- A failed download and a held-back update each stay in the [server diagnostics][diagnostics] until
+  a later download fixes them.
 - Syncs and other requests always see one consistent copy of the data. An update never changes files
   that a running sync is reading.
 
@@ -332,6 +334,7 @@ locations.
 :::
 
 [temporary]: ../../client-server.mdx#temporary
+[diagnostics]: ../../client-server.mdx#diagnostics
 [config-create]: ../../../cli/config/config-create.mdx
 [include]: ../../configuration/include.mdx
 [data-dir]: ../../../guide/file-structure.mdx#data-directory
