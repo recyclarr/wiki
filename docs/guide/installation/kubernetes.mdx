@@ -142,32 +142,68 @@ env:
 
 ## Storage {/*#storage*/}
 
-The chart puts the [state directory][state-dir] (sync state and job history) on a
-PersistentVolumeClaim and the [data directory][data-dir] (downloaded guides and log files) in an
-`emptyDir` volume, which Recyclarr rebuilds when the pod starts again.
+The chart gives the [state directory][state-dir] (sync state and job history) and the
+[data directory][data-dir] (downloaded guides, caches, and log files) separate volumes, set under
+`persistence.state` and `persistence.data`. By default, state goes on a PersistentVolumeClaim and
+data goes in an `emptyDir` volume, which lasts only as long as the pod. Losing the data directory
+costs only a fresh download when the pod starts again. Put it on a claim to skip that download.
 
-| Value                       | Default         | Description                                               |
-| --------------------------- | --------------- | --------------------------------------------------------- |
-| `persistence.enabled`       | `true`          | Store state on a PersistentVolumeClaim                    |
-| `persistence.existingClaim` | none            | Use this claim instead of creating one                    |
-| `persistence.storageClass`  | none            | StorageClass for the claim; none uses the cluster default |
-| `persistence.accessMode`    | `ReadWriteOnce` | Access mode for the claim                                 |
-| `persistence.size`          | `1Gi`           | Size of the claim                                         |
+Both blocks take the same values:
 
-Uninstalling the chart keeps the claim, so a later install with the same release name picks up the
-same state. Delete the claim yourself when you no longer need it.
+| Value                | `state` default | `data` default  | Description                                                   |
+| -------------------- | --------------- | --------------- | ------------------------------------------------------------- |
+| `enabled`            | `true`          | `false`         | Use a PersistentVolumeClaim; `false` uses an `emptyDir`       |
+| `existingClaim`      | none            | none            | Use this claim instead of creating one                        |
+| `storageClass`       | none            | none            | StorageClass for the claim; none uses the cluster default     |
+| `accessMode`         | `ReadWriteOnce` | `ReadWriteOnce` | Access mode for the claim                                     |
+| `size`               | `1Gi`           | `2Gi`           | Size of the claim                                             |
+| `emptyDir.sizeLimit` | none            | none            | Size limit of the `emptyDir`                                  |
+| `emptyDir.medium`    | none            | none            | `Memory` uses a tmpfs, which counts against the memory limit  |
+
+The `emptyDir` values apply only when `enabled` is `false`. The claim values apply only when it is
+`true`.
+
+This example puts both directories on claims the chart creates with a specific StorageClass:
+
+```yml
+persistence:
+  state:
+    storageClass: ceph-block
+  data:
+    enabled: true
+    storageClass: ceph-block
+```
+
+This one uses claims you created yourself:
+
+```yml
+persistence:
+  state:
+    existingClaim: my-recyclarr-state
+  data:
+    enabled: true
+    existingClaim: my-recyclarr-data
+```
+
+State and data must use different claims. Both would mount the claim's root, and the server locks
+each directory, so `helm install` fails if they point at the same claim.
+
+Uninstalling the chart keeps the state claim it created, so a later install with the same release
+name picks up the same state. Delete that claim yourself when you no longer need it. Uninstalling
+deletes the data claim the chart created. Claims you set with `existingClaim` are yours, and the
+chart never deletes them.
 
 :::danger
 
-With `persistence.enabled: false`, state lives in an `emptyDir` and is lost whenever the pod is
-recreated. Recyclarr then no longer knows which Sonarr and Radarr resources it created (see
+With `persistence.state.enabled: false`, state lives in an `emptyDir` and is lost whenever the pod
+is recreated. Recyclarr then no longer knows which Sonarr and Radarr resources it created (see
 [State Directory][state-dir]).
 
 :::
 
-Log files in the data directory are lost when the pod is recreated. Kubernetes collects the server's
-console output, so you may want to turn off log files with [`server.logging.files`][logging-files]
-in `settings.content`.
+Unless the data directory is on a claim, log files are lost when the pod is recreated. Kubernetes
+collects the server's console output, so you may want to turn off log files with
+[`server.logging.files`][logging-files] in `settings.content`.
 
 ## Running CLI Commands {/*#cli*/}
 
@@ -236,8 +272,8 @@ If you write your own manifests, these are the parts the chart handles for you:
   `subPath` mount, Kubernetes updates the file when the Secret changes, and the server uses the new
   key without a restart.
 - Config files mounted read-only under `/config`, a PersistentVolumeClaim for the
-  [state directory][state-dir] (`RECYCLARR_STATE_DIR`), and an `emptyDir` for the
-  [data directory][data-dir] (`RECYCLARR_DATA_DIR`).
+  [state directory][state-dir] (`RECYCLARR_STATE_DIR`), and a separate volume for the
+  [data directory][data-dir] (`RECYCLARR_DATA_DIR`), which can be an `emptyDir`.
 - One replica with the `Recreate` strategy.
 
 ## Dev Chart {/*#dev-chart*/}
