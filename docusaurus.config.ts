@@ -82,7 +82,7 @@ const config: Config = {
         // Served from staticDirectories so the page loads nothing from jsDelivr.
         cdn: "/standalone.js",
         configuration: {
-          content: require("./openapi/recyclarr-server.json"),
+          url: `https://schemas.recyclarr.dev/${isNext ? "next" : "latest"}/openapi-v1.json`,
           telemetry: false,
           withDefaultFonts: false,
           agent: { disabled: true },
