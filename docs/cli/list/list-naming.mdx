@@ -59,18 +59,14 @@ Visit [Common Options](../common.mdx) to read about options usable by all comman
 
 Output in TSV format for scripting. Suppresses table formatting.
 
-**Radarr columns** (tab-separated):
+Radarr and Sonarr print the same tab-separated columns:
 
-1. **Format Type** - The naming category (`movie_folder`, `standard_movie`)
+1. **Format Type** - The naming category
+   - Radarr: `movie_folder`, `standard_movie`
+   - Sonarr: `season_folder`, `series_folder`, `standard_episode`, `daily_episode`, `anime_episode`
 2. **Key** - The key to use in `media_naming` configuration
-3. **Naming Format** - The actual naming pattern string
-
-**Sonarr columns** (tab-separated):
-
-1. **Format Type** - The naming category (`season_folder`, `series_folder`, `standard_episode`,
-   `daily_episode`, `anime_episode`)
-2. **Key** - The key to use in `media_naming` configuration
-3. **Version** - The Sonarr version compatibility (`All`, `v3`, `v4`)
+3. **Version** - The service version the format applies to, such as `v4`. `All` means the format has
+   no specific version.
 4. **Naming Format** - The actual naming pattern string
 
 :::info
