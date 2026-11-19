@@ -273,6 +273,22 @@ The `recyclarr migrate` command has been removed. Migrations already ran automat
 run each time the server starts. Remove any calls to `recyclarr migrate` from your scripts. See
 [Migration System][migrations].
 
+## CLI: Version Column in `list naming radarr --raw` {/*#list-naming-raw*/}
+
+The `--raw` output of `recyclarr list naming radarr` now has four tab-separated columns, the same as
+Sonarr: format type, key, version, and naming format. Previously Radarr printed three columns and
+added any version to the key, as in `plex (v4)`. Now the key is `plex` and the version column holds
+`v4`. Formats with no version print `All`:
+
+| Version | Column 1       | Column 2    | Column 3                              | Column 4                              |
+| ------- | -------------- | ----------- | ------------------------------------- | ------------------------------------- |
+| 8       | `movie_folder` | `default`   | `{Movie CleanTitle} ({Release Year})` |                                       |
+| 9       | `movie_folder` | `default`   | `All`                                 | `{Movie CleanTitle} ({Release Year})` |
+
+If a script reads the Radarr output, update it to read the naming format from the fourth column and
+the version from the third. Sonarr output has not changed. See [`--raw`][list-naming-raw] for the
+column list.
+
 ## CLI: `state repair` Removed {/*#state-repair-removed*/}
 
 The `recyclarr state repair` command and its `--adopt` flag have been removed. Sync is now
@@ -313,6 +329,7 @@ to notice and adjust your config if needed.
 [default-yaml]: ../file-structure.mdx#default-yaml
 [config-create]: ../../cli/config/config-create.mdx
 [migrations]: ../troubleshooting/migrations.mdx
+[list-naming-raw]: ../../cli/list/list-naming.mdx#raw
 [env-state]: ../../reference/env-vars.mdx#state-dir
 [env-data]: ../../reference/env-vars.mdx#data-dir
 [file-structure]: ../file-structure.mdx
