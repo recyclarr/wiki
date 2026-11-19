@@ -52,8 +52,9 @@ parent package keeps the version it requires.
 
 ## API Reference
 
-- `@scalar/docusaurus` renders `openapi/recyclarr-server.json` at `/api`. Fix reference text
-  (operations, parameters, schemas) in the recyclarr server code.
+- `@scalar/docusaurus` renders the spec that Recyclarr publishes to `schemas.recyclarr.dev` at
+  `/api`: `next/` for `next` builds, `latest/` otherwise. Fix reference text (operations,
+  parameters, schemas) in the recyclarr server code.
 - Conceptual API prose (overview, job lifecycle, CLI and schedule relationship, authentication) goes
   in hand-written wiki pages.
 
