@@ -80,6 +80,12 @@ of these; `helm install` fails if you set neither or both:
 The chart mounts the key as a file and sets `RECYCLARR_API_KEY_FILE` to its path. The server reads
 the file on every request, so you can rotate the key in the Secret without restarting the pod.
 
+The chart also sets `RECYCLARR_API_KEY` to an empty value, which the server treats as unset. In
+Kubernetes an `env` entry wins over the same name from `envFrom`, so a Secret loaded with `envFrom`
+can contain a `RECYCLARR_API_KEY` entry without stopping the server from starting. The server
+ignores that entry and always uses the key from `apiKey`. `helm install` fails if you set
+`RECYCLARR_API_KEY` or `RECYCLARR_API_KEY_FILE` in `env`.
+
 ## Configuration Files {/*#config-files*/}
 
 The chart mounts your files read-only in the [config directory][file-structure]. Each source can
@@ -106,30 +112,22 @@ The server applies edits to its YAML configuration files without a restart (see
 only when it starts. `helm upgrade` restarts the pod when files or the API key in your values
 change. When you change a configs or includes ConfigMap you manage, Kubernetes updates the mounted
 files after a short delay, and the server picks up the edit. After you change a settings ConfigMap
-you manage, or a Secret the container reads through `env` or `envFrom`, restart the Deployment
-yourself or use a tool such as Reloader.
+you manage, a Secret the container reads through `env` or `envFrom`, or a file mounted with
+[extra volumes](#extra-volumes), restart the Deployment yourself or let [Reloader][reloader] do it.
+Reloader reads an annotation on the Deployment, which you set with `deploymentAnnotations`:
+
+```yml
+deploymentAnnotations:
+  reloader.stakater.com/auto: "true"
+```
+
+Reloader then restarts the pod when a ConfigMap or Secret the pod uses changes.
 
 ## Environment Variables {/*#env*/}
 
 `env` and `envFrom` add environment variables to the container, usually Sonarr and Radarr API keys
-that your configuration reads with [`!env_var`][env-var].
-
-The chart does not mount a `secrets.yml` file. Set each API key with `api_key: !env_var ...` from a
-Secret as shown above. [`!secret`][secrets] references and the [implicit][implicit]
-`<instance>_api_key` lookups from `secrets.yml` are not available with the chart.
-
-If your configuration uses `!secret`, replace each reference with `!env_var`:
-
-```yml
-# Before: the key comes from secrets.yml
-api_key: !secret sonarr_api_key
-
-# After: the key comes from an environment variable
-api_key: !env_var SONARR_API_KEY
-```
-
-Then put the key in a Secret and pass it to the container with `envFrom`, as in the
-[example](#example), or with `env`:
+that your configuration reads with [`!env_var`][env-var]. Pass a whole Secret with `envFrom`, as in
+the [example](#example), or single entries with `env`:
 
 ```yml
 env:
@@ -139,6 +137,40 @@ env:
         name: recyclarr-servarr-keys
         key: SONARR_API_KEY
 ```
+
+To keep the keys in a `secrets.yml` file instead, mount it with [extra volumes](#extra-volumes).
+
+## Extra Volumes {/*#extra-volumes*/}
+
+`extraVolumes` adds volumes to the pod, and `extraVolumeMounts` mounts them in the server container.
+Both take the standard Kubernetes volume and volume mount lists. Use them for files the chart does
+not manage, such as a `secrets.yml` file or a CA bundle.
+
+A `secrets.yml` file in the config directory makes [`!secret`][secrets] references and the
+[implicit][implicit] `<instance>_api_key` lookups work. Create a Secret from the file:
+
+```bash
+kubectl create secret generic recyclarr-secrets --from-file=secrets.yml
+```
+
+Then mount it at `/config/secrets.yml`:
+
+```yml
+extraVolumes:
+  - name: secrets
+    secret:
+      secretName: recyclarr-secrets
+extraVolumeMounts:
+  - name: secrets
+    mountPath: /config/secrets.yml
+    subPath: secrets.yml
+    readOnly: true
+```
+
+Mount single files into `/config` with `subPath`. The chart mounts its own files inside `/config`,
+and a volume mounted at `/config` itself would replace that whole directory. A file mounted with
+`subPath` does not update when its source changes, so restart the pod after you change the Secret,
+or use [Reloader](#config-files).
 
 ## Storage {/*#storage*/}
 
@@ -157,11 +189,16 @@ Both blocks take the same values:
 | `storageClass`       | none            | none            | StorageClass for the claim; none uses the cluster default     |
 | `accessMode`         | `ReadWriteOnce` | `ReadWriteOnce` | Access mode for the claim                                     |
 | `size`               | `1Gi`           | `2Gi`           | Size of the claim                                             |
+| `labels`             | `{}`            | `{}`            | Labels for the claim the chart creates                        |
+| `annotations`        | `{}`            | `{}`            | Annotations for the claim the chart creates                   |
 | `emptyDir.sizeLimit` | none            | none            | Size limit of the `emptyDir`                                  |
 | `emptyDir.medium`    | none            | none            | `Memory` uses a tmpfs, which counts against the memory limit  |
 
 The `emptyDir` values apply only when `enabled` is `false`. The claim values apply only when it is
-`true`.
+`true`. `labels` and `annotations` apply only to claims the chart creates, not to an
+`existingClaim`. Use them, for example, for labels your backup tool selects on. The state claim
+always keeps the chart's `helm.sh/resource-policy: keep` annotation, and
+`persistence.state.annotations` cannot override it.
 
 This example puts both directories on claims the chart creates with a specific StorageClass:
 
@@ -224,9 +261,10 @@ The chart creates a Service with two ports:
 | `7983` | `management` | Health probes (`/livez`, `/readyz`) and `/metrics` |
 
 The chart creates no Ingress or HTTPRoute. The API is meant for clients inside the cluster, such as
-the CLI in the pod or your own scripts. Change the API port on the Service with `service.port` and
-the Service type with `service.type`. See [Network Security][network-security] before you expose the
-API outside the cluster.
+the CLI in the pod or your own scripts. Change the API port on the Service with `service.port`, the
+Service type with `service.type`, and add annotations, for example for a LoadBalancer
+implementation, with `service.annotations`. See [Network Security][network-security] before you
+expose the API outside the cluster.
 
 The pod has startup, liveness, and readiness probes on the management port. To have the Prometheus
 Operator scrape [metrics][monitoring], set `serviceMonitor.enabled: true`. Set
@@ -243,16 +281,50 @@ env:
     value: deployment.environment=home
 ```
 
+## Resources {/*#resources*/}
+
+The chart sets no CPU or memory requests or limits by default. Usage depends on your configuration.
+In one measurement, a server syncing one Sonarr and one Radarr instance (a few quality profiles and
+guide custom formats) peaked at about 280Mi of container memory. About 150Mi of that was file cache
+from the guide downloads, which the kernel can reclaim. Startup, including the guide download, used
+under 3 CPU-seconds, and so did one sync of both instances. An idle server uses almost no CPU.
+Larger configurations and more instances use more.
+
+This is a reasonable starting point:
+
+```yml
+resources:
+  requests:
+    cpu: 50m
+    memory: 256Mi
+  limits:
+    memory: 512Mi
+```
+
+It sets no CPU limit, because a CPU limit slows the first guide download, and the startup probe
+gives that download 5 minutes.
+
 ## Other Values {/*#other-values*/}
 
 The chart runs one replica with the `Recreate` update strategy, because only one server can use the
-state volume at a time. The container runs as UID and GID `1000`, as a non-root user, with a
-read-only root filesystem.
+state volume at a time. With the default security contexts, the pod meets the Kubernetes Pod
+Security `restricted` profile: it runs as the non-root UID and GID `1000` with the `RuntimeDefault`
+seccomp profile, a read-only root filesystem, no privilege escalation, and all capabilities dropped.
+The `helm test` pod runs the Recyclarr image with the same security contexts, so it passes in
+namespaces that enforce that profile. Helm deletes a test pod that succeeds and keeps one that
+fails, so you can read its logs, until the next test run.
+
+`initContainers` and `extraContainers` add init containers and sidecars, using the standard
+Kubernetes container spec. They can mount the chart's volumes by name (`data`, `state`, `tmp`,
+`configs`, `includes`, `settings`) and any [extra volumes](#extra-volumes). The chart applies no
+security context to them, so set one yourself if your namespace enforces a Pod Security profile.
+
+`deploymentAnnotations` and `deploymentLabels` apply to the Deployment, and `podAnnotations` and
+`podLabels` apply to the pod. Chart labels take precedence over both label values.
 
 Other values follow common Helm chart conventions: `image`, `imagePullSecrets`, `nameOverride`,
-`fullnameOverride`, `serviceAccount`, `podAnnotations`, `podLabels`, `podSecurityContext`,
-`securityContext`, `resources`, `nodeSelector`, `tolerations`, and `affinity`. To see every value
-and its default, run:
+`fullnameOverride`, `serviceAccount`, `podSecurityContext`, `securityContext`, `priorityClassName`,
+`nodeSelector`, `tolerations`, and `affinity`. To see every value and its default, run:
 
 ```bash
 helm show values oci://ghcr.io/recyclarr/charts/recyclarr
@@ -307,3 +379,4 @@ images.
 [monitoring]: ../../reference/monitoring.mdx
 [otel]: ../../reference/monitoring.mdx#opentelemetry
 [dev-builds]: ./docker.mdx#dev-builds
+[reloader]: https://github.com/stakater/Reloader
