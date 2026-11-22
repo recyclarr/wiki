@@ -95,6 +95,8 @@ services:
 server:
   schedule:
     cron: 0 4 * * *
+  logging:  # <<< OPTIONAL: text logs in `docker logs`, like v8
+    format: text
 ```
 
 To upgrade:
@@ -103,7 +105,11 @@ To upgrade:
 1. [Move the schedule](#cron-schedule) from `CRON_SCHEDULE` to `settings.yml`.
 1. [Remove `RECYCLARR_CREATE_CONFIG` and `RECYCLARR_LOG_LEVEL`](#docker-env-removed).
 1. [Add a restart policy](#docker-restart) so scheduled syncs keep running.
+1. Optional: [set `server.logging.format` to `text`](#logs) if you want `docker logs` to show text
+   instead of JSON.
 1. Replace `docker compose run` commands with [`docker exec`](#docker-run-args).
+1. Start the container and check `docker logs recyclarr` for
+   [configuration errors](#invalid-config). An error in any configuration file stops the server.
 
 ### API Key Required {/*#docker-api-key*/}
 
@@ -161,7 +167,9 @@ If an external scheduler ran Recyclarr this way, see [Using an External Schedule
 Remove these variables from your compose file. Recyclarr ignores them:
 
 - `RECYCLARR_CREATE_CONFIG`: Create your configuration files in `/config` yourself.
-- `RECYCLARR_LOG_LEVEL`: Use `--log` on CLI commands to show log output on the console.
+- `RECYCLARR_LOG_LEVEL`: By default, the server writes debug-level [log files][logging-files] to
+  `logs/server/` in the data directory, which is `/config/logs/server/` in the image. `docker logs`
+  shows info-level output. Use `--log` on CLI commands to show log output on the console.
 
 ### Add a Restart Policy {/*#docker-restart*/}
 
@@ -222,7 +230,18 @@ warning that lists them so you can delete them yourself.
 Previously, when a configuration file had errors, Recyclarr reported them and still synced the
 instances in your other files. Now the server checks your configuration files when it starts, and an
 error in any of them stops it from starting. Fix every error the server logs, then start it again.
-See [Client and Server][client-server].
+
+This applies only at startup. When you edit a file while the server is running and the edit has
+errors, the server logs them and keeps using the last valid configuration. See
+[Configuration Changes][config-changes].
+
+:::warning[Docker restart loop]
+
+With `restart: unless-stopped`, a configuration error makes the container restart over and over, and
+no sync runs. After you upgrade, run `docker logs recyclarr` and fix every configuration error it
+shows.
+
+:::
 
 ## Log Files and Console Format {/*#logs*/}
 
@@ -335,4 +354,6 @@ to notice and adjust your config if needed.
 [env-data]: ../../reference/env-vars.mdx#data-dir
 [file-structure]: ../file-structure.mdx
 [logging-format]: ../../reference/settings/server.mdx#logging-format
+[logging-files]: ../../reference/settings/server.mdx#logging-files
+[config-changes]: ../../reference/client-server.mdx#config-changes
 [helm-storage]: ../installation/kubernetes.mdx#storage
