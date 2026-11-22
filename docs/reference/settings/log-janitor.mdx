@@ -16,3 +16,4 @@ log_janitor:
 - `max_files` *(Default: `20`)*\
   The maximum number of log files to keep, including the two files the server is writing to. If
   there are more log files than the max allowed here, Log Janitor will remove the oldest log files.
+  The minimum is `0`. A value of `2` or less keeps only the files of the current run.

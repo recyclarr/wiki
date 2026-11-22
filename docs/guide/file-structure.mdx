@@ -93,7 +93,8 @@ For all supported locations, the following behavior applies:
 
 - All methods may be used together and all corresponding YAML files will be loaded.
 - You don't have to use all locations; you can choose only the ones you want to use.
-- If at least one configuration file is not found, it will result in an error.
+- If no configuration file exists, the server still starts, but it refuses every sync until you add
+  one.
 - All YAML files must have the `yml` or `yaml` extension.
 
 ### File: `recyclarr.yml` {/*#recyclarr-yaml*/}

@@ -66,8 +66,9 @@ if your repository contains all the content you need.
 
 **Conditionally Required.**
 
-URL compatible with `git clone`. Required when using a git repository as the provider source.
-Mutually exclusive with [`path`](#path).
+The `http` or `https` URL of the git repository. Other URL types, such as SSH, are not accepted.
+Required when using a git repository as the provider source. Mutually exclusive with
+[`path`](#path).
 
 ### `cache_limit` {/*#cache-limit*/}
 
@@ -104,17 +105,17 @@ Specify `reference` explicitly when:
 **Conditionally Required.**
 
 Path to a local directory containing provider content. Can be absolute or relative to the
-[app data directory][appdata]. Required when using a local directory as the provider source.
+[configuration directory][config-dir]. Required when using a local directory as the provider source.
 Mutually exclusive with [`clone_url`](#clone-url).
 
 :::tip
 
-Relative paths are resolved against the app data directory. This is useful for keeping custom
-resources alongside Recyclarr's other data.
+Relative paths are resolved against the configuration directory. This is useful for keeping custom
+resources alongside your configuration files.
 
 :::
 
-[appdata]: ../../../guide/file-structure.mdx#config-directory
+[config-dir]: ../../../guide/file-structure.mdx#config-directory
 
 ## custom-formats Type {/*#custom-formats-type*/}
 
@@ -122,8 +123,8 @@ resources alongside Recyclarr's other data.
 
 **Conditionally Required.**
 
-Required when `type` is `custom-formats`. Specifies which service the custom formats are designed
-for: `radarr` or `sonarr`.
+Required when `type` is `custom-formats`, and not allowed for any other type. Specifies which
+service the custom formats are designed for: `radarr` or `sonarr`.
 
 Custom formats aren't interchangeable between Radarr and Sonarr, so you must specify which service
 your custom formats target.

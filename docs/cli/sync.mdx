@@ -19,6 +19,10 @@ The server syncs the configuration it has loaded. A persistent server loads edit
 configuration files once a minute, so a sync started right after an edit can still use the previous
 configuration. See [Configuration Changes][config-changes].
 
+The command exits with code `1` when the sync fails outright or the CLI cannot start the job.
+Otherwise it exits with code `0`, including when the sync was partial (some items synced and some
+did not).
+
 [behavior]: ../guide/sync-behavior.mdx
 [config-changes]: ../reference/client-server.mdx#config-changes
 
@@ -55,6 +59,11 @@ would do without actually committing those changes.
 
 Note that, in this mode, Recyclarr will still make API calls to services but only to *fetch* data;
 it will never invoke the API to make actual changes.
+
+The output is one tree per instance. The instance name heads each tree, followed by every pipeline
+and the resources it would change. A green `+` marks a resource to create, a yellow `~` one to
+update, and a red `-` one to delete. Updated values show the current value, an arrow, and the new
+value. A line after the last instance totals the changes across all instances.
 
 ### `-i|--instance` {/*#instance*/}
 

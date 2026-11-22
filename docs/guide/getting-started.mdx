@@ -52,9 +52,9 @@ Start the container in the background:
 docker compose up -d
 ```
 
-Recyclarr runs as a server that stays running. It takes a few seconds to start; wait until
-`docker compose ps` shows the container as `healthy`. The server has nothing to sync yet. You'll
-create its configuration in the next steps.
+Recyclarr runs as a server that stays running. On its first start, it downloads the TRaSH Guides
+before it is ready, which can take a few minutes. Wait until `docker compose ps` shows the container
+as `healthy`. The server has nothing to sync yet. You'll create its configuration in the next steps.
 
 For networking, tags, and native installs, see the [Installation Guide](./installation/index.mdx).
 

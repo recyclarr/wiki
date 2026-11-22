@@ -5,9 +5,9 @@ sidebar_position: 5
 
 import DocCardList from '@theme/DocCardList';
 
-Settings are specified in a file named `settings.yml` in your [app data directory][app-data].
-Settings in this file affect the behavior of Recyclarr regardless of instance-specific configuration
-for Radarr and Sonarr.
+Settings are specified in a file named `settings.yml` (or `settings.yaml`) in your
+[configuration directory][config-dir]. Having both files is an error. Settings in this file affect
+the behavior of Recyclarr regardless of instance-specific configuration for Radarr and Sonarr.
 
 Example of file location (using docker path):
 
@@ -26,7 +26,7 @@ rest alone.
 
 :::
 
-[app-data]: ../../guide/file-structure.mdx#config-directory
+[config-dir]: ../../guide/file-structure.mdx#config-directory
 
 ## Schema Validation {/*#schema*/}
 

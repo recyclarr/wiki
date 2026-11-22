@@ -88,10 +88,13 @@ The CLI does not write log files. If a problem happens in the CLI itself, run th
 
 :::info
 
-Information in log files such as service host names and API keys are always redacted automatically
-by Recyclarr.
+Recyclarr replaces the host name with `REDACTED` in the request URLs and error messages it logs.
+Some other messages still name a host, such as the [Allowed Hosts warning][allowed-hosts], so check
+your log files before you share them.
 
 :::
+
+[allowed-hosts]: ./errors-warnings.mdx#api--connection
 
 ### Redacting Configuration YAML {/*#redact-config*/}
 

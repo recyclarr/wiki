@@ -54,16 +54,20 @@ When syncing quality profiles, you may see this HTTP 400 error from Sonarr or Ra
 Cutoff must be an allowed quality or group
 ```
 
-This occurs when your quality profile uses a `qualities` list but doesn't specify `until_quality`.
-Recent versions of Sonarr (4.0+) and Radarr (5.26+) require this field, and it must reference a
-quality that exists in your `qualities` list.
+The profile's cutoff ("Upgrade Until Quality") must be one of the qualities the profile allows.
+This error means your `qualities` list does not include the cutoff the profile already has in the
+service. Recyclarr checks `until_quality` against your `qualities` list before it syncs, so this
+happens when you leave `until_quality` out.
 
-Add `until_quality` to your quality profile configuration:
+Add `until_quality` to your quality profile configuration, naming a quality from your `qualities`
+list:
 
 ```yml
 quality_profiles:
   - name: My Profile
-    until_quality: Bluray-1080p
+    upgrade:
+      allowed: true
+      until_quality: Bluray-1080p
     qualities:
       - name: Bluray-1080p
       - name: WEB 1080p
@@ -132,15 +136,15 @@ remove all but one of them from your configuration, or rename the custom format 
 
 <details>
 <summary>
-Warning: Custom format with trash ID e23edd2482476e595fb990b12e7c609c is duplicated in quality
-profile SD with conflicting scores: 1000 vs 500
+Info: Custom format DV HDR10 (e23edd2482476e595fb990b12e7c609c) has conflicting scores in profile
+SD: 1000 vs 500 (first value wins)
 </summary>
 
-This situation is caused by specifying a custom format more than once under the same Quality
-Profile. The conflicting scores are shown in the warning message to assist you with debugging the
-problem.
+This message means your configuration assigns the same custom format to the same quality profile
+more than once, with different scores. Recyclarr uses the first score it reads and ignores the
+others. The message shows both scores to help you find the duplicate.
 
-The below YAML is an example of what will cause this warning.
+The below YAML is an example of what causes this message.
 
 ```yml
 custom_formats:
@@ -158,7 +162,7 @@ custom_formats:
 ```
 
 Above, you can see that "DV HDR10" (Trash ID `e23edd2482476e595fb990b12e7c609c`) is specified
-*twice* for the same quality profile named `SD`. The solution to this warning is to remove one of
+*twice* for the same quality profile named `SD`. To keep the score you want, remove one of
 the two custom formats. In this case, to demonstrate the solution, I'll remove the copy that is
 assigned a score of `1000`:
 

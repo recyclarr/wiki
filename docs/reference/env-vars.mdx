@@ -61,10 +61,14 @@ export RECYCLARR_DATA_DIR="/data"      # can be ephemeral
 export RECYCLARR_STATE_DIR="/state"    # must persist
 ```
 
+Each server needs its own data and state directories. A second server that uses the same data or
+state directory as a running server does not start.
+
 ## `RECYCLARR_SERVER_URL` {/*#server-url*/}
 
 The address of a running Recyclarr server for CLI commands to use. When set to a non-empty value, it
-overrides [`server.base_url`][base-url] in `cli.yml`.
+overrides [`server.base_url`][base-url] in `cli.yml`. The value must be an absolute `http` or
+`https` URL; any other value is an error.
 
 ```bash
 export RECYCLARR_SERVER_URL="http://localhost:7982"

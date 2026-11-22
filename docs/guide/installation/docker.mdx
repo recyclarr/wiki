@@ -11,6 +11,8 @@ Recyclarr has an official Docker image hosted on the following platforms:
 | [Github Container Registry (GHCR)][ghcr] | `ghcr.io/recyclarr/recyclarr` |
 | [Docker Hub][dockerhub]                  | `recyclarr/recyclarr`         |
 
+The image runs on `linux/amd64`, `linux/arm64`, and `linux/arm/v7`.
+
 :::info
 
 This guide refers exclusively to the GHCR image, but all steps apply equally to the Docker Hub
@@ -131,7 +133,7 @@ release and should not be run against production instances of Radarr or Sonarr.
 
 :::
 
-Every CI build of a branch in the Recyclarr repository publishes a dev image to the GitHub Container
+CI builds of branches in the Recyclarr repository publish a dev image to the GitHub Container
 Registry (not Docker Hub), tagged with the branch name. The `master` branch, which holds the latest
 unreleased code, is `ghcr.io/recyclarr/recyclarr-dev:master`:
 

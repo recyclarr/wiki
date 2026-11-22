@@ -206,9 +206,10 @@ mount it read-only, move both directories out of it with the new [`RECYCLARR_STA
 variable and [`RECYCLARR_DATA_DIR`][env-data]. See
 [File Structure][file-structure].
 
-If your configuration directory still has `cache` or `repo` folders from an older version, start
-Recyclarr once with it writable so its [migrations][migrations] can move or delete them. You can
-also delete the folders yourself. Otherwise, startup fails on a read-only mount.
+If your configuration directory still has a `cache` folder from an older version, start Recyclarr
+once with it writable so its [migrations][migrations] can move the folder. You can also delete it
+yourself. Otherwise, startup fails on a read-only mount. Recyclarr no longer removes an old `repo`
+folder; if you still have one, delete it yourself.
 
 You can reuse your old v8 configuration volume as the new state directory, for example as the state
 volume of the [Helm chart][helm-storage]. v8 kept state in a `state` folder inside that volume, so
@@ -293,10 +294,10 @@ column list.
 
 The `recyclarr state repair` command and its `--adopt` flag have been removed. Sync is now
 self-healing: when a configured resource matches an existing resource in the service by name but has
-no state mapping, Recyclarr automatically adopts it and emits a warning:
+no state mapping, Recyclarr automatically adopts it and reports an informational message:
 
 ```txt
-Adopted Custom Format '3D' (b8cd450cbfa689c0259a01d9e29ba3d6) from service ID 66
+Custom Format '3D' (b8cd450cbfa689c0259a01d9e29ba3d6) already existed in the service (ID 66); Recyclarr now manages it
 ```
 
 Previously, this scenario required running `recyclarr state repair --adopt` to resolve the conflict.
@@ -315,7 +316,7 @@ error message instructs you to resolve the duplicates in the service directly.
 ### New Mental Model {/*#authoritative-sync*/}
 
 If it's in your config, Recyclarr owns it. If you want to manually manage a resource, remove it from
-your config. Recyclarr warns you when it adopts something that already existed, giving you a chance
+your config. Recyclarr tells you when it adopts something that already existed, giving you a chance
 to notice and adjust your config if needed.
 
 [docker]: ../installation/docker.mdx

@@ -265,7 +265,7 @@ already-downloaded release, separate from `min_format_score` which controls init
 
 Does nothing by itself. A container for the `allowed`, `until_quality` and `until_score` properties.
 
-### `allowed` {/*#until-quality*/}
+### `allowed` {/*#upgrade-allowed*/}
 
 **Required.**
 
@@ -283,8 +283,8 @@ edit dialog in Radarr/Sonarr. The quality name mentioned here *must* exist in th
 (if that list is provided) *or* be a valid quality in your profile that you've enabled/allowed by
 manually editing the profile through the Radarr/Sonarr UI.
 
-This property is *required* if you also specify a `qualities` list. If you do not have a `qualities`
-list, this property is optional and will leave your manually set cutoff alone.
+This property is *required* when [`allowed`](#upgrade-allowed) is `true` and you also specify a
+`qualities` list. Otherwise it is optional, and leaving it out keeps your manually set cutoff.
 
 ### `until_score` {/*#until-score*/}
 

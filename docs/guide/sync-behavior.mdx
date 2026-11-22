@@ -73,8 +73,9 @@ The row prefix `~` on `radarr` means something did not sync. Check Sync Diagnost
 ╭─Sync Diagnostics─────────────────────────────────────────────────────────────╮
 │ Errors                                                                       │
 │ ──────                                                                       │
-│ • [radarr] Custom Format '3D' (b8cd450cbfa689c0259a01d9e29ba3d6) matches     │
-│   multiple service formats: '3D' (ID 67), '3d' (ID 68)                       │
+│ • [radarr] Custom Format '3D' (b8cd450cbfa689c0259a01d9e29ba3d6) cannot sync │
+│   because multiple service formats match its name: '3D' (ID 67), '3d' (ID    │
+│   68). Delete or rename the duplicates in the service                        │
 │ • [radarr] Quality Profiles blocked by Custom Formats                        │
 ╰──────────────────────────────────────────────────────────────────────────────╯
 ```

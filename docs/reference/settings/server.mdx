@@ -97,7 +97,7 @@ that format everywhere:
 - `text`: human-readable lines.
 
 The temporary server started by a CLI command ignores this setting. It writes only errors to its
-console and the rest to log files.
+console, and the rest goes to log files when [`files`](#logging-files) is on.
 
 ### `files` {/*#logging-files*/}
 
@@ -145,7 +145,8 @@ instance. The schedule does nothing when the CLI starts its own temporary server
 
 Only one sync runs at a time. If a sync is already queued or running when a scheduled time arrives,
 the server skips that scheduled sync and records it as skipped. The server does not run syncs it
-missed while it was stopped; it waits for the next scheduled time.
+missed while it was stopped; it waits for the next scheduled time. When no instances are configured,
+the server logs a warning and does not run the scheduled sync.
 
 ### `enabled` {/*#schedule-enabled*/}
 

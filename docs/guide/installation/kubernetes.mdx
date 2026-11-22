@@ -261,10 +261,10 @@ The chart creates a Service with two ports:
 | `7983` | `management` | Health probes (`/livez`, `/readyz`) and `/metrics` |
 
 The chart creates no Ingress or HTTPRoute. The API is meant for clients inside the cluster, such as
-the CLI in the pod or your own scripts. Change the API port on the Service with `service.port`, the
-Service type with `service.type`, and add annotations, for example for a LoadBalancer
-implementation, with `service.annotations`. See [Network Security][network-security] before you
-expose the API outside the cluster.
+the CLI in the pod or your own scripts. Change the API port on the Service with `service.port` (any
+port except `7983`, which the management port uses), the Service type with `service.type`, and add
+annotations, for example for a LoadBalancer implementation, with `service.annotations`. See
+[Network Security][network-security] before you expose the API outside the cluster.
 
 The pod has startup, liveness, and readiness probes on the management port. To have the Prometheus
 Operator scrape [metrics][monitoring], set `serviceMonitor.enabled: true`. Set
@@ -324,7 +324,9 @@ security context to them, so set one yourself if your namespace enforces a Pod S
 
 Other values follow common Helm chart conventions: `image`, `imagePullSecrets`, `nameOverride`,
 `fullnameOverride`, `serviceAccount`, `podSecurityContext`, `securityContext`, `priorityClassName`,
-`nodeSelector`, `tolerations`, and `affinity`. To see every value and its default, run:
+`nodeSelector`, `tolerations`, and `affinity`. Recyclarr does not call the Kubernetes API, so
+`serviceAccount.automount` defaults to `false` and the pod gets no API token. To see every value and
+its default, run:
 
 ```bash
 helm show values oci://ghcr.io/recyclarr/charts/recyclarr

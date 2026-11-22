@@ -18,6 +18,9 @@ CLI settings are specified in an optional file named `cli.yml` in your
 Without this file, each CLI command starts a temporary server of its own. See
 [Client and Server][client-server] for how the CLI and server work together.
 
+The file accepts only the settings on this page. Any other key is an error, and the CLI command
+stops without running.
+
 ## `server.base_url` {/*#base-url*/}
 
 **Optional.** *Default: Each command starts a temporary server*
@@ -36,7 +39,7 @@ uses the container's server.
 
 The [server API key][api-key] that CLI commands send to the server at `server.base_url`. It must
 match the API key of that server. Required when `server.base_url` is set, unless an environment
-variable provides the key.
+variable provides the key: without a key, the server rejects every command with an API key error.
 
 The CLI ignores this setting when `server.base_url` is not set, because it gives each temporary
 server a one-time key of its own.
