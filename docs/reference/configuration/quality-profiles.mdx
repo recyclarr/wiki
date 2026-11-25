@@ -31,6 +31,7 @@ service_type:
           until_score: 456
         min_format_score: 123
         min_upgrade_format_score: 100
+        language: Any # Radarr only
         score_set: sqp-1-1080p
         quality_sort: bottom
         qualities:
@@ -93,7 +94,7 @@ syncs configuration from the guide, including:
 - Qualities and quality groups
 - Score set (`score_set`)
 - Custom formats and their scores
-- Language (Radarr only)
+- Language (Radarr only; see [`language`](#language))
 - Quality sizes, when the guide profile references a quality definition (Sonarr v5 only; see
   [`quality_definition`](#quality-definition))
 
@@ -258,6 +259,45 @@ Radarr/Sonarr.
 Correlates directly to the "Minimum Custom Format Score For Upgrades" field in the Quality Profile
 edit dialog in Radarr/Sonarr. This controls the minimum custom format score required to upgrade an
 already-downloaded release, separate from `min_format_score` which controls initial downloads.
+
+## `language` {/*#language*/}
+
+**Optional.** *Default: Use the guide profile's language, otherwise leave existing value untouched*
+
+> **Radarr only**: Sonarr quality profiles have no language. Sonarr ignores this property and the
+> sync shows a warning for the profile.
+
+Sets the language of the quality profile, as shown in the Quality Profile edit dialog in Radarr. The
+value is a language name, such as `Any`, `Original`, or `English`. It must match a language that
+your Radarr instance offers; matching is case-insensitive. An empty value is a validation error.
+
+```yml
+radarr:
+  movies:
+    base_url: !secret radarr_url
+    api_key: !secret radarr_apikey
+
+    quality_profiles:
+      - trash_id: d1d67249d3890e49bc12e275d989a7e9 # HD Bluray + WEB
+        language: Any
+```
+
+This property works on guide-backed and manually configured profiles. On a guide-backed profile, it
+replaces the guide's language. Without it, Recyclarr sets the guide's language when Radarr offers
+that language, and otherwise leaves the profile's language as it is.
+
+If the name does not match any language in Radarr (a typo, for example), Recyclarr skips that
+profile and reports an error. Other profiles still sync.
+
+:::tip
+
+If you score languages with custom formats, set `language: Any`. TRaSH Guides advises against
+combining language custom formats with a specific profile language; see
+[How to set up Language Custom Formats][trash-language].
+
+[trash-language]: https://trash-guides.info/Radarr/Tips/How-to-setup-language-custom-formats
+
+:::
 
 ## `upgrade` {/*#upgrade*/}
 
@@ -505,14 +545,6 @@ sizes they have in Sonarr.
 ## Limitations {/*#limitations*/}
 
 This section covers features with partial support or known constraints.
-
-### Language {/*#language*/}
-
-For guide-backed Radarr profiles, language settings from guide resources sync automatically. Sonarr
-quality profiles do not have a language field; use custom formats for language filtering instead.
-
-Manual configuration of language via YAML is not yet supported. The language value from the guide
-passes through automatically and cannot be overridden.
 
 ### Renaming Profile Variants {/*#renaming-variants*/}
 
