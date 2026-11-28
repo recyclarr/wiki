@@ -43,11 +43,21 @@ read:
 
 ```bash
 sudo mkdir -p /etc/recyclarr
-echo "RECYCLARR_API_KEY=$(openssl rand -hex 32)" | sudo tee /etc/recyclarr/server.env >/dev/null
-sudo chmod 600 /etc/recyclarr/server.env
+openssl rand -hex 32 | sudo tee /etc/recyclarr/api-key >/dev/null
+sudo chmod 600 /etc/recyclarr/api-key
 ```
 
-systemd reads this file as root and passes the key to the server as an environment variable.
+The service passes this file to the server as a [systemd credential][systemd-creds]. When the
+service starts, systemd copies the file to a directory that only the `recyclarr` user can read, and
+the server reads the key from that copy. This keeps the key out of environment variables, which
+systemd does not recommend for secrets because child processes inherit them.
+
+If you change the key in `/etc/recyclarr/api-key`, restart the service so that systemd copies the
+new file:
+
+```bash
+sudo systemctl restart recyclarr
+```
 
 ## Create the Service {/*#unit*/}
 
@@ -64,7 +74,8 @@ Type=notify
 User=recyclarr
 Group=recyclarr
 Environment=RECYCLARR_CONFIG_DIR=/var/lib/recyclarr
-EnvironmentFile=/etc/recyclarr/server.env
+LoadCredential=api-key:/etc/recyclarr/api-key
+Environment=RECYCLARR_API_KEY_FILE=%d/api-key
 ExecStart=/usr/local/bin/recyclarr-server
 Restart=on-failure
 
@@ -77,6 +88,10 @@ WantedBy=multi-user.target
   and if startup fails, the command reports the failure.
 - `RECYCLARR_CONFIG_DIR`\
   Sets the [configuration directory][env-config]. Always use an absolute path here.
+- `LoadCredential` and `RECYCLARR_API_KEY_FILE`\
+  `LoadCredential` loads `/etc/recyclarr/api-key` as a credential named `api-key`. `%d` stands for
+  the directory that holds the copy, so [`RECYCLARR_API_KEY_FILE`][env-api-key-file] gives the
+  server the path of the copy.
 - `ExecStart`\
   Starts `recyclarr-server` directly. Do not use `recyclarr serve` or a wrapper script; systemd then
   cannot get the ready signal, and the start times out.
@@ -117,7 +132,8 @@ server:
   api_key: your-key-here
 ```
 
-Use the key from `/etc/recyclarr/server.env`. Then run commands as usual:
+Use the key in `/etc/recyclarr/api-key` (`sudo cat /etc/recyclarr/api-key` prints it). Then run
+commands as usual:
 
 ```bash
 recyclarr sync
@@ -155,6 +171,8 @@ sudo systemctl start recyclarr
 [file-structure]: ../../file-structure.mdx
 [api-key]: ../../../reference/client-server.mdx#api-key
 [env-config]: ../../../reference/env-vars.mdx#config-dir
+[env-api-key-file]: ../../../reference/env-vars.mdx#api-key-file
+[systemd-creds]: https://systemd.io/CREDENTIALS/
 [cli-settings]: ../../../reference/cli-settings.mdx
 [temporary]: ../../../reference/client-server.mdx#temporary
 [config-changes]: ../../../reference/client-server.mdx#config-changes
